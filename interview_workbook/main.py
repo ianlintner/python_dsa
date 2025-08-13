@@ -29,6 +29,7 @@ DEMOS = {
     "dp.longest_increasing_subsequence": ("dp.longest_increasing_subsequence", "demo"),
     "dp.knapsack": ("dp.knapsack", "demo"),
     "dp.edit_distance": ("dp.edit_distance", "demo"),
+    "dp.bitmask_tsp": ("dp.bitmask_tsp", "demo"),
 
     # String algorithms
     "strings.kmp": ("strings.kmp", "demo"),
@@ -41,11 +42,13 @@ DEMOS = {
     "patterns.sliding_window": ("patterns.sliding_window", "demo"),
     "patterns.monotonic_stack": ("patterns.monotonic_stack", "demo"),
     "patterns.backtracking": ("patterns.backtracking", "demo"),
+    "patterns.meet_in_the_middle": ("patterns.meet_in_the_middle", "demo"),
 
     # Data structures
     "data_structures.union_find": ("data_structures.union_find", "demo"),
     "data_structures.trie": ("data_structures.trie", "demo"),
     "data_structures.lru_cache": ("data_structures.lru_cache", "demo"),
+    "data_structures.lfu_cache": ("data_structures.lfu_cache", "demo"),
     "data_structures.fenwick_tree": ("data_structures.fenwick_tree", "demo"),
     "data_structures.segment_tree": ("data_structures.segment_tree", "demo"),
 
@@ -73,16 +76,25 @@ def run_demo(key: str):
         print("Available demos:")
         list_demos()
         return
-    
+    mod_name, fn_name = DEMOS[key]
+    # Try absolute import first (when executed from repo root),
+    # then fallback to package-relative import (when executed inside the package dir).
     try:
-        mod_name, fn_name = DEMOS[key]
         mod = import_module(f"interview_workbook.{mod_name}")
+    except ImportError:
+        try:
+            mod = import_module(mod_name)
+        except ImportError as e:
+            print(f"Error importing module '{mod_name}': {e}")
+            print("Tip: Run from the repository root, e.g., `python3 interview_workbook/main.py --demo ...`")
+            return
+    try:
         demo_fn = getattr(mod, fn_name)
-        print(f"\n=== Running {key} demo ===")
-        demo_fn()
-    except (ImportError, AttributeError) as e:
-        print(f"Error running demo {key}: {e}")
-        print("This module may not be implemented yet.")
+    except AttributeError:
+        print(f"Module '{mod_name}' has no function '{fn_name}'")
+        return
+    print(f"\n=== Running {key} demo ===")
+    demo_fn()
 
 def main():
     parser = argparse.ArgumentParser(
