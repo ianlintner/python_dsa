@@ -1,4 +1,4 @@
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Union
 
 class FenwickTree:
     """
@@ -20,7 +20,7 @@ class FenwickTree:
     - How to do range updates / range queries? (Use two BITs)
     - 2D Fenwick Tree? (Extend indexes to 2 dimensions)
     """
-    def __init__(self, size_or_data: int | List[int]):
+    def __init__(self, size_or_data: Union[int, List[int]]):
         if isinstance(size_or_data, int):
             n = size_or_data
             self.n = n

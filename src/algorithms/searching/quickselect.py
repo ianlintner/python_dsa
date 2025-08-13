@@ -10,7 +10,7 @@ def quickselect(a: List[int], k: int, smallest: bool = True) -> int:
     
     Args:
         a: Input array (will be modified)
-        k: 0-indexed position (0 = smallest/largest element)
+        k: 1-indexed rank (1 = smallest/largest element)
         smallest: If True, find kth smallest; if False, find kth largest
     
     Returns: kth order statistic
@@ -25,11 +25,11 @@ def quickselect(a: List[int], k: int, smallest: bool = True) -> int:
     - How to find median? (k = n//2)
     - How to find multiple order statistics efficiently? (Use selection tree)
     """
-    if not 0 <= k < len(a):
+    if not 1 <= k <= len(a):
         raise IndexError(f"k={k} out of range for array of length {len(a)}")
     
-    # Convert to finding kth smallest
-    target_k = k if smallest else len(a) - 1 - k
+    # Convert 1-indexed rank to 0-indexed target position for kth smallest
+    target_k = (k - 1) if smallest else (len(a) - k)
     
     lo, hi = 0, len(a) - 1
     
@@ -93,14 +93,14 @@ def find_median(a: List[int]) -> float:
         raise ValueError("Cannot find median of empty array")
     
     if n % 2 == 1:
-        # Odd length: return middle element
-        return float(quickselect(arr, n // 2))
+        # Odd length: return middle element (rank = n//2 + 1)
+        return float(quickselect(arr, n // 2 + 1))
     else:
-        # Even length: return average of two middle elements
-        mid1 = quickselect(arr, n // 2 - 1)
+        # Even length: average of two middle elements (ranks n//2 and n//2 + 1)
+        mid1 = quickselect(arr, n // 2)
         # Need fresh copy since quickselect modifies array
         arr2 = a[:]
-        mid2 = quickselect(arr2, n // 2)
+        mid2 = quickselect(arr2, n // 2 + 1)
         return (mid1 + mid2) / 2.0
 
 def find_kth_largest_heap(a: List[int], k: int) -> int:
