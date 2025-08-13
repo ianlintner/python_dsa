@@ -30,6 +30,7 @@ DEMOS = {
     "dp.knapsack": ("dp.knapsack", "demo"),
     "dp.edit_distance": ("dp.edit_distance", "demo"),
     "dp.bitmask_tsp": ("dp.bitmask_tsp", "demo"),
+    "dp.state_compression_grid": ("dp.state_compression_grid", "demo"),
 
     # String algorithms
     "strings.kmp": ("strings.kmp", "demo"),
@@ -53,10 +54,13 @@ DEMOS = {
     "data_structures.lfu_cache": ("data_structures.lfu_cache", "demo"),
     "data_structures.fenwick_tree": ("data_structures.fenwick_tree", "demo"),
     "data_structures.segment_tree": ("data_structures.segment_tree", "demo"),
+    "data_structures.heap_patterns": ("data_structures.heap_patterns", "demo"),
 
     # Systems / Streaming
     "systems.reservoir_sampling": ("systems.reservoir_sampling", "demo"),
     "systems.rate_limiter": ("systems.rate_limiter", "demo"),
+    "systems.sharded_bfs": ("systems.sharded_bfs", "demo"),
+    "systems.consensus_basics": ("systems.consensus_basics", "demo"),
 
     # Concurrency
     "concurrency.intro": ("concurrency.intro", "demo"),
