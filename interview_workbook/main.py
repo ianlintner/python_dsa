@@ -35,6 +35,12 @@ DEMOS = {
     "strings.rabin_karp": ("strings.rabin_karp", "demo"),
     "strings.z_algorithm": ("strings.z_algorithm", "demo"),
     "strings.manacher": ("strings.manacher", "demo"),
+    "strings.suffix_array": ("strings.suffix_array", "demo"),
+
+    # Patterns
+    "patterns.sliding_window": ("patterns.sliding_window", "demo"),
+    "patterns.monotonic_stack": ("patterns.monotonic_stack", "demo"),
+    "patterns.backtracking": ("patterns.backtracking", "demo"),
 
     # Data structures
     "data_structures.union_find": ("data_structures.union_find", "demo"),
@@ -42,6 +48,13 @@ DEMOS = {
     "data_structures.lru_cache": ("data_structures.lru_cache", "demo"),
     "data_structures.fenwick_tree": ("data_structures.fenwick_tree", "demo"),
     "data_structures.segment_tree": ("data_structures.segment_tree", "demo"),
+
+    # Systems / Streaming
+    "systems.reservoir_sampling": ("systems.reservoir_sampling", "demo"),
+    "systems.rate_limiter": ("systems.rate_limiter", "demo"),
+
+    # Concurrency
+    "concurrency.intro": ("concurrency.intro", "demo"),
 
     # Math / Number Theory
     "math.number_theory": ("math.number_theory", "demo"),

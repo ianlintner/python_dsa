@@ -11,7 +11,7 @@ def next_greater_elements(nums: List[int]) -> List[int]:
     """
     n = len(nums)
     res = [-1] * n
-    stack: List[int] = []  # store indices, nums increasing
+    stack: List[int] = []  # store indices, values are increasing by index stack
     
     for i, x in enumerate(nums):
         while stack and nums[stack[-1]] < x:
@@ -23,20 +23,22 @@ def next_greater_elements(nums: List[int]) -> List[int]:
 def next_greater_elements_values(nums: List[int]) -> List[int]:
     """
     Variant returning the values instead of indices. -1 if none.
+    For each position i, returns nums[next_greater_index[i]] or -1 if not found.
     """
     idxs = next_greater_elements(nums)
-    return [nums[i] if i != -1 else -1 for i in idxs]
+    return [nums[j] if j != -1 else -1 for j in idxs]
 
 def daily_temperatures(temps: List[int]) -> List[int]:
     """
     LeetCode 739: Daily Temperatures.
-    For each day, wait days until a warmer temperature.
+    For each day, how many days until a warmer temperature.
     
     Time: O(n)
+    Space: O(n)
     """
     n = len(temps)
     ans = [0] * n
-    stack: List[int] = []  # decreasing stack of indices
+    stack: List[int] = []  # decreasing stack of indices by temperature
     for i, t in enumerate(temps):
         while stack and temps[stack[-1]] < t:
             j = stack.pop()
@@ -48,9 +50,10 @@ def largest_rectangle_area(heights: List[int]) -> int:
     """
     LeetCode 84: Largest Rectangle in Histogram.
     
-    Monotonic increasing stack of indices.
+    Monotonic increasing stack of indices (by height).
     
     Time: O(n)
+    Space: O(n)
     """
     stack: List[int] = []  # indices of ascending heights
     max_area = 0
@@ -71,8 +74,9 @@ def trap_rain_water(heights: List[int]) -> int:
     LeetCode 42: Trapping Rain Water using monotonic stack.
     
     Time: O(n)
+    Space: O(n)
     """
-    stack: List[int] = []
+    stack: List[int] = []  # indices; heights at indices are non-decreasing
     water = 0
     for i, h in enumerate(heights):
         while stack and heights[stack[-1]] < h:
@@ -82,7 +86,8 @@ def trap_rain_water(heights: List[int]) -> int:
             left = stack[-1]
             width = i - left - 1
             bounded_height = min(heights[left], h) - heights[bottom]
-            water += bounded_height * width
+            if bounded_height > 0:
+                water += bounded_height * width
         stack.append(i)
     return water
 
@@ -103,12 +108,12 @@ def demo():
     print(f"Days to warmer:     {daily_temperatures(temps)}")
     print()
     
-    hist = [2,1,5,6,2,3]
+    hist = [2, 1, 5, 6, 2, 3]
     print(f"Histogram: {hist}")
     print(f"Largest rectangle area: {largest_rectangle_area(hist)}")
     print()
     
-    elevation = [0,1,0,2,1,0,1,3,2,1,2,1]
+    elevation = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
     print(f"Elevation map: {elevation}")
     print(f"Trapped rain water: {trap_rain_water(elevation)}")
     print()
