@@ -1,9 +1,9 @@
 import pytest
 import random
-from interview_workbook.algorithms.sorting.merge_sort import merge_sort, merge_sort_inplace
-from interview_workbook.algorithms.sorting.quick_sort import quick_sort, quick_sort_3way
-from interview_workbook.algorithms.sorting.heap_sort import heap_sort
-from interview_workbook.utils.check_sorted import is_sorted
+from algorithms.sorting.merge_sort import merge_sort, merge_sort_inplace
+from algorithms.sorting.quick_sort import quick_sort, quick_sort_3way
+from algorithms.sorting.heap_sort import heap_sort
+from utils.check_sorted import is_sorted
 
 class TestSorting:
     """Test cases for sorting algorithms."""

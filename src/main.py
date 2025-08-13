@@ -66,7 +66,7 @@ DEMOS = {
     "concurrency.intro": ("concurrency.intro", "demo"),
 
     # Math / Number Theory
-    "math.number_theory": ("math.number_theory", "demo"),
+    "math.number_theory": ("math_utils.number_theory", "demo"),
 }
 
 def list_demos():
@@ -86,13 +86,15 @@ def run_demo(key: str):
     # Try absolute import first (when executed from repo root),
     # then fallback to package-relative import (when executed inside the package dir).
     try:
-        mod = import_module(f"interview_workbook.{mod_name}")
+        # Prefer plain imports with src/ layout
+        mod = import_module(mod_name)
     except ImportError:
         try:
-            mod = import_module(mod_name)
+            # Fallback for legacy package layout
+            mod = import_module(f"interview_workbook.{mod_name}")
         except ImportError as e:
             print(f"Error importing module '{mod_name}': {e}")
-            print("Tip: Run from the repository root, e.g., `python3 interview_workbook/main.py --demo ...`")
+            print("Tip: Run from the repository root, e.g., `python3 src/main.py --demo ...` or ensure PYTHONPATH includes ./src")
             return
     try:
         demo_fn = getattr(mod, fn_name)
@@ -108,9 +110,9 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python interview_workbook/main.py --list
-  python interview_workbook/main.py --demo sorting.merge_sort
-  python interview_workbook/main.py --demo graphs.dijkstra
+  python src/main.py --list
+  python src/main.py --demo sorting.merge_sort
+  python src/main.py --demo graphs.dijkstra
         """
     )
     parser.add_argument("--list", action="store_true", help="List available demos")
