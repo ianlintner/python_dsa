@@ -92,7 +92,7 @@ def fibonacci_optimized(n: int) -> int:
 
     prev2, prev1 = 0, 1
 
-    for i in range(2, n + 1):
+    for _ in range(2, n + 1):
         current = prev1 + prev2
         prev2, prev1 = prev1, current
 
@@ -179,7 +179,7 @@ def tribonacci(n: int) -> int:
 
     a, b, c = 0, 1, 1
 
-    for i in range(3, n + 1):
+    for _ in range(3, n + 1):
         next_val = a + b + c
         a, b, c = b, c, next_val
 
@@ -200,7 +200,7 @@ def climbing_stairs(n: int) -> int:
 
     prev2, prev1 = 1, 2
 
-    for i in range(3, n + 1):
+    for _ in range(3, n + 1):
         current = prev1 + prev2
         prev2, prev1 = prev1, current
 

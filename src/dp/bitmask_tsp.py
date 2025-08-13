@@ -81,7 +81,6 @@ def held_karp_tsp(distances: list[list[int]], start: int = 0) -> tuple[int, list
         return INF, []
 
     # Reconstruct path: ... -> best_end -> start
-    path = [start]
     mask = full_mask
     j = best_end
     tour_nodes = []
