@@ -10,11 +10,16 @@ DEMOS = {
     "searching.quickselect": ("algorithms.searching.quickselect", "demo"),
     "graphs.dijkstra": ("graphs.dijkstra", "demo"),
     "graphs.bfs_dfs": ("graphs.bfs_dfs", "demo"),
+    "graphs.topological_sort": ("graphs.topological_sort", "demo"),
     "dp.fibonacci": ("dp.fibonacci", "demo"),
     "dp.coin_change": ("dp.coin_change", "demo"),
+    "dp.longest_increasing_subsequence": ("dp.longest_increasing_subsequence", "demo"),
+    "dp.knapsack": ("dp.knapsack", "demo"),
+    "dp.edit_distance": ("dp.edit_distance", "demo"),
     "strings.kmp": ("strings.kmp", "demo"),
     "data_structures.union_find": ("data_structures.union_find", "demo"),
     "data_structures.trie": ("data_structures.trie", "demo"),
+    "data_structures.lru_cache": ("data_structures.lru_cache", "demo"),
 }
 
 def list_demos():
