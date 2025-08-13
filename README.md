@@ -130,3 +130,38 @@ Highlights:
 - Keep implementations clean, iterative where appropriate, with clear docstrings
 - Include complexity, pitfalls, and a small `demo()` if practical
 - Extend tests to cover edge cases (empty, single, sorted/reverse, duplicates, random, large)
+
+## Development (linting & formatting)
+
+Local setup (editable install + dev tools):
+```
+python -m pip install -U pip
+python -m pip install -e ".[dev]"
+```
+
+One-time Git hook setup (runs on commit):
+```
+pre-commit install
+```
+
+Manual formatting and linting:
+```
+# Format code (Ruff formatter)
+ruff format .
+
+# Lint code (Ruff rules E,F,I,B,UP etc.)
+ruff check .
+
+# Auto-fix simple issues
+ruff check --fix
+```
+
+Run all pre-commit hooks on the whole repo:
+```
+pre-commit run --all-files --show-diff-on-failure --color=always
+```
+
+CI runs:
+- Install with extras: `pip install -e ".[dev]"`
+- Run pre-commit hooks (format + lint + misc checks)
+- Run tests via `pytest -q`
