@@ -19,10 +19,12 @@ This is a teaching/demonstration tool and intentionally omits:
   - Split votes resolution beyond retrying in new terms
 """
 
+
 class Role(Enum):
     FOLLOWER = "Follower"
     CANDIDATE = "Candidate"
     LEADER = "Leader"
+
 
 class Node:
     def __init__(self, node_id: int, peers: List[int], rng: random.Random):
@@ -52,6 +54,7 @@ class Node:
 
     def __repr__(self):
         return f"Node(id={self.id}, term={self.current_term}, role={self.role.value})"
+
 
 class Cluster:
     def __init__(self, n: int, seed: int = 42):
@@ -94,7 +97,9 @@ class Cluster:
                 if nid == leader_id:
                     continue
                 node.reset_election_timer(self.tick)
-            events.append(f"[t={self.tick}] Leader {leader_id} (term {leader.current_term}) sent heartbeats")
+            events.append(
+                f"[t={self.tick}] Leader {leader_id} (term {leader.current_term}) sent heartbeats"
+            )
 
         # Followers/Candidates check timeouts
         to_start_election: List[int] = []
@@ -126,7 +131,9 @@ class Cluster:
                 if peer.voted_for is None and peer.current_term == term:
                     peer.voted_for = nid
                     votes += 1
-            events.append(f"[t={self.tick}] Node {nid} started election for term {term}, votes={votes}")
+            events.append(
+                f"[t={self.tick}] Node {nid} started election for term {term}, votes={votes}"
+            )
 
             # Majority?
             if votes > len(self.nodes) // 2:

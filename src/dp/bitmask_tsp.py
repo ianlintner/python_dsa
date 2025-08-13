@@ -19,6 +19,7 @@ Notes:
 
 INF = 10**18
 
+
 def held_karp_tsp(distances: List[List[int]], start: int = 0) -> Tuple[int, List[int]]:
     """
     Held-Karp dynamic programming solution to the TSP.
@@ -88,7 +89,7 @@ def held_karp_tsp(distances: List[List[int]], start: int = 0) -> Tuple[int, List
     while j != -1:
         tour_nodes.append(j)
         pj = parent[mask][j]
-        mask ^= (1 << j)
+        mask ^= 1 << j
         j = pj
 
     tour_nodes.reverse()
@@ -135,7 +136,9 @@ def demo():
     print(f"Tour path: {path2}")
 
     print("\nNotes & Interview Tips:")
-    print("  - TSP via Held-Karp is a classic bitmask DP: dp[mask][j] stores partial tour ending at j.")
+    print(
+        "  - TSP via Held-Karp is a classic bitmask DP: dp[mask][j] stores partial tour ending at j."
+    )
     print("  - Complexity O(n^2 * 2^n) limits n to ~20 in optimized languages; smaller in Python.")
     print("  - For metric TSP, approximation algorithms (e.g., Christofides) are used at scale.")
 

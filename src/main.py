@@ -11,13 +11,11 @@ DEMOS = {
     "sorting.insertion_sort": ("algorithms.sorting.insertion_sort", "demo"),
     "sorting.selection_sort": ("algorithms.sorting.selection_sort", "demo"),
     "sorting.bubble_sort": ("algorithms.sorting.bubble_sort", "demo"),
-
     # Searching algorithms
     "searching.binary_search": ("algorithms.searching.binary_search", "demo"),
     "searching.linear_search": ("algorithms.searching.linear_search", "demo"),
     "searching.quickselect": ("algorithms.searching.quickselect", "demo"),
     "searching.advanced_search": ("algorithms.searching.advanced_search", "demo"),
-
     # Graph algorithms
     "graphs.dijkstra": ("graphs.dijkstra", "demo"),
     "graphs.bfs_dfs": ("graphs.bfs_dfs", "demo"),
@@ -27,7 +25,6 @@ DEMOS = {
     "graphs.mst": ("graphs.mst", "demo"),
     "graphs.a_star": ("graphs.a_star", "demo"),
     "graphs.scc": ("graphs.scc", "demo"),
-
     # Dynamic Programming
     "dp.fibonacci": ("dp.fibonacci", "demo"),
     "dp.coin_change": ("dp.coin_change", "demo"),
@@ -37,14 +34,12 @@ DEMOS = {
     "dp.bitmask_tsp": ("dp.bitmask_tsp", "demo"),
     "dp.state_compression_grid": ("dp.state_compression_grid", "demo"),
     "dp.lcs": ("dp.lcs", "demo"),
-
     # String algorithms
     "strings.kmp": ("strings.kmp", "demo"),
     "strings.rabin_karp": ("strings.rabin_karp", "demo"),
     "strings.z_algorithm": ("strings.z_algorithm", "demo"),
     "strings.manacher": ("strings.manacher", "demo"),
     "strings.suffix_array": ("strings.suffix_array", "demo"),
-
     # Patterns
     "patterns.sliding_window": ("patterns.sliding_window", "demo"),
     "patterns.monotonic_stack": ("patterns.monotonic_stack", "demo"),
@@ -52,7 +47,6 @@ DEMOS = {
     "patterns.meet_in_the_middle": ("patterns.meet_in_the_middle", "demo"),
     "patterns.binary_search_on_answer": ("patterns.binary_search_on_answer", "demo"),
     "patterns.two_pointers": ("patterns.two_pointers", "demo"),
-
     # Data structures
     "data_structures.union_find": ("data_structures.union_find", "demo"),
     "data_structures.trie": ("data_structures.trie", "demo"),
@@ -61,25 +55,24 @@ DEMOS = {
     "data_structures.fenwick_tree": ("data_structures.fenwick_tree", "demo"),
     "data_structures.segment_tree": ("data_structures.segment_tree", "demo"),
     "data_structures.heap_patterns": ("data_structures.heap_patterns", "demo"),
-
     # Systems / Streaming
     "systems.reservoir_sampling": ("systems.reservoir_sampling", "demo"),
     "systems.rate_limiter": ("systems.rate_limiter", "demo"),
     "systems.sharded_bfs": ("systems.sharded_bfs", "demo"),
     "systems.consensus_basics": ("systems.consensus_basics", "demo"),
-
     # Concurrency
     "concurrency.intro": ("concurrency.intro", "demo"),
-
     # Math / Number Theory
     "math.number_theory": ("math_utils.number_theory", "demo"),
 }
+
 
 def list_demos():
     """List all available demos."""
     print("Available demos:")
     for k in sorted(DEMOS):
         print(f"  {k}")
+
 
 def run_demo(key: str):
     """Run a specific demo by key."""
@@ -100,7 +93,9 @@ def run_demo(key: str):
             mod = import_module(f"interview_workbook.{mod_name}")
         except ImportError as e:
             print(f"Error importing module '{mod_name}': {e}")
-            print("Tip: Run from the repository root, e.g., `python3 src/main.py --demo ...` or ensure PYTHONPATH includes ./src")
+            print(
+                "Tip: Run from the repository root, e.g., `python3 src/main.py --demo ...` or ensure PYTHONPATH includes ./src"
+            )
             return
     try:
         demo_fn = getattr(mod, fn_name)
@@ -109,6 +104,7 @@ def run_demo(key: str):
         return
     print(f"\n=== Running {key} demo ===")
     demo_fn()
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -119,22 +115,23 @@ Examples:
   python src/main.py --list
   python src/main.py --demo sorting.merge_sort
   python src/main.py --demo graphs.dijkstra
-        """
+        """,
     )
     parser.add_argument("--list", action="store_true", help="List available demos")
     parser.add_argument("--demo", type=str, help="Run a specific demo")
-    
+
     args = parser.parse_args()
-    
+
     if args.list:
         list_demos()
         return
-    
+
     if args.demo:
         run_demo(args.demo)
         return
-    
+
     parser.print_help()
+
 
 if __name__ == "__main__":
     main()

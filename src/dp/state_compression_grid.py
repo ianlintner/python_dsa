@@ -4,7 +4,10 @@ from typing import Callable, Deque, Dict, List, Optional, Set, Tuple
 Grid = List[List[str]]
 Coord = Tuple[int, int]
 
-def shortest_path_collect_all(grid: Grid, passable: Callable[[str], bool] = lambda c: c != '#') -> int:
+
+def shortest_path_collect_all(
+    grid: Grid, passable: Callable[[str], bool] = lambda c: c != "#"
+) -> int:
     """
     State-compression BFS on a grid: shortest steps to collect all targets 'T' starting from 'S'.
     - Cells:
@@ -33,9 +36,9 @@ def shortest_path_collect_all(grid: Grid, passable: Callable[[str], bool] = lamb
     targets: List[Coord] = []
     for r in range(R):
         for c in range(C):
-            if grid[r][c] == 'S':
+            if grid[r][c] == "S":
                 start = (r, c)
-            elif grid[r][c] == 'T':
+            elif grid[r][c] == "T":
                 targets.append((r, c))
     if start is None:
         return -1
@@ -57,7 +60,7 @@ def shortest_path_collect_all(grid: Grid, passable: Callable[[str], bool] = lamb
     q.append((sr, sc, start_mask))
     dist[(sr, sc, start_mask)] = 0
 
-    DIRS = [(1,0), (-1,0), (0,1), (0,-1)]
+    DIRS = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
     while q:
         r, c, mask = q.popleft()
@@ -70,7 +73,7 @@ def shortest_path_collect_all(grid: Grid, passable: Callable[[str], bool] = lamb
                 continue
             nmask = mask
             if (nr, nc) in target_index:
-                nmask |= (1 << target_index[(nr, nc)])
+                nmask |= 1 << target_index[(nr, nc)]
             state = (nr, nc, nmask)
             if state not in dist:
                 dist[state] = d + 1

@@ -31,7 +31,9 @@ def fetch_io_simulated(id: int, delay: float = 0.3) -> Tuple[int, float]:
     return id, delay
 
 
-def threading_demo(num_tasks: int = 10, delay: float = 0.3, max_workers: int = 4) -> List[Tuple[int, float]]:
+def threading_demo(
+    num_tasks: int = 10, delay: float = 0.3, max_workers: int = 4
+) -> List[Tuple[int, float]]:
     """
     Use ThreadPoolExecutor for IO-bound tasks. Demonstrates GIL-friendly concurrency.
     """
@@ -42,7 +44,9 @@ def threading_demo(num_tasks: int = 10, delay: float = 0.3, max_workers: int = 4
         for fut in as_completed(futures):
             results.append(fut.result())
     elapsed = time.perf_counter() - start
-    print(f"[threading] Completed {num_tasks} I/O tasks in {elapsed:.2f}s with {max_workers} threads")
+    print(
+        f"[threading] Completed {num_tasks} I/O tasks in {elapsed:.2f}s with {max_workers} threads"
+    )
     return results
 
 
@@ -114,7 +118,9 @@ def multiprocessing_demo(work_items: List[int], max_workers: int = 4) -> List[in
         for fut in as_completed(futures):
             results.append(fut.result())
     elapsed = time.perf_counter() - start
-    print(f"[multiprocessing] Completed {len(work_items)} CPU tasks in {elapsed:.2f}s with {max_workers} processes")
+    print(
+        f"[multiprocessing] Completed {len(work_items)} CPU tasks in {elapsed:.2f}s with {max_workers} processes"
+    )
     return results
 
 
@@ -126,7 +132,9 @@ async def async_fetch_io_simulated(id: int, delay: float = 0.3) -> Tuple[int, fl
     return id, delay
 
 
-async def asyncio_demo(num_tasks: int = 20, delay: float = 0.1, concurrency: int = 10) -> List[Tuple[int, float]]:
+async def asyncio_demo(
+    num_tasks: int = 20, delay: float = 0.1, concurrency: int = 10
+) -> List[Tuple[int, float]]:
     """
     Run many IO-bound tasks concurrently with asyncio & semaphore (rate limiting).
     """
@@ -141,7 +149,9 @@ async def asyncio_demo(num_tasks: int = 20, delay: float = 0.1, concurrency: int
     start = time.perf_counter()
     await asyncio.gather(*(bounded_task(i) for i in range(num_tasks)))
     elapsed = time.perf_counter() - start
-    print(f"[asyncio] Completed {num_tasks} async I/O tasks in {elapsed:.2f}s with concurrency={concurrency}")
+    print(
+        f"[asyncio] Completed {num_tasks} async I/O tasks in {elapsed:.2f}s with concurrency={concurrency}"
+    )
     return results
 
 
@@ -169,8 +179,12 @@ def demo():
     print()
 
     print("Notes & Interview Tips:")
-    print("  - GIL: only one Python bytecode thread runs at a time; use threads for I/O, processes for CPU.")
-    print("  - asyncio: single-threaded concurrency via event loop; great for sockets/HTTP/db with async drivers.")
+    print(
+        "  - GIL: only one Python bytecode thread runs at a time; use threads for I/O, processes for CPU."
+    )
+    print(
+        "  - asyncio: single-threaded concurrency via event loop; great for sockets/HTTP/db with async drivers."
+    )
     print("  - concurrent.futures: unified interface; ThreadPoolExecutor vs ProcessPoolExecutor.")
     print("  - Producer-Consumer: Queue provides safe cross-thread communication and backpressure.")
     print("  - Be mindful of context switching overhead, and use appropriate pool sizes.")

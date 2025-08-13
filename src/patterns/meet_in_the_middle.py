@@ -1,6 +1,7 @@
 from bisect import bisect_left
 from typing import List, Tuple
 
+
 def subset_sum_mitm(nums: List[int], target: int) -> bool:
     """
     Meet-in-the-middle subset sum existence.
@@ -58,6 +59,7 @@ def subset_sum_mitm_count(nums: List[int], target: int) -> int:
         left_sums.append(s)
 
     from collections import Counter
+
     right_sums = []
     for mask in range(1 << len(right)):
         s = 0
@@ -109,6 +111,7 @@ def subset_sum_mitm_closest(nums: List[int]) -> Tuple[int, int]:
     best_sumA = 0
 
     from bisect import bisect_right
+
     for s in left_sums:
         # choose t in right_sums such that s + t is as close as possible to target
         rem = target - s

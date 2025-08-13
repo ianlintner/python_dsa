@@ -1,13 +1,14 @@
 from typing import List, Tuple
 
+
 def z_array(s: str) -> List[int]:
     """
     Compute Z-array for string s.
     Z[i] = length of the longest substring starting at i which is also a prefix of s.
-    
+
     Time: O(n)
     Space: O(n)
-    
+
     Insight:
     - Maintain a window [L, R] which is the rightmost segment matched with prefix.
     - Reuse previous computations within [L, R] to avoid re-comparing.
@@ -30,13 +31,14 @@ def z_array(s: str) -> List[int]:
     Z[0] = n
     return Z
 
+
 def z_search(text: str, pattern: str, sep: str = "$") -> List[int]:
     """
     Pattern matching using Z-algorithm.
     Build string P + sep + T and compute Z on it.
-    
+
     Returns: starting indices in text where pattern occurs.
-    
+
     Time: O(n + m)
     """
     if not pattern or not text or len(pattern) > len(text):
@@ -46,7 +48,7 @@ def z_search(text: str, pattern: str, sep: str = "$") -> List[int]:
         sep = "\u0001"  # Start of Heading control character (unlikely to be in inputs)
         if sep in text or sep in pattern:
             raise ValueError("Separator collision in z_search; provide a safe 'sep' explicitly.")
-    
+
     s = pattern + sep + text
     Z = z_array(s)
     m = len(pattern)
@@ -56,6 +58,7 @@ def z_search(text: str, pattern: str, sep: str = "$") -> List[int]:
             res.append(i - (m + 1))
     return res
 
+
 def longest_substring_prefix_match(s: str) -> List[int]:
     """
     For each position i, return the length of the longest prefix of s that matches s[i:].
@@ -63,12 +66,13 @@ def longest_substring_prefix_match(s: str) -> List[int]:
     """
     return z_array(s)
 
+
 def string_periods(s: str) -> List[int]:
     """
     Return all periods p of the string such that s[i] == s[i+p] for all valid i.
     Period p means the string is constructed by repeating a substring of length p.
     Uses Z-array properties: if n % p == 0 and Z[p] >= n - p then p is a period.
-    
+
     Time: O(n)
     """
     n = len(s)
@@ -81,11 +85,12 @@ def string_periods(s: str) -> List[int]:
             periods.append(p)
     return periods
 
+
 def longest_border(s: str) -> int:
     """
     Longest border = longest proper prefix which is also a suffix.
     Using Z-array: border length is max i such that i + Z[i] == n.
-    
+
     Time: O(n)
     """
     n = len(s)
@@ -98,6 +103,7 @@ def longest_border(s: str) -> int:
             best = max(best, Z[i])
     return best
 
+
 def z_array_with_explanations(s: str) -> List[Tuple[int, int]]:
     """
     Return list of tuples (index, Z[index]) for explanatory printing.
@@ -105,17 +111,18 @@ def z_array_with_explanations(s: str) -> List[Tuple[int, int]]:
     Z = z_array(s)
     return list(enumerate(Z))
 
+
 def demo():
     print("Z-Algorithm Demo")
     print("=" * 40)
-    
+
     # Basic Z-array
     s = "aabxaayaab"
     Z = z_array(s)
     print(f"String: {s}")
     print(f"Z-array: {Z}")
     print()
-    
+
     # Pattern search via Z
     text = "abxabcabcabyabcab"
     pattern = "abcab"
@@ -124,21 +131,21 @@ def demo():
     print(f"Pattern: {pattern}")
     print(f"Matches at indices: {matches}")
     print()
-    
+
     # String periods
     s2 = "abababab"
     per = string_periods(s2)
     print(f"String: {s2}")
     print(f"Periods: {per} (smallest period {per[0] if per else 'N/A'})")
     print()
-    
+
     # Longest border
     s3 = "abcababcab"
     lb = longest_border(s3)
     print(f"String: {s3}")
     print(f"Longest border length: {lb} (border: '{s3[:lb]}')")
     print()
-    
+
     # Explanations
     s4 = "aaaaa"
     exp = z_array_with_explanations(s4)
@@ -147,11 +154,14 @@ def demo():
     for i, z in exp:
         print(f"  {i}: {z}")
     print()
-    
+
     print("Notes & Interview Tips:")
-    print("  - Z-array is symmetric to prefix function (KMP) but often simpler for pattern matching.")
+    print(
+        "  - Z-array is symmetric to prefix function (KMP) but often simpler for pattern matching."
+    )
     print("  - Common uses: pattern search, string periodicity, borders, runs.")
     print("  - Complexity: O(n). Maintain [L, R] window to reuse matches.")
+
 
 if __name__ == "__main__":
     demo()

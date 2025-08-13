@@ -2,6 +2,7 @@ import heapq
 from collections import Counter
 from typing import Iterable, Iterator, List, Optional, Tuple
 
+
 def k_largest(nums: List[int], k: int) -> List[int]:
     """
     Return k largest elements using a min-heap of size k.
@@ -17,6 +18,7 @@ def k_largest(nums: List[int], k: int) -> List[int]:
         if x > heap[0]:
             heapq.heapreplace(heap, x)
     return sorted(heap, reverse=True)
+
 
 def top_k_frequent(nums: List[int], k: int) -> List[int]:
     """
@@ -38,6 +40,7 @@ def top_k_frequent(nums: List[int], k: int) -> List[int]:
     heap.sort(reverse=True)
     return [num for _, num in heap]
 
+
 def merge_k_sorted(arrs: List[List[int]]) -> List[int]:
     """
     Merge k sorted lists into one sorted list.
@@ -56,6 +59,7 @@ def merge_k_sorted(arrs: List[List[int]]) -> List[int]:
             heapq.heappush(heap, (arrs[i][nj], i, nj))
     return res
 
+
 class MedianMaintenance:
     """
     Maintain median of a stream using two heaps:
@@ -63,8 +67,9 @@ class MedianMaintenance:
       - min-heap for upper half
     Supports O(log n) insert and O(1) median query.
     """
+
     def __init__(self):
-        self.low: List[int] = []   # max-heap (store -x)
+        self.low: List[int] = []  # max-heap (store -x)
         self.high: List[int] = []  # min-heap
 
     def add(self, x: int) -> None:
@@ -85,6 +90,7 @@ class MedianMaintenance:
             return (-self.low[0] + self.high[0]) / 2.0
         return float(-self.low[0]) if len(self.low) > len(self.high) else float(self.high[0])
 
+
 def demo():
     print("Heap / Priority Queue Patterns Demo")
     print("=" * 40)
@@ -94,12 +100,12 @@ def demo():
     print(f"k_largest k=3 -> {k_largest(nums, 3)}")
     print()
 
-    nums2 = [1,1,1,2,2,3,3,3,3,4,5,5,5]
+    nums2 = [1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 5, 5, 5]
     print(f"Array for top_k_frequent: {nums2}")
     print(f"top_k_frequent k=2 -> {top_k_frequent(nums2, 2)}")
     print()
 
-    arrs = [[1,4,7], [2,5,8], [3,6,9,10]]
+    arrs = [[1, 4, 7], [2, 5, 8], [3, 6, 9, 10]]
     print(f"merge_k_sorted({arrs}) -> {merge_k_sorted(arrs)}")
     print()
 
@@ -116,6 +122,7 @@ def demo():
     print("  - For top-k frequent, heap on frequency; Counter + heapq.nlargest is another option.")
     print("  - Merge k sorted lists with a heap of next candidates for O(N log k).")
     print("  - Median maintenance uses two heaps; keep sizes within 1 of each other.")
+
 
 if __name__ == "__main__":
     demo()

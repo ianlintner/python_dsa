@@ -2,7 +2,10 @@ from typing import List, Tuple, Optional
 
 INF = float("inf")
 
-def build_adj_matrix(n: int, edges: List[Tuple[int, int, float]], directed: bool = True) -> List[List[float]]:
+
+def build_adj_matrix(
+    n: int, edges: List[Tuple[int, int, float]], directed: bool = True
+) -> List[List[float]]:
     """
     Build adjacency matrix from edge list.
     edges: list of (u, v, w). If not directed, adds both directions.
@@ -17,6 +20,7 @@ def build_adj_matrix(n: int, edges: List[Tuple[int, int, float]], directed: bool
             if w < dist[v][u]:
                 dist[v][u] = float(w)
     return dist
+
 
 def floyd_warshall(dist: List[List[float]]) -> Tuple[List[List[float]], List[List[Optional[int]]]]:
     """
@@ -76,10 +80,14 @@ def floyd_warshall(dist: List[List[float]]) -> Tuple[List[List[float]], List[Lis
 
     return dist, next_hop
 
+
 # Python's float doesn't have -INF literal name in scope; define it explicitly
 _NEG_INF = float("-inf")
+
+
 def _is_neginf(x: float) -> bool:
     return x == _NEG_INF
+
 
 # Replace -INF above with explicit float negative infinity
 def _propagate_neg_inf(dist: List[List[float]]) -> None:
@@ -88,6 +96,7 @@ def _propagate_neg_inf(dist: List[List[float]]) -> None:
         for j in range(n):
             if dist[i][j] == -INF:  # placeholder branch not used in final version
                 dist[i][j] = _NEG_INF
+
 
 def reconstruct_path(next_hop: List[List[Optional[int]]], u: int, v: int) -> List[int]:
     """
@@ -110,9 +119,11 @@ def reconstruct_path(next_hop: List[List[Optional[int]]], u: int, v: int) -> Lis
             return []
     return path
 
+
 def has_negative_cycle(dist: List[List[float]]) -> bool:
     """Return True if any dist[i][i] < 0 indicating a negative cycle."""
     return any(dist[i][i] < 0 for i in range(len(dist)))
+
 
 def demo():
     print("Floyd–Warshall (All-Pairs Shortest Paths) Demo")
@@ -174,6 +185,7 @@ def demo():
     print("  - Handles negative edges; detect cycles via dist[i][i] < 0")
     print("  - For sparse graphs and single-source queries, prefer Dijkstra/Bellman-Ford")
     print("  - For many sources on sparse graphs, Johnson's algorithm may be better")
+
 
 if __name__ == "__main__":
     demo()

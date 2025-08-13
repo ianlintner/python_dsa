@@ -1,22 +1,23 @@
 from typing import List, Tuple
 
+
 def lcs_length(a: str, b: str) -> int:
     """
     Longest Common Subsequence length between strings a and b.
-    
+
     DP definition:
       dp[i][j] = LCS length of a[:i] and b[:j]
       Transition:
         if a[i-1] == b[j-1]: dp[i][j] = dp[i-1][j-1] + 1
         else:                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
-    
+
     Time: O(n*m)
     Space: O(min(n, m)) if optimized, O(n*m) here for clarity
-    
+
     Pitfalls:
       - Do not confuse with longest common substring (which requires contiguous)
       - Reconstruct path requires tracking choices or re-walking dp table
-    
+
     Returns:
       Length of an LCS.
     """
@@ -44,7 +45,7 @@ def lcs_length(a: str, b: str) -> int:
 def lcs_reconstruct(a: str, b: str) -> str:
     """
     Reconstruct one valid LCS string using full 2D DP table.
-    
+
     Time: O(n*m) build + O(n+m) reconstruct
     Space: O(n*m) for clarity
     """

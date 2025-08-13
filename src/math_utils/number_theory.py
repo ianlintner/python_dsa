@@ -1,5 +1,6 @@
 from typing import List, Tuple
 
+
 def gcd(a: int, b: int) -> int:
     """
     Greatest Common Divisor via Euclidean algorithm.
@@ -9,6 +10,7 @@ def gcd(a: int, b: int) -> int:
         a, b = b, a % b
     return abs(a)
 
+
 def lcm(a: int, b: int) -> int:
     """
     Least Common Multiple using gcd.
@@ -17,6 +19,7 @@ def lcm(a: int, b: int) -> int:
     if a == 0 or b == 0:
         return 0
     return abs(a // gcd(a, b) * b)
+
 
 def extended_gcd(a: int, b: int) -> Tuple[int, int, int]:
     """
@@ -29,6 +32,7 @@ def extended_gcd(a: int, b: int) -> Tuple[int, int, int]:
     x = y1
     y = x1 - (a // b) * y1
     return (g, x, y)
+
 
 def mod_pow(base: int, exp: int, mod: int) -> int:
     """
@@ -47,6 +51,7 @@ def mod_pow(base: int, exp: int, mod: int) -> int:
         e >>= 1
     return res
 
+
 def mod_inverse_fermat(a: int, mod: int) -> int:
     """
     Modular multiplicative inverse using Fermat's Little Theorem.
@@ -54,6 +59,7 @@ def mod_inverse_fermat(a: int, mod: int) -> int:
     Returns a^(mod-2) % mod.
     """
     return mod_pow(a, mod - 2, mod)
+
 
 def mod_inverse_extgcd(a: int, mod: int) -> int:
     """
@@ -67,6 +73,7 @@ def mod_inverse_extgcd(a: int, mod: int) -> int:
     if g != 1:
         raise ValueError(f"No modular inverse for a={a} under mod={mod}")
     return x % mod
+
 
 def sieve_of_eratosthenes(n: int) -> List[int]:
     """
@@ -83,9 +90,10 @@ def sieve_of_eratosthenes(n: int) -> List[int]:
         if sieve[p]:
             step = p
             start = p * p
-            sieve[start:n + 1:step] = [False] * (((n - start) // step) + 1)
+            sieve[start : n + 1 : step] = [False] * (((n - start) // step) + 1)
         p += 1
     return [i for i, is_prime in enumerate(sieve) if is_prime]
+
 
 def smallest_prime_factors(n: int) -> List[int]:
     """
@@ -94,12 +102,13 @@ def smallest_prime_factors(n: int) -> List[int]:
     Time: O(n)
     """
     spf = list(range(n + 1))
-    for i in range(2, int(n ** 0.5) + 1):
+    for i in range(2, int(n**0.5) + 1):
         if spf[i] == i:  # prime
             for j in range(i * i, n + 1, i):
                 if spf[j] == j:
                     spf[j] = i
     return spf
+
 
 def factorize_with_spf(x: int, spf: List[int]) -> List[int]:
     """
@@ -115,6 +124,7 @@ def factorize_with_spf(x: int, spf: List[int]) -> List[int]:
         x //= p
     return res
 
+
 def prefix_sums(arr: List[int]) -> List[int]:
     """
     Compute 1D prefix sums where pref[i] = sum(arr[0..i-1]).
@@ -127,6 +137,7 @@ def prefix_sums(arr: List[int]) -> List[int]:
         pref[i + 1] = pref[i] + arr[i]
     return pref
 
+
 def range_sum_with_prefix(pref: List[int], l: int, r: int) -> int:
     """
     Compute range sum using prefix sums. l and r inclusive.
@@ -136,6 +147,7 @@ def range_sum_with_prefix(pref: List[int], l: int, r: int) -> int:
     l = max(l, 0)
     r = min(r, len(pref) - 2)
     return pref[r + 1] - pref[l]
+
 
 def difference_array(arr: List[int]) -> List[int]:
     """
@@ -155,6 +167,7 @@ def difference_array(arr: List[int]) -> List[int]:
         diff[i] = arr[i] - arr[i - 1]
     return diff
 
+
 def apply_range_increment(diff: List[int], l: int, r: int, delta: int) -> None:
     """
     Apply range increment to difference array diff for [l, r] by delta.
@@ -167,6 +180,7 @@ def apply_range_increment(diff: List[int], l: int, r: int, delta: int) -> None:
     if r + 1 < n:
         diff[r + 1] -= delta
 
+
 def recover_from_difference(diff: List[int]) -> List[int]:
     """
     Recover original array from difference array by prefix sums.
@@ -178,6 +192,7 @@ def recover_from_difference(diff: List[int]) -> List[int]:
     for i in range(1, len(diff)):
         arr[i] = arr[i - 1] + diff[i]
     return arr
+
 
 def prefix_sums_2d(matrix: List[List[int]]) -> List[List[int]]:
     """
@@ -196,6 +211,7 @@ def prefix_sums_2d(matrix: List[List[int]]) -> List[List[int]]:
             pref[i + 1][j + 1] = pref[i][j + 1] + row_sum
     return pref
 
+
 def sum_region(pref: List[List[int]], r1: int, c1: int, r2: int, c2: int) -> int:
     """
     Sum of rectangle with corners (r1, c1) to (r2, c2) inclusive using 2D prefix sums.
@@ -207,6 +223,7 @@ def sum_region(pref: List[List[int]], r1: int, c1: int, r2: int, c2: int) -> int
     r2 = min(r2, len(pref) - 2)
     c2 = min(c2, len(pref[0]) - 2)
     return pref[r2 + 1][c2 + 1] - pref[r1][c2 + 1] - pref[r2 + 1][c1] + pref[r1][c1]
+
 
 def demo():
     print("Number Theory and Prefix Structures Demo")
@@ -266,7 +283,9 @@ def demo():
     ]
     pref2d = prefix_sums_2d(mat)
     print(f"Matrix: {mat}")
-    print(f"Sum of sub-rectangle (1,1) to (2,2): {sum_region(pref2d, 1, 1, 2, 2)} (expected 5+6+8+9=28)")
+    print(
+        f"Sum of sub-rectangle (1,1) to (2,2): {sum_region(pref2d, 1, 1, 2, 2)} (expected 5+6+8+9=28)"
+    )
     print()
 
     print("Complexity and Notes:")
@@ -278,6 +297,7 @@ def demo():
     print("  - prefix sums: O(n) build, O(1) range queries")
     print("  - difference array: O(1) range update, O(n) recover")
     print("  - 2D prefix sums: O(nm) build, O(1) region queries")
+
 
 if __name__ == "__main__":
     demo()

@@ -34,8 +34,10 @@ Graph = Dict[int, List[int]]
 Partitions = Dict[int, int]  # node -> shard_id
 ShardGraphs = Dict[int, Graph]  # shard_id -> subgraph (only owns adjacency for its nodes)
 
+
 def partition_round_robin(nodes: Iterable[int], num_shards: int) -> Partitions:
     return {n: (idx % num_shards) for idx, n in enumerate(sorted(nodes))}
+
 
 def build_shard_graph(graph: Graph, parts: Partitions, num_shards: int) -> ShardGraphs:
     shards: ShardGraphs = {s: defaultdict(list) for s in range(num_shards)}
@@ -44,11 +46,9 @@ def build_shard_graph(graph: Graph, parts: Partitions, num_shards: int) -> Shard
         shards[s][u] = list(nbrs)
     return shards
 
+
 def sharded_bfs(
-    graph: Graph,
-    start: int,
-    num_shards: int = 3,
-    partitioner=partition_round_robin
+    graph: Graph, start: int, num_shards: int = 3, partitioner=partition_round_robin
 ) -> Dict[int, int]:
     """
     Simulate a sharded level-synchronous BFS.

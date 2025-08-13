@@ -1,6 +1,7 @@
 from bisect import bisect_right
 from typing import List
 
+
 def ship_within_days(weights: List[int], days: int) -> int:
     """
     LeetCode 1011: Capacity To Ship Packages Within D Days.
@@ -8,8 +9,8 @@ def ship_within_days(weights: List[int], days: int) -> int:
 
     Time: O(n log(sum(weights)))
     """
-    lo = max(weights)               # capacity must be at least the max weight
-    hi = sum(weights)               # and at most total weight
+    lo = max(weights)  # capacity must be at least the max weight
+    hi = sum(weights)  # and at most total weight
 
     def can_ship(cap: int) -> bool:
         d = 1
@@ -41,6 +42,7 @@ def min_eating_speed(piles: List[int], h: int) -> int:
     Time: O(n log max(p))
     """
     import math
+
     lo, hi = 1, max(piles)
 
     def hours_needed(k: int) -> int:
@@ -120,37 +122,41 @@ def demo():
     print("=" * 40)
 
     # Ship within days
-    weights = [1,2,3,4,5,6,7,8,9,10]
+    weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     days = 5
-    print(f"Ship within {days} days, weights={weights}: capacity = {ship_within_days(weights, days)}")
+    print(
+        f"Ship within {days} days, weights={weights}: capacity = {ship_within_days(weights, days)}"
+    )
     print()
 
     # Koko eating bananas
-    piles = [3,6,7,11]
+    piles = [3, 6, 7, 11]
     h = 8
     print(f"Koko min speed to finish in {h} hours, piles={piles}: {min_eating_speed(piles, h)}")
     print()
 
     # Split array largest sum
-    nums = [7,2,5,10,8]
+    nums = [7, 2, 5, 10, 8]
     m = 2
-    print(f"Split array {nums} into {m} parts, min largest sum = {split_array_largest_sum(nums, m)}")
+    print(
+        f"Split array {nums} into {m} parts, min largest sum = {split_array_largest_sum(nums, m)}"
+    )
     print()
 
     # Kth smallest in sorted matrix
-    matrix = [
-        [1, 5, 9],
-        [10, 11, 13],
-        [12, 13, 15]
-    ]
+    matrix = [[1, 5, 9], [10, 11, 13], [12, 13, 15]]
     k = 8
     print(f"{k}-th smallest in matrix: {kth_smallest_in_sorted_matrix(matrix, k)}")
     print()
 
     print("Notes & Interview Tips:")
-    print("  - When decision is monotonic (feasible/not), binary search the minimal feasible answer.")
+    print(
+        "  - When decision is monotonic (feasible/not), binary search the minimal feasible answer."
+    )
     print("  - Feasibility checks are typically greedy or counting based.")
-    print("  - Common problems: capacity constraints, speed rates, subdivision limits, kth value in range.")
+    print(
+        "  - Common problems: capacity constraints, speed rates, subdivision limits, kth value in range."
+    )
 
 
 if __name__ == "__main__":

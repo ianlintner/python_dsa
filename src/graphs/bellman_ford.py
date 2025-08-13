@@ -2,7 +2,10 @@ from typing import List, Tuple, Optional
 
 INF = float("inf")
 
-def bellman_ford(n: int, edges: List[Tuple[int, int, int]], source: int) -> Tuple[List[float], List[int]]:
+
+def bellman_ford(
+    n: int, edges: List[Tuple[int, int, int]], source: int
+) -> Tuple[List[float], List[int]]:
     """
     Bellman-Ford algorithm for single-source shortest paths with possible negative weights.
 
@@ -139,7 +142,7 @@ def demo():
     print(f"Distances from {source}: {dist}")
     for t in range(n):
         path = reconstruct_path(parent, t)
-        if dist[t] == float('inf'):
+        if dist[t] == float("inf"):
             print(f"  {source} -> {t}: unreachable")
         elif parent[t] == -2:
             print(f"  {source} -> {t}: affected by negative cycle (no well-defined shortest path)")
@@ -167,7 +170,9 @@ def demo():
     print("  - Use Dijkstra when edges are non-negative; BF handles negatives.")
     print("  - BF can detect negative cycles reachable from source by a V-th relaxation.")
     print("  - Complexity: O(V*E). On dense graphs, consider Johnson's algorithm for all-pairs.")
-    print("  - For all-pairs shortest paths with negatives (but no negative cycles), use Floyd-Warshall.")
+    print(
+        "  - For all-pairs shortest paths with negatives (but no negative cycles), use Floyd-Warshall."
+    )
 
 
 if __name__ == "__main__":

@@ -140,14 +140,14 @@ class TestGraphsBasics:
     def test_bfs_dfs_and_bipartite(self):
         # Undirected simple graph
         graph = {
-            'A': ['B', 'C'],
-            'B': ['A', 'D'],
-            'C': ['A', 'D'],
-            'D': ['B', 'C', 'E'],
-            'E': ['D'],
+            "A": ["B", "C"],
+            "B": ["A", "D"],
+            "C": ["A", "D"],
+            "D": ["B", "C", "E"],
+            "E": ["D"],
         }
-        order_bfs = bfs(graph, 'A')
-        order_dfs = dfs_iterative(graph, 'A')
+        order_bfs = bfs(graph, "A")
+        order_dfs = dfs_iterative(graph, "A")
         assert set(order_bfs) == set(graph.keys())
         assert set(order_dfs) == set(graph.keys())
 
@@ -188,16 +188,16 @@ class TestGraphsBasics:
         # Dijkstra on small graph
         # WeightedGraph type accepts mapping node -> list of (neighbor, weight)
         wg = {
-            'A': [('B', 1), ('C', 4)],
-            'B': [('C', 2), ('D', 5)],
-            'C': [('D', 1)],
-            'D': [],
+            "A": [("B", 1), ("C", 4)],
+            "B": [("C", 2), ("D", 5)],
+            "C": [("D", 1)],
+            "D": [],
         }
-        dist = dijkstra(wg, 'A')
-        assert dist['A'] == 0
-        assert dist['B'] == 1
-        assert dist['C'] == 3
-        assert dist['D'] == 4
+        dist = dijkstra(wg, "A")
+        assert dist["A"] == 0
+        assert dist["B"] == 1
+        assert dist["C"] == 3
+        assert dist["D"] == 4
 
 
 class TestStringsAlgorithms:

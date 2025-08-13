@@ -111,5 +111,6 @@ def demo():
         print("  sorted:", insertion_sort(arr))
     print()
 
+
 if __name__ == "__main__":
     demo()

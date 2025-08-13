@@ -1,5 +1,6 @@
 from typing import List, Tuple
 
+
 def suffix_array(s: str) -> List[int]:
     """
     Build suffix array of string s using O(n log n) doubling algorithm.
@@ -37,6 +38,7 @@ def suffix_array(s: str) -> List[int]:
         k <<= 1
     return sa
 
+
 def lcp_kasai(s: str, sa: List[int]) -> List[int]:
     """
     Kasai algorithm to build LCP array from string s and suffix array sa.
@@ -66,6 +68,7 @@ def lcp_kasai(s: str, sa: List[int]) -> List[int]:
             k -= 1
     return lcp
 
+
 def longest_repeated_substring_sa(s: str) -> Tuple[int, str, List[int]]:
     """
     Find longest repeated substring via SA + LCP.
@@ -85,7 +88,7 @@ def longest_repeated_substring_sa(s: str) -> Tuple[int, str, List[int]]:
             idx = i
     if max_len == 0:
         return 0, "", []
-    sub = s[sa[idx]: sa[idx] + max_len]
+    sub = s[sa[idx] : sa[idx] + max_len]
     # Collect positions for this substring among neighbors with same LCP
     positions = set()
     # Check leftwards
@@ -102,6 +105,7 @@ def longest_repeated_substring_sa(s: str) -> Tuple[int, str, List[int]]:
         i += 1
     return max_len, sub, sorted(list(positions))
 
+
 def sa_substring_search(s: str, sa: List[int], pattern: str) -> List[int]:
     """
     Search for all occurrences of 'pattern' in 's' using suffix array 'sa'.
@@ -117,7 +121,7 @@ def sa_substring_search(s: str, sa: List[int], pattern: str) -> List[int]:
     while lo < hi:
         mid = (lo + hi) // 2
         start = sa[mid]
-        if s[start:start + m] < pattern:
+        if s[start : start + m] < pattern:
             lo = mid + 1
         else:
             hi = mid
@@ -128,7 +132,7 @@ def sa_substring_search(s: str, sa: List[int], pattern: str) -> List[int]:
     while lo < hi:
         mid = (lo + hi) // 2
         start = sa[mid]
-        if s[start:start + m] <= pattern:
+        if s[start : start + m] <= pattern:
             lo = mid + 1
         else:
             hi = mid
@@ -136,9 +140,10 @@ def sa_substring_search(s: str, sa: List[int], pattern: str) -> List[int]:
 
     res = []
     for i in range(left, right):
-        if s[sa[i]: sa[i] + m] == pattern:
+        if s[sa[i] : sa[i] + m] == pattern:
             res.append(sa[i])
     return sorted(res)
+
 
 def suffix_array_with_lcp(s: str) -> Tuple[List[int], List[int]]:
     """
@@ -147,6 +152,7 @@ def suffix_array_with_lcp(s: str) -> Tuple[List[int], List[int]]:
     sa = suffix_array(s)
     lcp = lcp_kasai(s, sa)
     return sa, lcp
+
 
 def demo():
     print("Suffix Array + LCP (Kasai) Demo")
@@ -186,7 +192,10 @@ def demo():
     print("Notes & Interview Tips:")
     print("  - SA in O(n log n) via doubling; LCP in O(n) via Kasai.")
     print("  - Useful for multi-pattern search, repeats, and suffix-based problems.")
-    print("  - Alternatives: Suffix Tree/Automaton for linear-time construction with more complexity.")
+    print(
+        "  - Alternatives: Suffix Tree/Automaton for linear-time construction with more complexity."
+    )
+
 
 if __name__ == "__main__":
     demo()

@@ -1,5 +1,6 @@
 from typing import Dict, List, Tuple
 
+
 def tarjan_scc(graph: Dict[int, List[int]]) -> List[List[int]]:
     """
     Tarjan's algorithm to compute Strongly Connected Components (SCCs)
@@ -25,8 +26,8 @@ def tarjan_scc(graph: Dict[int, List[int]]) -> List[List[int]]:
       tarjan_scc(g) -> e.g., [[0,2,1], [3,5,4]]
     """
     index = 0
-    idx: Dict[int, int] = {}       # discovery index of node
-    low: Dict[int, int] = {}       # low-link value
+    idx: Dict[int, int] = {}  # discovery index of node
+    low: Dict[int, int] = {}  # low-link value
     on_stack: Dict[int, bool] = {}
     stack: List[int] = []
     sccs: List[List[int]] = []

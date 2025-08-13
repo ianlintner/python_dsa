@@ -5,16 +5,18 @@ MOD_DEFAULT = 1_000_000_007
 BASE_DEFAULT = 256  # typical for byte/char rolling hash
 
 
-def rabin_karp_search(text: str, pattern: str, base: int = BASE_DEFAULT, mod: int = MOD_DEFAULT) -> List[int]:
+def rabin_karp_search(
+    text: str, pattern: str, base: int = BASE_DEFAULT, mod: int = MOD_DEFAULT
+) -> List[int]:
     """
     Rabin-Karp substring search using rolling hash.
-    
+
     Time: O(n + m) average, O(n*m) worst-case if many collisions without verification
     Space: O(1) extra (besides output)
-    
+
     Returns:
         List of starting indices in 'text' where 'pattern' occurs.
-    
+
     Notes:
     - Uses polynomial rolling hash base^k modulo a large prime.
     - Performs verification on hash matches to avoid false positives.
@@ -25,22 +27,22 @@ def rabin_karp_search(text: str, pattern: str, base: int = BASE_DEFAULT, mod: in
         return []
     if base <= 1 or mod <= 1:
         raise ValueError("base and mod must be > 1")
-    
+
     # Precompute base^(m-1) % mod used for removing the leftmost char
     high_base = pow(base, m - 1, mod)
-    
+
     # Compute initial hashes
     h_pat = 0
     h_txt = 0
     for i in range(m):
         h_pat = (h_pat * base + ord(pattern[i])) % mod
         h_txt = (h_txt * base + ord(text[i])) % mod
-    
+
     res: List[int] = []
     # Slide the window
     for i in range(n - m + 1):
         # If hash matches, verify substring to avoid collisions
-        if h_txt == h_pat and text[i:i + m] == pattern:
+        if h_txt == h_pat and text[i : i + m] == pattern:
             res.append(i)
         if i < n - m:
             # Remove leftmost char, add next char
@@ -51,11 +53,13 @@ def rabin_karp_search(text: str, pattern: str, base: int = BASE_DEFAULT, mod: in
     return res
 
 
-def rolling_hashes_all_substrings(s: str, k: int, base: int = BASE_DEFAULT, mod: int = MOD_DEFAULT) -> List[int]:
+def rolling_hashes_all_substrings(
+    s: str, k: int, base: int = BASE_DEFAULT, mod: int = MOD_DEFAULT
+) -> List[int]:
     """
     Compute rolling hashes for all substrings of length k in s.
     Returns a list of hashes aligned with starting indices.
-    
+
     Useful for duplicate detection, string periodicity checks, etc.
     """
     n = len(s)
@@ -75,7 +79,9 @@ def rolling_hashes_all_substrings(s: str, k: int, base: int = BASE_DEFAULT, mod:
     return hashes
 
 
-def find_repeated_substring_length_k(s: str, k: int, base: int = BASE_DEFAULT, mod: int = MOD_DEFAULT) -> List[Tuple[str, List[int]]]:
+def find_repeated_substring_length_k(
+    s: str, k: int, base: int = BASE_DEFAULT, mod: int = MOD_DEFAULT
+) -> List[Tuple[str, List[int]]]:
     """
     Find all repeated substrings of length k and their starting positions using rolling hash + verification.
     Returns list of (substring, [positions]).
@@ -93,7 +99,7 @@ def find_repeated_substring_length_k(s: str, k: int, base: int = BASE_DEFAULT, m
         if len(idxs) > 1:
             groups: Dict[str, List[int]] = {}
             for i in idxs:
-                sub = s[i:i + k]
+                sub = s[i : i + k]
                 groups.setdefault(sub, []).append(i)
             for sub, positions in groups.items():
                 if len(positions) > 1 and sub not in seen_substrings:
@@ -106,13 +112,13 @@ def longest_repeated_substring(s: str) -> Tuple[str, List[int]]:
     """
     Find one longest repeated substring using binary search on length + rolling hash.
     Returns (substring, positions). If none, returns ("", []).
-    
+
     Time: O(n log n) average with hashing (verification included)
     """
     n = len(s)
     if n <= 1:
         return "", []
-    
+
     def exists_len(k: int) -> Tuple[str, List[int]]:
         if k == 0:
             return "", []
@@ -125,13 +131,13 @@ def longest_repeated_substring(s: str) -> Tuple[str, List[int]]:
                 # verify duplicates
                 seen_pos: Dict[str, int] = {}
                 for i in idxs:
-                    sub = s[i:i + k]
+                    sub = s[i : i + k]
                     if sub in seen_pos:
                         # Return first found; sufficient for binary search decision
                         return sub, [seen_pos[sub], i]
                     seen_pos[sub] = i
         return "", []
-    
+
     lo, hi = 1, n - 1
     best_sub, best_pos = "", []
     while lo <= hi:
@@ -148,7 +154,7 @@ def longest_repeated_substring(s: str) -> Tuple[str, List[int]]:
     positions: List[int] = []
     k = len(best_sub)
     for i in range(n - k + 1):
-        if s[i:i + k] == best_sub:
+        if s[i : i + k] == best_sub:
             positions.append(i)
     return best_sub, positions
 
@@ -156,7 +162,7 @@ def longest_repeated_substring(s: str) -> Tuple[str, List[int]]:
 def demo():
     print("Rabin-Karp and Rolling Hash Demo")
     print("=" * 40)
-    
+
     # Rabin-Karp search
     text = "abracadabra abracadabra"
     pattern = "abra"
@@ -165,7 +171,7 @@ def demo():
     matches = rabin_karp_search(text, pattern)
     print(f"Matches at indices: {matches}")
     print()
-    
+
     # Repeated substrings of fixed length
     s = "banana"
     k = 2
@@ -174,13 +180,13 @@ def demo():
     for sub, pos in repeats:
         print(f"  '{sub}' at {pos}")
     print()
-    
+
     # Longest repeated substring
     s2 = "ATCGATCGA$ATCGA"
     lrs, pos = longest_repeated_substring(s2)
     print(f"Longest repeated substring in '{s2}': '{lrs}' at {pos}")
     print()
-    
+
     print("Notes & Interview Tips:")
     print("  - Use rolling hash for substring search and duplicate detection.")
     print("  - Always verify on hash match to avoid false positives.")

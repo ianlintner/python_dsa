@@ -1,12 +1,13 @@
 from typing import List, Tuple, Set
 
+
 def solve_n_queens(n: int) -> List[List[str]]:
     """
     N-Queens backtracking.
-    
+
     Time: O(n!) worst-case
     Space: O(n) for recursion + O(n) for sets
-    
+
     Returns boards as list of strings.
     """
     res: List[List[str]] = []
@@ -22,20 +23,25 @@ def solve_n_queens(n: int) -> List[List[str]]:
         for c in range(n):
             if c in cols or (r - c) in diag1 or (r + c) in diag2:
                 continue
-            cols.add(c); diag1.add(r - c); diag2.add(r + c)
-            board[r] = board[r][:c] + "Q" + board[r][c+1:]
+            cols.add(c)
+            diag1.add(r - c)
+            diag2.add(r + c)
+            board[r] = board[r][:c] + "Q" + board[r][c + 1 :]
             place(r + 1)
-            board[r] = board[r][:c] + "." + board[r][c+1:]
-            cols.remove(c); diag1.remove(r - c); diag2.remove(r + c)
+            board[r] = board[r][:c] + "." + board[r][c + 1 :]
+            cols.remove(c)
+            diag1.remove(r - c)
+            diag2.remove(r + c)
 
     place(0)
     return res
+
 
 def solve_sudoku(board: List[List[str]]) -> bool:
     """
     Sudoku solver (9x9) with backtracking.
     Mutates board in-place; returns True if solved.
-    
+
     Empty cell = '.'
     """
     rows = [set() for _ in range(9)]
@@ -64,20 +70,25 @@ def solve_sudoku(board: List[List[str]]) -> bool:
         for d in map(str, range(1, 10)):
             if d in rows[r] or d in cols[c] or d in boxes[b]:
                 continue
-            rows[r].add(d); cols[c].add(d); boxes[b].add(d)
+            rows[r].add(d)
+            cols[c].add(d)
+            boxes[b].add(d)
             board[r][c] = d
             if dfs(i + 1):
                 return True
             board[r][c] = "."
-            rows[r].remove(d); cols[c].remove(d); boxes[b].remove(d)
+            rows[r].remove(d)
+            cols[c].remove(d)
+            boxes[b].remove(d)
         return False
 
     return dfs(0)
 
+
 def exist_word(board: List[List[str]], word: str) -> bool:
     """
     Word Search (LeetCode 79): Check if word exists in board scanning 4-dir.
-    
+
     Time: O(n*m*len(word))
     Space: O(len(word)) recursion
     """
@@ -92,8 +103,12 @@ def exist_word(board: List[List[str]], word: str) -> bool:
             return False
         ch = board[r][c]
         board[r][c] = "#"  # mark
-        found = (dfs(r+1, c, i+1) or dfs(r-1, c, i+1) or
-                 dfs(r, c+1, i+1) or dfs(r, c-1, i+1))
+        found = (
+            dfs(r + 1, c, i + 1)
+            or dfs(r - 1, c, i + 1)
+            or dfs(r, c + 1, i + 1)
+            or dfs(r, c - 1, i + 1)
+        )
         board[r][c] = ch
         return found
 
@@ -103,10 +118,11 @@ def exist_word(board: List[List[str]], word: str) -> bool:
                 return True
     return False
 
+
 def demo():
     print("Backtracking Patterns Demo")
     print("=" * 40)
-    
+
     # N-Queens
     n = 4
     solutions = solve_n_queens(n)
@@ -118,7 +134,7 @@ def demo():
     if len(solutions) > 2:
         print(f"... and {len(solutions) - 2} more solutions")
     print()
-    
+
     # Sudoku
     sudoku = [
         list("53..7...."),
@@ -137,7 +153,7 @@ def demo():
     for row in sudoku:
         print("".join(row))
     print()
-    
+
     # Word Search
     board = [
         list("ABCE"),
@@ -147,6 +163,7 @@ def demo():
     word = "ABCCED"
     print(f"Word Search for '{word}': {exist_word([row[:] for row in board], word)}")
     print()
+
 
 if __name__ == "__main__":
     demo()

@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from typing import Dict, Optional, Tuple
 
+
 class LFUCache:
     """
     LFU Cache with O(1) average get/put using:
@@ -17,11 +18,14 @@ class LFUCache:
     Space:
       - O(capacity)
     """
+
     def __init__(self, capacity: int):
         self.capacity = capacity
         self.size = 0
-        self.key_to_val_freq: Dict[int, Tuple[int, int]] = {}     # key -> (value, freq)
-        self.freq_to_keys: Dict[int, OrderedDict[int, None]] = {} # freq -> OrderedDict of keys (None placeholders)
+        self.key_to_val_freq: Dict[int, Tuple[int, int]] = {}  # key -> (value, freq)
+        self.freq_to_keys: Dict[
+            int, OrderedDict[int, None]
+        ] = {}  # freq -> OrderedDict of keys (None placeholders)
         self.min_freq = 0
 
     def _touch(self, key: int, new_value: Optional[int] = None) -> None:
@@ -84,16 +88,18 @@ def demo():
     print("LFU Cache Demo (LeetCode 460 behavior)")
     print("=" * 40)
     cache = LFUCache(2)
-    cache.put(1, 1)          # {1:1(f1)}
-    cache.put(2, 2)          # {1:1(f1), 2:2(f1)}
-    print(cache.get(1))      # 1; {1:1(f2), 2:2(f1)}
-    cache.put(3, 3)          # evict key=2 (freq1 LRU); {1:1(f2), 3:3(f1)}
-    print(cache.get(2))      # -1
-    print(cache.get(3))      # 3; {1:1(f2), 3:3(f2)}
-    cache.put(4, 4)          # evict key=1 (freq2 LRU among freq2? both 1 and 3 have f2; 1 is older) -> {3:3(f2),4:4(f1)}
-    print(cache.get(1))      # -1
-    print(cache.get(3))      # 3; {3:3(f3),4:4(f1)}
-    print(cache.get(4))      # 4; {3:3(f3),4:4(f2)}
+    cache.put(1, 1)  # {1:1(f1)}
+    cache.put(2, 2)  # {1:1(f1), 2:2(f1)}
+    print(cache.get(1))  # 1; {1:1(f2), 2:2(f1)}
+    cache.put(3, 3)  # evict key=2 (freq1 LRU); {1:1(f2), 3:3(f1)}
+    print(cache.get(2))  # -1
+    print(cache.get(3))  # 3; {1:1(f2), 3:3(f2)}
+    cache.put(
+        4, 4
+    )  # evict key=1 (freq2 LRU among freq2? both 1 and 3 have f2; 1 is older) -> {3:3(f2),4:4(f1)}
+    print(cache.get(1))  # -1
+    print(cache.get(3))  # 3; {3:3(f3),4:4(f1)}
+    print(cache.get(4))  # 4; {3:3(f3),4:4(f2)}
 
     print("\nNotes & Interview Tips:")
     print("  - Track min_freq to locate LFU bucket quickly.")

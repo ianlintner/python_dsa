@@ -1,6 +1,7 @@
 from typing import Callable, Dict, List, Optional, Tuple
 import heapq
 
+
 def a_star(
     start: int,
     goal: int,
@@ -70,8 +71,10 @@ def a_star(
 Grid = List[List[int]]
 Coord = Tuple[int, int]
 
+
 def manhattan(a: Coord, b: Coord) -> int:
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
+
 
 def a_star_grid(
     grid: Grid,
@@ -111,6 +114,7 @@ def a_star_grid(
             (-1, 1, math.sqrt(2)),
             (-1, -1, math.sqrt(2)),
         ]
+
         def h(p: Coord) -> float:
             # Octile distance
             dx = abs(p[0] - goal[0])
@@ -118,6 +122,7 @@ def a_star_grid(
             return (dx + dy) + (math.sqrt(2) - 2) * min(dx, dy)
     else:
         dirs = [(1, 0, 1.0), (-1, 0, 1.0), (0, 1, 1.0), (0, -1, 1.0)]
+
         def h(p: Coord) -> float:
             return float(manhattan(p, goal))
 
@@ -177,12 +182,7 @@ def demo():
 
     # Generic graph example (directed)
     print("Generic Graph A* (h=0 => Dijkstra):")
-    graph = {
-        0: [(1, 2), (2, 5)],
-        1: [(2, 1), (3, 3)],
-        2: [(3, 1)],
-        3: []
-    }
+    graph = {0: [(1, 2), (2, 5)], 1: [(2, 1), (3, 3)], 2: [(3, 1)], 3: []}
     start, goal = 0, 3
 
     def neighbors(u: int) -> List[Tuple[int, float]]:
@@ -214,6 +214,7 @@ def demo():
     print("  - On grids, Manhattan (4-dir) or Octile (8-dir) are common heuristics.")
     print("  - If h=0, A* becomes Dijkstra; if h overestimates, may be fast but not optimal.")
     print("  - Practical uses: pathfinding in games, routing, planning.")
+
 
 if __name__ == "__main__":
     demo()

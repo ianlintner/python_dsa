@@ -1,5 +1,6 @@
 from typing import Tuple
 
+
 def manacher_longest_palindromic_substring(s: str) -> Tuple[int, str, int, int]:
     """
     Manacher's Algorithm: Longest Palindromic Substring in O(n) time.
@@ -32,8 +33,8 @@ def manacher_longest_palindromic_substring(s: str) -> Tuple[int, str, int, int]:
 
     n = len(T_str)
     P = [0] * n  # P[i] = radius of palindrome centered at i (in T)
-    C = 0        # center of the current rightmost palindrome
-    R = 0        # right boundary of the current rightmost palindrome
+    C = 0  # center of the current rightmost palindrome
+    R = 0  # right boundary of the current rightmost palindrome
 
     for i in range(1, n - 1):
         mirror = 2 * C - i
@@ -61,7 +62,7 @@ def manacher_longest_palindromic_substring(s: str) -> Tuple[int, str, int, int]:
     # Start index in s:
     start = (center_index - max_len) // 2
     end = start + max_len - 1
-    substring = s[start:end + 1]
+    substring = s[start : end + 1]
     return max_len, substring, start, end
 
 
@@ -138,6 +139,7 @@ def demo():
     print("  - O(n) time using transformed string with separators and radius array.")
     print("  - Compare with expand-around-center O(n^2) approach for clarity vs performance.")
     print("  - Useful in problems requiring palindrome counts or longest palindromic substring.")
+
 
 if __name__ == "__main__":
     demo()

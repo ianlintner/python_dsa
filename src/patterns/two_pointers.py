@@ -1,5 +1,6 @@
 from typing import List, Tuple
 
+
 def two_sum_sorted(nums: List[int], target: int) -> Tuple[int, int]:
     """
     Given a sorted array nums, return 0-based indices (i, j) such that nums[i] + nums[j] = target.
@@ -115,7 +116,9 @@ def demo():
     arr = [1, 2, 3, 4, 6, 8, 11]
     target = 10
     i, j = two_sum_sorted(arr, target)
-    print(f"two_sum_sorted({arr}, {target}) -> indices=({i},{j}), values=({arr[i] if i!=-1 else None},{arr[j] if j!=-1 else None})")
+    print(
+        f"two_sum_sorted({arr}, {target}) -> indices=({i},{j}), values=({arr[i] if i!=-1 else None},{arr[j] if j!=-1 else None})"
+    )
     print()
 
     # three_sum
@@ -125,18 +128,18 @@ def demo():
     print()
 
     # container with most water
-    height = [1,8,6,2,5,4,8,3,7]
+    height = [1, 8, 6, 2, 5, 4, 8, 3, 7]
     print(f"container_with_most_water({height}) -> {container_with_most_water(height)}")
     print()
 
     # remove duplicates from sorted
-    a = [0,0,1,1,1,2,2,3,3,4]
+    a = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
     k = remove_duplicates_sorted(a)
     print(f"remove_duplicates_sorted -> new length {k}, array[:k]={a[:k]}")
     print()
 
     # merge intervals
-    intervals = [[1,3],[2,6],[8,10],[15,18]]
+    intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
     print(f"merge_intervals({intervals}) -> {merge_intervals(intervals)}")
     print()
 

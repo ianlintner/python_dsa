@@ -11,10 +11,12 @@ except Exception:
             self.parent = list(range(n))
             self.rank = [0] * n
             self.count = n
+
         def find(self, x: int) -> int:
             if self.parent[x] != x:
                 self.parent[x] = self.find(self.parent[x])
             return self.parent[x]
+
         def union(self, x: int, y: int) -> bool:
             rx, ry = self.find(x), self.find(y)
             if rx == ry:
@@ -29,7 +31,10 @@ except Exception:
             self.count -= 1
             return True
 
-def kruskal_mst(n: int, edges: List[Tuple[int, int, int]]) -> Tuple[int, List[Tuple[int, int, int]]]:
+
+def kruskal_mst(
+    n: int, edges: List[Tuple[int, int, int]]
+) -> Tuple[int, List[Tuple[int, int, int]]]:
     """
     Kruskal's algorithm for Minimum Spanning Tree (MST).
 
@@ -62,6 +67,7 @@ def kruskal_mst(n: int, edges: List[Tuple[int, int, int]]) -> Tuple[int, List[Tu
         return mst_weight, mst_edges
 
     return mst_weight, mst_edges
+
 
 def prim_mst(n: int, adj: List[List[Tuple[int, int]]]) -> Tuple[int, List[Tuple[int, int, int]]]:
     """
@@ -109,6 +115,7 @@ def prim_mst(n: int, adj: List[List[Tuple[int, int]]]) -> Tuple[int, List[Tuple[
     # If components > 1, graph is disconnected; result is a forest
     return mst_weight, mst_edges
 
+
 def build_adj_list(n: int, edges: List[Tuple[int, int, int]]) -> List[List[Tuple[int, int]]]:
     """Build undirected adjacency list from edge list (u, v, w)."""
     adj: List[List[Tuple[int, int]]] = [[] for _ in range(n)]
@@ -116,6 +123,7 @@ def build_adj_list(n: int, edges: List[Tuple[int, int, int]]) -> List[List[Tuple
         adj[u].append((v, w))
         adj[v].append((u, w))
     return adj
+
 
 def demo():
     print("Minimum Spanning Tree (MST) Demo - Kruskal and Prim")
@@ -125,12 +133,22 @@ def demo():
     print("Connected Graph Example:")
     n = 6
     edges = [
-        (0, 1, 4), (0, 2, 4),
-        (1, 2, 2), (1, 0, 4),
-        (2, 0, 4), (2, 1, 2),
-        (2, 3, 3), (2, 5, 2), (2, 4, 4),
-        (3, 2, 3), (3, 4, 3), (3, 5, 2),
-        (4, 2, 4), (4, 3, 3), (5, 2, 2), (5, 3, 2)
+        (0, 1, 4),
+        (0, 2, 4),
+        (1, 2, 2),
+        (1, 0, 4),
+        (2, 0, 4),
+        (2, 1, 2),
+        (2, 3, 3),
+        (2, 5, 2),
+        (2, 4, 4),
+        (3, 2, 3),
+        (3, 4, 3),
+        (3, 5, 2),
+        (4, 2, 4),
+        (4, 3, 3),
+        (5, 2, 2),
+        (5, 3, 2),
     ]
     # Deduplicate undirected duplicates for Kruskal
     edges_simple = {(min(u, v), max(u, v), w) for (u, v, w) in edges}
@@ -168,6 +186,7 @@ def demo():
     print("  - Both assume undirected, connected graphs for a single MST;")
     print("    on disconnected graphs they produce a minimum spanning forest.")
     print("  - If all edges have distinct weights, MST is unique.")
+
 
 if __name__ == "__main__":
     demo()
