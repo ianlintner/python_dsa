@@ -1,4 +1,3 @@
-from typing import List, Tuple, Dict
 from collections import defaultdict
 
 MOD_DEFAULT = 1_000_000_007
@@ -7,7 +6,7 @@ BASE_DEFAULT = 256  # typical for byte/char rolling hash
 
 def rabin_karp_search(
     text: str, pattern: str, base: int = BASE_DEFAULT, mod: int = MOD_DEFAULT
-) -> List[int]:
+) -> list[int]:
     """
     Rabin-Karp substring search using rolling hash.
 
@@ -38,7 +37,7 @@ def rabin_karp_search(
         h_pat = (h_pat * base + ord(pattern[i])) % mod
         h_txt = (h_txt * base + ord(text[i])) % mod
 
-    res: List[int] = []
+    res: list[int] = []
     # Slide the window
     for i in range(n - m + 1):
         # If hash matches, verify substring to avoid collisions
@@ -55,7 +54,7 @@ def rabin_karp_search(
 
 def rolling_hashes_all_substrings(
     s: str, k: int, base: int = BASE_DEFAULT, mod: int = MOD_DEFAULT
-) -> List[int]:
+) -> list[int]:
     """
     Compute rolling hashes for all substrings of length k in s.
     Returns a list of hashes aligned with starting indices.
@@ -81,7 +80,7 @@ def rolling_hashes_all_substrings(
 
 def find_repeated_substring_length_k(
     s: str, k: int, base: int = BASE_DEFAULT, mod: int = MOD_DEFAULT
-) -> List[Tuple[str, List[int]]]:
+) -> list[tuple[str, list[int]]]:
     """
     Find all repeated substrings of length k and their starting positions using rolling hash + verification.
     Returns list of (substring, [positions]).
@@ -90,14 +89,14 @@ def find_repeated_substring_length_k(
     if k <= 0 or k > n:
         return []
     hashes = rolling_hashes_all_substrings(s, k, base, mod)
-    buckets: Dict[int, List[int]] = defaultdict(list)
+    buckets: dict[int, list[int]] = defaultdict(list)
     for i, h in enumerate(hashes):
         buckets[h].append(i)
-    results: List[Tuple[str, List[int]]] = []
-    seen_substrings: Dict[str, bool] = {}
+    results: list[tuple[str, list[int]]] = []
+    seen_substrings: dict[str, bool] = {}
     for idxs in buckets.values():
         if len(idxs) > 1:
-            groups: Dict[str, List[int]] = {}
+            groups: dict[str, list[int]] = {}
             for i in idxs:
                 sub = s[i : i + k]
                 groups.setdefault(sub, []).append(i)
@@ -108,7 +107,7 @@ def find_repeated_substring_length_k(
     return results
 
 
-def longest_repeated_substring(s: str) -> Tuple[str, List[int]]:
+def longest_repeated_substring(s: str) -> tuple[str, list[int]]:
     """
     Find one longest repeated substring using binary search on length + rolling hash.
     Returns (substring, positions). If none, returns ("", []).
@@ -119,17 +118,17 @@ def longest_repeated_substring(s: str) -> Tuple[str, List[int]]:
     if n <= 1:
         return "", []
 
-    def exists_len(k: int) -> Tuple[str, List[int]]:
+    def exists_len(k: int) -> tuple[str, list[int]]:
         if k == 0:
             return "", []
         hashes = rolling_hashes_all_substrings(s, k)
-        buckets: Dict[int, List[int]] = defaultdict(list)
+        buckets: dict[int, list[int]] = defaultdict(list)
         for i, h in enumerate(hashes):
             buckets[h].append(i)
         for idxs in buckets.values():
             if len(idxs) > 1:
                 # verify duplicates
-                seen_pos: Dict[str, int] = {}
+                seen_pos: dict[str, int] = {}
                 for i in idxs:
                     sub = s[i : i + k]
                     if sub in seen_pos:
@@ -151,7 +150,7 @@ def longest_repeated_substring(s: str) -> Tuple[str, List[int]]:
     if not best_sub:
         return "", []
     # Collect all positions for best_sub
-    positions: List[int] = []
+    positions: list[int] = []
     k = len(best_sub)
     for i in range(n - k + 1):
         if s[i : i + k] == best_sub:

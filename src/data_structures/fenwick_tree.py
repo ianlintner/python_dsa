@@ -1,4 +1,3 @@
-from typing import List, Optional, Tuple, Union
 
 
 class FenwickTree:
@@ -22,7 +21,7 @@ class FenwickTree:
     - 2D Fenwick Tree? (Extend indexes to 2 dimensions)
     """
 
-    def __init__(self, size_or_data: Union[int, List[int]]):
+    def __init__(self, size_or_data: int | list[int]):
         if isinstance(size_or_data, int):
             n = size_or_data
             self.n = n

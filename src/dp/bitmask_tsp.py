@@ -1,4 +1,3 @@
-from typing import List, Tuple, Dict
 
 """
 Bitmask DP (Held-Karp) for Traveling Salesman Problem (TSP)
@@ -20,7 +19,7 @@ Notes:
 INF = 10**18
 
 
-def held_karp_tsp(distances: List[List[int]], start: int = 0) -> Tuple[int, List[int]]:
+def held_karp_tsp(distances: list[list[int]], start: int = 0) -> tuple[int, list[int]]:
     """
     Held-Karp dynamic programming solution to the TSP.
 

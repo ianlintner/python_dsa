@@ -1,11 +1,10 @@
-from typing import List, Tuple, Optional
 
 INF = float("inf")
 
 
 def bellman_ford(
-    n: int, edges: List[Tuple[int, int, int]], source: int
-) -> Tuple[List[float], List[int]]:
+    n: int, edges: list[tuple[int, int, int]], source: int
+) -> tuple[list[float], list[int]]:
     """
     Bellman-Ford algorithm for single-source shortest paths with possible negative weights.
 
@@ -50,7 +49,7 @@ def bellman_ford(
     return dist, parent
 
 
-def reconstruct_path(parent: List[int], target: int) -> List[int]:
+def reconstruct_path(parent: list[int], target: int) -> list[int]:
     """
     Reconstruct path using predecessor array from bellman_ford.
     Returns [] if unreachable. If parent[target] == -2 (neg cycle reachable) returns [] as path undefined.
@@ -76,7 +75,7 @@ def reconstruct_path(parent: List[int], target: int) -> List[int]:
     return path
 
 
-def detect_negative_cycle(n: int, edges: List[Tuple[int, int, int]]) -> Optional[List[int]]:
+def detect_negative_cycle(n: int, edges: list[tuple[int, int, int]]) -> list[int] | None:
     """
     Detect any negative cycle in a directed graph using Bellman-Ford style approach.
 

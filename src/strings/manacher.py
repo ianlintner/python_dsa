@@ -1,7 +1,6 @@
-from typing import Tuple
 
 
-def manacher_longest_palindromic_substring(s: str) -> Tuple[int, str, int, int]:
+def manacher_longest_palindromic_substring(s: str) -> tuple[int, str, int, int]:
     """
     Manacher's Algorithm: Longest Palindromic Substring in O(n) time.
 

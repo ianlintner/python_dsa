@@ -1,7 +1,7 @@
-from typing import Callable, List, Optional, Tuple
+from collections.abc import Callable
 
 
-def lower_bound(arr: List[int], target: int) -> int:
+def lower_bound(arr: list[int], target: int) -> int:
     """
     Return the first index i such that arr[i] >= target.
     If all elements are smaller, returns len(arr).
@@ -18,7 +18,7 @@ def lower_bound(arr: List[int], target: int) -> int:
     return lo
 
 
-def upper_bound(arr: List[int], target: int) -> int:
+def upper_bound(arr: list[int], target: int) -> int:
     """
     Return the first index i such that arr[i] > target.
     If all elements are <= target, returns len(arr).
@@ -35,7 +35,7 @@ def upper_bound(arr: List[int], target: int) -> int:
     return lo
 
 
-def search_rotated(nums: List[int], target: int) -> int:
+def search_rotated(nums: list[int], target: int) -> int:
     """
     Search in rotated sorted array without duplicates.
     Returns index or -1 if not found.
@@ -63,7 +63,7 @@ def search_rotated(nums: List[int], target: int) -> int:
     return -1
 
 
-def search_rotated_with_duplicates(nums: List[int], target: int) -> int:
+def search_rotated_with_duplicates(nums: list[int], target: int) -> int:
     """
     Search in rotated sorted array with duplicates.
     Returns index of one occurrence or -1 if not found.
@@ -96,7 +96,7 @@ def search_rotated_with_duplicates(nums: List[int], target: int) -> int:
     return -1
 
 
-def exponential_search(arr: List[int], target: int) -> int:
+def exponential_search(arr: list[int], target: int) -> int:
     """
     Exponential search for sorted arrays: find range where target may lie, then binary search.
 
@@ -124,7 +124,7 @@ def exponential_search(arr: List[int], target: int) -> int:
     return -1
 
 
-def search_unknown_size(get: Callable[[int], Optional[int]], target: int) -> int:
+def search_unknown_size(get: Callable[[int], int | None], target: int) -> int:
     """
     Search in an infinite/unknown-size sorted array through an accessor:
       get(i) -> value at index i or None if out-of-bounds.
@@ -172,10 +172,10 @@ class UnknownSizeArray:
     get(i) returns arr[i] if 0 <= i < len(arr), else None.
     """
 
-    def __init__(self, arr: List[int]):
+    def __init__(self, arr: list[int]):
         self.arr = arr
 
-    def get(self, i: int) -> Optional[int]:
+    def get(self, i: int) -> int | None:
         if 0 <= i < len(self.arr):
             return self.arr[i]
         return None

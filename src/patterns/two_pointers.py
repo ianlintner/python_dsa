@@ -1,7 +1,6 @@
-from typing import List, Tuple
 
 
-def two_sum_sorted(nums: List[int], target: int) -> Tuple[int, int]:
+def two_sum_sorted(nums: list[int], target: int) -> tuple[int, int]:
     """
     Given a sorted array nums, return 0-based indices (i, j) such that nums[i] + nums[j] = target.
     If none exists, return (-1, -1).
@@ -20,7 +19,7 @@ def two_sum_sorted(nums: List[int], target: int) -> Tuple[int, int]:
     return -1, -1
 
 
-def three_sum(nums: List[int]) -> List[List[int]]:
+def three_sum(nums: list[int]) -> list[list[int]]:
     """
     Return all unique triplets [a,b,c] such that a+b+c=0.
     Uses sorting + 2-pointer inner loop.
@@ -29,7 +28,7 @@ def three_sum(nums: List[int]) -> List[List[int]]:
     """
     nums.sort()
     n = len(nums)
-    res: List[List[int]] = []
+    res: list[list[int]] = []
     for i in range(n):
         if i > 0 and nums[i] == nums[i - 1]:
             continue
@@ -52,7 +51,7 @@ def three_sum(nums: List[int]) -> List[List[int]]:
     return res
 
 
-def container_with_most_water(height: List[int]) -> int:
+def container_with_most_water(height: list[int]) -> int:
     """
     LeetCode 11: Container With Most Water.
     Two pointers maximize area by moving the smaller pointer inward.
@@ -71,7 +70,7 @@ def container_with_most_water(height: List[int]) -> int:
     return best
 
 
-def remove_duplicates_sorted(nums: List[int]) -> int:
+def remove_duplicates_sorted(nums: list[int]) -> int:
     """
     LeetCode 26: Remove Duplicates from Sorted Array (in-place).
     Returns new length k, with first k elements unique.
@@ -88,7 +87,7 @@ def remove_duplicates_sorted(nums: List[int]) -> int:
     return k
 
 
-def merge_intervals(intervals: List[List[int]]) -> List[List[int]]:
+def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:
     """
     Merge overlapping intervals.
     Sort by start, then iterate and merge if current start <= last end.
@@ -98,7 +97,7 @@ def merge_intervals(intervals: List[List[int]]) -> List[List[int]]:
     if not intervals:
         return []
     intervals.sort(key=lambda x: x[0])
-    merged: List[List[int]] = [intervals[0][:]]
+    merged: list[list[int]] = [intervals[0][:]]
     for s, e in intervals[1:]:
         last = merged[-1]
         if s <= last[1]:

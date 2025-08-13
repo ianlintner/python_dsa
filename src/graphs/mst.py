@@ -1,4 +1,3 @@
-from typing import List, Tuple
 import heapq
 
 # Reuse the Union-Find from data_structures
@@ -33,8 +32,8 @@ except Exception:
 
 
 def kruskal_mst(
-    n: int, edges: List[Tuple[int, int, int]]
-) -> Tuple[int, List[Tuple[int, int, int]]]:
+    n: int, edges: list[tuple[int, int, int]]
+) -> tuple[int, list[tuple[int, int, int]]]:
     """
     Kruskal's algorithm for Minimum Spanning Tree (MST).
 
@@ -52,7 +51,7 @@ def kruskal_mst(
     edges_sorted = sorted(edges, key=lambda e: e[2])
     uf = UnionFind(n)
     mst_weight = 0
-    mst_edges: List[Tuple[int, int, int]] = []
+    mst_edges: list[tuple[int, int, int]] = []
 
     for u, v, w in edges_sorted:
         if uf.union(u, v):
@@ -69,7 +68,7 @@ def kruskal_mst(
     return mst_weight, mst_edges
 
 
-def prim_mst(n: int, adj: List[List[Tuple[int, int]]]) -> Tuple[int, List[Tuple[int, int, int]]]:
+def prim_mst(n: int, adj: list[list[tuple[int, int]]]) -> tuple[int, list[tuple[int, int, int]]]:
     """
     Prim's algorithm for Minimum Spanning Tree (MST) using a min-heap.
 
@@ -88,8 +87,8 @@ def prim_mst(n: int, adj: List[List[Tuple[int, int]]]) -> Tuple[int, List[Tuple[
 
     visited = [False] * n
     mst_weight = 0
-    mst_edges: List[Tuple[int, int, int]] = []
-    min_heap: List[Tuple[int, int, int]] = []  # (w, u, v) edge from u->v
+    mst_edges: list[tuple[int, int, int]] = []
+    min_heap: list[tuple[int, int, int]] = []  # (w, u, v) edge from u->v
 
     def add_edges_from(u: int):
         visited[u] = True
@@ -116,9 +115,9 @@ def prim_mst(n: int, adj: List[List[Tuple[int, int]]]) -> Tuple[int, List[Tuple[
     return mst_weight, mst_edges
 
 
-def build_adj_list(n: int, edges: List[Tuple[int, int, int]]) -> List[List[Tuple[int, int]]]:
+def build_adj_list(n: int, edges: list[tuple[int, int, int]]) -> list[list[tuple[int, int]]]:
     """Build undirected adjacency list from edge list (u, v, w)."""
-    adj: List[List[Tuple[int, int]]] = [[] for _ in range(n)]
+    adj: list[list[tuple[int, int]]] = [[] for _ in range(n)]
     for u, v, w in edges:
         adj[u].append((v, w))
         adj[v].append((u, w))

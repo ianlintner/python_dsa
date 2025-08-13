@@ -1,7 +1,5 @@
-import time
 import threading
-from collections import deque
-from typing import Optional
+import time
 
 
 class TokenBucket:
@@ -46,7 +44,7 @@ class TokenBucket:
                 return True
             return False
 
-    def acquire_blocking(self, n: int = 1, timeout: Optional[float] = None) -> bool:
+    def acquire_blocking(self, n: int = 1, timeout: float | None = None) -> bool:
         end = None if timeout is None else time.monotonic() + timeout
         with self._cv:
             while True:

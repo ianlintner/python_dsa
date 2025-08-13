@@ -1,9 +1,7 @@
-from typing import List, TypeVar, Callable, Optional
-
-T = TypeVar("T")
+from collections.abc import Callable
 
 
-def selection_sort(a: List<T], key: Optional[Callable[[T], object]] = None) -> List[T]:
+def selection_sort(a: list, key: Callable[[object], object] | None = None) -> list:
     """
     Selection Sort (not stable).
 
@@ -61,7 +59,7 @@ def selection_sort(a: List<T], key: Optional[Callable[[T], object]] = None) -> L
     return arr
 
 
-def selection_sort_inplace(a: List[T], key: Optional[Callable[[T], object]] = None) -> None:
+def selection_sort_inplace(a: list, key: Callable[[object], object] | None = None) -> None:
     """
     In-place selection sort (mutates the input list).
     """

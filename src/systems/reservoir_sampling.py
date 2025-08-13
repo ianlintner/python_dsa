@@ -1,8 +1,8 @@
 import random
-from typing import Iterable, Iterator, List, Optional, Tuple
+from collections.abc import Iterable, Iterator
 
 
-def reservoir_sample_one(stream: Iterable[int], seed: Optional[int] = None) -> Optional[int]:
+def reservoir_sample_one(stream: Iterable[int], seed: int | None = None) -> int | None:
     """
     Reservoir sampling for k=1 (Algorithm R).
     Each element in the stream has equal probability 1/n to be selected.
@@ -19,7 +19,7 @@ def reservoir_sample_one(stream: Iterable[int], seed: Optional[int] = None) -> O
     return sample
 
 
-def reservoir_sample_k(stream: Iterable[int], k: int, seed: Optional[int] = None) -> List[int]:
+def reservoir_sample_k(stream: Iterable[int], k: int, seed: int | None = None) -> list[int]:
     """
     Reservoir sampling for arbitrary k (Algorithm R generalized).
     Returns a list of k sampled items with equal probability among all n choose k subsets.
@@ -31,7 +31,7 @@ def reservoir_sample_k(stream: Iterable[int], k: int, seed: Optional[int] = None
     if seed is not None:
         random.seed(seed)
     it = iter(stream)
-    reservoir: List[int] = []
+    reservoir: list[int] = []
     # Fill initial reservoir
     try:
         for _ in range(k):
@@ -49,8 +49,8 @@ def reservoir_sample_k(stream: Iterable[int], k: int, seed: Optional[int] = None
 
 
 def reservoir_sample_k_weighted(
-    stream: Iterable[Tuple[int, float]], k: int, seed: Optional[int] = None
-) -> List[int]:
+    stream: Iterable[tuple[int, float]], k: int, seed: int | None = None
+) -> list[int]:
     """
     Weighted reservoir sampling (Efraimidis-Spirakis algorithm):
     Input: stream of (item, weight>0). Each item has selection probability proportional to weight.
@@ -66,7 +66,7 @@ def reservoir_sample_k_weighted(
         return []
     if seed is not None:
         random.seed(seed)
-    heap: List[Tuple[float, int]] = []  # min-heap of (key, item)
+    heap: list[tuple[float, int]] = []  # min-heap of (key, item)
     for item, w in stream:
         if w <= 0:
             # Skip non-positive weights

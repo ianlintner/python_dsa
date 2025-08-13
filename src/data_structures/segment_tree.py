@@ -1,4 +1,3 @@
-from typing import List, Optional, Callable
 
 
 class SegmentTree:
@@ -26,7 +25,7 @@ class SegmentTree:
     - Difference from Fenwick Tree? (Fenwick simpler; segment tree supports more general ops)
     """
 
-    def __init__(self, data: List[int]):
+    def __init__(self, data: list[int]):
         self.n = len(data)
         self.size = 1
         while self.size < self.n:
@@ -136,7 +135,7 @@ class RangeMinSegmentTree:
     - Query/Update: O(log n)
     """
 
-    def __init__(self, data: List[int]):
+    def __init__(self, data: list[int]):
         self.n = len(data)
         self.size = 1
         while self.size < self.n:

@@ -1,4 +1,3 @@
-from typing import Optional, Dict
 
 
 class Node:
@@ -7,8 +6,8 @@ class Node:
     def __init__(self, key: int = 0, value: int = 0):
         self.key = key
         self.value = value
-        self.prev: Optional["Node"] = None
-        self.next: Optional["Node"] = None
+        self.prev: Node | None = None
+        self.next: Node | None = None
 
 
 class LRUCache:
@@ -34,7 +33,7 @@ class LRUCache:
 
     def __init__(self, capacity: int):
         self.capacity = capacity
-        self.cache: Dict[int, Node] = {}
+        self.cache: dict[int, Node] = {}
 
         # Create dummy head and tail nodes
         self.head = Node()
@@ -117,11 +116,11 @@ class LFUCache:
         self.min_freq = 0
 
         # key -> value
-        self.key_to_val: Dict[int, int] = {}
+        self.key_to_val: dict[int, int] = {}
         # key -> frequency
-        self.key_to_freq: Dict[int, int] = {}
+        self.key_to_freq: dict[int, int] = {}
         # frequency -> list of keys with that frequency
-        self.freq_to_keys: Dict[int, list] = {}
+        self.freq_to_keys: dict[int, list] = {}
 
     def _update_freq(self, key: int) -> None:
         """Update frequency of a key."""

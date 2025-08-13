@@ -1,7 +1,6 @@
-from typing import List
 
 
-def merge_sort(a: List[int]) -> List[int]:
+def merge_sort(a: list[int]) -> list[int]:
     """
     Stable O(n log n) sort via divide-and-conquer.
 
@@ -28,7 +27,7 @@ def merge_sort(a: List[int]) -> List[int]:
     return _merge(left, right)
 
 
-def _merge(left: List[int], right: List[int]) -> List[int]:
+def _merge(left: list[int], right: list[int]) -> list[int]:
     """Merge two sorted arrays into one sorted array."""
     i = j = 0
     result = []
@@ -48,13 +47,13 @@ def _merge(left: List[int], right: List[int]) -> List[int]:
     return result
 
 
-def merge_sort_inplace(a: List[int]) -> None:
+def merge_sort_inplace(a: list[int]) -> None:
     """
     In-place merge sort (modifies input array).
     Still requires O(n) auxiliary space for merging.
     """
 
-    def merge_sort_helper(arr: List[int], temp: List[int], left: int, right: int):
+    def merge_sort_helper(arr: list[int], temp: list[int], left: int, right: int):
         if left >= right:
             return
 
@@ -63,7 +62,7 @@ def merge_sort_inplace(a: List[int]) -> None:
         merge_sort_helper(arr, temp, mid + 1, right)
         merge_inplace(arr, temp, left, mid, right)
 
-    def merge_inplace(arr: List[int], temp: List[int], left: int, mid: int, right: int):
+    def merge_inplace(arr: list[int], temp: list[int], left: int, mid: int, right: int):
         # Copy to temp array
         for i in range(left, right + 1):
             temp[i] = arr[i]

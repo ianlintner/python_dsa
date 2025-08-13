@@ -1,8 +1,7 @@
-from typing import List, Dict, Set, Deque
 from collections import defaultdict, deque
 
 
-def topological_sort_kahn(graph: Dict[int, List[int]], num_nodes: int) -> List[int]:
+def topological_sort_kahn(graph: dict[int, list[int]], num_nodes: int) -> list[int]:
     """
     Topological sort using Kahn's algorithm (BFS-based).
 
@@ -60,7 +59,7 @@ def topological_sort_kahn(graph: Dict[int, List[int]], num_nodes: int) -> List[i
     return result
 
 
-def topological_sort_dfs(graph: Dict[int, List[int]], num_nodes: int) -> List[int]:
+def topological_sort_dfs(graph: dict[int, list[int]], num_nodes: int) -> list[int]:
     """
     Topological sort using DFS.
 
@@ -114,7 +113,7 @@ def topological_sort_dfs(graph: Dict[int, List[int]], num_nodes: int) -> List[in
     return result[::-1]  # Reverse to get correct order
 
 
-def can_finish_courses(num_courses: int, prerequisites: List[List[int]]) -> bool:
+def can_finish_courses(num_courses: int, prerequisites: list[list[int]]) -> bool:
     """
     Course Schedule problem - can all courses be finished?
 
@@ -140,7 +139,7 @@ def can_finish_courses(num_courses: int, prerequisites: List[List[int]]) -> bool
     return len(topo_order) == num_courses
 
 
-def find_course_order(num_courses: int, prerequisites: List[List[int]]) -> List[int]:
+def find_course_order(num_courses: int, prerequisites: list[list[int]]) -> list[int]:
     """
     Course Schedule II - find a valid ordering of courses.
 
@@ -157,7 +156,7 @@ def find_course_order(num_courses: int, prerequisites: List[List[int]]) -> List[
     return topological_sort_kahn(graph, num_courses)
 
 
-def alien_dictionary(words: List[str]) -> str:
+def alien_dictionary(words: list[str]) -> str:
     """
     Alien Dictionary - determine order of characters in alien language.
 
@@ -225,7 +224,7 @@ def alien_dictionary(words: List[str]) -> str:
     return "".join(result)
 
 
-def minimum_height_trees(n: int, edges: List[List[int]]) -> List[int]:
+def minimum_height_trees(n: int, edges: list[list[int]]) -> list[int]:
     """
     Minimum Height Trees - find roots that minimize tree height.
 
@@ -277,7 +276,7 @@ def minimum_height_trees(n: int, edges: List[List[int]]) -> List[int]:
     return list(leaves)
 
 
-def build_graph_from_edges(edges: List[List[int]], num_nodes: int) -> Dict[int, List[int]]:
+def build_graph_from_edges(edges: list[list[int]], num_nodes: int) -> dict[int, list[int]]:
     """Helper function to build adjacency list from edge list."""
     graph = defaultdict(list)
     for u, v in edges:

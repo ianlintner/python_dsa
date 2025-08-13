@@ -1,9 +1,10 @@
-from typing import List, TypeVar, Callable, Optional
+from collections.abc import Callable
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-def bubble_sort(a: List[T], key: Optional[Callable[[T], object]] = None) -> List[T]:
+def bubble_sort(a: list[T], key: Callable[[T], object] | None = None) -> list[T]:
     """
     Bubble Sort (stable).
 
@@ -53,7 +54,7 @@ def bubble_sort(a: List[T], key: Optional[Callable[[T], object]] = None) -> List
     return arr
 
 
-def bubble_sort_inplace(a: List[T], key: Optional[Callable[[T], object]] = None) -> None:
+def bubble_sort_inplace(a: list[T], key: Callable[[T], object] | None = None) -> None:
     """
     In-place bubble sort (mutates the input list).
 

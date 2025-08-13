@@ -1,7 +1,6 @@
-from typing import List, Tuple
 
 
-def knapsack_01(weights: List[int], values: List[int], capacity: int) -> int:
+def knapsack_01(weights: list[int], values: list[int], capacity: int) -> int:
     """
     0/1 Knapsack Problem - each item can be taken at most once.
 
@@ -35,7 +34,7 @@ def knapsack_01(weights: List[int], values: List[int], capacity: int) -> int:
     return dp[n][capacity]
 
 
-def knapsack_01_optimized(weights: List[int], values: List[int], capacity: int) -> int:
+def knapsack_01_optimized(weights: list[int], values: list[int], capacity: int) -> int:
     """
     Space-optimized 0/1 Knapsack using 1D array.
 
@@ -58,8 +57,8 @@ def knapsack_01_optimized(weights: List[int], values: List[int], capacity: int) 
 
 
 def knapsack_01_with_items(
-    weights: List[int], values: List[int], capacity: int
-) -> Tuple[int, List[int]]:
+    weights: list[int], values: list[int], capacity: int
+) -> tuple[int, list[int]]:
     """
     0/1 Knapsack with reconstruction of selected items.
 
@@ -90,7 +89,7 @@ def knapsack_01_with_items(
     return dp[n][capacity], selected_items
 
 
-def unbounded_knapsack(weights: List[int], values: List[int], capacity: int) -> int:
+def unbounded_knapsack(weights: list[int], values: list[int], capacity: int) -> int:
     """
     Unbounded Knapsack - unlimited quantity of each item.
 
@@ -113,7 +112,7 @@ def unbounded_knapsack(weights: List[int], values: List[int], capacity: int) -> 
 
 
 def bounded_knapsack(
-    weights: List[int], values: List[int], counts: List[int], capacity: int
+    weights: list[int], values: list[int], counts: list[int], capacity: int
 ) -> int:
     """
     Bounded Knapsack - limited quantity of each item.
@@ -138,7 +137,7 @@ def bounded_knapsack(
     return dp[capacity]
 
 
-def fractional_knapsack(weights: List[int], values: List[int], capacity: int) -> float:
+def fractional_knapsack(weights: list[int], values: list[int], capacity: int) -> float:
     """
     Fractional Knapsack - can take fractions of items.
 
@@ -178,7 +177,7 @@ def fractional_knapsack(weights: List[int], values: List[int], capacity: int) ->
 
 
 def multiple_knapsack(
-    weights: List[int], values: List[int], counts: List[int], capacity: int
+    weights: list[int], values: list[int], counts: list[int], capacity: int
 ) -> int:
     """
     Multiple Knapsack using binary representation optimization.
@@ -212,7 +211,7 @@ def multiple_knapsack(
     return knapsack_01_optimized(new_weights, new_values, capacity)
 
 
-def partition_equal_subset_sum(nums: List[int]) -> bool:
+def partition_equal_subset_sum(nums: list[int]) -> bool:
     """
     Partition Equal Subset Sum - special case of knapsack.
 
@@ -237,7 +236,7 @@ def partition_equal_subset_sum(nums: List[int]) -> bool:
     return dp[target]
 
 
-def target_sum(nums: List[int], target: int) -> int:
+def target_sum(nums: list[int], target: int) -> int:
     """
     Target Sum - assign +/- to each number to reach target.
 

@@ -1,8 +1,8 @@
 from collections import deque
-from typing import Callable, Deque, Dict, List, Optional, Set, Tuple
+from collections.abc import Callable
 
-Grid = List[List[str]]
-Coord = Tuple[int, int]
+Grid = list[list[str]]
+Coord = tuple[int, int]
 
 
 def shortest_path_collect_all(
@@ -32,8 +32,8 @@ def shortest_path_collect_all(
     R, C = len(grid), len(grid[0])
 
     # Collect positions of start and targets
-    start: Optional[Coord] = None
-    targets: List[Coord] = []
+    start: Coord | None = None
+    targets: list[Coord] = []
     for r in range(R):
         for c in range(C):
             if grid[r][c] == "S":
@@ -43,15 +43,15 @@ def shortest_path_collect_all(
     if start is None:
         return -1
     K = len(targets)
-    target_index: Dict[Coord, int] = {pos: i for i, pos in enumerate(targets)}
+    target_index: dict[Coord, int] = {pos: i for i, pos in enumerate(targets)}
     ALL = (1 << K) - 1
 
     def in_bounds(r: int, c: int) -> bool:
         return 0 <= r < R and 0 <= c < C
 
     # BFS
-    q: Deque[Tuple[int, int, int]] = deque()
-    dist: Dict[Tuple[int, int, int], int] = {}
+    q: deque[tuple[int, int, int]] = deque()
+    dist: dict[tuple[int, int, int], int] = {}
 
     sr, sc = start
     start_mask = 0

@@ -1,7 +1,6 @@
-from typing import List
 
 
-def build_lps_array(pattern: str) -> List[int]:
+def build_lps_array(pattern: str) -> list[int]:
     """
     Build the Longest Proper Prefix which is also Suffix (LPS) array.
 
@@ -37,7 +36,7 @@ def build_lps_array(pattern: str) -> List[int]:
     return lps
 
 
-def kmp_search(text: str, pattern: str) -> List[int]:
+def kmp_search(text: str, pattern: str) -> list[int]:
     """
     Knuth-Morris-Pratt string matching algorithm.
 
@@ -96,7 +95,7 @@ def kmp_search_first_occurrence(text: str, pattern: str) -> int:
     return matches[0] if matches else -1
 
 
-def naive_string_search(text: str, pattern: str) -> List[int]:
+def naive_string_search(text: str, pattern: str) -> list[int]:
     """
     Naive string matching for comparison.
 
@@ -127,7 +126,7 @@ def kmp_count_occurrences(text: str, pattern: str) -> int:
     return len(kmp_search(text, pattern))
 
 
-def kmp_search_case_insensitive(text: str, pattern: str) -> List[int]:
+def kmp_search_case_insensitive(text: str, pattern: str) -> list[int]:
     """Case-insensitive KMP search."""
     return kmp_search(text.lower(), pattern.lower())
 
@@ -191,7 +190,7 @@ def longest_prefix_suffix(s: str) -> int:
     return lps[-1]
 
 
-def kmp_multiple_patterns(text: str, patterns: List[str]) -> dict[str, List[int]]:
+def kmp_multiple_patterns(text: str, patterns: list[str]) -> dict[str, list[int]]:
     """
     Search for multiple patterns in text using KMP.
 
@@ -236,7 +235,7 @@ def demo():
     repeated_text = "AAAAAAAAAAAAAAAAAAAAAAAAB"
     repeated_pattern = "AAAAB"
 
-    print(f"Repeated pattern example:")
+    print("Repeated pattern example:")
     print(f"Text: {repeated_text}")
     print(f"Pattern: {repeated_pattern}")
 

@@ -1,9 +1,8 @@
-import time
-import threading
 import asyncio
+import threading
+import time
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 from queue import Queue
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
-from typing import List, Tuple
 
 """
 Concurrency & Parallelism in Python - Practical Overview
@@ -25,7 +24,7 @@ Guidance:
 # ------------------------
 # Threading Basics (IO-Bound)
 # ------------------------
-def fetch_io_simulated(id: int, delay: float = 0.3) -> Tuple[int, float]:
+def fetch_io_simulated(id: int, delay: float = 0.3) -> tuple[int, float]:
     """Simulate IO-bound task (e.g., HTTP request) with time.sleep."""
     time.sleep(delay)
     return id, delay
@@ -33,12 +32,12 @@ def fetch_io_simulated(id: int, delay: float = 0.3) -> Tuple[int, float]:
 
 def threading_demo(
     num_tasks: int = 10, delay: float = 0.3, max_workers: int = 4
-) -> List[Tuple[int, float]]:
+) -> list[tuple[int, float]]:
     """
     Use ThreadPoolExecutor for IO-bound tasks. Demonstrates GIL-friendly concurrency.
     """
     start = time.perf_counter()
-    results: List[Tuple[int, float]] = []
+    results: list[tuple[int, float]] = []
     with ThreadPoolExecutor(max_workers=max_workers) as tp:
         futures = [tp.submit(fetch_io_simulated, i, delay) for i in range(num_tasks)]
         for fut in as_completed(futures):
@@ -107,12 +106,12 @@ def cpu_bound(n: int) -> int:
     return total
 
 
-def multiprocessing_demo(work_items: List[int], max_workers: int = 4) -> List[int]:
+def multiprocessing_demo(work_items: list[int], max_workers: int = 4) -> list[int]:
     """
     Use ProcessPoolExecutor for true parallelism on CPU-bound tasks.
     """
     start = time.perf_counter()
-    results: List[int] = []
+    results: list[int] = []
     with ProcessPoolExecutor(max_workers=max_workers) as pp:
         futures = [pp.submit(cpu_bound, n) for n in work_items]
         for fut in as_completed(futures):
@@ -127,19 +126,19 @@ def multiprocessing_demo(work_items: List[int], max_workers: int = 4) -> List[in
 # ------------------------
 # asyncio (IO-Bound, High Concurrency)
 # ------------------------
-async def async_fetch_io_simulated(id: int, delay: float = 0.3) -> Tuple[int, float]:
+async def async_fetch_io_simulated(id: int, delay: float = 0.3) -> tuple[int, float]:
     await asyncio.sleep(delay)
     return id, delay
 
 
 async def asyncio_demo(
     num_tasks: int = 20, delay: float = 0.1, concurrency: int = 10
-) -> List[Tuple[int, float]]:
+) -> list[tuple[int, float]]:
     """
     Run many IO-bound tasks concurrently with asyncio & semaphore (rate limiting).
     """
     sem = asyncio.Semaphore(concurrency)
-    results: List[Tuple[int, float]] = []
+    results: list[tuple[int, float]] = []
 
     async def bounded_task(i: int):
         async with sem:

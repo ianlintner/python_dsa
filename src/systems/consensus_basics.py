@@ -1,7 +1,5 @@
 import random
-import time
 from enum import Enum
-from typing import Dict, List, Optional, Tuple
 
 """
 Consensus Basics (Raft-style leader election simulation, simplified)
@@ -27,14 +25,14 @@ class Role(Enum):
 
 
 class Node:
-    def __init__(self, node_id: int, peers: List[int], rng: random.Random):
+    def __init__(self, node_id: int, peers: list[int], rng: random.Random):
         self.id = node_id
         self.peers = peers
         self.rng = rng
 
         self.role = Role.FOLLOWER
         self.current_term = 0
-        self.voted_for: Optional[int] = None
+        self.voted_for: int | None = None
         self.last_heartbeat_tick = 0
 
         # Election timeout randomized range (ticks)
@@ -59,7 +57,7 @@ class Node:
 class Cluster:
     def __init__(self, n: int, seed: int = 42):
         self.rng = random.Random(seed)
-        self.nodes: Dict[int, Node] = {}
+        self.nodes: dict[int, Node] = {}
         ids = list(range(n))
         for i in ids:
             peers = [p for p in ids if p != i]
@@ -72,7 +70,7 @@ class Cluster:
             node.voted_for = None
             node.reset_election_timer(self.tick)
 
-    def leader(self) -> Optional[int]:
+    def leader(self) -> int | None:
         leaders = [nid for nid, n in self.nodes.items() if n.role == Role.LEADER]
         if len(leaders) == 1:
             return leaders[0]
@@ -86,7 +84,7 @@ class Cluster:
           - Candidates request votes; majority wins
         """
         self.tick += 1
-        events: List[str] = []
+        events: list[str] = []
 
         # Leaders send heartbeats
         leader_id = self.leader()
@@ -102,7 +100,7 @@ class Cluster:
             )
 
         # Followers/Candidates check timeouts
-        to_start_election: List[int] = []
+        to_start_election: list[int] = []
         for nid, node in self.nodes.items():
             if node.role == Role.LEADER:
                 continue
@@ -163,7 +161,7 @@ class Cluster:
             print(f"  {node}")
         print()
 
-        last_leader: Optional[int] = None
+        last_leader: int | None = None
         stable_ticks = 0
         while self.tick < max_ticks:
             self.step()

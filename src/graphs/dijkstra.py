@@ -1,14 +1,13 @@
 import heapq
-from typing import Dict, List, Tuple, Optional, Set
 from collections import defaultdict
 
 # Type aliases
 Vertex = str
 Weight = float
-WeightedGraph = Dict[Vertex, List[Tuple[Vertex, Weight]]]
+WeightedGraph = dict[Vertex, list[tuple[Vertex, Weight]]]
 
 
-def dijkstra(graph: WeightedGraph, source: Vertex) -> Dict[Vertex, Weight]:
+def dijkstra(graph: WeightedGraph, source: Vertex) -> dict[Vertex, Weight]:
     """
     Dijkstra's shortest path algorithm for non-negative edge weights.
 
@@ -39,7 +38,7 @@ def dijkstra(graph: WeightedGraph, source: Vertex) -> Dict[Vertex, Weight]:
 
     # Priority queue: (distance, vertex)
     pq = [(0.0, source)]
-    visited: Set[Vertex] = set()
+    visited: set[Vertex] = set()
 
     while pq:
         current_dist, current = heapq.heappop(pq)
@@ -65,8 +64,8 @@ def dijkstra(graph: WeightedGraph, source: Vertex) -> Dict[Vertex, Weight]:
 
 
 def dijkstra_with_path(
-    graph: WeightedGraph, source: Vertex, target: Optional[Vertex] = None
-) -> Tuple[Dict[Vertex, Weight], Dict[Vertex, Optional[Vertex]]]:
+    graph: WeightedGraph, source: Vertex, target: Vertex | None = None
+) -> tuple[dict[Vertex, Weight], dict[Vertex, Vertex | None]]:
     """
     Dijkstra with path reconstruction.
 
@@ -78,7 +77,7 @@ def dijkstra_with_path(
     distances[source] = 0.0
 
     pq = [(0.0, source)]
-    visited: Set[Vertex] = set()
+    visited: set[Vertex] = set()
 
     while pq:
         current_dist, current = heapq.heappop(pq)
@@ -107,8 +106,8 @@ def dijkstra_with_path(
 
 
 def reconstruct_path(
-    parents: Dict[Vertex, Optional[Vertex]], source: Vertex, target: Vertex
-) -> Optional[List[Vertex]]:
+    parents: dict[Vertex, Vertex | None], source: Vertex, target: Vertex
+) -> list[Vertex] | None:
     """
     Reconstruct shortest path from parent pointers.
     Returns None if no path exists.
@@ -129,7 +128,7 @@ def reconstruct_path(
 
 def dijkstra_single_target(
     graph: WeightedGraph, source: Vertex, target: Vertex
-) -> Tuple[Weight, Optional[List[Vertex]]]:
+) -> tuple[Weight, list[Vertex] | None]:
     """
     Find shortest path to single target with early termination.
 
@@ -144,7 +143,7 @@ def dijkstra_single_target(
 
 def dijkstra_k_shortest_paths(
     graph: WeightedGraph, source: Vertex, target: Vertex, k: int
-) -> List[Tuple[Weight, List[Vertex]]]:
+) -> list[tuple[Weight, list[Vertex]]]:
     """
     Find k shortest paths using modified Dijkstra (Yen's algorithm simplified).
     This is a basic version - full Yen's algorithm is more complex.
@@ -155,10 +154,10 @@ def dijkstra_k_shortest_paths(
     def find_paths_dfs(
         current: Vertex,
         target: Vertex,
-        path: List[Vertex],
+        path: list[Vertex],
         cost: Weight,
-        visited: Set[Vertex],
-        all_paths: List[Tuple[Weight, List[Vertex]]],
+        visited: set[Vertex],
+        all_paths: list[tuple[Weight, list[Vertex]]],
     ):
         if len(all_paths) >= k:
             return
@@ -180,7 +179,7 @@ def dijkstra_k_shortest_paths(
     return sorted(all_paths)[:k]
 
 
-def dijkstra_all_pairs(graph: WeightedGraph) -> Dict[Vertex, Dict[Vertex, Weight]]:
+def dijkstra_all_pairs(graph: WeightedGraph) -> dict[Vertex, dict[Vertex, Weight]]:
     """
     All-pairs shortest paths using Dijkstra from each vertex.
 
@@ -195,7 +194,7 @@ def dijkstra_all_pairs(graph: WeightedGraph) -> Dict[Vertex, Dict[Vertex, Weight
     return all_distances
 
 
-def create_graph_from_edges(edges: List[Tuple[Vertex, Vertex, Weight]]) -> WeightedGraph:
+def create_graph_from_edges(edges: list[tuple[Vertex, Vertex, Weight]]) -> WeightedGraph:
     """Helper function to create adjacency list from edge list."""
     graph = defaultdict(list)
 
@@ -209,7 +208,7 @@ def create_graph_from_edges(edges: List[Tuple[Vertex, Vertex, Weight]]) -> Weigh
 
 def find_shortest_path_with_constraints(
     graph: WeightedGraph, source: Vertex, target: Vertex, max_stops: int
-) -> Tuple[Weight, Optional[List[Vertex]]]:
+) -> tuple[Weight, list[Vertex] | None]:
     """
     Find shortest path with maximum number of stops constraint.
     Uses modified Dijkstra with state (vertex, stops_used).
@@ -306,7 +305,7 @@ def demo():
 
     # Path with constraints
     dist, path = find_shortest_path_with_constraints(graph, "A", "F", max_stops=3)
-    print(f"Shortest path A -> F with max 3 stops:")
+    print("Shortest path A -> F with max 3 stops:")
     print(f"  Distance: {dist}")
     print(f"  Path: {' -> '.join(path) if path else 'No path'}")
 

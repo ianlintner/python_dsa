@@ -1,7 +1,6 @@
-from typing import List
 
 
-def coin_change_min_coins(coins: List[int], amount: int) -> int:
+def coin_change_min_coins(coins: list[int], amount: int) -> int:
     """
     Find minimum number of coins to make given amount.
 
@@ -35,7 +34,7 @@ def coin_change_min_coins(coins: List[int], amount: int) -> int:
     return dp[amount] if dp[amount] != float("inf") else -1
 
 
-def coin_change_count_ways(coins: List[int], amount: int) -> int:
+def coin_change_count_ways(coins: list[int], amount: int) -> int:
     """
     Count number of ways to make given amount.
 
@@ -58,7 +57,7 @@ def coin_change_count_ways(coins: List[int], amount: int) -> int:
     return dp[amount]
 
 
-def coin_change_with_reconstruction(coins: List[int], amount: int) -> tuple[int, List[int]]:
+def coin_change_with_reconstruction(coins: list[int], amount: int) -> tuple[int, list[int]]:
     """
     Find minimum coins and return the actual coins used.
 
@@ -94,7 +93,7 @@ def coin_change_with_reconstruction(coins: List[int], amount: int) -> tuple[int,
     return dp[amount], coins_used
 
 
-def coin_change_limited(coins: List[int], counts: List[int], amount: int) -> int:
+def coin_change_limited(coins: list[int], counts: list[int], amount: int) -> int:
     """
     Coin change with limited number of each coin (bounded knapsack).
 
@@ -113,7 +112,7 @@ def coin_change_limited(coins: List[int], counts: List[int], amount: int) -> int
     dp = [float("inf")] * (amount + 1)
     dp[0] = 0
 
-    for coin, count in zip(coins, counts):
+    for coin, count in zip(coins, counts, strict=False):
         # Process from right to left to avoid using same coin multiple times
         for i in range(amount, coin - 1, -1):
             if dp[i - coin] != float("inf"):
@@ -125,7 +124,7 @@ def coin_change_limited(coins: List[int], counts: List[int], amount: int) -> int
     return dp[amount] if dp[amount] != float("inf") else -1
 
 
-def coin_change_all_denominations(amount: int) -> List[List[int]]:
+def coin_change_all_denominations(amount: int) -> list[list[int]]:
     """
     Find all possible ways to make amount using standard US coins.
 
@@ -134,7 +133,7 @@ def coin_change_all_denominations(amount: int) -> List[List[int]]:
     coins = [1, 5, 10, 25]  # penny, nickel, dime, quarter
     result = []
 
-    def backtrack(remaining: int, coin_index: int, current_combination: List[int]):
+    def backtrack(remaining: int, coin_index: int, current_combination: list[int]):
         if remaining == 0:
             result.append(current_combination[:])
             return
@@ -157,7 +156,7 @@ def coin_change_all_denominations(amount: int) -> List[List[int]]:
     return result
 
 
-def coin_change_greedy(coins: List[int], amount: int) -> tuple[int, List[int]]:
+def coin_change_greedy(coins: list[int], amount: int) -> tuple[int, list[int]]:
     """
     Greedy approach for coin change (only works for certain coin systems).
 
@@ -188,7 +187,7 @@ def coin_change_greedy(coins: List[int], amount: int) -> tuple[int, List[int]]:
     return total_coins, coins_used
 
 
-def minimum_coins_infinite_supply(coins: List[int], amount: int) -> int:
+def minimum_coins_infinite_supply(coins: list[int], amount: int) -> int:
     """
     Alternative implementation using BFS approach.
 

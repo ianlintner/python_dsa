@@ -1,7 +1,6 @@
-from typing import List, Tuple
 
 
-def suffix_array(s: str) -> List[int]:
+def suffix_array(s: str) -> list[int]:
     """
     Build suffix array of string s using O(n log n) doubling algorithm.
     Returns SA: list of starting indices of suffixes in lexicographic order.
@@ -39,7 +38,7 @@ def suffix_array(s: str) -> List[int]:
     return sa
 
 
-def lcp_kasai(s: str, sa: List[int]) -> List[int]:
+def lcp_kasai(s: str, sa: list[int]) -> list[int]:
     """
     Kasai algorithm to build LCP array from string s and suffix array sa.
     LCP[i] = length of longest common prefix of suffixes sa[i] and sa[i-1].
@@ -69,7 +68,7 @@ def lcp_kasai(s: str, sa: List[int]) -> List[int]:
     return lcp
 
 
-def longest_repeated_substring_sa(s: str) -> Tuple[int, str, List[int]]:
+def longest_repeated_substring_sa(s: str) -> tuple[int, str, list[int]]:
     """
     Find longest repeated substring via SA + LCP.
     Returns (length, substring, starting_positions).
@@ -106,7 +105,7 @@ def longest_repeated_substring_sa(s: str) -> Tuple[int, str, List[int]]:
     return max_len, sub, sorted(list(positions))
 
 
-def sa_substring_search(s: str, sa: List[int], pattern: str) -> List[int]:
+def sa_substring_search(s: str, sa: list[int], pattern: str) -> list[int]:
     """
     Search for all occurrences of 'pattern' in 's' using suffix array 'sa'.
     Returns starting indices. Time: O(m log n), m = len(pattern)
@@ -145,7 +144,7 @@ def sa_substring_search(s: str, sa: List[int], pattern: str) -> List[int]:
     return sorted(res)
 
 
-def suffix_array_with_lcp(s: str) -> Tuple[List[int], List[int]]:
+def suffix_array_with_lcp(s: str) -> tuple[list[int], list[int]]:
     """
     Convenience function returning (SA, LCP).
     """

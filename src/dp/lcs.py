@@ -1,4 +1,3 @@
-from typing import List, Tuple
 
 
 def lcs_length(a: str, b: str) -> int:
@@ -60,7 +59,7 @@ def lcs_reconstruct(a: str, b: str) -> str:
                 dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
     # Walk back to reconstruct
     i, j = n, m
-    out: List[str] = []
+    out: list[str] = []
     while i > 0 and j > 0:
         if a[i - 1] == b[j - 1]:
             out.append(a[i - 1])
@@ -78,7 +77,7 @@ def lcs_reconstruct(a: str, b: str) -> str:
 def demo():
     print("Longest Common Subsequence (LCS) Demo")
     print("=" * 45)
-    cases: List[Tuple[str, str]] = [
+    cases: list[tuple[str, str]] = [
         ("abcde", "ace"),
         ("AGGTAB", "GXTXAYB"),
         ("", ""),

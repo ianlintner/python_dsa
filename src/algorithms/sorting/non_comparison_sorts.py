@@ -1,12 +1,13 @@
-from typing import List, Callable, Optional, Any
+from collections.abc import Callable
+from typing import Any
 
 
 def counting_sort(
-    nums: List[int],
-    min_val: Optional[int] = None,
-    max_val: Optional[int] = None,
+    nums: list[int],
+    min_val: int | None = None,
+    max_val: int | None = None,
     stable: bool = True,
-) -> List[int]:
+) -> list[int]:
     """
     Counting Sort for integers (handles negatives via offset).
 
@@ -67,11 +68,11 @@ def counting_sort(
 
 
 def counting_sort_by_key(
-    items: List[Any],
+    items: list[Any],
     key: Callable[[Any], int],
-    key_min: Optional[int] = None,
-    key_max: Optional[int] = None,
-) -> List[Any]:
+    key_min: int | None = None,
+    key_max: int | None = None,
+) -> list[Any]:
     """
     Stable counting sort by integer key in small range.
 
@@ -112,7 +113,7 @@ def counting_sort_by_key(
     return out  # type: ignore
 
 
-def radix_sort_lsd_integers(nums: List[int], base: int = 10) -> List[int]:
+def radix_sort_lsd_integers(nums: list[int], base: int = 10) -> list[int]:
     """
     Radix Sort (LSD) for integers, stable per digit using counting sort.
 
@@ -133,7 +134,7 @@ def radix_sort_lsd_integers(nums: List[int], base: int = 10) -> List[int]:
     non_neg = [x for x in nums if x >= 0]
     neg = [-x for x in nums if x < 0]  # store absolute values
 
-    def _lsd_non_negative(arr: List[int]) -> List[int]:
+    def _lsd_non_negative(arr: list[int]) -> list[int]:
         if not arr:
             return []
         max_val = max(arr)
@@ -164,7 +165,7 @@ def radix_sort_lsd_integers(nums: List[int], base: int = 10) -> List[int]:
     return sorted_negatives + sorted_non_neg
 
 
-def radix_sort_lsd_fixed_strings(strings: List[str], max_len: Optional[int] = None) -> List[str]:
+def radix_sort_lsd_fixed_strings(strings: list[str], max_len: int | None = None) -> list[str]:
     """
     Radix Sort (LSD) for fixed-length ASCII strings. If variable length, left-pad with '\0'.
 

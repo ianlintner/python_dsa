@@ -1,7 +1,6 @@
-from typing import Dict, List, Tuple
 
 
-def tarjan_scc(graph: Dict[int, List[int]]) -> List[List[int]]:
+def tarjan_scc(graph: dict[int, list[int]]) -> list[list[int]]:
     """
     Tarjan's algorithm to compute Strongly Connected Components (SCCs)
     in a directed graph.
@@ -26,11 +25,11 @@ def tarjan_scc(graph: Dict[int, List[int]]) -> List[List[int]]:
       tarjan_scc(g) -> e.g., [[0,2,1], [3,5,4]]
     """
     index = 0
-    idx: Dict[int, int] = {}  # discovery index of node
-    low: Dict[int, int] = {}  # low-link value
-    on_stack: Dict[int, bool] = {}
-    stack: List[int] = []
-    sccs: List[List[int]] = []
+    idx: dict[int, int] = {}  # discovery index of node
+    low: dict[int, int] = {}  # low-link value
+    on_stack: dict[int, bool] = {}
+    stack: list[int] = []
+    sccs: list[list[int]] = []
 
     def strongconnect(v: int) -> None:
         nonlocal index
@@ -49,7 +48,7 @@ def tarjan_scc(graph: Dict[int, List[int]]) -> List[List[int]]:
 
         # If v is a root node, pop the stack and generate an SCC
         if low[v] == idx[v]:
-            comp: List[int] = []
+            comp: list[int] = []
             while True:
                 w = stack.pop()
                 on_stack[w] = False
@@ -70,7 +69,7 @@ def tarjan_scc(graph: Dict[int, List[int]]) -> List[List[int]]:
     return sccs
 
 
-def kosaraju_scc(graph: Dict[int, List[int]]) -> List[List[int]]:
+def kosaraju_scc(graph: dict[int, list[int]]) -> list[list[int]]:
     """
     Kosaraju's algorithm to compute SCCs.
 
@@ -84,8 +83,8 @@ def kosaraju_scc(graph: Dict[int, List[int]]) -> List[List[int]]:
       - Space: O(V + E)
     """
     # Step 1: order by finish time
-    visited: Dict[int, bool] = {}
-    order: List[int] = []
+    visited: dict[int, bool] = {}
+    order: list[int] = []
 
     def dfs1(u: int):
         visited[u] = True
@@ -103,16 +102,16 @@ def kosaraju_scc(graph: Dict[int, List[int]]) -> List[List[int]]:
             dfs1(u)
 
     # Step 2: transpose graph
-    gt: Dict[int, List[int]] = {u: [] for u in nodes}
+    gt: dict[int, list[int]] = {u: [] for u in nodes}
     for u in nodes:
         for v in graph.get(u, []):
             gt[v].append(u)
 
     # Step 3: DFS on transposed graph in reverse finish order
     visited.clear()
-    comps: List[List[int]] = []
+    comps: list[list[int]] = []
 
-    def dfs2(u: int, acc: List[int]):
+    def dfs2(u: int, acc: list[int]):
         visited[u] = True
         acc.append(u)
         for v in gt.get(u, []):
@@ -121,7 +120,7 @@ def kosaraju_scc(graph: Dict[int, List[int]]) -> List[List[int]]:
 
     for u in reversed(order):
         if not visited.get(u, False):
-            acc: List[int] = []
+            acc: list[int] = []
             dfs2(u, acc)
             comps.append(acc)
 

@@ -1,8 +1,7 @@
 from bisect import bisect_left
-from typing import List, Tuple
 
 
-def subset_sum_mitm(nums: List[int], target: int) -> bool:
+def subset_sum_mitm(nums: list[int], target: int) -> bool:
     """
     Meet-in-the-middle subset sum existence.
     Splits nums into two halves, enumerates all subset sums for each half,
@@ -41,7 +40,7 @@ def subset_sum_mitm(nums: List[int], target: int) -> bool:
     return False
 
 
-def subset_sum_mitm_count(nums: List[int], target: int) -> int:
+def subset_sum_mitm_count(nums: list[int], target: int) -> int:
     """
     Count the number of subsets whose sum equals target using meet-in-the-middle.
     """
@@ -75,7 +74,7 @@ def subset_sum_mitm_count(nums: List[int], target: int) -> int:
     return total
 
 
-def subset_sum_mitm_closest(nums: List[int]) -> Tuple[int, int]:
+def subset_sum_mitm_closest(nums: list[int]) -> tuple[int, int]:
     """
     Partition nums into two groups with sum as close as possible.
     Returns (sumA, sumB) with |sumA - sumB| minimized.

@@ -1,4 +1,3 @@
-from typing import List, Tuple
 
 
 def gcd(a: int, b: int) -> int:
@@ -21,7 +20,7 @@ def lcm(a: int, b: int) -> int:
     return abs(a // gcd(a, b) * b)
 
 
-def extended_gcd(a: int, b: int) -> Tuple[int, int, int]:
+def extended_gcd(a: int, b: int) -> tuple[int, int, int]:
     """
     Extended Euclidean algorithm.
     Returns (g, x, y) such that ax + by = g = gcd(a, b)
@@ -75,7 +74,7 @@ def mod_inverse_extgcd(a: int, mod: int) -> int:
     return x % mod
 
 
-def sieve_of_eratosthenes(n: int) -> List[int]:
+def sieve_of_eratosthenes(n: int) -> list[int]:
     """
     Generate all prime numbers up to and including n.
     Time: O(n log log n)
@@ -95,7 +94,7 @@ def sieve_of_eratosthenes(n: int) -> List[int]:
     return [i for i, is_prime in enumerate(sieve) if is_prime]
 
 
-def smallest_prime_factors(n: int) -> List[int]:
+def smallest_prime_factors(n: int) -> list[int]:
     """
     Precompute smallest prime factor (spf) for each number up to n.
     Useful for fast factorization queries.
@@ -110,7 +109,7 @@ def smallest_prime_factors(n: int) -> List[int]:
     return spf
 
 
-def factorize_with_spf(x: int, spf: List[int]) -> List[int]:
+def factorize_with_spf(x: int, spf: list[int]) -> list[int]:
     """
     Factorize x using a precomputed SPF array.
     Returns prime factors (with multiplicity).
@@ -125,7 +124,7 @@ def factorize_with_spf(x: int, spf: List[int]) -> List[int]:
     return res
 
 
-def prefix_sums(arr: List[int]) -> List[int]:
+def prefix_sums(arr: list[int]) -> list[int]:
     """
     Compute 1D prefix sums where pref[i] = sum(arr[0..i-1]).
     Length of pref = len(arr) + 1, pref[0] = 0.
@@ -138,7 +137,7 @@ def prefix_sums(arr: List[int]) -> List[int]:
     return pref
 
 
-def range_sum_with_prefix(pref: List[int], l: int, r: int) -> int:
+def range_sum_with_prefix(pref: list[int], l: int, r: int) -> int:
     """
     Compute range sum using prefix sums. l and r inclusive.
     """
@@ -149,7 +148,7 @@ def range_sum_with_prefix(pref: List[int], l: int, r: int) -> int:
     return pref[r + 1] - pref[l]
 
 
-def difference_array(arr: List[int]) -> List[int]:
+def difference_array(arr: list[int]) -> list[int]:
     """
     Build difference array diff of arr where:
     diff[0] = arr[0], diff[i] = arr[i] - arr[i-1].
@@ -168,7 +167,7 @@ def difference_array(arr: List[int]) -> List[int]:
     return diff
 
 
-def apply_range_increment(diff: List[int], l: int, r: int, delta: int) -> None:
+def apply_range_increment(diff: list[int], l: int, r: int, delta: int) -> None:
     """
     Apply range increment to difference array diff for [l, r] by delta.
     Does in-place updates.
@@ -181,7 +180,7 @@ def apply_range_increment(diff: List[int], l: int, r: int, delta: int) -> None:
         diff[r + 1] -= delta
 
 
-def recover_from_difference(diff: List[int]) -> List[int]:
+def recover_from_difference(diff: list[int]) -> list[int]:
     """
     Recover original array from difference array by prefix sums.
     """
@@ -194,7 +193,7 @@ def recover_from_difference(diff: List[int]) -> List[int]:
     return arr
 
 
-def prefix_sums_2d(matrix: List[List[int]]) -> List[List[int]]:
+def prefix_sums_2d(matrix: list[list[int]]) -> list[list[int]]:
     """
     Compute 2D prefix sums (integral image).
     pref[i+1][j+1] = sum of submatrix (0,0) .. (i,j)
@@ -212,7 +211,7 @@ def prefix_sums_2d(matrix: List[List[int]]) -> List[List[int]]:
     return pref
 
 
-def sum_region(pref: List[List[int]], r1: int, c1: int, r2: int, c2: int) -> int:
+def sum_region(pref: list[list[int]], r1: int, c1: int, r2: int, c2: int) -> int:
     """
     Sum of rectangle with corners (r1, c1) to (r2, c2) inclusive using 2D prefix sums.
     """
@@ -254,7 +253,7 @@ def demo():
     print(f"Primes: {primes}")
     spf = smallest_prime_factors(50)
     val = 42
-    print(f"Smallest prime factors array up to 50 computed.")
+    print("Smallest prime factors array up to 50 computed.")
     print(f"Factorization of {val} via SPF: {factorize_with_spf(val, spf)}")
     print()
 

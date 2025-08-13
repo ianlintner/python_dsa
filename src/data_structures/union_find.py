@@ -1,4 +1,4 @@
-from typing import List, Dict, Any
+from typing import Any
 
 
 class UnionFind:
@@ -74,7 +74,7 @@ class UnionFind:
         """Get number of connected components."""
         return self.components
 
-    def get_components(self) -> Dict[int, List[int]]:
+    def get_components(self) -> dict[int, list[int]]:
         """Get all components as dict mapping root -> list of nodes."""
         components = {}
         for i in range(len(self.parent)):
@@ -91,9 +91,9 @@ class UnionFindWithValues:
     """
 
     def __init__(self):
-        self.parent: Dict[Any, Any] = {}
-        self.rank: Dict[Any, int] = {}
-        self.size: Dict[Any, int] = {}
+        self.parent: dict[Any, Any] = {}
+        self.rank: dict[Any, int] = {}
+        self.size: dict[Any, int] = {}
         self.components = 0
 
     def make_set(self, x: Any) -> None:
@@ -142,7 +142,7 @@ class UnionFindWithValues:
         return self.find(x) == self.find(y)
 
 
-def count_connected_components(n: int, edges: List[List[int]]) -> int:
+def count_connected_components(n: int, edges: list[list[int]]) -> int:
     """
     Count connected components in undirected graph.
 
@@ -156,7 +156,7 @@ def count_connected_components(n: int, edges: List[List[int]]) -> int:
     return uf.num_components()
 
 
-def has_cycle_undirected(n: int, edges: List[List[int]]) -> bool:
+def has_cycle_undirected(n: int, edges: list[list[int]]) -> bool:
     """
     Detect cycle in undirected graph using Union-Find.
 
@@ -173,7 +173,7 @@ def has_cycle_undirected(n: int, edges: List[List[int]]) -> bool:
     return False
 
 
-def accounts_merge(accounts: List[List[str]]) -> List[List[str]]:
+def accounts_merge(accounts: list[list[str]]) -> list[list[str]]:
     """
     Merge accounts that belong to the same person.
 

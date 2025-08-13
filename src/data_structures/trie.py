@@ -1,4 +1,3 @@
-from typing import Dict, List, Optional
 
 
 class TrieNode:
@@ -7,7 +6,7 @@ class TrieNode:
     __slots__ = ("children", "is_end", "count")
 
     def __init__(self):
-        self.children: Dict[str, TrieNode] = {}
+        self.children: dict[str, TrieNode] = {}
         self.is_end: bool = False  # True if this node represents end of a word
         self.count: int = 0  # Number of words ending at this node
 
@@ -72,7 +71,7 @@ class Trie:
             return 0
         return self._count_words_from_node(node)
 
-    def get_words_with_prefix(self, prefix: str, limit: int = 10) -> List[str]:
+    def get_words_with_prefix(self, prefix: str, limit: int = 10) -> list[str]:
         """Get up to 'limit' words that start with given prefix."""
         node = self._find_node(prefix)
         if node is None:
@@ -118,7 +117,7 @@ class Trie:
             return True
         return False
 
-    def get_all_words(self) -> List[str]:
+    def get_all_words(self) -> list[str]:
         """Get all words in the trie."""
         words = []
         self._collect_words(self.root, "", words, float("inf"))
@@ -139,7 +138,7 @@ class Trie:
 
         return prefix
 
-    def _find_node(self, prefix: str) -> Optional[TrieNode]:
+    def _find_node(self, prefix: str) -> TrieNode | None:
         """Find the node corresponding to given prefix."""
         node = self.root
         for char in prefix:
@@ -155,7 +154,7 @@ class Trie:
             count += self._count_words_from_node(child)
         return count
 
-    def _collect_words(self, node: TrieNode, prefix: str, words: List[str], limit: int) -> None:
+    def _collect_words(self, node: TrieNode, prefix: str, words: list[str], limit: int) -> None:
         """Collect words from subtree rooted at node."""
         if len(words) >= limit:
             return
@@ -214,7 +213,7 @@ class WordDictionary:
             return self._search_helper(word, index + 1, node.children[char])
 
 
-def find_words_in_board(board: List[List[str]], words: List[str]) -> List[str]:
+def find_words_in_board(board: list[list[str]], words: list[str]) -> list[str]:
     """
     Find all words from dictionary that can be formed on 2D board.
 

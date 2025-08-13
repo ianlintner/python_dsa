@@ -1,7 +1,6 @@
-from typing import List
 
 
-def next_greater_elements(nums: List[int]) -> List[int]:
+def next_greater_elements(nums: list[int]) -> list[int]:
     """
     Next Greater Element for each element in array (to the right).
 
@@ -12,7 +11,7 @@ def next_greater_elements(nums: List[int]) -> List[int]:
     """
     n = len(nums)
     res = [-1] * n
-    stack: List[int] = []  # store indices, values are increasing by index stack
+    stack: list[int] = []  # store indices, values are increasing by index stack
 
     for i, x in enumerate(nums):
         while stack and nums[stack[-1]] < x:
@@ -22,7 +21,7 @@ def next_greater_elements(nums: List[int]) -> List[int]:
     return res
 
 
-def next_greater_elements_values(nums: List[int]) -> List[int]:
+def next_greater_elements_values(nums: list[int]) -> list[int]:
     """
     Variant returning the values instead of indices. -1 if none.
     For each position i, returns nums[next_greater_index[i]] or -1 if not found.
@@ -31,7 +30,7 @@ def next_greater_elements_values(nums: List[int]) -> List[int]:
     return [nums[j] if j != -1 else -1 for j in idxs]
 
 
-def daily_temperatures(temps: List[int]) -> List[int]:
+def daily_temperatures(temps: list[int]) -> list[int]:
     """
     LeetCode 739: Daily Temperatures.
     For each day, how many days until a warmer temperature.
@@ -41,7 +40,7 @@ def daily_temperatures(temps: List[int]) -> List[int]:
     """
     n = len(temps)
     ans = [0] * n
-    stack: List[int] = []  # decreasing stack of indices by temperature
+    stack: list[int] = []  # decreasing stack of indices by temperature
     for i, t in enumerate(temps):
         while stack and temps[stack[-1]] < t:
             j = stack.pop()
@@ -50,7 +49,7 @@ def daily_temperatures(temps: List[int]) -> List[int]:
     return ans
 
 
-def largest_rectangle_area(heights: List[int]) -> int:
+def largest_rectangle_area(heights: list[int]) -> int:
     """
     LeetCode 84: Largest Rectangle in Histogram.
 
@@ -59,7 +58,7 @@ def largest_rectangle_area(heights: List[int]) -> int:
     Time: O(n)
     Space: O(n)
     """
-    stack: List[int] = []  # indices of ascending heights
+    stack: list[int] = []  # indices of ascending heights
     max_area = 0
     # Append sentinel height 0 at the end to flush the stack
     for i, h in enumerate(heights + [0]):
@@ -74,14 +73,14 @@ def largest_rectangle_area(heights: List[int]) -> int:
     return max_area
 
 
-def trap_rain_water(heights: List[int]) -> int:
+def trap_rain_water(heights: list[int]) -> int:
     """
     LeetCode 42: Trapping Rain Water using monotonic stack.
 
     Time: O(n)
     Space: O(n)
     """
-    stack: List[int] = []  # indices; heights at indices are non-decreasing
+    stack: list[int] = []  # indices; heights at indices are non-decreasing
     water = 0
     for i, h in enumerate(heights):
         while stack and heights[stack[-1]] < h:

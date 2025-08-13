@@ -1,7 +1,6 @@
-from typing import List
 
 
-def heap_sort(a: List[int]) -> List[int]:
+def heap_sort(a: list[int]) -> list[int]:
     """
     In-place O(n log n) sort using binary heap. Not stable.
 
@@ -45,7 +44,7 @@ def heap_sort(a: List[int]) -> List[int]:
     return arr
 
 
-def _sift_down(a: List[int], heap_size: int, root: int):
+def _sift_down(a: list[int], heap_size: int, root: int):
     """
     Sift down element at root to maintain max heap property.
 
@@ -75,7 +74,7 @@ def _sift_down(a: List[int], heap_size: int, root: int):
         root = largest
 
 
-def _sift_up(a: List[int], child: int):
+def _sift_up(a: list[int], child: int):
     """
     Sift up element at child to maintain max heap property.
     Used when inserting new elements into heap.
@@ -90,7 +89,7 @@ def _sift_up(a: List[int], child: int):
         child = parent
 
 
-def build_max_heap(a: List[int]) -> List[int]:
+def build_max_heap(a: list[int]) -> list[int]:
     """
     Build max heap from unsorted array.
     Time: O(n) - not O(n log n)!
@@ -105,7 +104,7 @@ def build_max_heap(a: List[int]) -> List[int]:
     return arr
 
 
-def heap_sort_min(a: List[int]) -> List[int]:
+def heap_sort_min(a: list[int]) -> list[int]:
     """
     Heap sort using min heap (for descending order).
     """
@@ -127,7 +126,7 @@ def heap_sort_min(a: List[int]) -> List[int]:
     return arr
 
 
-def _sift_down_min(a: List[int], heap_size: int, root: int):
+def _sift_down_min(a: list[int], heap_size: int, root: int):
     """Sift down for min heap."""
     while True:
         left = 2 * root + 1
@@ -147,7 +146,7 @@ def _sift_down_min(a: List[int], heap_size: int, root: int):
         root = smallest
 
 
-def find_kth_largest(a: List[int], k: int) -> int:
+def find_kth_largest(a: list[int], k: int) -> int:
     """
     Find kth largest element using heap.
     Alternative to quickselect.

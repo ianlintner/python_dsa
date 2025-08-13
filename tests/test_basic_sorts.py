@@ -1,9 +1,8 @@
 import random
-import pytest
 
+from algorithms.sorting.bubble_sort import bubble_sort, bubble_sort_inplace
 from algorithms.sorting.insertion_sort import insertion_sort, insertion_sort_inplace
 from algorithms.sorting.selection_sort import selection_sort, selection_sort_inplace
-from algorithms.sorting.bubble_sort import bubble_sort, bubble_sort_inplace
 
 
 class TestBasicSorts:

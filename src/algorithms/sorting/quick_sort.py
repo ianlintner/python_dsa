@@ -1,8 +1,7 @@
-from typing import List
 import random
 
 
-def quick_sort(a: List[int]) -> List[int]:
+def quick_sort(a: list[int]) -> list[int]:
     """
     Average O(n log n), worst-case O(n^2). Not stable. Can be in-place.
 
@@ -33,7 +32,7 @@ def quick_sort(a: List[int]) -> List[int]:
     return arr
 
 
-def _quicksort_recursive(a: List[int], lo: int, hi: int):
+def _quicksort_recursive(a: list[int], lo: int, hi: int):
     """Recursive quicksort helper."""
     if lo >= hi:
         return
@@ -44,7 +43,7 @@ def _quicksort_recursive(a: List[int], lo: int, hi: int):
     _quicksort_recursive(a, pivot_idx + 1, hi)
 
 
-def _partition_hoare_random(a: List[int], lo: int, hi: int) -> int:
+def _partition_hoare_random(a: list[int], lo: int, hi: int) -> int:
     """
     Hoare partition scheme with randomized pivot.
     Returns partition index where left side <= pivot, right side >= pivot.
@@ -75,7 +74,7 @@ def _partition_hoare_random(a: List[int], lo: int, hi: int) -> int:
         a[i], a[j] = a[j], a[i]
 
 
-def _partition_lomuto(a: List[int], lo: int, hi: int) -> int:
+def _partition_lomuto(a: list[int], lo: int, hi: int) -> int:
     """
     Lomuto partition scheme (simpler but does more swaps).
     Returns partition index where left side <= pivot, right side > pivot.
@@ -93,7 +92,7 @@ def _partition_lomuto(a: List[int], lo: int, hi: int) -> int:
     return i
 
 
-def quick_sort_3way(a: List[int]) -> List[int]:
+def quick_sort_3way(a: list[int]) -> list[int]:
     """
     3-way quicksort for handling many duplicate keys efficiently.
     Partitions into: < pivot, = pivot, > pivot
@@ -108,7 +107,7 @@ def quick_sort_3way(a: List[int]) -> List[int]:
     return arr
 
 
-def _quicksort_3way_recursive(a: List[int], lo: int, hi: int):
+def _quicksort_3way_recursive(a: list[int], lo: int, hi: int):
     """3-way quicksort recursive helper."""
     if lo >= hi:
         return
@@ -118,7 +117,7 @@ def _quicksort_3way_recursive(a: List[int], lo: int, hi: int):
     _quicksort_3way_recursive(a, gt + 1, hi)
 
 
-def _partition_3way(a: List[int], lo: int, hi: int) -> tuple[int, int]:
+def _partition_3way(a: list[int], lo: int, hi: int) -> tuple[int, int]:
     """
     3-way partition: a[lo..lt-1] < pivot, a[lt..gt] = pivot, a[gt+1..hi] > pivot
     Returns (lt, gt) indices.
@@ -141,7 +140,7 @@ def _partition_3way(a: List[int], lo: int, hi: int) -> tuple[int, int]:
     return lt, gt
 
 
-def quick_sort_iterative(a: List[int]) -> List[int]:
+def quick_sort_iterative(a: list[int]) -> list[int]:
     """
     Iterative quicksort to avoid recursion stack overflow.
     Uses explicit stack to simulate recursion.

@@ -1,4 +1,4 @@
-from typing import Sequence, Optional
+from collections.abc import Sequence
 
 
 def binary_search(a: Sequence[int], target: int) -> int:
@@ -36,7 +36,7 @@ def binary_search(a: Sequence[int], target: int) -> int:
 
 
 def binary_search_recursive(
-    a: Sequence[int], target: int, lo: int = 0, hi: Optional[int] = None
+    a: Sequence[int], target: int, lo: int = 0, hi: int | None = None
 ) -> int:
     """Recursive implementation of binary search."""
     if hi is None:

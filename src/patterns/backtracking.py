@@ -1,7 +1,6 @@
-from typing import List, Tuple, Set
 
 
-def solve_n_queens(n: int) -> List[List[str]]:
+def solve_n_queens(n: int) -> list[list[str]]:
     """
     N-Queens backtracking.
 
@@ -10,11 +9,11 @@ def solve_n_queens(n: int) -> List[List[str]]:
 
     Returns boards as list of strings.
     """
-    res: List[List[str]] = []
+    res: list[list[str]] = []
     board = ["." * n for _ in range(n)]
-    cols: Set[int] = set()
-    diag1: Set[int] = set()  # r - c
-    diag2: Set[int] = set()  # r + c
+    cols: set[int] = set()
+    diag1: set[int] = set()  # r - c
+    diag2: set[int] = set()  # r + c
 
     def place(r: int):
         if r == n:
@@ -37,7 +36,7 @@ def solve_n_queens(n: int) -> List[List[str]]:
     return res
 
 
-def solve_sudoku(board: List[List[str]]) -> bool:
+def solve_sudoku(board: list[list[str]]) -> bool:
     """
     Sudoku solver (9x9) with backtracking.
     Mutates board in-place; returns True if solved.
@@ -47,7 +46,7 @@ def solve_sudoku(board: List[List[str]]) -> bool:
     rows = [set() for _ in range(9)]
     cols = [set() for _ in range(9)]
     boxes = [set() for _ in range(9)]
-    empties: List[Tuple[int, int]] = []
+    empties: list[tuple[int, int]] = []
 
     def box_id(r: int, c: int) -> int:
         return (r // 3) * 3 + (c // 3)
@@ -85,7 +84,7 @@ def solve_sudoku(board: List[List[str]]) -> bool:
     return dfs(0)
 
 
-def exist_word(board: List[List[str]], word: str) -> bool:
+def exist_word(board: list[list[str]], word: str) -> bool:
     """
     Word Search (LeetCode 79): Check if word exists in board scanning 4-dir.
 

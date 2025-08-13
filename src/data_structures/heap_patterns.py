@@ -1,9 +1,8 @@
 import heapq
 from collections import Counter
-from typing import Iterable, Iterator, List, Optional, Tuple
 
 
-def k_largest(nums: List[int], k: int) -> List[int]:
+def k_largest(nums: list[int], k: int) -> list[int]:
     """
     Return k largest elements using a min-heap of size k.
     Time: O(n log k), Space: O(k)
@@ -20,7 +19,7 @@ def k_largest(nums: List[int], k: int) -> List[int]:
     return sorted(heap, reverse=True)
 
 
-def top_k_frequent(nums: List[int], k: int) -> List[int]:
+def top_k_frequent(nums: list[int], k: int) -> list[int]:
     """
     Return k most frequent elements.
     Strategy: frequency map + min-heap of size k on (freq, num).
@@ -29,7 +28,7 @@ def top_k_frequent(nums: List[int], k: int) -> List[int]:
     if k <= 0:
         return []
     freq = Counter(nums)
-    heap: List[Tuple[int, int]] = []
+    heap: list[tuple[int, int]] = []
     for num, f in freq.items():
         if len(heap) < k:
             heapq.heappush(heap, (f, num))
@@ -41,13 +40,13 @@ def top_k_frequent(nums: List[int], k: int) -> List[int]:
     return [num for _, num in heap]
 
 
-def merge_k_sorted(arrs: List[List[int]]) -> List[int]:
+def merge_k_sorted(arrs: list[list[int]]) -> list[int]:
     """
     Merge k sorted lists into one sorted list.
     Time: O(N log k), N = total elements. Space: O(k)
     """
-    res: List[int] = []
-    heap: List[Tuple[int, int, int]] = []  # (value, list_index, element_index)
+    res: list[int] = []
+    heap: list[tuple[int, int, int]] = []  # (value, list_index, element_index)
     for i, arr in enumerate(arrs):
         if arr:
             heapq.heappush(heap, (arr[0], i, 0))
@@ -69,8 +68,8 @@ class MedianMaintenance:
     """
 
     def __init__(self):
-        self.low: List[int] = []  # max-heap (store -x)
-        self.high: List[int] = []  # min-heap
+        self.low: list[int] = []  # max-heap (store -x)
+        self.high: list[int] = []  # min-heap
 
     def add(self, x: int) -> None:
         if not self.low or x <= -self.low[0]:

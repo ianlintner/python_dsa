@@ -1,4 +1,3 @@
-from typing import List, Tuple
 
 
 def edit_distance(word1: str, word2: str) -> int:
@@ -81,7 +80,7 @@ def edit_distance_optimized(word1: str, word2: str) -> int:
     return prev[n]
 
 
-def edit_distance_with_operations(word1: str, word2: str) -> Tuple[int, List[str]]:
+def edit_distance_with_operations(word1: str, word2: str) -> tuple[int, list[str]]:
     """
     Edit distance with reconstruction of actual operations.
 

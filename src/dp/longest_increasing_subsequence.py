@@ -1,8 +1,7 @@
-from typing import List
 import bisect
 
 
-def lis_dp_n2(nums: List[int]) -> int:
+def lis_dp_n2(nums: list[int]) -> int:
     """
     Longest Increasing Subsequence using O(n²) DP.
 
@@ -29,7 +28,7 @@ def lis_dp_n2(nums: List[int]) -> int:
     return max(dp)
 
 
-def lis_binary_search(nums: List[int]) -> int:
+def lis_binary_search(nums: list[int]) -> int:
     """
     Longest Increasing Subsequence using binary search optimization.
 
@@ -61,7 +60,7 @@ def lis_binary_search(nums: List[int]) -> int:
     return len(tails)
 
 
-def lis_with_reconstruction(nums: List[int]) -> tuple[int, List[int]]:
+def lis_with_reconstruction(nums: list[int]) -> tuple[int, list[int]]:
     """
     Find LIS length and reconstruct the actual subsequence.
 
@@ -100,7 +99,7 @@ def lis_with_reconstruction(nums: List[int]) -> tuple[int, List[int]]:
     return max_length, lis
 
 
-def lis_binary_search_with_reconstruction(nums: List[int]) -> tuple[int, List[int]]:
+def lis_binary_search_with_reconstruction(nums: list[int]) -> tuple[int, list[int]]:
     """
     O(n log n) LIS with subsequence reconstruction.
 
@@ -155,7 +154,7 @@ def lis_binary_search_with_reconstruction(nums: List[int]) -> tuple[int, List[in
     return max_length, lis
 
 
-def longest_decreasing_subsequence(nums: List[int]) -> int:
+def longest_decreasing_subsequence(nums: list[int]) -> int:
     """
     Longest Decreasing Subsequence - variation of LIS.
 
@@ -178,7 +177,7 @@ def longest_decreasing_subsequence(nums: List[int]) -> int:
     return len(tails)
 
 
-def lis_count(nums: List[int]) -> int:
+def lis_count(nums: list[int]) -> int:
     """
     Count the number of different LIS.
 
@@ -208,7 +207,7 @@ def lis_count(nums: List[int]) -> int:
     return sum(counts[i] for i in range(n) if lengths[i] == max_length)
 
 
-def russian_doll_envelopes(envelopes: List[List[int]]) -> int:
+def russian_doll_envelopes(envelopes: list[list[int]]) -> int:
     """
     Russian Doll Envelopes - 2D LIS problem.
 
@@ -228,7 +227,7 @@ def russian_doll_envelopes(envelopes: List[List[int]]) -> int:
     return lis_binary_search(heights)
 
 
-def box_stacking(boxes: List[List[int]]) -> int:
+def box_stacking(boxes: list[list[int]]) -> int:
     """
     Box Stacking problem - 3D variation.
 

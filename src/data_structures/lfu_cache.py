@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from typing import Dict, Optional, Tuple
 
 
 class LFUCache:
@@ -22,13 +21,13 @@ class LFUCache:
     def __init__(self, capacity: int):
         self.capacity = capacity
         self.size = 0
-        self.key_to_val_freq: Dict[int, Tuple[int, int]] = {}  # key -> (value, freq)
-        self.freq_to_keys: Dict[
+        self.key_to_val_freq: dict[int, tuple[int, int]] = {}  # key -> (value, freq)
+        self.freq_to_keys: dict[
             int, OrderedDict[int, None]
         ] = {}  # freq -> OrderedDict of keys (None placeholders)
         self.min_freq = 0
 
-    def _touch(self, key: int, new_value: Optional[int] = None) -> None:
+    def _touch(self, key: int, new_value: int | None = None) -> None:
         """Increase frequency of key; optionally update its value."""
         val, freq = self.key_to_val_freq[key]
         if new_value is not None:

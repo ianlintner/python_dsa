@@ -1,5 +1,5 @@
-from collections import deque, defaultdict
-from typing import Deque, Dict, Iterable, List, Set, Tuple
+from collections import defaultdict
+from collections.abc import Iterable
 
 """
 Sharded (Level-Synchronous) BFS Simulation
@@ -30,9 +30,9 @@ Complexity:
   - Communication cost: proportional to inter-shard edges traversed.
 """
 
-Graph = Dict[int, List[int]]
-Partitions = Dict[int, int]  # node -> shard_id
-ShardGraphs = Dict[int, Graph]  # shard_id -> subgraph (only owns adjacency for its nodes)
+Graph = dict[int, list[int]]
+Partitions = dict[int, int]  # node -> shard_id
+ShardGraphs = dict[int, Graph]  # shard_id -> subgraph (only owns adjacency for its nodes)
 
 
 def partition_round_robin(nodes: Iterable[int], num_shards: int) -> Partitions:
@@ -49,7 +49,7 @@ def build_shard_graph(graph: Graph, parts: Partitions, num_shards: int) -> Shard
 
 def sharded_bfs(
     graph: Graph, start: int, num_shards: int = 3, partitioner=partition_round_robin
-) -> Dict[int, int]:
+) -> dict[int, int]:
     """
     Simulate a sharded level-synchronous BFS.
 
@@ -64,19 +64,19 @@ def sharded_bfs(
     shards = build_shard_graph(graph, parts, num_shards)
 
     # Per-shard state
-    distances: Dict[int, int] = {}  # global distances
-    frontiers: Dict[int, Set[int]] = {s: set() for s in range(num_shards)}
+    distances: dict[int, int] = {}  # global distances
+    frontiers: dict[int, set[int]] = {s: set() for s in range(num_shards)}
 
     start_shard = parts[start]
     frontiers[start_shard].add(start)
     distances[start] = 0
 
-    visited: Set[int] = {start}
+    visited: set[int] = {start}
     level = 0
 
     while any(frontiers[s] for s in range(num_shards)):
         # Messages to send to shard_id: set(nodes)
-        messages: Dict[int, Set[int]] = {s: set() for s in range(num_shards)}
+        messages: dict[int, set[int]] = {s: set() for s in range(num_shards)}
 
         # Each shard processes its local frontier
         for s in range(num_shards):

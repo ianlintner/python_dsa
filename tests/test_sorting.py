@@ -1,8 +1,10 @@
-import pytest
 import random
+
+import pytest
+
+from algorithms.sorting.heap_sort import heap_sort
 from algorithms.sorting.merge_sort import merge_sort, merge_sort_inplace
 from algorithms.sorting.quick_sort import quick_sort, quick_sort_3way
-from algorithms.sorting.heap_sort import heap_sort
 from utils.check_sorted import is_sorted
 
 

@@ -1,11 +1,10 @@
-from typing import List, Tuple, Optional
 
 INF = float("inf")
 
 
 def build_adj_matrix(
-    n: int, edges: List[Tuple[int, int, float]], directed: bool = True
-) -> List[List[float]]:
+    n: int, edges: list[tuple[int, int, float]], directed: bool = True
+) -> list[list[float]]:
     """
     Build adjacency matrix from edge list.
     edges: list of (u, v, w). If not directed, adds both directions.
@@ -22,7 +21,7 @@ def build_adj_matrix(
     return dist
 
 
-def floyd_warshall(dist: List[List[float]]) -> Tuple[List[List[float]], List[List[Optional[int]]]]:
+def floyd_warshall(dist: list[list[float]]) -> tuple[list[list[float]], list[list[int | None]]]:
     """
     Floyd–Warshall algorithm for All-Pairs Shortest Paths (APSP).
 
@@ -44,7 +43,7 @@ def floyd_warshall(dist: List[List[float]]) -> Tuple[List[List[float]], List[Lis
     """
     n = len(dist)
     # Initialize next-hop for path reconstruction
-    next_hop: List[List[Optional[int]]] = [[None] * n for _ in range(n)]
+    next_hop: list[list[int | None]] = [[None] * n for _ in range(n)]
     for i in range(n):
         for j in range(n):
             if dist[i][j] != INF and i != j:
@@ -90,7 +89,7 @@ def _is_neginf(x: float) -> bool:
 
 
 # Replace -INF above with explicit float negative infinity
-def _propagate_neg_inf(dist: List[List[float]]) -> None:
+def _propagate_neg_inf(dist: list[list[float]]) -> None:
     n = len(dist)
     for i in range(n):
         for j in range(n):
@@ -98,7 +97,7 @@ def _propagate_neg_inf(dist: List[List[float]]) -> None:
                 dist[i][j] = _NEG_INF
 
 
-def reconstruct_path(next_hop: List[List[Optional[int]]], u: int, v: int) -> List[int]:
+def reconstruct_path(next_hop: list[list[int | None]], u: int, v: int) -> list[int]:
     """
     Reconstruct path from u to v using next_hop produced by floyd_warshall.
     Returns empty list if unreachable or path undefined due to negative cycle.
@@ -120,7 +119,7 @@ def reconstruct_path(next_hop: List[List[Optional[int]]], u: int, v: int) -> Lis
     return path
 
 
-def has_negative_cycle(dist: List[List[float]]) -> bool:
+def has_negative_cycle(dist: list[list[float]]) -> bool:
     """Return True if any dist[i][i] < 0 indicating a negative cycle."""
     return any(dist[i][i] < 0 for i in range(len(dist)))
 

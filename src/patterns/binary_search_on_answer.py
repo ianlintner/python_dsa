@@ -1,8 +1,7 @@
 from bisect import bisect_right
-from typing import List
 
 
-def ship_within_days(weights: List[int], days: int) -> int:
+def ship_within_days(weights: list[int], days: int) -> int:
     """
     LeetCode 1011: Capacity To Ship Packages Within D Days.
     Binary search on capacity. Feasibility: greedy pack until overflow -> new day.
@@ -34,14 +33,13 @@ def ship_within_days(weights: List[int], days: int) -> int:
     return lo
 
 
-def min_eating_speed(piles: List[int], h: int) -> int:
+def min_eating_speed(piles: list[int], h: int) -> int:
     """
     LeetCode 875: Koko Eating Bananas.
     Binary search on speed k. Feasibility: sum(ceil(p/k)) <= h.
 
     Time: O(n log max(p))
     """
-    import math
 
     lo, hi = 1, max(piles)
 
@@ -57,7 +55,7 @@ def min_eating_speed(piles: List[int], h: int) -> int:
     return lo
 
 
-def split_array_largest_sum(nums: List[int], m: int) -> int:
+def split_array_largest_sum(nums: list[int], m: int) -> int:
     """
     LeetCode 410: Split Array Largest Sum.
     Minimize the largest subarray sum by splitting into m parts. Binary search on answer.
@@ -88,7 +86,7 @@ def split_array_largest_sum(nums: List[int], m: int) -> int:
     return lo
 
 
-def kth_smallest_in_sorted_matrix(matrix: List[List[int]], k: int) -> int:
+def kth_smallest_in_sorted_matrix(matrix: list[list[int]], k: int) -> int:
     """
     LeetCode 378: Kth Smallest Element in a Sorted Matrix (rows and columns sorted).
     Binary search on value domain [min, max]. Counting <= mid per row via upper_bound.

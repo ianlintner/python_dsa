@@ -1,4 +1,5 @@
-from typing import Sequence, Any
+from collections.abc import Sequence
+from typing import Any
 
 
 def is_sorted(a: Sequence[Any], reverse: bool = False) -> bool:

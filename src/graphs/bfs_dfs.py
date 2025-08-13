@@ -1,11 +1,11 @@
 from collections import deque
-from typing import Dict, List, Set, Hashable, Optional, Tuple
+from collections.abc import Hashable
 
 # Type alias for adjacency list representation
-Graph = Dict[Hashable, List[Hashable]]
+Graph = dict[Hashable, list[Hashable]]
 
 
-def bfs(graph: Graph, start: Hashable) -> List[Hashable]:
+def bfs(graph: Graph, start: Hashable) -> list[Hashable]:
     """
     Breadth-First Search traversal.
 
@@ -26,7 +26,7 @@ def bfs(graph: Graph, start: Hashable) -> List[Hashable]:
     if start not in graph:
         return []
 
-    visited: Set[Hashable] = {start}
+    visited: set[Hashable] = {start}
     queue = deque([start])
     result = []
 
@@ -42,7 +42,7 @@ def bfs(graph: Graph, start: Hashable) -> List[Hashable]:
     return result
 
 
-def bfs_shortest_path(graph: Graph, start: Hashable, target: Hashable) -> Optional[List[Hashable]]:
+def bfs_shortest_path(graph: Graph, start: Hashable, target: Hashable) -> list[Hashable] | None:
     """
     Find shortest path between start and target using BFS.
     Returns None if no path exists.
@@ -53,7 +53,7 @@ def bfs_shortest_path(graph: Graph, start: Hashable, target: Hashable) -> Option
     if start not in graph:
         return None
 
-    visited: Set[Hashable] = {start}
+    visited: set[Hashable] = {start}
     queue = deque([(start, [start])])
 
     while queue:
@@ -70,14 +70,14 @@ def bfs_shortest_path(graph: Graph, start: Hashable, target: Hashable) -> Option
     return None
 
 
-def bfs_level_order(graph: Graph, start: Hashable) -> List[List[Hashable]]:
+def bfs_level_order(graph: Graph, start: Hashable) -> list[list[Hashable]]:
     """
     BFS that returns nodes grouped by level/distance from start.
     """
     if start not in graph:
         return []
 
-    visited: Set[Hashable] = {start}
+    visited: set[Hashable] = {start}
     current_level = [start]
     levels = []
 
@@ -97,8 +97,8 @@ def bfs_level_order(graph: Graph, start: Hashable) -> List[List[Hashable]]:
 
 
 def dfs_recursive(
-    graph: Graph, start: Hashable, visited: Optional[Set[Hashable]] = None
-) -> List[Hashable]:
+    graph: Graph, start: Hashable, visited: set[Hashable] | None = None
+) -> list[Hashable]:
     """
     Depth-First Search using recursion.
 
@@ -127,14 +127,14 @@ def dfs_recursive(
     return result
 
 
-def dfs_iterative(graph: Graph, start: Hashable) -> List[Hashable]:
+def dfs_iterative(graph: Graph, start: Hashable) -> list[Hashable]:
     """
     Depth-First Search using explicit stack (iterative).
     """
     if start not in graph:
         return []
 
-    visited: Set[Hashable] = set()
+    visited: set[Hashable] = set()
     stack = [start]
     result = []
 
@@ -158,7 +158,7 @@ def dfs_path_exists(graph: Graph, start: Hashable, target: Hashable) -> bool:
     if start == target:
         return True
 
-    visited: Set[Hashable] = set()
+    visited: set[Hashable] = set()
     stack = [start]
 
     while stack:
@@ -174,7 +174,7 @@ def dfs_path_exists(graph: Graph, start: Hashable, target: Hashable) -> bool:
     return False
 
 
-def find_all_paths(graph: Graph, start: Hashable, target: Hashable) -> List[List[Hashable]]:
+def find_all_paths(graph: Graph, start: Hashable, target: Hashable) -> list[list[Hashable]]:
     """
     Find all simple paths from start to target.
     Warning: Can be exponential in number of paths!
@@ -183,9 +183,9 @@ def find_all_paths(graph: Graph, start: Hashable, target: Hashable) -> List[List
     def dfs_all_paths(
         current: Hashable,
         target: Hashable,
-        path: List[Hashable],
-        visited: Set[Hashable],
-        all_paths: List[List[Hashable]],
+        path: list[Hashable],
+        visited: set[Hashable],
+        all_paths: list[list[Hashable]],
     ):
         if current == target:
             all_paths.append(path[:])
@@ -205,11 +205,11 @@ def find_all_paths(graph: Graph, start: Hashable, target: Hashable) -> List[List
     return all_paths
 
 
-def connected_components_undirected(graph: Graph) -> List[List[Hashable]]:
+def connected_components_undirected(graph: Graph) -> list[list[Hashable]]:
     """
     Find all connected components in undirected graph using BFS.
     """
-    visited: Set[Hashable] = set()
+    visited: set[Hashable] = set()
     components = []
 
     for node in graph:
@@ -238,9 +238,9 @@ def has_cycle_undirected(graph: Graph) -> bool:
     Detect cycle in undirected graph using DFS.
     A cycle exists if we visit a node that's already visited and it's not the parent.
     """
-    visited: Set[Hashable] = set()
+    visited: set[Hashable] = set()
 
-    def dfs_cycle(node: Hashable, parent: Optional[Hashable]) -> bool:
+    def dfs_cycle(node: Hashable, parent: Hashable | None) -> bool:
         visited.add(node)
 
         for neighbor in graph.get(node, []):

@@ -1,13 +1,13 @@
-from typing import Callable, Dict, List, Optional, Tuple
 import heapq
+from collections.abc import Callable
 
 
 def a_star(
     start: int,
     goal: int,
-    neighbors: Callable[[int], List[Tuple[int, float]]],
+    neighbors: Callable[[int], list[tuple[int, float]]],
     heuristic: Callable[[int], float],
-) -> Tuple[float, List[int]]:
+) -> tuple[float, list[int]]:
     """
     A* search on a generic graph.
 
@@ -30,14 +30,14 @@ def a_star(
         * h(n) must never overestimate true remaining cost (admissible)
         * Consistency: h(u) <= w(u,v) + h(v) for all edges (u,v)
     """
-    open_heap: List[Tuple[float, int]] = []  # (f = g+h, node)
-    g_score: Dict[int, float] = {start: 0.0}
-    parent: Dict[int, Optional[int]] = {start: None}
+    open_heap: list[tuple[float, int]] = []  # (f = g+h, node)
+    g_score: dict[int, float] = {start: 0.0}
+    parent: dict[int, int | None] = {start: None}
 
     f_start = heuristic(start)
     heapq.heappush(open_heap, (f_start, start))
 
-    in_open: Dict[int, float] = {start: f_start}  # node -> best f seen in heap
+    in_open: dict[int, float] = {start: f_start}  # node -> best f seen in heap
 
     while open_heap:
         f, u = heapq.heappop(open_heap)
@@ -47,8 +47,8 @@ def a_star(
 
         if u == goal:
             # Reconstruct
-            path: List[int] = []
-            cur: Optional[int] = u
+            path: list[int] = []
+            cur: int | None = u
             while cur is not None:
                 path.append(cur)
                 cur = parent[cur]
@@ -68,8 +68,8 @@ def a_star(
 
 
 # Grid A* convenience implementation (4-directional)
-Grid = List[List[int]]
-Coord = Tuple[int, int]
+Grid = list[list[int]]
+Coord = tuple[int, int]
 
 
 def manhattan(a: Coord, b: Coord) -> int:
@@ -82,7 +82,7 @@ def a_star_grid(
     goal: Coord,
     passable: Callable[[int], bool] = lambda cell: cell == 0,
     diagonal: bool = False,
-) -> Tuple[float, List[Coord]]:
+) -> tuple[float, list[Coord]]:
     """
     A* on a 2D grid.
     - grid: 0 = free cell by default, non-zero = blocked (configurable via 'passable')
@@ -136,13 +136,13 @@ def a_star_grid(
     if not passable(grid[start_r][start_c]) or not passable(grid[goal_r][goal_c]):
         return float("inf"), []
 
-    open_heap: List[Tuple[float, Coord]] = []
-    g_score: Dict[Coord, float] = {start: 0.0}
-    parent: Dict[Coord, Optional[Coord]] = {start: None}
+    open_heap: list[tuple[float, Coord]] = []
+    g_score: dict[Coord, float] = {start: 0.0}
+    parent: dict[Coord, Coord | None] = {start: None}
 
     f_start = h(start)
     heapq.heappush(open_heap, (f_start, start))
-    in_open: Dict[Coord, float] = {start: f_start}
+    in_open: dict[Coord, float] = {start: f_start}
 
     while open_heap:
         f, u = heapq.heappop(open_heap)
@@ -151,8 +151,8 @@ def a_star_grid(
 
         if u == goal:
             # Reconstruct path
-            path: List[Coord] = []
-            cur: Optional[Coord] = u
+            path: list[Coord] = []
+            cur: Coord | None = u
             while cur is not None:
                 path.append(cur)
                 cur = parent[cur]
@@ -185,7 +185,7 @@ def demo():
     graph = {0: [(1, 2), (2, 5)], 1: [(2, 1), (3, 3)], 2: [(3, 1)], 3: []}
     start, goal = 0, 3
 
-    def neighbors(u: int) -> List[Tuple[int, float]]:
+    def neighbors(u: int) -> list[tuple[int, float]]:
         return graph.get(u, [])
 
     def h_zero(_: int) -> float:

@@ -1,8 +1,7 @@
-from typing import List, Tuple, Dict
-from collections import deque, Counter
+from collections import Counter, deque
 
 
-def max_sliding_window(nums: List[int], k: int) -> List[int]:
+def max_sliding_window(nums: list[int], k: int) -> list[int]:
     """
     Sliding Window Maximum using a monotonic deque.
 
@@ -29,7 +28,7 @@ def max_sliding_window(nums: List[int], k: int) -> List[int]:
     return out
 
 
-def min_sliding_window(nums: List[int], k: int) -> List[int]:
+def min_sliding_window(nums: list[int], k: int) -> list[int]:
     """
     Sliding Window Minimum using a monotonic deque.
 
@@ -61,7 +60,7 @@ def length_of_longest_substring_without_repeating(s: str) -> int:
 
     LeetCode 3
     """
-    last_index: Dict[str, int] = {}
+    last_index: dict[str, int] = {}
     start = 0
     best = 0
     for i, ch in enumerate(s):
@@ -109,7 +108,7 @@ def min_window_substring(s: str, t: str) -> str:
     return s[l : r + 1]
 
 
-def count_subarrays_sum_k(nums: List[int], k: int) -> int:
+def count_subarrays_sum_k(nums: list[int], k: int) -> int:
     """
     Count subarrays with sum exactly k using prefix sums + hash map.
 
@@ -131,7 +130,7 @@ def count_subarrays_sum_k(nums: List[int], k: int) -> int:
     return ans
 
 
-def longest_ones_with_k_zero_flips(nums: List[int], k: int) -> int:
+def longest_ones_with_k_zero_flips(nums: list[int], k: int) -> int:
     """
     Given binary array nums, return longest subarray with at most k zeros (flip at most k zeros).
 
@@ -154,7 +153,7 @@ def longest_ones_with_k_zero_flips(nums: List[int], k: int) -> int:
     return best
 
 
-def subarray_max_sum_at_most_k(nums: List[int], k: int) -> int:
+def subarray_max_sum_at_most_k(nums: list[int], k: int) -> int:
     """
     Largest subarray length where sum <= k for non-negative nums using sliding window.
 

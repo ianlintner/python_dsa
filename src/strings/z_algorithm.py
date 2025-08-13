@@ -1,7 +1,6 @@
-from typing import List, Tuple
 
 
-def z_array(s: str) -> List[int]:
+def z_array(s: str) -> list[int]:
     """
     Compute Z-array for string s.
     Z[i] = length of the longest substring starting at i which is also a prefix of s.
@@ -32,7 +31,7 @@ def z_array(s: str) -> List[int]:
     return Z
 
 
-def z_search(text: str, pattern: str, sep: str = "$") -> List[int]:
+def z_search(text: str, pattern: str, sep: str = "$") -> list[int]:
     """
     Pattern matching using Z-algorithm.
     Build string P + sep + T and compute Z on it.
@@ -59,7 +58,7 @@ def z_search(text: str, pattern: str, sep: str = "$") -> List[int]:
     return res
 
 
-def longest_substring_prefix_match(s: str) -> List[int]:
+def longest_substring_prefix_match(s: str) -> list[int]:
     """
     For each position i, return the length of the longest prefix of s that matches s[i:].
     This is exactly Z-array semantics, returned for convenience on original string.
@@ -67,7 +66,7 @@ def longest_substring_prefix_match(s: str) -> List[int]:
     return z_array(s)
 
 
-def string_periods(s: str) -> List[int]:
+def string_periods(s: str) -> list[int]:
     """
     Return all periods p of the string such that s[i] == s[i+p] for all valid i.
     Period p means the string is constructed by repeating a substring of length p.
@@ -104,7 +103,7 @@ def longest_border(s: str) -> int:
     return best
 
 
-def z_array_with_explanations(s: str) -> List[Tuple[int, int]]:
+def z_array_with_explanations(s: str) -> list[tuple[int, int]]:
     """
     Return list of tuples (index, Z[index]) for explanatory printing.
     """

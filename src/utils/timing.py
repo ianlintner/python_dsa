@@ -1,6 +1,7 @@
 import time
+from collections.abc import Callable
 from functools import wraps
-from typing import Callable, Any
+from typing import Any
 
 
 def timeit(fn: Callable) -> Callable:
@@ -24,7 +25,7 @@ def time_algorithms(*algorithms):
     def decorator(test_fn):
         @wraps(test_fn)
         def wrapper(*args, **kwargs):
-            print(f"\n=== Timing comparison ===")
+            print("\n=== Timing comparison ===")
             results = {}
             for algo in algorithms:
                 start = time.perf_counter()

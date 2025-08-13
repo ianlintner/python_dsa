@@ -1,17 +1,17 @@
 import pytest
 
-from data_structures.union_find import UnionFind
-from data_structures.trie import Trie, WordDictionary, find_words_in_board
-from data_structures.lru_cache import LRUCache, SimpleLRUCache
-from data_structures.lfu_cache import LFUCache
 from data_structures.fenwick_tree import FenwickTree
-from data_structures.segment_tree import SegmentTree, RangeMinSegmentTree
 from data_structures.heap_patterns import (
-    k_largest,
-    top_k_frequent,
-    merge_k_sorted,
     MedianMaintenance,
+    k_largest,
+    merge_k_sorted,
+    top_k_frequent,
 )
+from data_structures.lfu_cache import LFUCache
+from data_structures.lru_cache import LRUCache, SimpleLRUCache
+from data_structures.segment_tree import RangeMinSegmentTree, SegmentTree
+from data_structures.trie import Trie, WordDictionary, find_words_in_board
+from data_structures.union_find import UnionFind
 
 
 class TestUnionFind:

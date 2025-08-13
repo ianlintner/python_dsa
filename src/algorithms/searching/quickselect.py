@@ -1,8 +1,7 @@
-from typing import List
 import random
 
 
-def quickselect(a: List[int], k: int, smallest: bool = True) -> int:
+def quickselect(a: list[int], k: int, smallest: bool = True) -> int:
     """
     Find kth order statistic using quickselect algorithm.
 
@@ -47,7 +46,7 @@ def quickselect(a: List[int], k: int, smallest: bool = True) -> int:
     return a[lo]
 
 
-def _partition_random(a: List[int], lo: int, hi: int) -> int:
+def _partition_random(a: list[int], lo: int, hi: int) -> int:
     """Lomuto partition with random pivot selection."""
     # Randomize pivot to avoid worst case
     pivot_idx = random.randint(lo, hi)
@@ -65,7 +64,7 @@ def _partition_random(a: List[int], lo: int, hi: int) -> int:
     return i
 
 
-def quickselect_recursive(a: List[int], k: int, lo: int = 0, hi: int = None) -> int:
+def quickselect_recursive(a: list[int], k: int, lo: int = 0, hi: int = None) -> int:
     """Recursive implementation of quickselect."""
     if hi is None:
         hi = len(a) - 1
@@ -83,7 +82,7 @@ def quickselect_recursive(a: List[int], k: int, lo: int = 0, hi: int = None) -> 
         return quickselect_recursive(a, k, pivot_idx + 1, hi)
 
 
-def find_median(a: List[int]) -> float:
+def find_median(a: list[int]) -> float:
     """
     Find median using quickselect.
 
@@ -108,7 +107,7 @@ def find_median(a: List[int]) -> float:
         return (mid1 + mid2) / 2.0
 
 
-def find_kth_largest_heap(a: List[int], k: int) -> int:
+def find_kth_largest_heap(a: list[int], k: int) -> int:
     """
     Alternative: Find kth largest using min heap.
 
@@ -134,7 +133,7 @@ def find_kth_largest_heap(a: List[int], k: int) -> int:
     return heap[0]
 
 
-def find_kth_smallest_heap(a: List[int], k: int) -> int:
+def find_kth_smallest_heap(a: list[int], k: int) -> int:
     """
     Find kth smallest using max heap.
 
@@ -158,7 +157,7 @@ def find_kth_smallest_heap(a: List[int], k: int) -> int:
     return -heap[0]
 
 
-def median_of_medians(a: List[int], k: int) -> int:
+def median_of_medians(a: list[int], k: int) -> int:
     """
     Deterministic O(n) selection using median-of-medians pivot.
 
@@ -166,7 +165,7 @@ def median_of_medians(a: List[int], k: int) -> int:
     More complex but theoretically optimal.
     """
 
-    def select(arr: List[int], left: int, right: int, k: int) -> int:
+    def select(arr: list[int], left: int, right: int, k: int) -> int:
         if left == right:
             return arr[left]
 
@@ -193,7 +192,7 @@ def median_of_medians(a: List[int], k: int) -> int:
         else:
             return select(arr, pivot_idx + 1, right, k)
 
-    def partition_around_value(arr: List[int], left: int, right: int, pivot_val: int) -> int:
+    def partition_around_value(arr: list[int], left: int, right: int, pivot_val: int) -> int:
         # Find pivot and move to end
         for i in range(left, right + 1):
             if arr[i] == pivot_val:

@@ -1,5 +1,4 @@
-from typing import Dict, List
-from functools import lru_cache
+from functools import cache
 
 
 def fibonacci_recursive(n: int) -> int:
@@ -17,7 +16,7 @@ def fibonacci_recursive(n: int) -> int:
     return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
 
 
-def fibonacci_memoized(n: int, memo: Dict[int, int] = None) -> int:
+def fibonacci_memoized(n: int, memo: dict[int, int] = None) -> int:
     """
     Fibonacci with memoization (top-down DP).
 
@@ -43,7 +42,7 @@ def fibonacci_memoized(n: int, memo: Dict[int, int] = None) -> int:
     return memo[n]
 
 
-@lru_cache(maxsize=None)
+@cache
 def fibonacci_lru_cache(n: int) -> int:
     """
     Fibonacci using Python's built-in LRU cache decorator.
@@ -114,14 +113,14 @@ def fibonacci_matrix_power(n: int) -> int:
     This is the fastest method for very large n.
     """
 
-    def matrix_multiply(A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
+    def matrix_multiply(A: list[list[int]], B: list[list[int]]) -> list[list[int]]:
         """Multiply two 2x2 matrices."""
         return [
             [A[0][0] * B[0][0] + A[0][1] * B[1][0], A[0][0] * B[0][1] + A[0][1] * B[1][1]],
             [A[1][0] * B[0][0] + A[1][1] * B[1][0], A[1][0] * B[0][1] + A[1][1] * B[1][1]],
         ]
 
-    def matrix_power(matrix: List[List[int]], power: int) -> List[List[int]]:
+    def matrix_power(matrix: list[list[int]], power: int) -> list[list[int]]:
         """Compute matrix^power using fast exponentiation."""
         if power == 1:
             return matrix
@@ -141,7 +140,7 @@ def fibonacci_matrix_power(n: int) -> int:
     return result_matrix[0][1]  # F(n) is at position [0][1]
 
 
-def fibonacci_sequence(n: int) -> List[int]:
+def fibonacci_sequence(n: int) -> list[int]:
     """
     Generate first n Fibonacci numbers efficiently.
 
@@ -208,7 +207,7 @@ def climbing_stairs(n: int) -> int:
     return prev1
 
 
-def house_robber(nums: List[int]) -> int:
+def house_robber(nums: list[int]) -> int:
     """
     House Robber problem - another Fibonacci-like DP.
 
