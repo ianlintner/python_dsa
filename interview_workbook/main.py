@@ -43,6 +43,8 @@ DEMOS = {
     "patterns.monotonic_stack": ("patterns.monotonic_stack", "demo"),
     "patterns.backtracking": ("patterns.backtracking", "demo"),
     "patterns.meet_in_the_middle": ("patterns.meet_in_the_middle", "demo"),
+    "patterns.binary_search_on_answer": ("patterns.binary_search_on_answer", "demo"),
+    "patterns.two_pointers": ("patterns.two_pointers", "demo"),
 
     # Data structures
     "data_structures.union_find": ("data_structures.union_find", "demo"),
