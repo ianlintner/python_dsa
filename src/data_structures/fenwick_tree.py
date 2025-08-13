@@ -115,17 +115,17 @@ class RangeFenwick:
         if 0 <= idx < self.n:
             bit.add(idx, delta)
 
-    def range_add(self, l: int, r: int, delta: int) -> None:
-        if l > r:
+    def range_add(self, left: int, right: int, delta: int) -> None:
+        if left > right:
             return
         # B1
-        self._add(self.b1, l, delta)
-        if r + 1 < self.n:
-            self._add(self.b1, r + 1, -delta)
+        self._add(self.b1, left, delta)
+        if right + 1 < self.n:
+            self._add(self.b1, right + 1, -delta)
         # B2
-        self._add(self.b2, l, delta * (l))
-        if r + 1 < self.n:
-            self._add(self.b2, r + 1, -delta * (r + 1))
+        self._add(self.b2, left, delta * left)
+        if right + 1 < self.n:
+            self._add(self.b2, right + 1, -delta * (right + 1))
 
     def _prefix_sum(self, i: int) -> int:
         s1 = self.b1.prefix_sum(i)
@@ -135,10 +135,10 @@ class RangeFenwick:
     def prefix_sum(self, i: int) -> int:
         return self._prefix_sum(i)
 
-    def range_sum(self, l: int, r: int) -> int:
-        if r < l:
+    def range_sum(self, left: int, right: int) -> int:
+        if right < left:
             return 0
-        return self._prefix_sum(r) - self._prefix_sum(l - 1)
+        return self._prefix_sum(right) - self._prefix_sum(left - 1)
 
 
 class FenwickTree2D:

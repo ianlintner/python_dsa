@@ -137,15 +137,15 @@ def prefix_sums(arr: list[int]) -> list[int]:
     return pref
 
 
-def range_sum_with_prefix(pref: list[int], l: int, r: int) -> int:
+def range_sum_with_prefix(pref: list[int], left: int, right: int) -> int:
     """
-    Compute range sum using prefix sums. l and r inclusive.
+    Compute range sum using prefix sums. left and right inclusive.
     """
-    if l > r:
+    if right < left:
         return 0
-    l = max(l, 0)
-    r = min(r, len(pref) - 2)
-    return pref[r + 1] - pref[l]
+    left = max(left, 0)
+    right = min(right, len(pref) - 2)
+    return pref[right + 1] - pref[left]
 
 
 def difference_array(arr: list[int]) -> list[int]:
@@ -167,17 +167,17 @@ def difference_array(arr: list[int]) -> list[int]:
     return diff
 
 
-def apply_range_increment(diff: list[int], l: int, r: int, delta: int) -> None:
+def apply_range_increment(diff: list[int], left: int, right: int, delta: int) -> None:
     """
-    Apply range increment to difference array diff for [l, r] by delta.
+    Apply range increment to difference array diff for [left, right] by delta.
     Does in-place updates.
     """
     n = len(diff)
-    if l < 0 or r >= n or l > r:
+    if left < 0 or right >= n or left > right:
         return
-    diff[l] += delta
-    if r + 1 < n:
-        diff[r + 1] -= delta
+    diff[left] += delta
+    if right + 1 < n:
+        diff[right + 1] -= delta
 
 
 def recover_from_difference(diff: list[int]) -> list[int]:
@@ -263,8 +263,8 @@ def demo():
     pref = prefix_sums(arr)
     print(f"Array: {arr}")
     print(f"Prefix sums: {pref}")
-    l, r = 1, 3
-    print(f"range_sum({l}, {r}) = {range_sum_with_prefix(pref, l, r)}")
+    left, right = 1, 3
+    print(f"range_sum({left}, {right}) = {range_sum_with_prefix(pref, left, right)}")
     diff = difference_array(arr)
     print(f"Difference array: {diff}")
     print("Apply range increment [1, 3] by +2")

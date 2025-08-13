@@ -53,18 +53,18 @@ class SegmentTree:
             self._apply(idx << 1 | 1, add, right_len)
             self.lazy[idx] = 0
 
-    def _range_add(self, idx: int, l: int, r: int, ql: int, qr: int, add: int) -> None:
-        if ql > r or qr < l:
+    def _range_add(self, idx: int, left: int, right: int, ql: int, qr: int, add: int) -> None:
+        if ql > right or qr < left:
             return
-        if ql <= l and r <= qr:
-            self._apply(idx, add, r - l + 1)
+        if ql <= left and right <= qr:
+            self._apply(idx, add, right - left + 1)
             return
-        mid = (l + r) // 2
-        left_len = mid - l + 1
-        right_len = r - mid
+        mid = (left + right) // 2
+        left_len = mid - left + 1
+        right_len = right - mid
         self._push(idx, left_len, right_len)
-        self._range_add(idx << 1, l, mid, ql, qr, add)
-        self._range_add(idx << 1 | 1, mid + 1, r, ql, qr, add)
+        self._range_add(idx << 1, left, mid, ql, qr, add)
+        self._range_add(idx << 1 | 1, mid + 1, right, ql, qr, add)
         self.tree[idx] = self.tree[idx << 1] + self.tree[idx << 1 | 1]
 
     def range_add(self, ql: int, qr: int, add: int) -> None:
@@ -75,17 +75,17 @@ class SegmentTree:
         qr = min(self.n - 1, qr)
         self._range_add(1, 0, self.size - 1, ql, qr, add)
 
-    def _range_sum(self, idx: int, l: int, r: int, ql: int, qr: int) -> int:
-        if ql > r or qr < l:
+    def _range_sum(self, idx: int, left: int, right: int, ql: int, qr: int) -> int:
+        if ql > right or qr < left:
             return 0
-        if ql <= l and r <= qr:
+        if ql <= left and right <= qr:
             return self.tree[idx]
-        mid = (l + r) // 2
-        left_len = mid - l + 1
-        right_len = r - mid
+        mid = (left + right) // 2
+        left_len = mid - left + 1
+        right_len = right - mid
         self._push(idx, left_len, right_len)
-        return self._range_sum(idx << 1, l, mid, ql, qr) + self._range_sum(
-            idx << 1 | 1, mid + 1, r, ql, qr
+        return self._range_sum(idx << 1, left, mid, ql, qr) + self._range_sum(
+            idx << 1 | 1, mid + 1, right, ql, qr
         )
 
     def range_sum(self, ql: int, qr: int) -> int:
@@ -96,19 +96,19 @@ class SegmentTree:
         qr = min(self.n - 1, qr)
         return self._range_sum(1, 0, self.size - 1, ql, qr)
 
-    def _point_set(self, idx: int, l: int, r: int, pos: int, val: int) -> None:
-        if l == r:
+    def _point_set(self, idx: int, left: int, right: int, pos: int, val: int) -> None:
+        if left == right:
             self.tree[idx] = val
             self.lazy[idx] = 0
             return
-        mid = (l + r) // 2
-        left_len = mid - l + 1
-        right_len = r - mid
+        mid = (left + right) // 2
+        left_len = mid - left + 1
+        right_len = right - mid
         self._push(idx, left_len, right_len)
         if pos <= mid:
-            self._point_set(idx << 1, l, mid, pos, val)
+            self._point_set(idx << 1, left, mid, pos, val)
         else:
-            self._point_set(idx << 1 | 1, mid + 1, r, pos, val)
+            self._point_set(idx << 1 | 1, mid + 1, right, pos, val)
         self.tree[idx] = self.tree[idx << 1] + self.tree[idx << 1 | 1]
 
     def point_set(self, pos: int, val: int) -> None:
