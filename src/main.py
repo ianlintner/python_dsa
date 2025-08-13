@@ -8,9 +8,13 @@ DEMOS = {
     "sorting.quick_sort": ("algorithms.sorting.quick_sort", "demo"),
     "sorting.heap_sort": ("algorithms.sorting.heap_sort", "demo"),
     "sorting.non_comparison_sorts": ("algorithms.sorting.non_comparison_sorts", "demo"),
+    "sorting.insertion_sort": ("algorithms.sorting.insertion_sort", "demo"),
+    "sorting.selection_sort": ("algorithms.sorting.selection_sort", "demo"),
+    "sorting.bubble_sort": ("algorithms.sorting.bubble_sort", "demo"),
 
     # Searching algorithms
     "searching.binary_search": ("algorithms.searching.binary_search", "demo"),
+    "searching.linear_search": ("algorithms.searching.linear_search", "demo"),
     "searching.quickselect": ("algorithms.searching.quickselect", "demo"),
     "searching.advanced_search": ("algorithms.searching.advanced_search", "demo"),
 
