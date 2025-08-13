@@ -26,6 +26,7 @@ DEMOS = {
     "graphs.floyd_warshall": ("graphs.floyd_warshall", "demo"),
     "graphs.mst": ("graphs.mst", "demo"),
     "graphs.a_star": ("graphs.a_star", "demo"),
+    "graphs.scc": ("graphs.scc", "demo"),
 
     # Dynamic Programming
     "dp.fibonacci": ("dp.fibonacci", "demo"),
@@ -35,6 +36,7 @@ DEMOS = {
     "dp.edit_distance": ("dp.edit_distance", "demo"),
     "dp.bitmask_tsp": ("dp.bitmask_tsp", "demo"),
     "dp.state_compression_grid": ("dp.state_compression_grid", "demo"),
+    "dp.lcs": ("dp.lcs", "demo"),
 
     # String algorithms
     "strings.kmp": ("strings.kmp", "demo"),
