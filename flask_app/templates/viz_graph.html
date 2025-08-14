@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+{% block content %}
+  <article class="viz-page">
+    <header class="demo-header">
+      <div>
+        <h2>Graph Traversal Visualization</h2>
+        <div class="meta">
+          <span class="badge">interactive</span>
+          <span class="path">Animate BFS and DFS traversals</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <form id="controls" class="viz-controls" onsubmit="return false;">
+        <label>
+          Algorithm
+          <select id="algo">
+            {% for a in algorithms %}
+              <option value="{{ a.key }}" {% if a.key == algo %}selected{% endif %}>{{ a.name }}</option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <label>
+          Nodes (n)
+          <input id="n" type="range" min="4" max="30" step="1" value="12" />
+          <span id="nLabel">12</span>
+        </label>
+
+        <label>
+          Edge Prob (p)
+          <input id="p" type="range" min="0" max="1" step="0.01" value="0.25" />
+          <span id="pLabel">0.25</span>
+        </label>
+
+        <label class="row">
+          Seed (optional)
+          <input id="seed" type="number" step="1" placeholder="random" />
+        </label>
+
+        <label class="row">
+          Start node
+          <input id="start" type="number" step="1" min="0" value="0" />
+        </label>
+
+        <label>
+          Speed (fps)
+          <input id="speed" type="range" min="1" max="60" step="1" value="24" />
+          <span id="speedLabel">24</span>
+        </label>
+
+        <div class="viz-buttons">
+          <button id="generate" class="btn" type="button">Generate</button>
+          <button id="play" class="btn" type="button">Play</button>
+          <button id="pause" class="btn secondary" type="button" disabled>Pause</button>
+          <button id="step" class="btn secondary" type="button">Step</button>
+          <button id="reset" class="btn secondary" type="button">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div id="status" class="viz-status">Ready</div>
+      <svg id="graph" width="100%" height="420" viewBox="0 0 1000 420" preserveAspectRatio="xMidYMid meet"></svg>
+    </section>
+  </article>
+
+  <script>
+    const el = (id) => document.getElementById(id);
+    const algoSel = el("algo");
+    const nRange = el("n");
+    const nLabel = el("nLabel");
+    const pRange = el("p");
+    const pLabel = el("pLabel");
+    const seedInput = el("seed");
+    const startInput = el("start");
+    const speedRange = el("speed");
+    const speedLabel = el("speedLabel");
+    const statusEl = el("status");
+    const svg = el("graph");
+
+    const btnGenerate = el("generate");
+    const btnPlay = el("play");
+    const btnPause = el("pause");
+    const btnStep = el("step");
+    const btnReset = el("reset");
+
+    let frames = [];
+    let frameIdx = 0;
+    let playing = false;
+    let rafId = null;
+    let prevTime = 0;
+    let frameIntervalMs = 1000 / Number(speedRange.value || 24);
+    let nodes = [];
+    let edges = [];
+
+    function setStatus(msg) {
+      statusEl.textContent = msg;
+    }
+
+    function setDisabledDuringPlay(isPlaying) {
+      btnGenerate.disabled = isPlaying;
+      algoSel.disabled = isPlaying;
+      nRange.disabled = isPlaying;
+      pRange.disabled = isPlaying;
+      seedInput.disabled = isPlaying;
+      startInput.disabled = isPlaying;
+      btnPlay.disabled = isPlaying;
+      btnPause.disabled = !isPlaying;
+    }
+
+    function drawGraph() {
+      svg.innerHTML = "";
+      const W = 1000, H = 420;
+
+      // Draw edges
+      for (const [u, v] of edges) {
+        const a = nodes[u], b = nodes[v];
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", String(a.x * W));
+        line.setAttribute("y1", String(a.y * H));
+        line.setAttribute("x2", String(b.x * W));
+        line.setAttribute("y2", String(b.y * H));
+        line.setAttribute("stroke", "rgba(148,163,184,0.35)");
+        line.setAttribute("stroke-width", "2");
+        line.setAttribute("data-edge", `${u}-${v}`);
+        svg.appendChild(line);
+      }
+
+      // Draw nodes
+      for (const n of nodes) {
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", String(n.x * W));
+        circle.setAttribute("cy", String(n.y * H));
+        circle.setAttribute("r", "12");
+        circle.setAttribute("fill", "rgba(96,165,250,0.25)");
+        circle.setAttribute("stroke", "rgba(96,165,250,0.55)");
+        circle.setAttribute("stroke-width", "2");
+        circle.setAttribute("data-node", String(n.id));
+        g.appendChild(circle);
+
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("x", String(n.x * W));
+        text.setAttribute("y", String(n.y * H + 4));
+        text.setAttribute("text-anchor", "middle");
+        text.setAttribute("font-size", "12");
+        text.setAttribute("fill", "var(--text)");
+        text.textContent = String(n.id);
+        g.appendChild(text);
+
+        svg.appendChild(g);
+      }
+    }
+
+    function paintFrame(f) {
+      if (!f) return;
+      // Reset styles
+      for (const line of svg.querySelectorAll("line")) {
+        line.setAttribute("stroke", "rgba(148,163,184,0.35)");
+        line.setAttribute("stroke-width", "2");
+      }
+      for (const c of svg.querySelectorAll("circle")) {
+        c.setAttribute("fill", "rgba(96,165,250,0.25)");
+        c.setAttribute("stroke", "rgba(96,165,250,0.55)");
+      }
+
+      const { current, visited, frontier, tree_edges, op } = f;
+
+      // Highlight tree edges
+      for (const [u, v] of tree_edges || []) {
+        const sel = `line[data-edge="${u}-${v}"], line[data-edge="${v}-${u}"]`;
+        const line = svg.querySelector(sel);
+        if (line) {
+          line.setAttribute("stroke", "rgba(34,197,94,0.85)");
+          line.setAttribute("stroke-width", "3");
+        }
+      }
+
+      // Visited nodes
+      for (const v of visited || []) {
+        const sel = `circle[data-node="${v}"]`;
+        const c = svg.querySelector(sel);
+        if (c) {
+          c.setAttribute("fill", "rgba(34,197,94,0.45)");
+          c.setAttribute("stroke", "rgba(34,197,94,0.85)");
+        }
+      }
+
+      // Frontier nodes
+      for (const v of frontier || []) {
+        const sel = `circle[data-node="${v}"]`;
+        const c = svg.querySelector(sel);
+        if (c) {
+          c.setAttribute("fill", "rgba(245,158,11,0.45)");
+          c.setAttribute("stroke", "rgba(245,158,11,0.85)");
+        }
+      }
+
+      // Current node
+      if (current != null) {
+        const sel = `circle[data-node="${current}"]`;
+        const c = svg.querySelector(sel);
+        if (c) {
+          c.setAttribute("fill", "rgba(239,68,68,0.6)");
+          c.setAttribute("stroke", "rgba(239,68,68,0.9)");
+        }
+      }
+
+      setStatus(`Frame ${frameIdx + 1}/${frames.length} · op=${op || "none"} current=${current ?? ""}`);
+    }
+
+    function stepOnce() {
+      if (!frames.length) return;
+      frameIdx = Math.min(frames.length - 1, frameIdx + 1);
+      paintFrame(frames[frameIdx]);
+    }
+
+    function loop(ts) {
+      if (!playing) return;
+      if (!prevTime) prevTime = ts;
+      const delta = ts - prevTime;
+      if (delta >= frameIntervalMs) {
+        prevTime = ts;
+        stepOnce();
+        if (frameIdx >= frames.length - 1) {
+          playing = false;
+          setDisabledDuringPlay(false);
+          return;
+        }
+      }
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function play() {
+      if (!frames.length) return;
+      if (frameIdx >= frames.length - 1) frameIdx = 0;
+      playing = true;
+      prevTime = 0;
+      setDisabledDuringPlay(true);
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function pause() {
+      playing = false;
+      setDisabledDuringPlay(false);
+      if (rafId) cancelAnimationFrame(rafId);
+    }
+
+    function reset() {
+      frameIdx = 0;
+      paintFrame(frames[0]);
+      setStatus("Reset");
+    }
+
+    async function generate() {
+      pause();
+      setStatus("Generating...");
+      const body = {
+        algo: algoSel.value,
+        n: Number(nRange.value),
+        p: Number(pRange.value),
+        seed: seedInput.value === "" ? null : Number(seedInput.value),
+        start: Number(startInput.value),
+      };
+      const res = await fetch("{{ url_for('api_viz_graph') }}", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (data.error) {
+        setStatus("Error: " + data.error);
+        return;
+      }
+
+      nodes = data.graph.nodes;
+      edges = data.graph.edges;
+      frames = data.frames || [];
+      frameIdx = 0;
+      drawGraph();
+      paintFrame(frames[0]);
+      setStatus(`Generated ${frames.length} frames for ${data.name} (n=${data.n}, p=${data.p})`);
+    }
+
+    // Bindings
+    nRange.addEventListener("input", () => (nLabel.textContent = nRange.value));
+    pRange.addEventListener("input", () => (pLabel.textContent = pRange.value));
+    speedRange.addEventListener("input", () => {
+      speedLabel.textContent = speedRange.value;
+      frameIntervalMs = 1000 / Number(speedRange.value || 24);
+    });
+    btnGenerate.addEventListener("click", generate);
+    btnPlay.addEventListener("click", play);
+    btnPause.addEventListener("click", pause);
+    btnStep.addEventListener("click", stepOnce);
+    btnReset.addEventListener("click", reset);
+
+    // Initialize labels and generate
+    nLabel.textContent = nRange.value;
+    pLabel.textContent = pRange.value;
+    speedLabel.textContent = speedRange.value;
+
+    generate();
+  </script>
+{% endblock %}

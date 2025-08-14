@@ -70,10 +70,20 @@ SORTING_VIZ_MAP = {
     "algorithms.sorting.quick_sort": "quick",
 }
 
+# Graph visualizations (BFS/DFS) available for this module
+GRAPH_VIZ_MODULES = {
+    "graphs.bfs_dfs": True,
+}
+
 
 @app.route("/")
 def index():
-    return render_template("index.html", categories=CATEGORIES, sorting_viz_map=SORTING_VIZ_MAP)
+    return render_template(
+        "index.html",
+        categories=CATEGORIES,
+        sorting_viz_map=SORTING_VIZ_MAP,
+        graph_viz_modules=GRAPH_VIZ_MODULES,
+    )
 
 
 def run_demo(module_name: str) -> str:
@@ -211,6 +221,41 @@ def api_viz_sorting():
     try:
         from visualizations import sorting_viz as s_viz  # type: ignore
         result = s_viz.visualize(algo, n=n, seed=seed, unique=unique)
+        return jsonify(result)
+    except Exception as e:
+        error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
+        return jsonify({"error": error}), 500
+
+
+@app.get("/viz/graph")
+def viz_graph():
+    # Render BFS/DFS visualization page
+    algo = request.args.get("algo", "bfs")
+    algorithms = [
+        {"key": "bfs", "name": "Breadth-First Search"},
+        {"key": "dfs", "name": "Depth-First Search"},
+    ]
+    return render_template("viz_graph.html", algo=algo, algorithms=algorithms)
+
+
+@app.post("/api/viz/graph")
+def api_viz_graph():
+    # Return JSON frames for BFS/DFS visualization
+    if request.is_json:
+        data = request.get_json(silent=True) or {}
+    else:
+        data = request.form
+
+    algo = data.get("algo", "bfs")
+    n = int(data.get("n", 12))
+    p = float(data.get("p", 0.25))
+    start = int(data.get("start", 0))
+    seed = data.get("seed", None)
+    seed = int(seed) if seed not in (None, "", "null") else None
+
+    try:
+        from visualizations import graph_viz as g_viz  # type: ignore
+        result = g_viz.visualize(algo, n=n, p=p, seed=seed, start=start)
         return jsonify(result)
     except Exception as e:
         error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
