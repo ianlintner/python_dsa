@@ -14,19 +14,31 @@
               <li class="demo-item">
                 <div class="demo-title">{{ d.title }}</div>
                 <div class="demo-actions">
-                  <button class="btn" data-run data-module="{{ d.id }}">Run</button>
-                  {% set viz_key = sorting_viz_map.get(d.id) if sorting_viz_map else None %}
-                  {% if viz_key %}
-                    <a class="btn secondary" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}">Visualize</a>
+                  {% if category == 'visualizations' or d.id.startswith('viz.') %}
+                    {% if d.id == 'viz.sorting' %}
+                      <a class="btn" href="{{ url_for('viz_sorting') }}">Open</a>
+                    {% elif d.id == 'viz.graph' %}
+                      <a class="btn" href="{{ url_for('viz_graph') }}?algo=bfs">Open</a>
+                    {% elif d.id == 'viz.path' %}
+                      <a class="btn" href="{{ url_for('viz_path') }}?algo=astar">Open</a>
+                    {% else %}
+                      <a class="btn" href="{{ url_for('index') }}">Open</a>
+                    {% endif %}
+                  {% else %}
+                    <button class="btn" data-run data-module="{{ d.id }}">Run</button>
+                    {% set viz_key = sorting_viz_map.get(d.id) if sorting_viz_map else None %}
+                    {% if viz_key %}
+                      <a class="btn secondary" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}">Visualize</a>
+                    {% endif %}
+                    {% if graph_viz_modules and d.id in graph_viz_modules %}
+                      <a class="btn secondary" href="{{ url_for('viz_graph') }}?algo=bfs">Graph Viz</a>
+                    {% endif %}
+                    {% if path_viz_modules and d.id in path_viz_modules %}
+                      <a class="btn secondary" href="{{ url_for('viz_path') }}?algo=astar">Pathfinding Viz</a>
+                    {% endif %}
+                    <a class="btn secondary" href="{{ url_for('demo_page') }}?module={{ d.id }}">Open</a>
+                    <a class="btn secondary" href="{{ url_for('source') }}?module={{ d.id }}">Source</a>
                   {% endif %}
-                  {% if graph_viz_modules and d.id in graph_viz_modules %}
-                    <a class="btn secondary" href="{{ url_for('viz_graph') }}?algo=bfs">Graph Viz</a>
-                  {% endif %}
-                  {% if path_viz_modules and d.id in path_viz_modules %}
-                    <a class="btn secondary" href="{{ url_for('viz_path') }}?algo=astar">Pathfinding Viz</a>
-                  {% endif %}
-                  <a class="btn secondary" href="{{ url_for('demo_page') }}?module={{ d.id }}">Open</a>
-                  <a class="btn secondary" href="{{ url_for('source') }}?module={{ d.id }}">Source</a>
                 </div>
                 <div class="demo-id">{{ d.id }}</div>
                 <div class="panel run-panel" hidden>

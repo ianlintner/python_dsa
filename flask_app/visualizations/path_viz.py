@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import heapq
 import random
+from collections import deque
 from typing import Any, Dict, List, Optional, Tuple
 
 
@@ -177,9 +178,98 @@ def dijkstra_frames(grid: Dict[str, Any], max_steps: int = 50000) -> List[Dict[s
     return frames
 
 
+def bfs_frames(grid: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, Any]]:
+    """
+    Unweighted shortest path on grid using BFS.
+    """
+    rows, cols = grid["rows"], grid["cols"]
+    walls = set(map(tuple, grid["walls"]))
+    start: Coord = tuple(grid["start"])  # type: ignore
+    goal: Coord = tuple(grid["goal"])  # type: ignore
+
+    q: deque[Coord] = deque([start])
+    came_from: Dict[Coord, Coord] = {}
+    visited: set[Coord] = set()
+    frames: List[Dict[str, Any]] = [_frame(None, list(q), list(visited), [], "init")]
+
+    while q and len(frames) < max_steps:
+        current = q.popleft()
+        frames.append(_frame(current, list(q), list(visited), [], "pop"))
+        if current in visited:
+            continue
+        visited.add(current)
+        frames.append(_frame(current, list(q), list(visited), [], "visit"))
+        if current == goal:
+            path = _reconstruct_path(came_from, current)
+            frames.append(_frame(current, list(q), list(visited), path, "done"))
+            return frames
+
+        for nbr in neighbors(*current, rows, cols):
+            if nbr in walls or nbr in visited:
+                continue
+            if nbr not in came_from:
+                came_from[nbr] = current
+                q.append(nbr)
+                p = _reconstruct_path(came_from, current)
+                frames.append(_frame(nbr, list(q), list(visited), p, "enqueue"))
+
+    frames.append(_frame(None, list(q), list(visited), [], "no-path"))
+    return frames
+
+
+def gbfs_frames(grid: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, Any]]:
+    """
+    Greedy Best-First Search (uses heuristic only). Not optimal but illustrative.
+    """
+    rows, cols = grid["rows"], grid["cols"]
+    walls = set(map(tuple, grid["walls"]))
+    start: Coord = tuple(grid["start"])  # type: ignore
+    goal: Coord = tuple(grid["goal"])  # type: ignore
+
+    open_heap: List[Tuple[int, int, Coord]] = []
+    tie = 0
+    heapq.heappush(open_heap, (manhattan(start, goal), tie, start))
+    open_set = {start}
+    closed_set: set[Coord] = set()
+    came_from: Dict[Coord, Coord] = {}
+
+    frames: List[Dict[str, Any]] = [_frame(None, list(open_set), list(closed_set), [], "init")]
+
+    while open_heap and len(frames) < max_steps:
+        _, _, current = heapq.heappop(open_heap)
+        if current not in open_set:
+            continue
+        open_set.remove(current)
+        frames.append(_frame(current, list(open_set), list(closed_set), [], "pop"))
+
+        if current == goal:
+            path = _reconstruct_path(came_from, current)
+            frames.append(_frame(current, list(open_set), list(closed_set), path, "done"))
+            return frames
+
+        closed_set.add(current)
+        frames.append(_frame(current, list(open_set), list(closed_set), [], "visit"))
+
+        for nbr in neighbors(*current, rows, cols):
+            if nbr in walls or nbr in closed_set or nbr in open_set:
+                continue
+            came_from[nbr] = current
+            priority = manhattan(nbr, goal)
+            tie += 1
+            heapq.heappush(open_heap, (priority, tie, nbr))
+            open_set.add(nbr)
+            p = _reconstruct_path(came_from, current)
+            frames.append(_frame(nbr, list(open_set), list(closed_set), p, "push"))
+
+    frames.append(_frame(None, list(open_set), list(closed_set), [], "no-path"))
+    return frames
+
+
 ALGORITHMS = {
     "astar": {"name": "A* Search (Manhattan Heuristic)", "frames": a_star_frames},
     "dijkstra": {"name": "Dijkstra's Algorithm (Uniform-Cost)", "frames": dijkstra_frames},
+    "bfs": {"name": "Breadth-First Search (Unweighted Shortest Path)", "frames": bfs_frames},
+    "gbfs": {"name": "Greedy Best-First Search (Heuristic Only)", "frames": gbfs_frames},
 }
 
 

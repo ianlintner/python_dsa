@@ -84,9 +84,33 @@ PATH_VIZ_MODULES = {
 
 @app.route("/")
 def index():
+    # Build categories with additional top-level visualization entries for the dashboard
+    categories = {k: v[:] for k, v in CATEGORIES.items()}
+    categories.setdefault("visualizations", [])
+    categories["visualizations"].append({
+        "id": "viz.sorting",
+        "title": "Sorting Visualizations",
+        "category": "visualizations",
+        "module": "viz.sorting",
+        "path": "flask_app/visualizations/sorting_viz.py",
+    })
+    categories["visualizations"].append({
+        "id": "viz.graph",
+        "title": "Graph Traversal (BFS/DFS)",
+        "category": "visualizations",
+        "module": "viz.graph",
+        "path": "flask_app/visualizations/graph_viz.py",
+    })
+    categories["visualizations"].append({
+        "id": "viz.path",
+        "title": "Pathfinding (A*/Dijkstra/BFS/GBFS)",
+        "category": "visualizations",
+        "module": "viz.path",
+        "path": "flask_app/visualizations/path_viz.py",
+    })
     return render_template(
         "index.html",
-        categories=CATEGORIES,
+        categories=categories,
         sorting_viz_map=SORTING_VIZ_MAP,
         graph_viz_modules=GRAPH_VIZ_MODULES,
         path_viz_modules=PATH_VIZ_MODULES,
@@ -271,12 +295,18 @@ def api_viz_graph():
 
 @app.get("/viz/path")
 def viz_path():
-    # Render pathfinding visualization page (A*, Dijkstra on grid)
+    # Render pathfinding visualization page (A*, Dijkstra, BFS, Greedy Best-First)
     algo = request.args.get("algo", "astar")
-    algorithms = [
-        {"key": "astar", "name": "A* (Manhattan)"},
-        {"key": "dijkstra", "name": "Dijkstra"},
-    ]
+    try:
+        from visualizations import path_viz as p_viz  # type: ignore
+        algorithms = [{"key": k, "name": v["name"]} for k, v in p_viz.ALGORITHMS.items()]
+    except Exception:
+        algorithms = [
+            {"key": "astar", "name": "A* (Manhattan)"},
+            {"key": "dijkstra", "name": "Dijkstra"},
+            {"key": "bfs", "name": "Breadth-First Search"},
+            {"key": "gbfs", "name": "Greedy Best-First Search"},
+        ]
     return render_template("viz_path.html", algo=algo, algorithms=algorithms)
 
 
