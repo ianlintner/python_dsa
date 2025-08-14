@@ -25,6 +25,8 @@
                       <a class="btn" href="{{ url_for('viz_arrays') }}?algo=binary_search">Open</a>
                     {% elif d.id == 'viz.mst' %}
                       <a class="btn" href="{{ url_for('viz_mst') }}?algo=kruskal">Open</a>
+                    {% elif d.id == 'viz.topo' %}
+                      <a class="btn" href="{{ url_for('viz_topo') }}?algo=kahn">Open</a>
                     {% else %}
                       <a class="btn" href="{{ url_for('index') }}">Open</a>
                     {% endif %}
