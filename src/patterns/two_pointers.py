@@ -33,21 +33,21 @@ def three_sum(nums: list[int]) -> list[list[int]]:
         if i > 0 and nums[i] == nums[i - 1]:
             continue
         a = nums[i]
-        l, r = i + 1, n - 1
-        while l < r:
-            s = a + nums[l] + nums[r]
+        left, right = i + 1, n - 1
+        while left < right:
+            s = a + nums[left] + nums[right]
             if s == 0:
-                res.append([a, nums[l], nums[r]])
-                l += 1
-                while l < r and nums[l] == nums[l - 1]:
-                    l += 1
-                r -= 1
-                while l < r and nums[r] == nums[r + 1]:
-                    r -= 1
+                res.append([a, nums[left], nums[right]])
+                left += 1
+                while left < right and nums[left] == nums[left - 1]:
+                    left += 1
+                right -= 1
+                while left < right and nums[right] == nums[right + 1]:
+                    right -= 1
             elif s < 0:
-                l += 1
+                left += 1
             else:
-                r -= 1
+                right -= 1
     return res
 
 
