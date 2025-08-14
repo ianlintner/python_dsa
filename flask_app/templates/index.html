@@ -21,6 +21,10 @@
                       <a class="btn" href="{{ url_for('viz_graph') }}?algo=bfs">Open</a>
                     {% elif d.id == 'viz.path' %}
                       <a class="btn" href="{{ url_for('viz_path') }}?algo=astar">Open</a>
+                    {% elif d.id == 'viz.arrays' %}
+                      <a class="btn" href="{{ url_for('viz_arrays') }}?algo=binary_search">Open</a>
+                    {% elif d.id == 'viz.mst' %}
+                      <a class="btn" href="{{ url_for('viz_mst') }}?algo=kruskal">Open</a>
                     {% else %}
                       <a class="btn" href="{{ url_for('index') }}">Open</a>
                     {% endif %}

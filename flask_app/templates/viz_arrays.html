@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+{% block content %}
+  <article class="viz-page">
+    <header class="demo-header">
+      <div>
+        <h2>Array Techniques Visualization</h2>
+        <div class="meta">
+          <span class="badge">interactive</span>
+          <span class="path">Binary Search · Two Pointers · Sliding Window</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <form id="controls" class="viz-controls" onsubmit="return false;">
+        <label>
+          Technique
+          <select id="algo">
+            {% for a in algorithms %}
+              <option value="{{ a.key }}" {% if a.key == algo %}selected{% endif %}>{{ a.name }}</option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <label>
+          N
+          <input id="n" type="range" min="5" max="150" step="1" value="30" />
+          <span id="nLabel">30</span>
+        </label>
+
+        <label>
+          Speed (fps)
+          <input id="speed" type="range" min="1" max="60" step="1" value="24" />
+          <span id="speedLabel">24</span>
+        </label>
+
+        <label class="row">
+          Seed (optional)
+          <input id="seed" type="number" step="1" placeholder="random" />
+        </label>
+
+        <label class="row">
+          Target (optional)
+          <input id="target" type="number" step="1" placeholder="auto" />
+        </label>
+
+        <div class="viz-buttons">
+          <button id="generate" class="btn" type="button">Generate</button>
+          <button id="play" class="btn" type="button">Play</button>
+          <button id="pause" class="btn secondary" type="button" disabled>Pause</button>
+          <button id="step" class="btn secondary" type="button">Step</button>
+          <button id="reset" class="btn secondary" type="button">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div id="status" class="viz-status">Ready</div>
+      <div id="bars" class="bars"></div>
+    </section>
+  </article>
+
+  <script>
+    const el = (id) => document.getElementById(id);
+    const algoSel = el("algo");
+    const nRange = el("n");
+    const nLabel = el("nLabel");
+    const speedRange = el("speed");
+    const speedLabel = el("speedLabel");
+    const seedInput = el("seed");
+    const targetInput = el("target");
+    const bars = el("bars");
+    const statusEl = el("status");
+    const btnGenerate = el("generate");
+    const btnPlay = el("play");
+    const btnPause = el("pause");
+    const btnStep = el("step");
+    const btnReset = el("reset");
+
+    let frames = [];
+    let maxVal = 1;
+    let frameIdx = 0;
+    let playing = false;
+    let rafId = null;
+    let prevTime = 0;
+    let frameIntervalMs = 1000 / Number(speedRange.value || 24);
+    let targetVal = null;
+
+    function setStatus(msg) {
+      statusEl.textContent = msg;
+    }
+
+    function setDisabledDuringPlay(isPlaying) {
+      btnGenerate.disabled = isPlaying;
+      algoSel.disabled = isPlaying;
+      nRange.disabled = isPlaying;
+      seedInput.disabled = isPlaying;
+      targetInput.disabled = isPlaying;
+      btnPlay.disabled = isPlaying;
+      btnPause.disabled = !isPlaying;
+    }
+
+    function renderBars(arr) {
+      const W = bars.clientWidth || 900;
+      const H = 360;
+      const n = arr.length;
+      const gap = Math.max(0, Math.min(2, Math.floor(W / n > 6 ? 2 : 1)));
+      const barW = Math.max(1, Math.floor((W - (n - 1) * gap) / n));
+
+      bars.style.setProperty("--bar-width", barW + "px");
+      bars.style.setProperty("--bar-gap", gap + "px");
+      bars.style.setProperty("--bar-height", H + "px");
+      bars.innerHTML = "";
+
+      for (let i = 0; i < n; i++) {
+        const v = arr[i];
+        const h = Math.max(2, Math.round((v / maxVal) * H));
+        const div = document.createElement("div");
+        div.className = "bar";
+        div.style.height = h + "px";
+        div.dataset.idx = String(i);
+        bars.appendChild(div);
+      }
+    }
+
+    function clearMarks() {
+      for (const bar of bars.children) {
+        bar.classList.remove("compare", "swap", "pivot", "key", "shift", "insert");
+        bar.style.outline = "";
+        bar.style.background = "";
+      }
+    }
+
+    function markIndex(i, color = "rgba(245,158,11,0.9)") {
+      if (i == null) return;
+      const bar = bars.children[i];
+      if (bar) {
+        bar.style.outline = "3px solid " + color;
+      }
+    }
+
+    function fillRange(l, r, color = "rgba(96,165,250,0.25)") {
+      if (l == null || r == null) return;
+      for (let i = Math.max(0, l); i <= Math.min(bars.children.length - 1, r); i++) {
+        const bar = bars.children[i];
+        if (bar) {
+          bar.style.background = color;
+        }
+      }
+    }
+
+    function paintFrame(f) {
+      if (!f) return;
+      const a = f.arr || f.a || [];
+      // Update heights if size matches
+      const els = bars.children;
+      if (els.length === a.length) {
+        for (let i = 0; i < a.length; i++) {
+          const h = Math.max(2, Math.round((a[i] / maxVal) * (parseInt(getComputedStyle(bars).getPropertyValue("--bar-height")))));
+          const bar = els[i];
+          bar.style.height = h + "px";
+        }
+      } else {
+        // Re-render if sizes differ
+        renderBars(a);
+      }
+
+      clearMarks();
+
+      // Markers supported by frames
+      // Binary search: lo, hi, mid, found
+      markIndex(f.lo, "rgba(59,130,246,0.9)");
+      markIndex(f.hi, "rgba(59,130,246,0.9)");
+      markIndex(f.mid, "rgba(239,68,68,0.9)");
+      if (f.found) {
+        markIndex(f.mid, "rgba(34,197,94,1)");
+      }
+
+      // Two pointers: l, r, sum
+      markIndex(f.l, "rgba(245,158,11,0.9)");
+      markIndex(f.r, "rgba(245,158,11,0.9)");
+
+      // Sliding window: win_l, win_r, best_l, best_r
+      fillRange(f.win_l, f.win_r, "rgba(96,165,250,0.22)");
+      fillRange(f.best_l, f.best_r, "rgba(34,197,94,0.28)");
+
+      // Status
+      const markerParts = [];
+      if (f.lo != null) markerParts.push(`lo=${f.lo}`);
+      if (f.hi != null) markerParts.push(`hi=${f.hi}`);
+      if (f.mid != null) markerParts.push(`mid=${f.mid}`);
+      if (f.l != null) markerParts.push(`l=${f.l}`);
+      if (f.r != null) markerParts.push(`r=${f.r}`);
+      if (f.win_l != null && f.win_r != null) markerParts.push(`win=[${f.win_l},${f.win_r}]`);
+      if (f.best_l != null && f.best_r != null) markerParts.push(`best=[${f.best_l},${f.best_r}]`);
+      if (f.sum != null) markerParts.push(`sum=${f.sum}`);
+      if (f.target != null || targetVal != null) markerParts.push(`target=${f.target ?? targetVal}`);
+      setStatus(`Frame ${frameIdx + 1}/${frames.length} · op=${f.op || "none"} · ${markerParts.join(" · ")}`);
+    }
+
+    function stepOnce() {
+      if (!frames.length) return;
+      frameIdx = Math.min(frames.length - 1, frameIdx + 1);
+      paintFrame(frames[frameIdx]);
+    }
+
+    function loop(ts) {
+      if (!playing) return;
+      if (!prevTime) prevTime = ts;
+      const delta = ts - prevTime;
+      if (delta >= frameIntervalMs) {
+        prevTime = ts;
+        stepOnce();
+        if (frameIdx >= frames.length - 1) {
+          playing = false;
+          setDisabledDuringPlay(false);
+          return;
+        }
+      }
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function play() {
+      if (!frames.length) return;
+      if (frameIdx >= frames.length - 1) frameIdx = 0;
+      playing = true;
+      prevTime = 0;
+      setDisabledDuringPlay(true);
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function pause() {
+      playing = false;
+      setDisabledDuringPlay(false);
+      if (rafId) cancelAnimationFrame(rafId);
+    }
+
+    function reset() {
+      frameIdx = 0;
+      paintFrame(frames[0]);
+      setStatus("Reset");
+    }
+
+    async function generate() {
+      pause();
+      setStatus("Generating...");
+      const body = {
+        algo: algoSel.value,
+        n: Number(nRange.value),
+        seed: seedInput.value === "" ? null : Number(seedInput.value),
+        target: targetInput.value === "" ? null : Number(targetInput.value),
+      };
+      const res = await fetch("{{ url_for('api_viz_arrays') }}", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (data.error) {
+        setStatus("Error: " + data.error);
+        return;
+      }
+      frames = data.frames || [];
+      maxVal = data.max || 1;
+      targetVal = data.target ?? null;
+      frameIdx = 0;
+      if (frames.length) {
+        renderBars(frames[0].arr || data.array);
+        paintFrame(frames[0]);
+      }
+      setStatus(`Generated ${frames.length} frames for ${data.name} (n=${data.n}${data.target != null ? ", target=" + data.target : ""})`);
+    }
+
+    // UI bindings
+    nRange.addEventListener("input", () => (nLabel.textContent = nRange.value));
+    speedRange.addEventListener("input", () => {
+      speedLabel.textContent = speedRange.value;
+      frameIntervalMs = 1000 / Number(speedRange.value || 24);
+    });
+    btnGenerate.addEventListener("click", generate);
+    btnPlay.addEventListener("click", play);
+    btnPause.addEventListener("click", pause);
+    btnStep.addEventListener("click", stepOnce);
+    btnReset.addEventListener("click", reset);
+
+    // Initial defaults
+    nLabel.textContent = nRange.value;
+    speedLabel.textContent = speedRange.value;
+    // Auto-generate first visualization
+    generate();
+  </script>
+{% endblock %}

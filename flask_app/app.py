@@ -115,6 +115,20 @@ def index():
         "module": "viz.arrays",
         "path": "flask_app/visualizations/array_viz.py",
     })
+    categories["visualizations"].append({
+        "id": "viz.mst",
+        "title": "Minimum Spanning Tree (Kruskal/Prim)",
+        "category": "visualizations",
+        "module": "viz.mst",
+        "path": "flask_app/visualizations/mst_viz.py",
+    })
+    categories["visualizations"].append({
+        "id": "viz.topo",
+        "title": "Topological Sort (Kahn)",
+        "category": "visualizations",
+        "module": "viz.topo",
+        "path": "flask_app/visualizations/topo_viz.py",
+    })
     return render_template(
         "index.html",
         categories=categories,
@@ -334,6 +348,123 @@ def api_viz_path():
     try:
         from visualizations import path_viz as p_viz  # type: ignore
         result = p_viz.visualize(algo, rows=rows, cols=cols, density=density, seed=seed)
+        return jsonify(result)
+    except Exception as e:
+        error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
+        return jsonify({"error": error}), 500
+
+
+@app.get("/viz/arrays")
+def viz_arrays():
+    # Render array techniques visualization page (Binary Search / Two-Pointers / Sliding Window)
+    algo = request.args.get("algo", "binary_search")
+    try:
+        from visualizations import array_viz as a_viz  # type: ignore
+        algorithms = [{"key": k, "name": v["name"]} for k, v in a_viz.ALGORITHMS.items()]
+    except Exception:
+        algorithms = [
+            {"key": "binary_search", "name": "Binary Search"},
+            {"key": "two_pointers_sum", "name": "Two Pointers (Two-Sum in Sorted Array)"},
+            {"key": "sliding_window_min_len_geq", "name": "Sliding Window (Min Len with Sum ≥ target)"},
+        ]
+    return render_template("viz_arrays.html", algo=algo, algorithms=algorithms)
+
+
+@app.post("/api/viz/arrays")
+def api_viz_arrays():
+    # Return JSON frames for array techniques visualization
+    if request.is_json:
+        data = request.get_json(silent=True) or {}
+    else:
+        data = request.form
+
+    algo = data.get("algo", "binary_search")
+    n = int(data.get("n", 30))
+    seed = data.get("seed", None)
+    seed = int(seed) if seed not in (None, "", "null") else None
+    target = data.get("target", None)
+    target = int(target) if target not in (None, "", "null") else None
+
+    try:
+        from visualizations import array_viz as a_viz  # type: ignore
+        result = a_viz.visualize(algo, n=n, seed=seed, target=target)
+        return jsonify(result)
+    except Exception as e:
+        error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
+        return jsonify({"error": error}), 500
+
+
+@app.get("/viz/mst")
+def viz_mst():
+    # Render MST visualization page (Kruskal/Prim)
+    algo = request.args.get("algo", "kruskal")
+    try:
+        from visualizations import mst_viz as m_viz  # type: ignore
+        algorithms = [{"key": k, "name": v["name"]} for k, v in m_viz.ALGORITHMS.items()]
+    except Exception:
+        algorithms = [
+            {"key": "kruskal", "name": "Minimum Spanning Tree (Kruskal)"},
+            {"key": "prim", "name": "Minimum Spanning Tree (Prim)"},
+        ]
+    return render_template("viz_mst.html", algo=algo, algorithms=algorithms)
+
+
+@app.post("/api/viz/mst")
+def api_viz_mst():
+    # Return JSON frames for MST visualization
+    if request.is_json:
+        data = request.get_json(silent=True) or {}
+    else:
+        data = request.form
+
+    algo = data.get("algo", "kruskal")
+    n = int(data.get("n", 12))
+    k = int(data.get("k", 3))
+    start = int(data.get("start", 0))
+    seed = data.get("seed", None)
+    seed = int(seed) if seed not in (None, "", "null") else None
+
+    try:
+        from visualizations import mst_viz as m_viz  # type: ignore
+        result = m_viz.visualize(algo, n=n, k=k, seed=seed, start=start)
+        return jsonify(result)
+    except Exception as e:
+        error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
+        return jsonify({"error": error}), 500
+
+
+@app.get("/viz/topo")
+def viz_topo():
+    # Render topological sort visualization page (Kahn's algorithm)
+    algo = request.args.get("algo", "kahn")
+    try:
+        from visualizations import topo_viz as t_viz  # type: ignore
+        algorithms = [{"key": k, "name": v["name"]} for k, v in t_viz.ALGORITHMS.items()]
+    except Exception:
+        algorithms = [
+            {"key": "kahn", "name": "Topological Sort (Kahn's Algorithm)"},
+        ]
+    return render_template("viz_topo.html", algo=algo, algorithms=algorithms)
+
+
+@app.post("/api/viz/topo")
+def api_viz_topo():
+    # Return JSON frames for topological sort visualization
+    if request.is_json:
+        data = request.get_json(silent=True) or {}
+    else:
+        data = request.form
+
+    algo = data.get("algo", "kahn")
+    n = int(data.get("n", 12))
+    layers = int(data.get("layers", 3))
+    p = float(data.get("p", 0.35))
+    seed = data.get("seed", None)
+    seed = int(seed) if seed not in (None, "", "null") else None
+
+    try:
+        from visualizations import topo_viz as t_viz  # type: ignore
+        result = t_viz.visualize(algo, n=n, layers=layers, p=p, seed=seed)
         return jsonify(result)
     except Exception as e:
         error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
