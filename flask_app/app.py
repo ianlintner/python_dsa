@@ -108,6 +108,13 @@ def index():
         "module": "viz.path",
         "path": "flask_app/visualizations/path_viz.py",
     })
+    categories["visualizations"].append({
+        "id": "viz.arrays",
+        "title": "Array Techniques (Binary Search / Two-Pointers / Sliding Window)",
+        "category": "visualizations",
+        "module": "viz.arrays",
+        "path": "flask_app/visualizations/array_viz.py",
+    })
     return render_template(
         "index.html",
         categories=categories,
