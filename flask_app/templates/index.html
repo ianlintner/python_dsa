@@ -27,6 +27,8 @@
                       <a class="btn" href="{{ url_for('viz_mst') }}?algo=kruskal">Open</a>
                     {% elif d.id == 'viz.topo' %}
                       <a class="btn" href="{{ url_for('viz_topo') }}?algo=kahn">Open</a>
+                    {% elif d.id == 'viz.nn' %}
+                      <a class="btn" href="{{ url_for('viz_nn') }}?dataset=blobs">Open</a>
                     {% else %}
                       <a class="btn" href="{{ url_for('index') }}">Open</a>
                     {% endif %}

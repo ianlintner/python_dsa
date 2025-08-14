@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+{% block content %}
+  <article class="viz-page">
+    <header class="demo-header">
+      <div>
+        <h2>Neural Network: MLP Binary Classifier</h2>
+        <div class="meta">
+          <span class="badge">interactive</span>
+          <span class="path">1 hidden layer · tanh hidden · sigmoid output · BCE loss</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <form id="controls" class="viz-controls" onsubmit="return false;">
+        <label>
+          Dataset
+          <select id="dataset">
+            <option value="blobs" {% if dataset == 'blobs' %}selected{% endif %}>Blobs</option>
+            <option value="moons" {% if dataset == 'moons' %}selected{% endif %}>Two Moons</option>
+          </select>
+        </label>
+
+        <label>
+          Samples (n)
+          <input id="n" type="range" min="50" max="1000" step="10" value="200" />
+          <span id="nLabel">200</span>
+        </label>
+
+        <label>
+          Hidden units
+          <input id="hidden" type="range" min="1" max="64" step="1" value="8" />
+          <span id="hiddenLabel">8</span>
+        </label>
+
+        <label class="row">
+          Learning rate
+          <input id="lr" type="number" step="0.05" min="0.05" max="5" value="0.5" />
+        </label>
+
+        <label>
+          Epochs
+          <input id="epochs" type="range" min="5" max="500" step="5" value="50" />
+          <span id="epochsLabel">50</span>
+        </label>
+
+        <label>
+          Grid res
+          <select id="grid">
+            <option value="16">16</option>
+            <option value="24">24</option>
+            <option value="32" selected>32</option>
+            <option value="48">48</option>
+            <option value="64">64</option>
+          </select>
+        </label>
+
+        <label class="row">
+          Seed (optional)
+          <input id="seed" type="number" step="1" placeholder="random" />
+        </label>
+
+        <label>
+          Speed (fps)
+          <input id="speed" type="range" min="1" max="60" step="1" value="24" />
+          <span id="speedLabel">24</span>
+        </label>
+
+        <div class="viz-buttons">
+          <button id="generate" class="btn" type="button">Generate</button>
+          <button id="play" class="btn" type="button">Play</button>
+          <button id="pause" class="btn secondary" type="button" disabled>Pause</button>
+          <button id="step" class="btn secondary" type="button">Step</button>
+          <button id="reset" class="btn secondary" type="button">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div id="status" class="viz-status">Ready</div>
+      <div style="width:100%;display:flex;flex-direction:column;gap:8px;">
+        <canvas id="canvas" width="1000" height="480" style="width:100%;border:1px solid var(--border);border-radius:8px;background:var(--bg-panel);"></canvas>
+        <small id="legend" style="color:var(--muted)">Legend: heatmap shows P(class=1). Blue≈0, white≈0.5, red≈1. Dots are training points (label 0=blue, 1=red).</small>
+      </div>
+    </section>
+  </article>
+
+  <script>
+    const el = (id) => document.getElementById(id);
+
+    const datasetSel = el("dataset");
+    const nRange = el("n");
+    const nLabel = el("nLabel");
+    const hiddenRange = el("hidden");
+    const hiddenLabel = el("hiddenLabel");
+    const lrInput = el("lr");
+    const epochsRange = el("epochs");
+    const epochsLabel = el("epochsLabel");
+    const gridSel = el("grid");
+    const seedInput = el("seed");
+    const speedRange = el("speed");
+    const speedLabel = el("speedLabel");
+    const statusEl = el("status");
+    const canvas = el("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const btnGenerate = el("generate");
+    const btnPlay = el("play");
+    const btnPause = el("pause");
+    const btnStep = el("step");
+    const btnReset = el("reset");
+
+    let frames = [];     // [{epoch, loss, grid: res x res}]
+    let points = [];     // [{x,y,label}]
+    let meta = {};       // {n, grid, hidden, lr, epochs, dataset, losses}
+    let frameIdx = 0;
+    let playing = false;
+    let rafId = null;
+    let prevTime = 0;
+    let frameIntervalMs = 1000 / Number(speedRange.value || 24);
+
+    function setStatus(msg) {
+      statusEl.textContent = msg;
+    }
+
+    function setDisabledDuringPlay(isPlaying) {
+      btnGenerate.disabled = isPlaying;
+      datasetSel.disabled = isPlaying;
+      nRange.disabled = isPlaying;
+      hiddenRange.disabled = isPlaying;
+      lrInput.disabled = isPlaying;
+      epochsRange.disabled = isPlaying;
+      gridSel.disabled = isPlaying;
+      seedInput.disabled = isPlaying;
+      btnPlay.disabled = isPlaying;
+      btnPause.disabled = !isPlaying;
+    }
+
+    function colorForProb(p) {
+      // Blue (0) -> White (0.5) -> Red (1)
+      const clamp = (v) => Math.max(0, Math.min(1, v));
+      p = clamp(p);
+      let r, g, b;
+      if (p < 0.5) {
+        // blend blue to white
+        const t = p / 0.5; // 0..1
+        r = 255 * t;
+        g = 255 * t;
+        b = 255;
+      } else {
+        // blend white to red
+        const t = (p - 0.5) / 0.5; // 0..1
+        r = 255;
+        g = 255 * (1 - t);
+        b = 255 * (1 - t);
+      }
+      return `rgb(${r|0},${g|0},${b|0})`;
+    }
+
+    function drawHeatmap(grid) {
+      const resY = grid.length;
+      const resX = grid[0].length;
+      const W = canvas.width;
+      const H = canvas.height;
+      const cellW = W / resX;
+      const cellH = H / resY;
+
+      // Draw each cell
+      for (let j = 0; j < resY; j++) {
+        for (let i = 0; i < resX; i++) {
+          const p = grid[j][i];
+          ctx.fillStyle = colorForProb(p);
+          ctx.fillRect(i * cellW, j * cellH, Math.ceil(cellW), Math.ceil(cellH));
+        }
+      }
+    }
+
+    function drawPoints() {
+      const W = canvas.width;
+      const H = canvas.height;
+      const r = 4;
+      for (const pt of points) {
+        const x = pt.x * W;
+        const y = pt.y * H;
+        const isOne = pt.label === 1;
+        ctx.fillStyle = isOne ? "rgba(239,68,68,0.95)" : "rgba(59,130,246,0.95)";
+        ctx.strokeStyle = "rgba(0,0,0,0.25)";
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+      }
+    }
+
+    function paintFrame(f) {
+      if (!f) return;
+      // Clear
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Heatmap
+      drawHeatmap(f.grid);
+      // Points
+      drawPoints();
+      // Overlay text
+      ctx.fillStyle = "rgba(0,0,0,0.55)";
+      ctx.fillRect(8, 8, 260, 42);
+      ctx.fillStyle = "white";
+      ctx.font = "12px ui-sans-serif, system-ui, -apple-system";
+      const lossStr = typeof f.loss === "number" ? f.loss.toFixed(4) : String(f.loss);
+      ctx.fillText(`Epoch ${f.epoch} / ${meta.epochs}  Loss: ${lossStr}`, 16, 24);
+      ctx.fillText(`Hidden=${meta.hidden}  LR=${meta.lr}  Grid=${meta.grid}  N=${meta.n}`, 16, 42);
+
+      setStatus(`Frame ${frameIdx + 1}/${frames.length} · epoch=${f.epoch} · loss=${lossStr}`);
+    }
+
+    function stepOnce() {
+      if (!frames.length) return;
+      frameIdx = Math.min(frames.length - 1, frameIdx + 1);
+      paintFrame(frames[frameIdx]);
+    }
+
+    function loop(ts) {
+      if (!playing) return;
+      if (!prevTime) prevTime = ts;
+      const delta = ts - prevTime;
+      if (delta >= frameIntervalMs) {
+        prevTime = ts;
+        stepOnce();
+        if (frameIdx >= frames.length - 1) {
+          playing = false;
+          setDisabledDuringPlay(false);
+          return;
+        }
+      }
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function play() {
+      if (!frames.length) return;
+      if (frameIdx >= frames.length - 1) frameIdx = 0;
+      playing = true;
+      prevTime = 0;
+      setDisabledDuringPlay(true);
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function pause() {
+      playing = false;
+      setDisabledDuringPlay(false);
+      if (rafId) cancelAnimationFrame(rafId);
+    }
+
+    function reset() {
+      frameIdx = 0;
+      if (frames.length) paintFrame(frames[0]);
+      setStatus("Reset");
+    }
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const ratio = window.devicePixelRatio || 1;
+      const w = Math.max(600, Math.floor(rect.width));
+      const h = Math.floor(w * 0.48); // keep aspect
+      canvas.width = Math.floor(w * ratio);
+      canvas.height = Math.floor(h * ratio);
+      canvas.style.height = h + "px";
+      if (frames.length) paintFrame(frames[frameIdx]);
+    }
+    window.addEventListener("resize", resizeCanvas);
+
+    async function generate() {
+      pause();
+      setStatus("Generating & Training...");
+      const body = {
+        dataset: datasetSel.value,
+        n: Number(nRange.value),
+        hidden: Number(hiddenRange.value),
+        lr: Number(lrInput.value),
+        epochs: Number(epochsRange.value),
+        grid: Number(gridSel.value),
+        seed: seedInput.value === "" ? null : Number(seedInput.value),
+      };
+      const res = await fetch("{{ url_for('api_viz_nn') }}", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (data.error) {
+        setStatus("Error: " + data.error);
+        return;
+      }
+      frames = data.frames || [];
+      points = data.points || [];
+      meta = {
+        n: data.n, grid: data.grid, hidden: data.hidden, lr: data.lr, epochs: data.epochs,
+        dataset: data.dataset, losses: data.losses || [],
+      };
+      frameIdx = 0;
+      resizeCanvas();
+      if (frames.length) {
+        paintFrame(frames[0]);
+      }
+      setStatus(`Generated ${frames.length} frames for ${data.name} (dataset=${data.dataset}, n=${data.n})`);
+    }
+
+    // UI bindings
+    nRange.addEventListener("input", () => (nLabel.textContent = nRange.value));
+    hiddenRange.addEventListener("input", () => (hiddenLabel.textContent = hiddenRange.value));
+    epochsRange.addEventListener("input", () => (epochsLabel.textContent = epochsRange.value));
+    speedRange.addEventListener("input", () => {
+      speedLabel.textContent = speedRange.value;
+      frameIntervalMs = 1000 / Number(speedRange.value || 24);
+    });
+    btnGenerate.addEventListener("click", generate);
+    btnPlay.addEventListener("click", play);
+    btnPause.addEventListener("click", pause);
+    btnStep.addEventListener("click", stepOnce);
+    btnReset.addEventListener("click", reset);
+
+    // Initialize labels and first render
+    nLabel.textContent = nRange.value;
+    hiddenLabel.textContent = hiddenRange.value;
+    epochsLabel.textContent = epochsRange.value;
+    speedLabel.textContent = speedRange.value;
+
+    // Initial sizing and load
+    resizeCanvas();
+    generate();
+  </script>
+{% endblock %}

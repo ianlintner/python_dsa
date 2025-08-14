@@ -129,6 +129,13 @@ def index():
         "module": "viz.topo",
         "path": "flask_app/visualizations/topo_viz.py",
     })
+    categories["visualizations"].append({
+        "id": "viz.nn",
+        "title": "Neural Network (MLP Binary Classifier)",
+        "category": "visualizations",
+        "module": "viz.nn",
+        "path": "flask_app/visualizations/nn_viz.py",
+    })
     return render_template(
         "index.html",
         categories=categories,
@@ -465,6 +472,39 @@ def api_viz_topo():
     try:
         from visualizations import topo_viz as t_viz  # type: ignore
         result = t_viz.visualize(algo, n=n, layers=layers, p=p, seed=seed)
+        return jsonify(result)
+    except Exception as e:
+        error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
+        return jsonify({"error": error}), 500
+
+
+@app.get("/viz/nn")
+def viz_nn():
+    # Render neural network (MLP) visualization page
+    dataset = request.args.get("dataset", "blobs")
+    return render_template("viz_nn.html", dataset=dataset)
+
+
+@app.post("/api/viz/nn")
+def api_viz_nn():
+    # Return JSON frames for NN training visualization
+    if request.is_json:
+        data = request.get_json(silent=True) or {}
+    else:
+        data = request.form
+
+    dataset = data.get("dataset", "blobs")
+    n = int(data.get("n", 200))
+    hidden = int(data.get("hidden", 8))
+    lr = float(data.get("lr", 0.5))
+    epochs = int(data.get("epochs", 50))
+    grid = int(data.get("grid", 32))
+    seed = data.get("seed", None)
+    seed = int(seed) if seed not in (None, "", "null") else None
+
+    try:
+        from visualizations import nn_viz as nn  # type: ignore
+        result = nn.visualize(dataset=dataset, n=n, hidden=hidden, lr=lr, epochs=epochs, seed=seed, grid=grid)
         return jsonify(result)
     except Exception as e:
         error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
