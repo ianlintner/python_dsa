@@ -231,22 +231,21 @@ def demo():
         sorted_arr = sorted(arr)
         print(f"Sorted: {sorted_arr}")
 
-        # Test various k values
-        for k in [0, len(arr) // 2, len(arr) - 1]:
-            if k < len(arr):
-                # Test quickselect (modifies array)
-                arr_copy = arr[:]
-                kth_smallest = quickselect(arr_copy, k, smallest=True)
+        # Test various ranks (1-indexed)
+        for rank in [1, len(arr) // 2 + 1, len(arr)]:
+            # Test quickselect (modifies array)
+            arr_copy = arr[:]
+            kth_smallest = quickselect(arr_copy, rank, smallest=True)
 
-                arr_copy = arr[:]
-                kth_largest = quickselect(arr_copy, k, smallest=False)
+            arr_copy = arr[:]
+            kth_largest = quickselect(arr_copy, rank, smallest=False)
 
-                # Test heap-based alternatives
-                kth_smallest_heap = find_kth_smallest_heap(arr, k + 1)  # 1-indexed
-                kth_largest_heap = find_kth_largest_heap(arr, k + 1)  # 1-indexed
+            # Test heap-based alternatives (also 1-indexed)
+            kth_smallest_heap = find_kth_smallest_heap(arr, rank)
+            kth_largest_heap = find_kth_largest_heap(arr, rank)
 
-                print(f"  k={k}: {k}th smallest = {kth_smallest} (heap: {kth_smallest_heap})")
-                print(f"  k={k}: {k}th largest = {kth_largest} (heap: {kth_largest_heap})")
+            print(f"  rank={rank}: {rank}th smallest = {kth_smallest} (heap: {kth_smallest_heap})")
+            print(f"  rank={rank}: {rank}th largest = {kth_largest} (heap: {kth_largest_heap})")
 
         # Test median
         try:
