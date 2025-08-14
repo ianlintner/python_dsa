@@ -7,7 +7,7 @@ from pathlib import Path
 import sys
 from typing import Dict, List
 
-from flask import Flask, render_template, request, redirect, url_for, abort
+from flask import Flask, render_template, request, redirect, url_for, abort, jsonify
 
 
 # Ensure we can import modules from src/
@@ -63,10 +63,17 @@ def discover_demos() -> Dict[str, List[dict]]:
 
 CATEGORIES = discover_demos()
 
+# Map discovered sorting modules to visualization keys
+SORTING_VIZ_MAP = {
+    "algorithms.sorting.bubble_sort": "bubble",
+    "algorithms.sorting.insertion_sort": "insertion",
+    "algorithms.sorting.quick_sort": "quick",
+}
+
 
 @app.route("/")
 def index():
-    return render_template("index.html", categories=CATEGORIES)
+    return render_template("index.html", categories=CATEGORIES, sorting_viz_map=SORTING_VIZ_MAP)
 
 
 def run_demo(module_name: str) -> str:
@@ -132,6 +139,22 @@ def demo_run():
     return render_template("demo.html", meta=meta, output=output, error=error, code=None)
 
 
+@app.post("/api/demo")
+def api_demo_run():
+    module = request.form.get("module")
+    if not module and request.is_json:
+        data = request.get_json(silent=True) or {}
+        module = data.get("module")
+    if not module:
+        return jsonify({"error": "Missing module"}), 400
+    try:
+        output = run_demo(module)
+        return jsonify({"output": output, "error": None})
+    except Exception as e:
+        error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
+        return jsonify({"output": None, "error": error})
+
+
 @app.get("/source")
 def source():
     module = request.args.get("module")
@@ -151,6 +174,54 @@ def source():
         "path": str(filepath),
     }
     return render_template("demo.html", meta=meta, output=None, error=None, code=code)
+
+
+@app.get("/viz/sorting")
+def viz_sorting():
+    # Render sorting visualization page
+    algo = request.args.get("algo", "quick")
+    try:
+        from visualizations import sorting_viz as s_viz  # type: ignore
+        algorithms = [{"key": k, "name": v["name"]} for k, v in s_viz.ALGORITHMS.items()]
+    except Exception:
+        algorithms = [
+            {"key": "quick", "name": "Quick Sort"},
+            {"key": "bubble", "name": "Bubble Sort"},
+            {"key": "insertion", "name": "Insertion Sort"},
+        ]
+    return render_template("viz_sorting.html", algo=algo, algorithms=algorithms)
+
+
+@app.post("/api/viz/sorting")
+def api_viz_sorting():
+    # Return JSON frames for a sorting visualization
+    if request.is_json:
+        data = request.get_json(silent=True) or {}
+    else:
+        data = request.form
+
+    algo = data.get("algo", "quick")
+    n = int(data.get("n", 30))
+    seed = data.get("seed", None)
+    seed = int(seed) if seed not in (None, "", "null") else None
+    unique = data.get("unique", "true")
+    if isinstance(unique, str):
+        unique = unique.lower() != "false"
+
+    try:
+        from visualizations import sorting_viz as s_viz  # type: ignore
+        result = s_viz.visualize(algo, n=n, seed=seed, unique=unique)
+        return jsonify(result)
+    except Exception as e:
+        error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
+        return jsonify({"error": error}), 500
+
+
+@app.get("/favicon.ico")
+def favicon_ico():
+    # Suppress 404 favicon requests in development
+    from flask import Response as _Response
+    return _Response(status=204)
 
 
 if __name__ == "__main__":

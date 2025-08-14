@@ -14,10 +14,19 @@
               <li class="demo-item">
                 <div class="demo-title">{{ d.title }}</div>
                 <div class="demo-actions">
-                  <a class="btn" href="{{ url_for('demo_page') }}?module={{ d.id }}">Open</a>
+                  <button class="btn" data-run data-module="{{ d.id }}">Run</button>
+                  {% set viz_key = sorting_viz_map.get(d.id) if sorting_viz_map else None %}
+                  {% if viz_key %}
+                    <a class="btn secondary" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}">Visualize</a>
+                  {% endif %}
+                  <a class="btn secondary" href="{{ url_for('demo_page') }}?module={{ d.id }}">Open</a>
                   <a class="btn secondary" href="{{ url_for('source') }}?module={{ d.id }}">Source</a>
                 </div>
                 <div class="demo-id">{{ d.id }}</div>
+                <div class="panel run-panel" hidden>
+                  <h4>Output</h4>
+                  <pre class="output"><code></code></pre>
+                </div>
               </li>
             {% endfor %}
           </ul>
@@ -25,4 +34,46 @@
       {% endfor %}
     </div>
   {% endif %}
+
+  <script>
+    document.addEventListener("click", async (e) => {
+      const btn = e.target.closest("button[data-run]");
+      if (!btn) return;
+
+      const moduleId = btn.dataset.module;
+      const li = btn.closest("li.demo-item");
+      const panel = li.querySelector(".run-panel");
+      const code = panel.querySelector(".output > code");
+
+      // Show panel and set running state
+      panel.hidden = false;
+      panel.classList.remove("error");
+      code.textContent = "";
+      const original = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = "Running...";
+
+      try {
+        const res = await fetch("{{ url_for('api_demo_run') }}", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ module: moduleId }),
+        });
+
+        const data = await res.json();
+        if (data.error) {
+          panel.classList.add("error");
+          code.textContent = data.error;
+        } else {
+          code.textContent = data.output || "(no output)";
+        }
+      } catch (err) {
+        panel.classList.add("error");
+        code.textContent = String(err);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = original;
+      }
+    });
+  </script>
 {% endblock %}

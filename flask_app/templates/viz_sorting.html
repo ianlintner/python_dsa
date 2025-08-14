@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+{% block content %}
+  <article class="viz-page">
+    <header class="demo-header">
+      <div>
+        <h2>Sorting Visualization</h2>
+        <div class="meta">
+          <span class="badge">interactive</span>
+          <span class="path">Animate common sorting algorithms</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <form id="controls" class="viz-controls" onsubmit="return false;">
+        <label>
+          Algorithm
+          <select id="algo">
+            {% for a in algorithms %}
+              <option value="{{ a.key }}" {% if a.key == algo %}selected{% endif %}>{{ a.name }}</option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <label>
+          N
+          <input id="n" type="range" min="5" max="150" step="1" value="40" />
+          <span id="nLabel">40</span>
+        </label>
+
+        <label>
+          Speed (fps)
+          <input id="speed" type="range" min="1" max="60" step="1" value="24" />
+          <span id="speedLabel">24</span>
+        </label>
+
+        <label class="row">
+          Seed (optional)
+          <input id="seed" type="number" step="1" placeholder="random" />
+        </label>
+
+        <label class="row">
+          Unique values
+          <input id="unique" type="checkbox" checked />
+        </label>
+
+        <div class="viz-buttons">
+          <button id="generate" class="btn" type="button">Generate</button>
+          <button id="play" class="btn" type="button">Play</button>
+          <button id="pause" class="btn secondary" type="button" disabled>Pause</button>
+          <button id="step" class="btn secondary" type="button">Step</button>
+          <button id="reset" class="btn secondary" type="button">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div id="status" class="viz-status">Ready</div>
+      <div id="bars" class="bars"></div>
+    </section>
+  </article>
+
+  <script>
+    const el = (id) => document.getElementById(id);
+    const algoSel = el("algo");
+    const nRange = el("n");
+    const nLabel = el("nLabel");
+    const speedRange = el("speed");
+    const speedLabel = el("speedLabel");
+    const seedInput = el("seed");
+    const uniqueChk = el("unique");
+    const bars = el("bars");
+    const statusEl = el("status");
+    const btnGenerate = el("generate");
+    const btnPlay = el("play");
+    const btnPause = el("pause");
+    const btnStep = el("step");
+    const btnReset = el("reset");
+
+    let frames = [];
+    let maxVal = 1;
+    let frameIdx = 0;
+    let playing = false;
+    let rafId = null;
+    let prevTime = 0;
+    let frameIntervalMs = 1000 / Number(speedRange.value || 24);
+
+    function setStatus(msg) {
+      statusEl.textContent = msg;
+    }
+
+    function setDisabledDuringPlay(isPlaying) {
+      btnGenerate.disabled = isPlaying;
+      algoSel.disabled = isPlaying;
+      nRange.disabled = isPlaying;
+      seedInput.disabled = isPlaying;
+      uniqueChk.disabled = isPlaying;
+      btnPlay.disabled = isPlaying;
+      btnPause.disabled = !isPlaying;
+    }
+
+    function renderBars(arr) {
+      const W = bars.clientWidth || 900;
+      const H = 360;
+      const n = arr.length;
+      const gap = Math.max(0, Math.min(2, Math.floor(W / n > 6 ? 2 : 1)));
+      const barW = Math.max(1, Math.floor((W - (n - 1) * gap) / n));
+
+      bars.style.setProperty("--bar-width", barW + "px");
+      bars.style.setProperty("--bar-gap", gap + "px");
+      bars.style.setProperty("--bar-height", H + "px");
+      bars.innerHTML = "";
+
+      for (let i = 0; i < n; i++) {
+        const v = arr[i];
+        const h = Math.max(2, Math.round((v / maxVal) * H));
+        const div = document.createElement("div");
+        div.className = "bar";
+        div.style.height = h + "px";
+        div.dataset.idx = String(i);
+        bars.appendChild(div);
+      }
+    }
+
+    function paintFrame(f) {
+      if (!f) return;
+      const { arr, a, b, op } = f;
+      // Update heights if size matches
+      const els = bars.children;
+      if (els.length === arr.length) {
+        for (let i = 0; i < arr.length; i++) {
+          const h = Math.max(2, Math.round((arr[i] / maxVal) * (parseInt(getComputedStyle(bars).getPropertyValue("--bar-height")))));
+          const bar = els[i];
+          bar.style.height = h + "px";
+          bar.classList.remove("compare", "swap", "pivot", "key", "shift", "insert");
+        }
+      }
+      if (a != null) els[a]?.classList.add(op === "compare" ? "compare" : op || "compare");
+      if (b != null) els[b]?.classList.add(op === "compare" ? "compare" : op || "compare");
+      setStatus(`Frame ${frameIdx + 1}/${frames.length} · op=${op || "none"} ${a ?? ""} ${b ?? ""}`);
+    }
+
+    function stepOnce() {
+      if (!frames.length) return;
+      frameIdx = Math.min(frames.length - 1, frameIdx + 1);
+      paintFrame(frames[frameIdx]);
+    }
+
+    function loop(ts) {
+      if (!playing) return;
+      if (!prevTime) prevTime = ts;
+      const delta = ts - prevTime;
+      if (delta >= frameIntervalMs) {
+        prevTime = ts;
+        stepOnce();
+        if (frameIdx >= frames.length - 1) {
+          playing = false;
+          setDisabledDuringPlay(false);
+          return;
+        }
+      }
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function play() {
+      if (!frames.length) return;
+      if (frameIdx >= frames.length - 1) frameIdx = 0;
+      playing = true;
+      prevTime = 0;
+      setDisabledDuringPlay(true);
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function pause() {
+      playing = false;
+      setDisabledDuringPlay(false);
+      if (rafId) cancelAnimationFrame(rafId);
+    }
+
+    function reset() {
+      frameIdx = 0;
+      paintFrame(frames[0]);
+      setStatus("Reset");
+    }
+
+    async function generate() {
+      pause();
+      setStatus("Generating...");
+      const body = {
+        algo: algoSel.value,
+        n: Number(nRange.value),
+        seed: seedInput.value === "" ? null : Number(seedInput.value),
+        unique: uniqueChk.checked,
+      };
+      const res = await fetch("{{ url_for('api_viz_sorting') }}", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (data.error) {
+        setStatus("Error: " + data.error);
+        return;
+      }
+      frames = data.frames || [];
+      maxVal = data.max || 1;
+      frameIdx = 0;
+      renderBars(frames[0].arr);
+      paintFrame(frames[0]);
+      setStatus(`Generated ${frames.length} frames for ${data.name} (n=${data.n})`);
+    }
+
+    // UI bindings
+    nRange.addEventListener("input", () => (nLabel.textContent = nRange.value));
+    speedRange.addEventListener("input", () => {
+      speedLabel.textContent = speedRange.value;
+      frameIntervalMs = 1000 / Number(speedRange.value || 24);
+    });
+    btnGenerate.addEventListener("click", generate);
+    btnPlay.addEventListener("click", play);
+    btnPause.addEventListener("click", pause);
+    btnStep.addEventListener("click", stepOnce);
+    btnReset.addEventListener("click", reset);
+
+    // Initial defaults
+    nLabel.textContent = nRange.value;
+    speedLabel.textContent = speedRange.value;
+    // Auto-generate first visualization
+    generate();
+  </script>
+{% endblock %}
