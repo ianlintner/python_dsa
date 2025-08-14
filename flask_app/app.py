@@ -75,6 +75,12 @@ GRAPH_VIZ_MODULES = {
     "graphs.bfs_dfs": True,
 }
 
+# Pathfinding visualizations available
+PATH_VIZ_MODULES = {
+    "graphs.a_star": True,
+    "graphs.dijkstra": True,
+}
+
 
 @app.route("/")
 def index():
@@ -83,6 +89,7 @@ def index():
         categories=CATEGORIES,
         sorting_viz_map=SORTING_VIZ_MAP,
         graph_viz_modules=GRAPH_VIZ_MODULES,
+        path_viz_modules=PATH_VIZ_MODULES,
     )
 
 
@@ -256,6 +263,40 @@ def api_viz_graph():
     try:
         from visualizations import graph_viz as g_viz  # type: ignore
         result = g_viz.visualize(algo, n=n, p=p, seed=seed, start=start)
+        return jsonify(result)
+    except Exception as e:
+        error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
+        return jsonify({"error": error}), 500
+
+
+@app.get("/viz/path")
+def viz_path():
+    # Render pathfinding visualization page (A*, Dijkstra on grid)
+    algo = request.args.get("algo", "astar")
+    algorithms = [
+        {"key": "astar", "name": "A* (Manhattan)"},
+        {"key": "dijkstra", "name": "Dijkstra"},
+    ]
+    return render_template("viz_path.html", algo=algo, algorithms=algorithms)
+
+
+@app.post("/api/viz/path")
+def api_viz_path():
+    if request.is_json:
+        data = request.get_json(silent=True) or {}
+    else:
+        data = request.form
+
+    algo = data.get("algo", "astar")
+    rows = int(data.get("rows", 20))
+    cols = int(data.get("cols", 30))
+    density = float(data.get("density", 0.25))
+    seed = data.get("seed", None)
+    seed = int(seed) if seed not in (None, "", "null") else None
+
+    try:
+        from visualizations import path_viz as p_viz  # type: ignore
+        result = p_viz.visualize(algo, rows=rows, cols=cols, density=density, seed=seed)
         return jsonify(result)
     except Exception as e:
         error = "".join(traceback.format_exception(type(e), e, e.__traceback__))

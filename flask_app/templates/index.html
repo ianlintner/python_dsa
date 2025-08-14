@@ -22,6 +22,9 @@
                   {% if graph_viz_modules and d.id in graph_viz_modules %}
                     <a class="btn secondary" href="{{ url_for('viz_graph') }}?algo=bfs">Graph Viz</a>
                   {% endif %}
+                  {% if path_viz_modules and d.id in path_viz_modules %}
+                    <a class="btn secondary" href="{{ url_for('viz_path') }}?algo=astar">Pathfinding Viz</a>
+                  {% endif %}
                   <a class="btn secondary" href="{{ url_for('demo_page') }}?module={{ d.id }}">Open</a>
                   <a class="btn secondary" href="{{ url_for('source') }}?module={{ d.id }}">Source</a>
                 </div>
