@@ -138,12 +138,12 @@ def longest_repeated_substring(s: str) -> tuple[str, list[int]]:
         return "", []
 
     lo, hi = 1, n - 1
-    best_sub, best_pos = "", []
+    best_sub = ""
     while lo <= hi:
         mid = (lo + hi) // 2
         sub, positions = exists_len(mid)
         if sub:
-            best_sub, best_pos = sub, positions
+            best_sub, _ = sub, positions
             lo = mid + 1
         else:
             hi = mid - 1

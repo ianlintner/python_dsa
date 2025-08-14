@@ -115,7 +115,7 @@ def demo():
     tb = TokenBucket(capacity=5, rate=2.0)
     print("TokenBucket test (5 capacity, 2 tokens/sec):")
     accepted = 0
-    for i in range(10):
+    for _ in range(10):
         ok = tb.acquire()
         print(f"  acquire() -> {ok}")
         if ok:
@@ -134,7 +134,7 @@ def demo():
     lb = LeakyBucket(capacity=5, rate=2.0)
     print("LeakyBucket test (5 capacity, leak 2/sec):")
     results = []
-    for i in range(10):
+    for _ in range(10):
         ok = lb.offer()
         results.append(ok)
         time.sleep(0.1)

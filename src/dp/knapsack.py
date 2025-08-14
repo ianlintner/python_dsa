@@ -1,5 +1,3 @@
-
-
 def knapsack_01(weights: list[int], values: list[int], capacity: int) -> int:
     """
     0/1 Knapsack Problem - each item can be taken at most once.
@@ -162,7 +160,7 @@ def fractional_knapsack(weights: list[int], values: list[int], capacity: int) ->
     total_value = 0.0
     remaining_capacity = capacity
 
-    for ratio, weight, value, _ in items:
+    for _ratio, weight, value, _ in items:
         if remaining_capacity >= weight:
             # Take the whole item
             total_value += value

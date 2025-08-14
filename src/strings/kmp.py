@@ -1,5 +1,3 @@
-
-
 def build_lps_array(pattern: str) -> list[int]:
     """
     Build the Longest Proper Prefix which is also Suffix (LPS) array.

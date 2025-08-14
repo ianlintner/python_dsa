@@ -1,5 +1,3 @@
-
-
 def coin_change_min_coins(coins: list[int], amount: int) -> int:
     """
     Find minimum number of coins to make given amount.

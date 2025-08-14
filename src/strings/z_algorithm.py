@@ -1,5 +1,3 @@
-
-
 def z_array(s: str) -> list[int]:
     """
     Compute Z-array for string s.

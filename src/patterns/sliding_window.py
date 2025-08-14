@@ -104,8 +104,8 @@ def min_window_substring(s: str, t: str) -> str:
             left += 1
     if best_len == float("inf"):
         return ""
-    l, r = best
-    return s[l : r + 1]
+    left_idx, right_idx = best
+    return s[left_idx : right_idx + 1]
 
 
 def count_subarrays_sum_k(nums: list[int], k: int) -> int:

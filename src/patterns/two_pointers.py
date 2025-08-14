@@ -1,5 +1,3 @@
-
-
 def two_sum_sorted(nums: list[int], target: int) -> tuple[int, int]:
     """
     Given a sorted array nums, return 0-based indices (i, j) such that nums[i] + nums[j] = target.

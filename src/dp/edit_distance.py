@@ -1,5 +1,3 @@
-
-
 def edit_distance(word1: str, word2: str) -> int:
     """
     Edit Distance (Levenshtein Distance) - minimum operations to transform word1 to word2.

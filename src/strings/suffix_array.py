@@ -1,5 +1,3 @@
-
-
 def suffix_array(s: str) -> list[int]:
     """
     Build suffix array of string s using O(n log n) doubling algorithm.

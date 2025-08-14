@@ -1,5 +1,3 @@
-
-
 def gcd(a: int, b: int) -> int:
     """
     Greatest Common Divisor via Euclidean algorithm.

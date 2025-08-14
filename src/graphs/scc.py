@@ -1,5 +1,3 @@
-
-
 def tarjan_scc(graph: dict[int, list[int]]) -> list[list[int]]:
     """
     Tarjan's algorithm to compute Strongly Connected Components (SCCs)

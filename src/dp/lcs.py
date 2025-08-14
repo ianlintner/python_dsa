@@ -1,5 +1,3 @@
-
-
 def lcs_length(a: str, b: str) -> int:
     """
     Longest Common Subsequence length between strings a and b.

@@ -1,4 +1,3 @@
-
 INF = float("inf")
 
 

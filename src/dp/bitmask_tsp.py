@@ -1,4 +1,3 @@
-
 """
 Bitmask DP (Held-Karp) for Traveling Salesman Problem (TSP)
 

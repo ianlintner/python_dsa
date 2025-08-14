@@ -1,5 +1,3 @@
-
-
 class Node:
     """Doubly linked list node for LRU cache."""
 

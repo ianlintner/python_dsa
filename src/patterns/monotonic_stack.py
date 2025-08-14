@@ -1,5 +1,3 @@
-
-
 def next_greater_elements(nums: list[int]) -> list[int]:
     """
     Next Greater Element for each element in array (to the right).

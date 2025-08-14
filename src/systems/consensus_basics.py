@@ -157,7 +157,7 @@ class Cluster:
         or until max_ticks to limit demo length.
         """
         print("Initial cluster state:")
-        for nid, node in self.nodes.items():
+        for _nid, node in self.nodes.items():
             print(f"  {node}")
         print()
 
@@ -176,7 +176,7 @@ class Cluster:
                 break
 
         print("\nFinal cluster state:")
-        for nid, node in self.nodes.items():
+        for _nid, node in self.nodes.items():
             print(f"  {node}")
 
 

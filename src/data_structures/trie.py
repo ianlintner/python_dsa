@@ -1,5 +1,3 @@
-
-
 class TrieNode:
     """Node in a Trie data structure."""
 

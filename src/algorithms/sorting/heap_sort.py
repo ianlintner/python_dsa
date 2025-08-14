@@ -1,5 +1,3 @@
-
-
 def heap_sort(a: list[int]) -> list[int]:
     """
     In-place O(n log n) sort using binary heap. Not stable.

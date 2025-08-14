@@ -1,5 +1,3 @@
-
-
 class SegmentTree:
     """
     Segment Tree with lazy propagation for range add and range sum queries.

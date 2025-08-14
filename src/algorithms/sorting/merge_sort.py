@@ -1,5 +1,3 @@
-
-
 def merge_sort(a: list[int]) -> list[int]:
     """
     Stable O(n log n) sort via divide-and-conquer.
