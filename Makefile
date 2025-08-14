@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: help install precommit-install precommit-all format format-check lint lint-fix test check ci
+.PHONY: help install precommit-install precommit-all format format-check lint lint-fix test check ci run-ui
 
 help:
 	@echo "Targets:"
@@ -43,3 +43,7 @@ test:
 check: format-check lint
 
 ci: install precommit-all test
+
+# Run the Flask UI for demos
+run-ui:
+	python3 flask_app/app.py

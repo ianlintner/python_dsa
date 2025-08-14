@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Available Demos</h2>
+
+  {% if not categories %}
+    <p>No demos discovered. Ensure modules under <code>src/</code> define a <code>demo()</code> function.</p>
+  {% else %}
+    <div class="categories">
+      {% for category, demos in categories.items() %}
+        <section class="category">
+          <h3>{{ category }}</h3>
+          <ul class="demo-list">
+            {% for d in demos %}
+              <li class="demo-item">
+                <div class="demo-title">{{ d.title }}</div>
+                <div class="demo-actions">
+                  <a class="btn" href="{{ url_for('demo_page') }}?module={{ d.id }}">Open</a>
+                  <a class="btn secondary" href="{{ url_for('source') }}?module={{ d.id }}">Source</a>
+                </div>
+                <div class="demo-id">{{ d.id }}</div>
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

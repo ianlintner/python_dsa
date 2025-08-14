@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title or "Python DSA Demos" }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="brand"><a href="{{ url_for('index') }}">Python DSA Demos</a></h1>
+      <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        {% if meta %}
+          <a href="{{ url_for('source', module=meta.id) }}">View Source</a>
+        {% endif %}
+        <a class="repo" href="https://github.com/ianlintner/python_dsa" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Flask UI for algorithm demos discovered under src/ (modules exposing demo()).</p>
+    </div>
+  </footer>
+</body>
+</html>

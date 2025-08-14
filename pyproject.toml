@@ -3,7 +3,7 @@ name = "interview_workbook"
 version = "0.1.0"
 description = "Python interview algorithms workbook"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = ["flask>=3.0.0"]
 
 [project.optional-dependencies]
 dev = [

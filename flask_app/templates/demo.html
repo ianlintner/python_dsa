@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+  <article class="demo-page">
+    <header class="demo-header">
+      <div>
+        <h2>{{ meta.title }}</h2>
+        <div class="meta">
+          <span class="badge">{{ meta.category }}</span>
+          <code class="path">{{ meta.path }}</code>
+        </div>
+      </div>
+      <div class="actions">
+        <form method="post" action="{{ url_for('demo_run') }}">
+          <input type="hidden" name="module" value="{{ meta.id }}" />
+          <button class="btn" type="submit">Run Demo</button>
+          <a class="btn secondary" href="{{ url_for('source') }}?module={{ meta.id }}">View Source</a>
+        </form>
+      </div>
+    </header>
+
+    {% if output %}
+      <section class="panel">
+        <h3>Output</h3>
+        <pre class="output"><code>{{ output }}</code></pre>
+      </section>
+    {% endif %}
+
+    {% if error %}
+      <section class="panel error">
+        <h3>Error</h3>
+        <pre class="output"><code>{{ error }}</code></pre>
+      </section>
+    {% endif %}
+
+    {% if code %}
+      <section class="panel">
+        <h3>Source</h3>
+        <pre class="code"><code>{{ code }}</code></pre>
+      </section>
+    {% endif %}
+
+    {% if not output and not error and not code %}
+      <section class="panel">
+        <p>Click "Run Demo" to execute the module's demo() and capture its stdout, or "View Source" to inspect the code.</p>
+      </section>
+    {% endif %}
+  </article>
+{% endblock %}
