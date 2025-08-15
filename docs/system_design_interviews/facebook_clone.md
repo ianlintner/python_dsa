@@ -137,4 +137,144 @@ C:
   - Edges: FRIEND(user,user) mutual; FOLLOWS(user,page); MEMBER(user,group); BLOCK(user,user)
   - Partition by user_id/page_id/group_id; maintain forward/backward adjacency lists
 - Post
-  - post_id (Snowflake),
+  - post_id (Snowflake), author_id, created_at, visibility (enum), scope_id (nullable for group/page), text, media_refs[], privacy_tokens, soft_delete, edit_history_meta
+  - secondary: index by author_id + created_at (user timeline), by scope_id for groups/pages
+- Comment
+  - comment_id (Snowflake), post_id, author_id, created_at, text, parent_comment_id (for threads), soft_delete
+  - secondary: post_id → recent comments (bounded)
+- Candidate Store
+  - candidates:{viewer_id} → list of {post_id, source_type(friend|group|page), author_id, created_at, coarse_score?, acl_token}
+- Feed Cache
+  - feed:{viewer_id}:{shard} → list of {post_id, score, metadata} (ranked)
+- Counters (approx online + durable offline)
+  - likes:{post_id} (Redis hash/integer), comments:{post_id}; periodic write-behind to durable store
+- Privacy/ACL
+  - acl_token on each post embeds visibility and scope; read path checks token against viewer graph/membership caches
+- Notifications
+  - notif:{user_id} append-only log for events (comment on your post, friend request, etc.)
+
+I: Walk me through the write path for a new post.
+
+C:
+- Write Path (POST create)
+  1) Validate auth and visibility; compute acl_token (e.g., bit flags + scope id)
+  2) Generate post_id (Snowflake), persist to Content Store with quorum write
+  3) Publish event to Kafka: posts topic {post_id, author_id, visibility, scope, created_at}
+  4) Media pointers validated separately; text sanitized; links scanned asynchronously
+  5) Stream processors:
+     - For friends-only: look up author’s friends (Graph Service) and append to each friend’s Candidate Store
+     - For group/page: for small/medium audiences, append to member/follower candidate pools; for huge pages, mark as global candidate for pull-on-read to avoid massive fanout
+  6) Write minimal author’s own timeline (for profile view)
+  7) Return {post_id}
+
+I: And the read path for News Feed?
+
+C:
+- Read Path (GET feed)
+  1) Resolve viewer session → user_id; apply rate limits
+  2) Try Redis Feed Cache: feed:{viewer_id}:{head}. If present and fresh, return first page and next cursor
+  3) On cache miss/stale:
+     - Fetch N candidates from Candidate Store (viewer_id), merging with “hot” page/group posts as needed
+     - Filter by privacy using acl_token + graph/membership caches; remove blocked/muted authors
+     - Hydrate online features (affinity, freshness, lightweight engagement priors)
+     - Rank via online model; enforce constraints (diversity, author caps)
+     - Materialize ranked chunk into Feed Cache with soft TTL
+  4) Hydrate post payloads: batch fetch post bodies, counters from Redis (fallback to durable store)
+  5) Return page; kick background task to refresh next chunk
+
+I: What consistency guarantees do you provide?
+
+C:
+- Consistency
+  - Content writes: strongly durable (quorum/transactional per shard)
+  - Feed order: eventual; posts may appear with slight delay due to streaming/candidate building
+  - Privacy: best-effort strong — enforced at candidate build and re-checked at read; if graph/membership is stale, read-time check prevents leaks
+  - Counters: approximate in real time; durable reconciliation jobs for accuracy
+- Idempotency
+  - Post creation uses idempotency keys on retries; stream processors are idempotent (checkpoints, exactly-once or effectively-once via dedupe keys)
+
+I: How do you handle multi-region?
+
+C:
+- Multi-Region
+  - Active-active for reads; region-local caches and feed assembly
+  - Writes: region-local primaries per shard with async cross-region replication (or globally consistent store if available, with cost/latency tradeoffs)
+  - Streams: Kafka with Mirror topics; per-region candidate builders; DLQs per region
+  - Graph: TAO-like cache layer per region; write-through to backing store; conflict resolution by last-write-wins on edge version or CRDT where applicable
+  - Disaster Recovery: periodic snapshots for content and graph; replay streams for candidate rebuild; RPO minutes, RTO ≤ 1 hour
+- Federation of Pages/Groups
+  - Very large pages/groups can be region-pinned for write locality; readers merge regionally “hot” content with bounded lookback
+
+I: Capacity planning quick math?
+
+C:
+- Capacity (back-of-envelope)
+  - Feed views/day 100B → ~1.16M rps avg; peaks up to ~5–10M rps regionally
+  - Target 90%+ cache hit for head fragments → origin/ranking load ~100k–500k rps globally
+  - Candidate inserts:
+    - 1B posts/day; average 300 friends → naive 300B inserts/day is infeasible
+    - Mitigations: only recent posts enter candidate pools; deduplicate authors; cap pool sizes; for large pages/groups use pull-on-read
+  - Storage growth:
+    - Posts: 1B/day × 1 KB avg ⇒ ~1 TB/day raw; 3x replication ⇒ ~3 TB/day
+    - Comments/likes dominate event volume; counters compressed in aggregates; cold data offloaded to object storage
+
+I: What about failure modes and mitigations?
+
+C:
+- Failure Modes
+  - Cache stampede: use request coalescing, soft TTL, serve-stale, background refresh
+  - Stream backlog: autoscale processors, prioritization (viewer self, close friends), DLQ with redrive, backpressure on writes if needed
+  - Hot keys: celebrity pages; mitigate with pull-on-read, sharded caches, per-key rate caps
+  - Partial graph outages: fall back to cached ACL tokens; conservative deny on ambiguity to avoid leaks
+  - Model outages: degrade to recency-based ranking; keep UX functional
+- Safe Deploys
+  - Shadow traffic for new ranker; dark reads for new candidate builders; canaries with SLO guards and auto-rollback
+
+I: Discuss security, privacy, and abuse.
+
+C:
+- Security/Privacy
+  - Strong isolation for private groups; separate indexes; ACL tokens validated on read
+  - Data minimization: redact PII from logs; access via fine-grained IAM; audit trails
+  - E2E not required for feed, but TLS everywhere; service mTLS; secrets via KMS
+- Abuse/Integrity
+  - Spam detection via graph + velocity + text signals; demote/suppress at ranking
+  - Harassment/blocked users: hard filters at candidate and read time
+  - Media/links scanning; quarantine pipeline; user reporting with fast takedown
+- Compliance
+  - Right-to-erasure pipeline: tombstones propagate to feed caches, candidate stores, search indexes
+
+I: How do groups and pages differ from friends’ content?
+
+C:
+- Groups
+  - Membership scope; stricter privacy; per-group moderation; candidate pools segmented per group; reader must be MEMBER(user, group)
+- Pages
+  - One-way follow; very large audiences; avoid fanout-on-write at size; rely on hot post pull-on-read and per-viewer merge caches
+
+I: Notifications in brief?
+
+C:
+- Notifications
+  - Write lightweight events on comment/like/reply; batch/coalesce; per-user notif log with read markers
+  - Mobile push via dedicated service; rate limits and quiet hours; privacy-aware payloads
+
+I: If you had time to evolve ranking?
+
+C:
+- Ranking Evolution
+  - Multi-stage: candidate generation → lightweight pre-ranker → heavy ranker with richer features
+  - Feature store: consistent online/offline features; backfills for training
+  - Feedback loops: negative feedback (hide, snooze) incorporated; exploration vs exploitation
+  - Integrity constraints: cap low-quality content; diversity and freshness guardrails
+
+I: Summarize the key tradeoffs you chose.
+
+C:
+- Hybrid candidate strategy reduces write amplification while preserving personalization
+- Strong privacy enforcement with read-time checks sacrifices some latency for correctness
+- Approx counters + durable reconciliation offer low latency without strict transactional cost
+- Active-active reads with async replication accept bounded staleness for availability
+- Degradation paths (recency ranker) maintain UX under model or stream failures
+
+I: Looks comprehensive. Let’s stop here.
