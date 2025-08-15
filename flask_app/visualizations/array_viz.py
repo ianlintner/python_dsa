@@ -1,26 +1,24 @@
 from __future__ import annotations
 
 import random
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 
-def _snap(arr: List[int], op: str = "", **markers: Any) -> Dict[str, Any]:
+def _snap(arr: list[int], op: str = "", **markers: Any) -> dict[str, Any]:
     """
     Create a JSON-serializable snapshot of array state plus marker indices.
     Markers can include: lo, hi, mid, l, r, win_l, win_r, best_l, best_r, found, sum
     """
-    snap: Dict[str, Any] = {"arr": arr[:], "op": op}
+    snap: dict[str, Any] = {"arr": arr[:], "op": op}
     for k, v in markers.items():
-        if isinstance(v, (int, type(None))):
-            snap[k] = v
-        else:
-            snap[k] = v
+        # Keep as-is; front-end handles None and numbers
+        snap[k] = v
     return snap
 
 
 def generate_array(
-    n: int = 30, seed: Optional[int] = None, unique: bool = True, sorted_: bool = True
-) -> List[int]:
+    n: int = 30, seed: int | None = None, unique: bool = True, sorted_: bool = True
+) -> list[int]:
     rng = random.Random(seed)
     if unique:
         arr = list(range(1, n + 1))
@@ -32,11 +30,9 @@ def generate_array(
     return arr
 
 
-def binary_search_frames(
-    arr: List[int], target: int, max_steps: int = 20000
-) -> List[Dict[str, Any]]:
+def binary_search_frames(arr: list[int], target: int, max_steps: int = 20000) -> list[dict[str, Any]]:
     a = arr[:]
-    frames: List[Dict[str, Any]] = [_snap(a, "init", lo=0, hi=len(a) - 1, mid=None, found=False)]
+    frames: list[dict[str, Any]] = [_snap(a, "init", lo=0, hi=len(a) - 1, mid=None, found=False)]
     lo, hi = 0, len(a) - 1
     steps = 0
     while lo <= hi and steps < max_steps:
@@ -57,11 +53,11 @@ def binary_search_frames(
 
 
 def two_pointers_sum_frames(
-    arr_sorted: List[int], target: int, max_steps: int = 20000
-) -> List[Dict[str, Any]]:
+    arr_sorted: list[int], target: int, max_steps: int = 20000
+) -> list[dict[str, Any]]:
     a = sorted(arr_sorted[:])
     l, r = 0, len(a) - 1
-    frames: List[Dict[str, Any]] = [_snap(a, "init", l=l, r=r, sum=None)]
+    frames: list[dict[str, Any]] = [_snap(a, "init", l=l, r=r, sum=None)]
     steps = 0
     while l < r and steps < max_steps:
         s = a[l] + a[r]
@@ -81,14 +77,14 @@ def two_pointers_sum_frames(
 
 
 def sliding_window_min_len_geq_frames(
-    arr: List[int], target: int, max_steps: int = 20000
-) -> List[Dict[str, Any]]:
+    arr: list[int], target: int, max_steps: int = 20000
+) -> list[dict[str, Any]]:
     """
     Classic: minimum length of subarray with sum >= target.
     Frames show expanding/shrinking window [win_l, win_r] and best window when updated.
     """
     a = arr[:]
-    frames: List[Dict[str, Any]] = [
+    frames: list[dict[str, Any]] = [
         _snap(a, "init", win_l=0, win_r=-1, best_l=None, best_r=None, s=0, target=target)
     ]
     n = len(a)
@@ -140,7 +136,7 @@ def sliding_window_min_len_geq_frames(
     return frames
 
 
-ALGORITHMS = {
+ALGORITHMS: dict[str, dict[str, Any]] = {
     "binary_search": {
         "name": "Binary Search",
         "frames": binary_search_frames,
@@ -165,17 +161,17 @@ ALGORITHMS = {
 def visualize(
     algo_key: str,
     n: int = 30,
-    seed: Optional[int] = None,
-    target: Optional[int] = None,
-) -> Dict[str, Any]:
+    seed: int | None = None,
+    target: int | None = None,
+) -> dict[str, Any]:
     algo = ALGORITHMS.get(algo_key)
     if not algo:
         raise ValueError(f"Unknown algorithm '{algo_key}'")
     needs_sorted = bool(algo.get("needs_sorted"))
     arr = generate_array(n=n, seed=seed, unique=False, sorted_=needs_sorted)
+
     if target is None:
         rng = random.Random(seed)
-        # Choose a target roughly in range of sums
         if algo_key == "two_pointers_sum":
             if len(arr) >= 2:
                 target = arr[0] + arr[-1]
@@ -185,6 +181,7 @@ def visualize(
             target = max(1, int(sum(arr) / max(2, n // 3)))
         else:  # binary search
             target = arr[len(arr) // 2] if arr else 1
+
     frames = algo["frames"](arr, target)  # type: ignore[arg-type]
     max_val = max(arr) if arr else 1
     return {
