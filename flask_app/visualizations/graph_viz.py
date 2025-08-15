@@ -2,14 +2,15 @@ from __future__ import annotations
 
 import math
 import random
-from typing import Any, Dict, List, Optional, Set, Tuple
+from collections import deque
+from typing import Any
 
 
-def _circle_layout(n: int) -> List[Tuple[float, float]]:
+def _circle_layout(n: int) -> list[tuple[float, float]]:
     # Normalized coordinates in [0,1] arranged on a circle
-    pts: List[Tuple[float, float]] = []
+    pts: list[tuple[float, float]] = []
     for i in range(n):
-        theta = 2.0 * math.pi * (i / n)
+        theta = 2.0 * math.pi * (i / max(1, n))
         r = 0.42
         cx, cy = 0.5, 0.5
         x = cx + r * math.cos(theta)
@@ -18,7 +19,7 @@ def _circle_layout(n: int) -> List[Tuple[float, float]]:
     return pts
 
 
-def _ensure_connected(n: int, edges: Set[Tuple[int, int]], rng: random.Random) -> None:
+def _ensure_connected(n: int, edges: set[tuple[int, int]], rng: random.Random) -> None:
     # Simple union-find to ensure the graph is connected by adding ring edges
     parent = list(range(n))
 
@@ -37,7 +38,7 @@ def _ensure_connected(n: int, edges: Set[Tuple[int, int]], rng: random.Random) -
         union(u, v)
 
     # Connect components by adding ring edges
-    comp = {}
+    comp: dict[int, list[int]] = {}
     for i in range(n):
         comp.setdefault(find(i), []).append(i)
     reps = list(comp.keys())
@@ -52,7 +53,7 @@ def _ensure_connected(n: int, edges: Set[Tuple[int, int]], rng: random.Random) -
             edges.add(e)
 
 
-def generate_graph(n: int = 12, p: float = 0.25, seed: Optional[int] = None) -> Dict[str, Any]:
+def generate_graph(n: int = 12, p: float = 0.25, seed: int | None = None) -> dict[str, Any]:
     """
     Generate an undirected simple graph with n nodes.
     - Start with no edges, add each possible edge with probability p
@@ -60,17 +61,18 @@ def generate_graph(n: int = 12, p: float = 0.25, seed: Optional[int] = None) -> 
     - Provide circular layout positions in [0,1] coords
     """
     rng = random.Random(seed)
-    edges: Set[Tuple[int, int]] = set()
+    edges: set[tuple[int, int]] = set()
     for u in range(n):
         for v in range(u + 1, n):
             if rng.random() < p:
                 edges.add((u, v))
     _ensure_connected(n, edges, rng)
     nodes = [{"id": i, "x": x, "y": y} for i, (x, y) in enumerate(_circle_layout(n))]
+    # Keep edges as tuples of ints (front-end can handle lists after jsonify)
     return {"n": n, "nodes": nodes, "edges": sorted(list(edges))}
 
 
-def _frame(state: Dict[str, Any]) -> Dict[str, Any]:
+def _frame(state: dict[str, Any]) -> dict[str, Any]:
     # Copy for JSON frame
     return {
         "current": state.get("current"),
@@ -81,21 +83,19 @@ def _frame(state: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def bfs_frames(g: Dict[str, Any], start: int = 0, max_steps: int = 20000) -> List[Dict[str, Any]]:
+def bfs_frames(g: dict[str, Any], start: int = 0, max_steps: int = 20000) -> list[dict[str, Any]]:
     n = g["n"]
-    adj: List[List[int]] = [[] for _ in range(n)]
+    adj: list[list[int]] = [[] for _ in range(n)]
     for u, v in g["edges"]:
         adj[u].append(v)
         adj[v].append(u)
     for i in range(n):
         adj[i].sort()
 
-    from collections import deque
-
-    visited: Set[int] = set()
+    visited: set[int] = set()
     q: deque[int] = deque([start])
-    tree_edges: List[Tuple[int, int]] = []
-    frames: List[Dict[str, Any]] = []
+    tree_edges: list[tuple[int, int]] = []
+    frames: list[dict[str, Any]] = []
     state = {
         "current": None,
         "visited": set(),
@@ -148,20 +148,20 @@ def bfs_frames(g: Dict[str, Any], start: int = 0, max_steps: int = 20000) -> Lis
     return frames
 
 
-def dfs_frames(g: Dict[str, Any], start: int = 0, max_steps: int = 20000) -> List[Dict[str, Any]]:
+def dfs_frames(g: dict[str, Any], start: int = 0, max_steps: int = 20000) -> list[dict[str, Any]]:
     n = g["n"]
-    adj: List[List[int]] = [[] for _ in range(n)]
+    adj: list[list[int]] = [[] for _ in range(n)]
     for u, v in g["edges"]:
         adj[u].append(v)
         adj[v].append(u)
     for i in range(n):
         adj[i].sort()
 
-    frames: List[Dict[str, Any]] = []
-    visited: Set[int] = set()
-    stack: List[Tuple[int, Optional[int], int]] = [(start, None, 0)]  # (node, parent, idx)
+    frames: list[dict[str, Any]] = []
+    visited: set[int] = set()
+    stack: list[tuple[int, int | None, int]] = [(start, None, 0)]  # (node, parent, idx)
 
-    def snapshot(u: Optional[int], op: str) -> None:
+    def snapshot(u: int | None, op: str) -> None:
         frontier = [s[0] for s in stack]
         frames.append(
             _frame(
@@ -175,7 +175,7 @@ def dfs_frames(g: Dict[str, Any], start: int = 0, max_steps: int = 20000) -> Lis
             )
         )
 
-    tree_edges: List[Tuple[int, int]] = []
+    tree_edges: list[tuple[int, int]] = []
     snapshot(None, "init")
 
     while stack and len(frames) < max_steps:
@@ -205,8 +205,8 @@ ALGORITHMS = {
 
 
 def visualize(
-    algo_key: str, n: int = 12, p: float = 0.25, seed: Optional[int] = None, start: int = 0
-) -> Dict[str, Any]:
+    algo_key: str, n: int = 12, p: float = 0.25, seed: int | None = None, start: int = 0
+) -> dict[str, Any]:
     algo = ALGORITHMS.get(algo_key)
     if not algo:
         raise ValueError(f"Unknown algorithm '{algo_key}'")

@@ -3,17 +3,17 @@ from __future__ import annotations
 import heapq
 import math
 import random
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any
 
-Coord = Tuple[float, float]
-Edge = Tuple[int, int, float]
+Coord = tuple[float, float]
+Edge = tuple[int, int, float]
 
 
-def _circle_layout(n: int, jitter: float = 0.0, rng: Optional[random.Random] = None) -> List[Coord]:
-    pts: List[Coord] = []
+def _circle_layout(n: int, jitter: float = 0.0, rng: random.Random | None = None) -> list[Coord]:
+    pts: list[Coord] = []
     rng = rng or random.Random()
     for i in range(n):
-        theta = 2.0 * math.pi * (i / n)
+        theta = 2.0 * math.pi * (i / max(1, n))
         r = 0.42
         cx, cy = 0.5, 0.5
         x = cx + r * math.cos(theta)
@@ -30,7 +30,7 @@ def _dist(a: Coord, b: Coord) -> float:
     return (dx * dx + dy * dy) ** 0.5
 
 
-def generate_graph(n: int = 12, k: int = 3, seed: Optional[int] = None) -> Dict[str, Any]:
+def generate_graph(n: int = 12, k: int = 3, seed: int | None = None) -> dict[str, Any]:
     """
     Geometric graph for MST visualization.
     - Place n nodes on a circle (slight jitter for variety)
@@ -42,9 +42,9 @@ def generate_graph(n: int = 12, k: int = 3, seed: Optional[int] = None) -> Dict[
     nodes_xy = _circle_layout(n, jitter=0.02, rng=rng)
 
     # Build KNN edges
-    edges_set: Set[Tuple[int, int]] = set()
+    edges_set: set[tuple[int, int]] = set()
     for u in range(n):
-        dists: List[Tuple[float, int]] = []
+        dists: list[tuple[float, int]] = []
         for v in range(n):
             if u == v:
                 continue
@@ -57,7 +57,7 @@ def generate_graph(n: int = 12, k: int = 3, seed: Optional[int] = None) -> Dict[
             edges_set.add((a, b))
 
     # Compute weights
-    edges: List[Edge] = []
+    edges: list[Edge] = []
     for u, v in edges_set:
         w = _dist(nodes_xy[u], nodes_xy[v])
         edges.append((u, v, w))
@@ -69,10 +69,10 @@ def generate_graph(n: int = 12, k: int = 3, seed: Optional[int] = None) -> Dict[
 
 def _frame(
     op: str,
-    mst_edges: List[Tuple[int, int]],
-    edge: Optional[Tuple[int, int]] = None,
-    visited: Optional[Set[int]] = None,
-) -> Dict[str, Any]:
+    mst_edges: list[tuple[int, int]],
+    edge: tuple[int, int] | None = None,
+    visited: set[int] | None = None,
+) -> dict[str, Any]:
     return {
         "op": op,
         "mst_edges": [list(e) for e in mst_edges],
@@ -81,9 +81,9 @@ def _frame(
     }
 
 
-def kruskal_frames(g: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, Any]]:
+def kruskal_frames(g: dict[str, Any], max_steps: int = 50000) -> list[dict[str, Any]]:
     n: int = g["n"]
-    edges: List[Edge] = g["edges"]
+    edges: list[Edge] = g["edges"]
 
     parent = list(range(n))
     rank = [0] * n
@@ -107,8 +107,8 @@ def kruskal_frames(g: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, 
             rank[ra] += 1
         return True
 
-    frames: List[Dict[str, Any]] = []
-    mst: List[Tuple[int, int]] = []
+    frames: list[dict[str, Any]] = []
+    mst: list[tuple[int, int]] = []
     frames.append(_frame("init", mst))
 
     for u, v, _w in edges:
@@ -129,23 +129,23 @@ def kruskal_frames(g: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, 
     return frames
 
 
-def prim_frames(g: Dict[str, Any], start: int = 0, max_steps: int = 50000) -> List[Dict[str, Any]]:
+def prim_frames(g: dict[str, Any], start: int = 0, max_steps: int = 50000) -> list[dict[str, Any]]:
     n: int = g["n"]
-    edges: List[Edge] = g["edges"]
+    edges: list[Edge] = g["edges"]
     # Build adjacency
-    adj: List[List[Tuple[int, float]]] = [[] for _ in range(n)]
+    adj: list[list[tuple[int, float]]] = [[] for _ in range(n)]
     for u, v, w in edges:
         adj[u].append((v, w))
         adj[v].append((u, w))
     for i in range(n):
         adj[i].sort(key=lambda t: t[1])
 
-    frames: List[Dict[str, Any]] = []
-    mst: List[Tuple[int, int]] = []
-    visited: Set[int] = set([start])
+    frames: list[dict[str, Any]] = []
+    mst: list[tuple[int, int]] = []
+    visited: set[int] = {start}
     frames.append(_frame("start", mst, visited=visited))
 
-    heap: List[Tuple[float, int, int]] = []  # (w, u, v) edge from u->v
+    heap: list[tuple[float, int, int]] = []  # (w, u, v) edge from u->v
     tie = 0
     for v, w in adj[start]:
         heapq.heappush(heap, (w, start, v))
@@ -181,8 +181,8 @@ ALGORITHMS = {
 
 
 def visualize(
-    algo_key: str, n: int = 12, k: int = 3, seed: Optional[int] = None, start: int = 0
-) -> Dict[str, Any]:
+    algo_key: str, n: int = 12, k: int = 3, seed: int | None = None, start: int = 0
+) -> dict[str, Any]:
     algo = ALGORITHMS.get(algo_key)
     if not algo:
         raise ValueError(f"Unknown algorithm '{algo_key}'")

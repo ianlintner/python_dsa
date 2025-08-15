@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import math
 import random
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
-Point = Tuple[float, float]
-LabeledPoint = Tuple[float, float, int]
+Point = tuple[float, float]
+LabeledPoint = tuple[float, float, int]
 
 
 def _sigmoid(x: float) -> float:
@@ -34,14 +34,14 @@ def _color_bound(x: float, lo: float = 0.0, hi: float = 1.0) -> float:
     return max(lo, min(hi, x))
 
 
-def generate_blobs(n: int, seed: Optional[int]) -> List[LabeledPoint]:
+def generate_blobs(n: int, seed: int | None) -> list[LabeledPoint]:
     rng = random.Random(seed)
     # two Gaussian-ish blobs
     c1 = (0.35, 0.35)
     c2 = (0.65, 0.65)
     s1 = 0.10
     s2 = 0.10
-    out: List[LabeledPoint] = []
+    out: list[LabeledPoint] = []
     for i in range(n):
         if i % 2 == 0:
             x = _color_bound(rng.gauss(c1[0], s1))
@@ -54,10 +54,10 @@ def generate_blobs(n: int, seed: Optional[int]) -> List[LabeledPoint]:
     return out
 
 
-def generate_moons(n: int, seed: Optional[int]) -> List[LabeledPoint]:
+def generate_moons(n: int, seed: int | None) -> list[LabeledPoint]:
     rng = random.Random(seed)
     # Two interleaving half-circles in [0,1]^2
-    out: List[LabeledPoint] = []
+    out: list[LabeledPoint] = []
     for i in range(n):
         t = _rand_uniform(rng, 0.0, math.pi)
         noise = 0.06
@@ -75,8 +75,8 @@ def generate_moons(n: int, seed: Optional[int]) -> List[LabeledPoint]:
 
 
 def generate_dataset(
-    kind: str = "blobs", n: int = 200, seed: Optional[int] = None
-) -> List[LabeledPoint]:
+    kind: str = "blobs", n: int = 200, seed: int | None = None
+) -> list[LabeledPoint]:
     if kind == "moons":
         return generate_moons(n, seed)
     return generate_blobs(n, seed)
@@ -84,21 +84,21 @@ def generate_dataset(
 
 # Simple 1-hidden-layer MLP for 2D -> 1 (binary classification) without numpy
 class TinyMLP:
-    def __init__(self, hidden: int, lr: float, seed: Optional[int] = None) -> None:
+    def __init__(self, hidden: int, lr: float, seed: int | None = None) -> None:
         self.h = max(1, int(hidden))
         self.lr = float(lr)
         self.rng = random.Random(seed)
         # weights: W1: h x 2, b1: h, W2: 1 x h, b2: 1
-        self.W1: List[List[float]] = [
+        self.W1: list[list[float]] = [
             [self.rng.uniform(-1.0, 1.0) * 0.5 for _ in range(2)] for _ in range(self.h)
         ]
-        self.b1: List[float] = [0.0 for _ in range(self.h)]
-        self.W2: List[float] = [
+        self.b1: list[float] = [0.0 for _ in range(self.h)]
+        self.W2: list[float] = [
             self.rng.uniform(-1.0, 1.0) * 0.5 for _ in range(self.h)
         ]  # shape (h,)
         self.b2: float = 0.0
 
-    def forward(self, x: Point) -> Tuple[List[float], float]:
+    def forward(self, x: Point) -> tuple[list[float], float]:
         # x: (2,)
         # z1 = W1 x + b1
         z1 = [self.W1[i][0] * x[0] + self.W1[i][1] * x[1] + self.b1[i] for i in range(self.h)]
@@ -142,15 +142,15 @@ class TinyMLP:
         return yhat
 
 
-def _frame(epoch: int, loss: float, grid_probs: List[List[float]]) -> Dict[str, Any]:
+def _frame(epoch: int, loss: float, grid_probs: list[list[float]]) -> dict[str, Any]:
     return {"epoch": epoch, "loss": loss, "grid": grid_probs}
 
 
-def _make_grid_probs(model: TinyMLP, res: int = 32) -> List[List[float]]:
+def _make_grid_probs(model: TinyMLP, res: int = 32) -> list[list[float]]:
     # Compute probabilities on a res x res grid in [0,1]x[0,1]
-    out: List[List[float]] = []
+    out: list[list[float]] = []
     for j in range(res):
-        row: List[float] = []
+        row: list[float] = []
         y = j / (res - 1) if res > 1 else 0.0
         for i in range(res):
             x = i / (res - 1) if res > 1 else 0.0
@@ -166,9 +166,9 @@ def visualize(
     hidden: int = 8,
     lr: float = 0.5,
     epochs: int = 50,
-    seed: Optional[int] = None,
+    seed: int | None = None,
     grid: int = 32,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     # Generate dataset
     pts = generate_dataset(dataset, n=n, seed=seed)
 
@@ -177,8 +177,8 @@ def visualize(
 
     # Train for 'epochs' over all points (1 pass per epoch, shuffled)
     rng = random.Random(seed)
-    frames: List[Dict[str, Any]] = []
-    losses: List[float] = []
+    frames: list[dict[str, Any]] = []
+    losses: list[float] = []
     max_frames = 60  # cap frames to manage payload
     capture_every = max(1, epochs // max_frames)
 

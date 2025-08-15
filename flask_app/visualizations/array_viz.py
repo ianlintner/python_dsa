@@ -30,7 +30,9 @@ def generate_array(
     return arr
 
 
-def binary_search_frames(arr: list[int], target: int, max_steps: int = 20000) -> list[dict[str, Any]]:
+def binary_search_frames(
+    arr: list[int], target: int, max_steps: int = 20000
+) -> list[dict[str, Any]]:
     a = arr[:]
     frames: list[dict[str, Any]] = [_snap(a, "init", lo=0, hi=len(a) - 1, mid=None, found=False)]
     lo, hi = 0, len(a) - 1
@@ -56,23 +58,23 @@ def two_pointers_sum_frames(
     arr_sorted: list[int], target: int, max_steps: int = 20000
 ) -> list[dict[str, Any]]:
     a = sorted(arr_sorted[:])
-    l, r = 0, len(a) - 1
-    frames: list[dict[str, Any]] = [_snap(a, "init", l=l, r=r, sum=None)]
+    left, right = 0, len(a) - 1
+    frames: list[dict[str, Any]] = [_snap(a, "init", l=left, r=right, sum=None)]
     steps = 0
-    while l < r and steps < max_steps:
-        s = a[l] + a[r]
-        frames.append(_snap(a, "check", l=l, r=r, sum=s, target=target))
+    while left < right and steps < max_steps:
+        s = a[left] + a[right]
+        frames.append(_snap(a, "check", l=left, r=right, sum=s, target=target))
         if s == target:
-            frames.append(_snap(a, "found", l=l, r=r, sum=s, target=target))
+            frames.append(_snap(a, "found", l=left, r=right, sum=s, target=target))
             return frames
         if s < target:
-            l += 1
-            frames.append(_snap(a, "move-left", l=l, r=r, sum=None, target=target))
+            left += 1
+            frames.append(_snap(a, "move-left", l=left, r=right, sum=None, target=target))
         else:
-            r -= 1
-            frames.append(_snap(a, "move-right", l=l, r=r, sum=None, target=target))
+            right -= 1
+            frames.append(_snap(a, "move-right", l=left, r=right, sum=None, target=target))
         steps += 1
-    frames.append(_snap(a, "not-found", l=l, r=r, sum=None, target=target))
+    frames.append(_snap(a, "not-found", l=left, r=right, sum=None, target=target))
     return frames
 
 
@@ -90,21 +92,23 @@ def sliding_window_min_len_geq_frames(
     n = len(a)
     s = 0
     best = (10**9, None, None)  # (len, l, r)
-    l = 0
+    left = 0
     steps = 0
     for r in range(n):
         s += a[r]
         frames.append(
-            _snap(a, "expand", win_l=l, win_r=r, best_l=best[1], best_r=best[2], s=s, target=target)
+            _snap(
+                a, "expand", win_l=left, win_r=r, best_l=best[1], best_r=best[2], s=s, target=target
+            )
         )
         while s >= target and steps < max_steps:
-            if r - l + 1 < best[0]:
-                best = (r - l + 1, l, r)
+            if r - left + 1 < best[0]:
+                best = (r - left + 1, left, r)
                 frames.append(
                     _snap(
                         a,
                         "best",
-                        win_l=l,
+                        win_l=left,
                         win_r=r,
                         best_l=best[1],
                         best_r=best[2],
@@ -112,13 +116,13 @@ def sliding_window_min_len_geq_frames(
                         target=target,
                     )
                 )
-            s -= a[l]
-            l += 1
+            s -= a[left]
+            left += 1
             frames.append(
                 _snap(
                     a,
                     "shrink",
-                    win_l=l,
+                    win_l=left,
                     win_r=r,
                     best_l=best[1],
                     best_r=best[2],
@@ -131,7 +135,9 @@ def sliding_window_min_len_geq_frames(
             break
         steps += 1
     frames.append(
-        _snap(a, "done", win_l=l, win_r=n - 1, best_l=best[1], best_r=best[2], s=s, target=target)
+        _snap(
+            a, "done", win_l=left, win_r=n - 1, best_l=best[1], best_r=best[2], s=s, target=target
+        )
     )
     return frames
 

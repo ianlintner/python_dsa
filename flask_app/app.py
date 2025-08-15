@@ -5,7 +5,6 @@ import io
 import sys
 import traceback
 from pathlib import Path
-from typing import Dict, List
 
 from flask import Flask, abort, jsonify, redirect, render_template, request, url_for
 
@@ -19,7 +18,7 @@ if str(SRC_DIR) not in sys.path:
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
 
-def discover_demos() -> Dict[str, List[dict]]:
+def discover_demos() -> dict[str, list[dict]]:
     """
     Discover modules under src/ that expose a callable `demo()` function.
     Returns a mapping: category (e.g. 'algorithms/sorting') -> list of demo metadata.
@@ -54,7 +53,7 @@ def discover_demos() -> Dict[str, List[dict]]:
 
     # Sort and group
     demos.sort(key=lambda d: (d["category"], d["title"]))
-    categories: Dict[str, List[dict]] = {}
+    categories: dict[str, list[dict]] = {}
     for d in demos:
         categories.setdefault(d["category"], []).append(d)
     return categories
