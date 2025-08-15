@@ -4,7 +4,6 @@ import math
 import random
 from typing import Any, Dict, List, Optional, Tuple
 
-
 Point = Tuple[float, float]
 LabeledPoint = Tuple[float, float, int]
 
@@ -75,7 +74,9 @@ def generate_moons(n: int, seed: Optional[int]) -> List[LabeledPoint]:
     return out
 
 
-def generate_dataset(kind: str = "blobs", n: int = 200, seed: Optional[int] = None) -> List[LabeledPoint]:
+def generate_dataset(
+    kind: str = "blobs", n: int = 200, seed: Optional[int] = None
+) -> List[LabeledPoint]:
     if kind == "moons":
         return generate_moons(n, seed)
     return generate_blobs(n, seed)
@@ -88,9 +89,13 @@ class TinyMLP:
         self.lr = float(lr)
         self.rng = random.Random(seed)
         # weights: W1: h x 2, b1: h, W2: 1 x h, b2: 1
-        self.W1: List[List[float]] = [[self.rng.uniform(-1.0, 1.0) * 0.5 for _ in range(2)] for _ in range(self.h)]
+        self.W1: List[List[float]] = [
+            [self.rng.uniform(-1.0, 1.0) * 0.5 for _ in range(2)] for _ in range(self.h)
+        ]
         self.b1: List[float] = [0.0 for _ in range(self.h)]
-        self.W2: List[float] = [self.rng.uniform(-1.0, 1.0) * 0.5 for _ in range(self.h)]  # shape (h,)
+        self.W2: List[float] = [
+            self.rng.uniform(-1.0, 1.0) * 0.5 for _ in range(self.h)
+        ]  # shape (h,)
         self.b2: float = 0.0
 
     def forward(self, x: Point) -> Tuple[List[float], float]:
@@ -108,7 +113,7 @@ class TinyMLP:
         a1, yhat = self.forward(x)
         # Binary cross-entropy loss derivative: dL/dz2 = (yhat - y)
         # Note: for sigmoid + BCE, derivative simplifies to (yhat - y)
-        dz2 = (yhat - float(y))
+        dz2 = yhat - float(y)
         # Gradients for W2, b2
         dW2 = [dz2 * a1[i] for i in range(self.h)]
         db2 = dz2
@@ -180,7 +185,7 @@ def visualize(
     for epoch in range(1, epochs + 1):
         rng.shuffle(pts)
         total_loss = 0.0
-        for (x, y, lbl) in pts:
+        for x, y, lbl in pts:
             total_loss += model.backward_update((x, y), lbl)
         avg_loss = total_loss / max(1, len(pts))
         losses.append(avg_loss)

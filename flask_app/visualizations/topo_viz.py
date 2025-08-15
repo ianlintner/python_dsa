@@ -40,14 +40,18 @@ def _layer_layout(n: int, layers: int) -> List[Tuple[float, float, int]]:
     return coords
 
 
-def generate_dag(n: int = 12, layers: int = 3, p: float = 0.35, seed: Optional[int] = None) -> Dict[str, Any]:
+def generate_dag(
+    n: int = 12, layers: int = 3, p: float = 0.35, seed: Optional[int] = None
+) -> Dict[str, Any]:
     """
     Generate a random Directed Acyclic Graph (DAG) by assigning nodes to layers
     and adding edges that only go from a layer to a strictly later layer, with probability p.
     """
     rng = random.Random(seed)
     coords = _layer_layout(n, layers)
-    nodes = [{"id": i, "x": coords[i][0], "y": coords[i][1], "layer": coords[i][2]} for i in range(n)]
+    nodes = [
+        {"id": i, "x": coords[i][0], "y": coords[i][1], "layer": coords[i][2]} for i in range(n)
+    ]
 
     # group node ids by layer
     by_layer: Dict[int, List[int]] = {}
@@ -117,7 +121,7 @@ def kahn_frames(g: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, Any
     edges: List[Tuple[int, int]] = [tuple(e) for e in g["edges"]]
     adj: List[List[int]] = [[] for _ in range(n)]
     indeg: List[int] = [0] * n
-    for (u, v) in edges:
+    for u, v in edges:
         adj[u].append(v)
         indeg[v] += 1
     for i in range(n):
@@ -144,12 +148,18 @@ def kahn_frames(g: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, Any
         frames.append(_frame("remove", u, list(q), removed, order=order))
         # Decrement indegrees of neighbors
         for v in adj[u]:
-            frames.append(_frame("inspect", u, list(q), removed, highlight_edges=[(u, v)], order=order))
+            frames.append(
+                _frame("inspect", u, list(q), removed, highlight_edges=[(u, v)], order=order)
+            )
             indeg[v] -= 1
-            frames.append(_frame("decrement", u, list(q), removed, highlight_edges=[(u, v)], order=order))
+            frames.append(
+                _frame("decrement", u, list(q), removed, highlight_edges=[(u, v)], order=order)
+            )
             if indeg[v] == 0:
                 q.append(v)
-                frames.append(_frame("enqueue", u, list(q), removed, highlight_edges=[(u, v)], order=order))
+                frames.append(
+                    _frame("enqueue", u, list(q), removed, highlight_edges=[(u, v)], order=order)
+                )
         steps += 1
 
     if len(order) == n:
@@ -164,10 +174,21 @@ ALGORITHMS = {
 }
 
 
-def visualize(algo_key: str, n: int = 12, layers: int = 3, p: float = 0.35, seed: Optional[int] = None) -> Dict[str, Any]:
+def visualize(
+    algo_key: str, n: int = 12, layers: int = 3, p: float = 0.35, seed: Optional[int] = None
+) -> Dict[str, Any]:
     algo = ALGORITHMS.get(algo_key)
     if not algo:
         raise ValueError(f"Unknown algorithm '{algo_key}'")
     g = generate_dag(n=n, layers=layers, p=p, seed=seed)
     frames = algo["frames"](g)
-    return {"algorithm": algo_key, "name": algo["name"], "graph": g, "frames": frames, "n": n, "layers": layers, "p": p, "seed": seed}
+    return {
+        "algorithm": algo_key,
+        "name": algo["name"],
+        "graph": g,
+        "frames": frames,
+        "n": n,
+        "layers": layers,
+        "p": p,
+        "seed": seed,
+    }

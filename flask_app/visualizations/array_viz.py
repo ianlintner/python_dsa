@@ -18,7 +18,9 @@ def _snap(arr: List[int], op: str = "", **markers: Any) -> Dict[str, Any]:
     return snap
 
 
-def generate_array(n: int = 30, seed: Optional[int] = None, unique: bool = True, sorted_: bool = True) -> List[int]:
+def generate_array(
+    n: int = 30, seed: Optional[int] = None, unique: bool = True, sorted_: bool = True
+) -> List[int]:
     rng = random.Random(seed)
     if unique:
         arr = list(range(1, n + 1))
@@ -30,7 +32,9 @@ def generate_array(n: int = 30, seed: Optional[int] = None, unique: bool = True,
     return arr
 
 
-def binary_search_frames(arr: List[int], target: int, max_steps: int = 20000) -> List[Dict[str, Any]]:
+def binary_search_frames(
+    arr: List[int], target: int, max_steps: int = 20000
+) -> List[Dict[str, Any]]:
     a = arr[:]
     frames: List[Dict[str, Any]] = [_snap(a, "init", lo=0, hi=len(a) - 1, mid=None, found=False)]
     lo, hi = 0, len(a) - 1
@@ -52,7 +56,9 @@ def binary_search_frames(arr: List[int], target: int, max_steps: int = 20000) ->
     return frames
 
 
-def two_pointers_sum_frames(arr_sorted: List[int], target: int, max_steps: int = 20000) -> List[Dict[str, Any]]:
+def two_pointers_sum_frames(
+    arr_sorted: List[int], target: int, max_steps: int = 20000
+) -> List[Dict[str, Any]]:
     a = sorted(arr_sorted[:])
     l, r = 0, len(a) - 1
     frames: List[Dict[str, Any]] = [_snap(a, "init", l=l, r=r, sum=None)]
@@ -74,13 +80,17 @@ def two_pointers_sum_frames(arr_sorted: List[int], target: int, max_steps: int =
     return frames
 
 
-def sliding_window_min_len_geq_frames(arr: List[int], target: int, max_steps: int = 20000) -> List[Dict[str, Any]]:
+def sliding_window_min_len_geq_frames(
+    arr: List[int], target: int, max_steps: int = 20000
+) -> List[Dict[str, Any]]:
     """
     Classic: minimum length of subarray with sum >= target.
     Frames show expanding/shrinking window [win_l, win_r] and best window when updated.
     """
     a = arr[:]
-    frames: List[Dict[str, Any]] = [_snap(a, "init", win_l=0, win_r=-1, best_l=None, best_r=None, s=0, target=target)]
+    frames: List[Dict[str, Any]] = [
+        _snap(a, "init", win_l=0, win_r=-1, best_l=None, best_r=None, s=0, target=target)
+    ]
     n = len(a)
     s = 0
     best = (10**9, None, None)  # (len, l, r)
@@ -88,19 +98,45 @@ def sliding_window_min_len_geq_frames(arr: List[int], target: int, max_steps: in
     steps = 0
     for r in range(n):
         s += a[r]
-        frames.append(_snap(a, "expand", win_l=l, win_r=r, best_l=best[1], best_r=best[2], s=s, target=target))
+        frames.append(
+            _snap(a, "expand", win_l=l, win_r=r, best_l=best[1], best_r=best[2], s=s, target=target)
+        )
         while s >= target and steps < max_steps:
             if r - l + 1 < best[0]:
                 best = (r - l + 1, l, r)
-                frames.append(_snap(a, "best", win_l=l, win_r=r, best_l=best[1], best_r=best[2], s=s, target=target))
+                frames.append(
+                    _snap(
+                        a,
+                        "best",
+                        win_l=l,
+                        win_r=r,
+                        best_l=best[1],
+                        best_r=best[2],
+                        s=s,
+                        target=target,
+                    )
+                )
             s -= a[l]
             l += 1
-            frames.append(_snap(a, "shrink", win_l=l, win_r=r, best_l=best[1], best_r=best[2], s=s, target=target))
+            frames.append(
+                _snap(
+                    a,
+                    "shrink",
+                    win_l=l,
+                    win_r=r,
+                    best_l=best[1],
+                    best_r=best[2],
+                    s=s,
+                    target=target,
+                )
+            )
             steps += 1
         if steps >= max_steps:
             break
         steps += 1
-    frames.append(_snap(a, "done", win_l=l, win_r=n - 1, best_l=best[1], best_r=best[2], s=s, target=target))
+    frames.append(
+        _snap(a, "done", win_l=l, win_r=n - 1, best_l=best[1], best_r=best[2], s=s, target=target)
+    )
     return frames
 
 

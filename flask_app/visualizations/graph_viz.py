@@ -96,24 +96,54 @@ def bfs_frames(g: Dict[str, Any], start: int = 0, max_steps: int = 20000) -> Lis
     q: deque[int] = deque([start])
     tree_edges: List[Tuple[int, int]] = []
     frames: List[Dict[str, Any]] = []
-    state = {"current": None, "visited": set(), "frontier": list(q), "tree_edges": list(tree_edges), "op": "init"}
+    state = {
+        "current": None,
+        "visited": set(),
+        "frontier": list(q),
+        "tree_edges": list(tree_edges),
+        "op": "init",
+    }
     frames.append(_frame(state))
     while q and len(frames) < max_steps:
         u = q.popleft()
-        state = {"current": u, "visited": set(visited), "frontier": list(q), "tree_edges": list(tree_edges), "op": "dequeue"}
+        state = {
+            "current": u,
+            "visited": set(visited),
+            "frontier": list(q),
+            "tree_edges": list(tree_edges),
+            "op": "dequeue",
+        }
         frames.append(_frame(state))
         if u in visited:
             continue
         visited.add(u)
-        state = {"current": u, "visited": set(visited), "frontier": list(q), "tree_edges": list(tree_edges), "op": "visit"}
+        state = {
+            "current": u,
+            "visited": set(visited),
+            "frontier": list(q),
+            "tree_edges": list(tree_edges),
+            "op": "visit",
+        }
         frames.append(_frame(state))
         for v in adj[u]:
-            state = {"current": u, "visited": set(visited), "frontier": list(q), "tree_edges": list(tree_edges), "op": "inspect"}
+            state = {
+                "current": u,
+                "visited": set(visited),
+                "frontier": list(q),
+                "tree_edges": list(tree_edges),
+                "op": "inspect",
+            }
             frames.append(_frame(state))
             if v not in visited:
                 q.append(v)
                 tree_edges.append((u, v))
-                state = {"current": u, "visited": set(visited), "frontier": list(q), "tree_edges": list(tree_edges), "op": "enqueue"}
+                state = {
+                    "current": u,
+                    "visited": set(visited),
+                    "frontier": list(q),
+                    "tree_edges": list(tree_edges),
+                    "op": "enqueue",
+                }
                 frames.append(_frame(state))
     return frames
 
@@ -133,7 +163,17 @@ def dfs_frames(g: Dict[str, Any], start: int = 0, max_steps: int = 20000) -> Lis
 
     def snapshot(u: Optional[int], op: str) -> None:
         frontier = [s[0] for s in stack]
-        frames.append(_frame({"current": u, "visited": set(visited), "frontier": frontier, "tree_edges": list(tree_edges), "op": op}))
+        frames.append(
+            _frame(
+                {
+                    "current": u,
+                    "visited": set(visited),
+                    "frontier": frontier,
+                    "tree_edges": list(tree_edges),
+                    "op": op,
+                }
+            )
+        )
 
     tree_edges: List[Tuple[int, int]] = []
     snapshot(None, "init")
@@ -164,10 +204,21 @@ ALGORITHMS = {
 }
 
 
-def visualize(algo_key: str, n: int = 12, p: float = 0.25, seed: Optional[int] = None, start: int = 0) -> Dict[str, Any]:
+def visualize(
+    algo_key: str, n: int = 12, p: float = 0.25, seed: Optional[int] = None, start: int = 0
+) -> Dict[str, Any]:
     algo = ALGORITHMS.get(algo_key)
     if not algo:
         raise ValueError(f"Unknown algorithm '{algo_key}'")
     g = generate_graph(n=n, p=p, seed=seed)
     frames = algo["frames"](g, start=start)
-    return {"algorithm": algo_key, "name": algo["name"], "graph": g, "frames": frames, "start": start, "seed": seed, "n": n, "p": p}
+    return {
+        "algorithm": algo_key,
+        "name": algo["name"],
+        "graph": g,
+        "frames": frames,
+        "start": start,
+        "seed": seed,
+        "n": n,
+        "p": p,
+    }

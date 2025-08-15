@@ -1,5 +1,7 @@
 SHELL := /bin/bash
 
+PYTHON ?= python3
+
 .PHONY: help install precommit-install precommit-all format format-check lint lint-fix test check ci run-ui
 
 help:
@@ -16,8 +18,8 @@ help:
 	@echo "  ci                 Install deps, run hooks, run tests (local CI parity)"
 
 install:
-	python -m pip install -U pip
-	python -m pip install -e ".[dev]"
+	$(PYTHON) -m pip install -U pip
+	$(PYTHON) -m pip install -e ".[dev]"
 
 precommit-install:
 	pre-commit install
@@ -26,19 +28,19 @@ precommit-all:
 	pre-commit run --all-files --show-diff-on-failure --color=always
 
 format:
-	ruff format .
+	$(PYTHON) -m ruff format .
 
 format-check:
-	ruff format --check .
+	$(PYTHON) -m ruff format --check .
 
 lint:
-	ruff check .
+	$(PYTHON) -m ruff check .
 
 lint-fix:
-	ruff check --fix
+	$(PYTHON) -m ruff check --fix
 
 test:
-	python -m pytest -q
+	$(PYTHON) -m pytest -q
 
 check: format-check lint
 

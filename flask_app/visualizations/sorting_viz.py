@@ -4,7 +4,9 @@ import random
 from typing import Any, Dict, List, Optional
 
 
-def _snap(arr: List[int], a: Optional[int] = None, b: Optional[int] = None, op: str = "") -> Dict[str, Any]:
+def _snap(
+    arr: List[int], a: Optional[int] = None, b: Optional[int] = None, op: str = ""
+) -> Dict[str, Any]:
     # Return a JSON-serializable snapshot
     return {"arr": arr[:], "a": a, "b": b, "op": op}
 
@@ -63,7 +65,9 @@ def insertion_sort_frames(arr: List[int], max_steps: int = 20000) -> List[Dict[s
     return frames
 
 
-def quick_sort_frames(arr: List[int], max_steps: int = 40000, randomized: bool = True) -> List[Dict[str, Any]]:
+def quick_sort_frames(
+    arr: List[int], max_steps: int = 40000, randomized: bool = True
+) -> List[Dict[str, Any]]:
     a = arr[:]
     frames: List[Dict[str, Any]] = [_snap(a)]
 
@@ -121,7 +125,9 @@ ALGORITHMS = {
 }
 
 
-def visualize(algorithm_key: str, n: int = 30, seed: Optional[int] = None, unique: bool = True) -> Dict[str, Any]:
+def visualize(
+    algorithm_key: str, n: int = 30, seed: Optional[int] = None, unique: bool = True
+) -> Dict[str, Any]:
     algo = ALGORITHMS.get(algorithm_key)
     if not algo:
         raise ValueError(f"Unknown algorithm '{algorithm_key}'")

@@ -1,10 +1,9 @@
 from __future__ import annotations
 
+import heapq
 import math
 import random
-import heapq
 from typing import Any, Dict, List, Optional, Set, Tuple
-
 
 Coord = Tuple[float, float]
 Edge = Tuple[int, int, float]
@@ -59,7 +58,7 @@ def generate_graph(n: int = 12, k: int = 3, seed: Optional[int] = None) -> Dict[
 
     # Compute weights
     edges: List[Edge] = []
-    for (u, v) in edges_set:
+    for u, v in edges_set:
         w = _dist(nodes_xy[u], nodes_xy[v])
         edges.append((u, v, w))
 
@@ -68,7 +67,12 @@ def generate_graph(n: int = 12, k: int = 3, seed: Optional[int] = None) -> Dict[
     return {"n": n, "nodes": nodes, "edges": edges, "k": k}
 
 
-def _frame(op: str, mst_edges: List[Tuple[int, int]], edge: Optional[Tuple[int, int]] = None, visited: Optional[Set[int]] = None) -> Dict[str, Any]:
+def _frame(
+    op: str,
+    mst_edges: List[Tuple[int, int]],
+    edge: Optional[Tuple[int, int]] = None,
+    visited: Optional[Set[int]] = None,
+) -> Dict[str, Any]:
     return {
         "op": op,
         "mst_edges": [list(e) for e in mst_edges],
@@ -107,7 +111,7 @@ def kruskal_frames(g: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, 
     mst: List[Tuple[int, int]] = []
     frames.append(_frame("init", mst))
 
-    for (u, v, _w) in edges:
+    for u, v, _w in edges:
         if len(frames) >= max_steps:
             break
         frames.append(_frame("consider", mst, (u, v)))
@@ -130,7 +134,7 @@ def prim_frames(g: Dict[str, Any], start: int = 0, max_steps: int = 50000) -> Li
     edges: List[Edge] = g["edges"]
     # Build adjacency
     adj: List[List[Tuple[int, float]]] = [[] for _ in range(n)]
-    for (u, v, w) in edges:
+    for u, v, w in edges:
         adj[u].append((v, w))
         adj[v].append((u, w))
     for i in range(n):
@@ -143,7 +147,7 @@ def prim_frames(g: Dict[str, Any], start: int = 0, max_steps: int = 50000) -> Li
 
     heap: List[Tuple[float, int, int]] = []  # (w, u, v) edge from u->v
     tie = 0
-    for (v, w) in adj[start]:
+    for v, w in adj[start]:
         heapq.heappush(heap, (w, start, v))
         tie += 1
 
@@ -159,7 +163,7 @@ def prim_frames(g: Dict[str, Any], start: int = 0, max_steps: int = 50000) -> Li
         visited.add(v)
         frames.append(_frame("add", mst, (u, v), visited=visited))
         # Push new frontier edges
-        for (x, wx) in adj[v]:
+        for x, wx in adj[v]:
             if x not in visited:
                 heapq.heappush(heap, (wx, v, x))
 
@@ -176,7 +180,9 @@ ALGORITHMS = {
 }
 
 
-def visualize(algo_key: str, n: int = 12, k: int = 3, seed: Optional[int] = None, start: int = 0) -> Dict[str, Any]:
+def visualize(
+    algo_key: str, n: int = 12, k: int = 3, seed: Optional[int] = None, start: int = 0
+) -> Dict[str, Any]:
     algo = ALGORITHMS.get(algo_key)
     if not algo:
         raise ValueError(f"Unknown algorithm '{algo_key}'")

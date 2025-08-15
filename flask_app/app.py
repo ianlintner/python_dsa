@@ -1,14 +1,13 @@
 from __future__ import annotations
 
-import io
 import importlib
+import io
+import sys
 import traceback
 from pathlib import Path
-import sys
 from typing import Dict, List
 
-from flask import Flask, render_template, request, redirect, url_for, abort, jsonify
-
+from flask import Flask, abort, jsonify, redirect, render_template, request, url_for
 
 # Ensure we can import modules from src/
 ROOT_DIR = Path(__file__).resolve().parents[1]
@@ -87,55 +86,69 @@ def index():
     # Build categories with additional top-level visualization entries for the dashboard
     categories = {k: v[:] for k, v in CATEGORIES.items()}
     categories.setdefault("visualizations", [])
-    categories["visualizations"].append({
-        "id": "viz.sorting",
-        "title": "Sorting Visualizations",
-        "category": "visualizations",
-        "module": "viz.sorting",
-        "path": "flask_app/visualizations/sorting_viz.py",
-    })
-    categories["visualizations"].append({
-        "id": "viz.graph",
-        "title": "Graph Traversal (BFS/DFS)",
-        "category": "visualizations",
-        "module": "viz.graph",
-        "path": "flask_app/visualizations/graph_viz.py",
-    })
-    categories["visualizations"].append({
-        "id": "viz.path",
-        "title": "Pathfinding (A*/Dijkstra/BFS/GBFS)",
-        "category": "visualizations",
-        "module": "viz.path",
-        "path": "flask_app/visualizations/path_viz.py",
-    })
-    categories["visualizations"].append({
-        "id": "viz.arrays",
-        "title": "Array Techniques (Binary Search / Two-Pointers / Sliding Window)",
-        "category": "visualizations",
-        "module": "viz.arrays",
-        "path": "flask_app/visualizations/array_viz.py",
-    })
-    categories["visualizations"].append({
-        "id": "viz.mst",
-        "title": "Minimum Spanning Tree (Kruskal/Prim)",
-        "category": "visualizations",
-        "module": "viz.mst",
-        "path": "flask_app/visualizations/mst_viz.py",
-    })
-    categories["visualizations"].append({
-        "id": "viz.topo",
-        "title": "Topological Sort (Kahn)",
-        "category": "visualizations",
-        "module": "viz.topo",
-        "path": "flask_app/visualizations/topo_viz.py",
-    })
-    categories["visualizations"].append({
-        "id": "viz.nn",
-        "title": "Neural Network (MLP Binary Classifier)",
-        "category": "visualizations",
-        "module": "viz.nn",
-        "path": "flask_app/visualizations/nn_viz.py",
-    })
+    categories["visualizations"].append(
+        {
+            "id": "viz.sorting",
+            "title": "Sorting Visualizations",
+            "category": "visualizations",
+            "module": "viz.sorting",
+            "path": "flask_app/visualizations/sorting_viz.py",
+        }
+    )
+    categories["visualizations"].append(
+        {
+            "id": "viz.graph",
+            "title": "Graph Traversal (BFS/DFS)",
+            "category": "visualizations",
+            "module": "viz.graph",
+            "path": "flask_app/visualizations/graph_viz.py",
+        }
+    )
+    categories["visualizations"].append(
+        {
+            "id": "viz.path",
+            "title": "Pathfinding (A*/Dijkstra/BFS/GBFS)",
+            "category": "visualizations",
+            "module": "viz.path",
+            "path": "flask_app/visualizations/path_viz.py",
+        }
+    )
+    categories["visualizations"].append(
+        {
+            "id": "viz.arrays",
+            "title": "Array Techniques (Binary Search / Two-Pointers / Sliding Window)",
+            "category": "visualizations",
+            "module": "viz.arrays",
+            "path": "flask_app/visualizations/array_viz.py",
+        }
+    )
+    categories["visualizations"].append(
+        {
+            "id": "viz.mst",
+            "title": "Minimum Spanning Tree (Kruskal/Prim)",
+            "category": "visualizations",
+            "module": "viz.mst",
+            "path": "flask_app/visualizations/mst_viz.py",
+        }
+    )
+    categories["visualizations"].append(
+        {
+            "id": "viz.topo",
+            "title": "Topological Sort (Kahn)",
+            "category": "visualizations",
+            "module": "viz.topo",
+            "path": "flask_app/visualizations/topo_viz.py",
+        }
+    )
+    categories["visualizations"].append(
+        {
+            "id": "viz.nn",
+            "title": "Neural Network (MLP Binary Classifier)",
+            "category": "visualizations",
+            "module": "viz.nn",
+            "path": "flask_app/visualizations/nn_viz.py",
+        }
+    )
     return render_template(
         "index.html",
         categories=categories,
@@ -251,6 +264,7 @@ def viz_sorting():
     algo = request.args.get("algo", "quick")
     try:
         from visualizations import sorting_viz as s_viz  # type: ignore
+
         algorithms = [{"key": k, "name": v["name"]} for k, v in s_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
@@ -279,6 +293,7 @@ def api_viz_sorting():
 
     try:
         from visualizations import sorting_viz as s_viz  # type: ignore
+
         result = s_viz.visualize(algo, n=n, seed=seed, unique=unique)
         return jsonify(result)
     except Exception as e:
@@ -314,6 +329,7 @@ def api_viz_graph():
 
     try:
         from visualizations import graph_viz as g_viz  # type: ignore
+
         result = g_viz.visualize(algo, n=n, p=p, seed=seed, start=start)
         return jsonify(result)
     except Exception as e:
@@ -327,6 +343,7 @@ def viz_path():
     algo = request.args.get("algo", "astar")
     try:
         from visualizations import path_viz as p_viz  # type: ignore
+
         algorithms = [{"key": k, "name": v["name"]} for k, v in p_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
@@ -354,6 +371,7 @@ def api_viz_path():
 
     try:
         from visualizations import path_viz as p_viz  # type: ignore
+
         result = p_viz.visualize(algo, rows=rows, cols=cols, density=density, seed=seed)
         return jsonify(result)
     except Exception as e:
@@ -367,12 +385,16 @@ def viz_arrays():
     algo = request.args.get("algo", "binary_search")
     try:
         from visualizations import array_viz as a_viz  # type: ignore
+
         algorithms = [{"key": k, "name": v["name"]} for k, v in a_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
             {"key": "binary_search", "name": "Binary Search"},
             {"key": "two_pointers_sum", "name": "Two Pointers (Two-Sum in Sorted Array)"},
-            {"key": "sliding_window_min_len_geq", "name": "Sliding Window (Min Len with Sum ≥ target)"},
+            {
+                "key": "sliding_window_min_len_geq",
+                "name": "Sliding Window (Min Len with Sum ≥ target)",
+            },
         ]
     return render_template("viz_arrays.html", algo=algo, algorithms=algorithms)
 
@@ -394,6 +416,7 @@ def api_viz_arrays():
 
     try:
         from visualizations import array_viz as a_viz  # type: ignore
+
         result = a_viz.visualize(algo, n=n, seed=seed, target=target)
         return jsonify(result)
     except Exception as e:
@@ -407,6 +430,7 @@ def viz_mst():
     algo = request.args.get("algo", "kruskal")
     try:
         from visualizations import mst_viz as m_viz  # type: ignore
+
         algorithms = [{"key": k, "name": v["name"]} for k, v in m_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
@@ -433,6 +457,7 @@ def api_viz_mst():
 
     try:
         from visualizations import mst_viz as m_viz  # type: ignore
+
         result = m_viz.visualize(algo, n=n, k=k, seed=seed, start=start)
         return jsonify(result)
     except Exception as e:
@@ -446,6 +471,7 @@ def viz_topo():
     algo = request.args.get("algo", "kahn")
     try:
         from visualizations import topo_viz as t_viz  # type: ignore
+
         algorithms = [{"key": k, "name": v["name"]} for k, v in t_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
@@ -471,6 +497,7 @@ def api_viz_topo():
 
     try:
         from visualizations import topo_viz as t_viz  # type: ignore
+
         result = t_viz.visualize(algo, n=n, layers=layers, p=p, seed=seed)
         return jsonify(result)
     except Exception as e:
@@ -504,7 +531,10 @@ def api_viz_nn():
 
     try:
         from visualizations import nn_viz as nn  # type: ignore
-        result = nn.visualize(dataset=dataset, n=n, hidden=hidden, lr=lr, epochs=epochs, seed=seed, grid=grid)
+
+        result = nn.visualize(
+            dataset=dataset, n=n, hidden=hidden, lr=lr, epochs=epochs, seed=seed, grid=grid
+        )
         return jsonify(result)
     except Exception as e:
         error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
@@ -515,6 +545,7 @@ def api_viz_nn():
 def favicon_ico():
     # Suppress 404 favicon requests in development
     from flask import Response as _Response
+
     return _Response(status=204)
 
 

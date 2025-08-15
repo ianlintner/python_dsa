@@ -5,7 +5,6 @@ import random
 from collections import deque
 from typing import Any, Dict, List, Optional, Tuple
 
-
 Coord = Tuple[int, int]
 
 
