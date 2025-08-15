@@ -3,17 +3,17 @@ from __future__ import annotations
 import heapq
 import random
 from collections import deque
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
-Coord = Tuple[int, int]
+Coord = tuple[int, int]
 
 
 def generate_grid(
     rows: int = 20,
     cols: int = 30,
     density: float = 0.25,
-    seed: Optional[int] = None,
-) -> Dict[str, Any]:
+    seed: int | None = None,
+) -> dict[str, Any]:
     """
     Generate a grid with random walls.
     - rows x cols grid
@@ -43,8 +43,8 @@ def manhattan(a: Coord, b: Coord) -> int:
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
 
-def neighbors(r: int, c: int, rows: int, cols: int) -> List[Coord]:
-    out: List[Coord] = []
+def neighbors(r: int, c: int, rows: int, cols: int) -> list[Coord]:
+    out: list[Coord] = []
     for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):
         nr, nc = r + dr, c + dc
         if 0 <= nr < rows and 0 <= nc < cols:
@@ -53,12 +53,12 @@ def neighbors(r: int, c: int, rows: int, cols: int) -> List[Coord]:
 
 
 def _frame(
-    current: Optional[Coord],
-    open_list: List[Coord],
-    closed: List[Coord],
-    path: List[Coord],
+    current: Coord | None,
+    open_list: list[Coord],
+    closed: list[Coord],
+    path: list[Coord],
     op: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     return {
         "current": list(current) if current is not None else None,
         "open": [list(x) for x in open_list],
@@ -68,7 +68,7 @@ def _frame(
     }
 
 
-def _reconstruct_path(came_from: Dict[Coord, Coord], current: Coord) -> List[Coord]:
+def _reconstruct_path(came_from: dict[Coord, Coord], current: Coord) -> list[Coord]:
     path = [current]
     while current in came_from:
         current = came_from[current]
@@ -77,22 +77,22 @@ def _reconstruct_path(came_from: Dict[Coord, Coord], current: Coord) -> List[Coo
     return path
 
 
-def a_star_frames(grid: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, Any]]:
+def a_star_frames(grid: dict[str, Any], max_steps: int = 50000) -> list[dict[str, Any]]:
     rows, cols = grid["rows"], grid["cols"]
     walls = set(map(tuple, grid["walls"]))
     start: Coord = tuple(grid["start"])  # type: ignore
     goal: Coord = tuple(grid["goal"])  # type: ignore
 
-    open_heap: List[Tuple[int, int, Coord]] = []
+    open_heap: list[tuple[int, int, Coord]] = []
     tie = 0
     heapq.heappush(open_heap, (manhattan(start, goal), tie, start))
     open_set = {start}
     closed_set: set[Coord] = set()
 
-    came_from: Dict[Coord, Coord] = {}
-    g_score: Dict[Coord, int] = {start: 0}
+    came_from: dict[Coord, Coord] = {}
+    g_score: dict[Coord, int] = {start: 0}
 
-    frames: List[Dict[str, Any]] = [_frame(None, list(open_set), list(closed_set), [], "init")]
+    frames: list[dict[str, Any]] = [_frame(None, list(open_set), list(closed_set), [], "init")]
 
     while open_heap and len(frames) < max_steps:
         _, _, current = heapq.heappop(open_heap)
@@ -128,22 +128,22 @@ def a_star_frames(grid: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str
     return frames
 
 
-def dijkstra_frames(grid: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, Any]]:
+def dijkstra_frames(grid: dict[str, Any], max_steps: int = 50000) -> list[dict[str, Any]]:
     rows, cols = grid["rows"], grid["cols"]
     walls = set(map(tuple, grid["walls"]))
     start: Coord = tuple(grid["start"])  # type: ignore
     goal: Coord = tuple(grid["goal"])  # type: ignore
 
-    open_heap: List[Tuple[int, int, Coord]] = []
+    open_heap: list[tuple[int, int, Coord]] = []
     tie = 0
     heapq.heappush(open_heap, (0, tie, start))
     open_set = {start}
     closed_set: set[Coord] = set()
 
-    came_from: Dict[Coord, Coord] = {}
-    dist: Dict[Coord, int] = {start: 0}
+    came_from: dict[Coord, Coord] = {}
+    dist: dict[Coord, int] = {start: 0}
 
-    frames: List[Dict[str, Any]] = [_frame(None, list(open_set), list(closed_set), [], "init")]
+    frames: list[dict[str, Any]] = [_frame(None, list(open_set), list(closed_set), [], "init")]
 
     while open_heap and len(frames) < max_steps:
         _, _, current = heapq.heappop(open_heap)
@@ -177,7 +177,7 @@ def dijkstra_frames(grid: Dict[str, Any], max_steps: int = 50000) -> List[Dict[s
     return frames
 
 
-def bfs_frames(grid: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, Any]]:
+def bfs_frames(grid: dict[str, Any], max_steps: int = 50000) -> list[dict[str, Any]]:
     """
     Unweighted shortest path on grid using BFS.
     """
@@ -187,9 +187,9 @@ def bfs_frames(grid: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, A
     goal: Coord = tuple(grid["goal"])  # type: ignore
 
     q: deque[Coord] = deque([start])
-    came_from: Dict[Coord, Coord] = {}
+    came_from: dict[Coord, Coord] = {}
     visited: set[Coord] = set()
-    frames: List[Dict[str, Any]] = [_frame(None, list(q), list(visited), [], "init")]
+    frames: list[dict[str, Any]] = [_frame(None, list(q), list(visited), [], "init")]
 
     while q and len(frames) < max_steps:
         current = q.popleft()
@@ -216,7 +216,7 @@ def bfs_frames(grid: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, A
     return frames
 
 
-def gbfs_frames(grid: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, Any]]:
+def gbfs_frames(grid: dict[str, Any], max_steps: int = 50000) -> list[dict[str, Any]]:
     """
     Greedy Best-First Search (uses heuristic only). Not optimal but illustrative.
     """
@@ -225,14 +225,14 @@ def gbfs_frames(grid: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, 
     start: Coord = tuple(grid["start"])  # type: ignore
     goal: Coord = tuple(grid["goal"])  # type: ignore
 
-    open_heap: List[Tuple[int, int, Coord]] = []
+    open_heap: list[tuple[int, int, Coord]] = []
     tie = 0
     heapq.heappush(open_heap, (manhattan(start, goal), tie, start))
     open_set = {start}
     closed_set: set[Coord] = set()
-    came_from: Dict[Coord, Coord] = {}
+    came_from: dict[Coord, Coord] = {}
 
-    frames: List[Dict[str, Any]] = [_frame(None, list(open_set), list(closed_set), [], "init")]
+    frames: list[dict[str, Any]] = [_frame(None, list(open_set), list(closed_set), [], "init")]
 
     while open_heap and len(frames) < max_steps:
         _, _, current = heapq.heappop(open_heap)
@@ -277,8 +277,8 @@ def visualize(
     rows: int = 20,
     cols: int = 30,
     density: float = 0.25,
-    seed: Optional[int] = None,
-) -> Dict[str, Any]:
+    seed: int | None = None,
+) -> dict[str, Any]:
     algo = ALGORITHMS.get(algo_key)
     if not algo:
         raise ValueError(f"Unknown algorithm '{algo_key}'")

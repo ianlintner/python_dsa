@@ -1,17 +1,17 @@
 from __future__ import annotations
 
 import random
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 
 def _snap(
-    arr: List[int], a: Optional[int] = None, b: Optional[int] = None, op: str = ""
-) -> Dict[str, Any]:
+    arr: list[int], a: int | None = None, b: int | None = None, op: str = ""
+) -> dict[str, Any]:
     # Return a JSON-serializable snapshot
     return {"arr": arr[:], "a": a, "b": b, "op": op}
 
 
-def generate_array(n: int = 30, seed: Optional[int] = None, unique: bool = True) -> List[int]:
+def generate_array(n: int = 30, seed: int | None = None, unique: bool = True) -> list[int]:
     """
     Generate a random array for visualization.
     - If unique: values are 1..n shuffled
@@ -25,9 +25,9 @@ def generate_array(n: int = 30, seed: Optional[int] = None, unique: bool = True)
     return [rng.randint(1, n) for _ in range(n)]
 
 
-def bubble_sort_frames(arr: List[int], max_steps: int = 20000) -> List[Dict[str, Any]]:
+def bubble_sort_frames(arr: list[int], max_steps: int = 20000) -> list[dict[str, Any]]:
     a = arr[:]
-    frames: List[Dict[str, Any]] = [_snap(a)]
+    frames: list[dict[str, Any]] = [_snap(a)]
     n = len(a)
     for i in range(n):
         swapped = False
@@ -45,9 +45,9 @@ def bubble_sort_frames(arr: List[int], max_steps: int = 20000) -> List[Dict[str,
     return frames
 
 
-def insertion_sort_frames(arr: List[int], max_steps: int = 20000) -> List[Dict[str, Any]]:
+def insertion_sort_frames(arr: list[int], max_steps: int = 20000) -> list[dict[str, Any]]:
     a = arr[:]
-    frames: List[Dict[str, Any]] = [_snap(a)]
+    frames: list[dict[str, Any]] = [_snap(a)]
     for i in range(1, len(a)):
         key = a[i]
         j = i - 1
@@ -66,10 +66,10 @@ def insertion_sort_frames(arr: List[int], max_steps: int = 20000) -> List[Dict[s
 
 
 def quick_sort_frames(
-    arr: List[int], max_steps: int = 40000, randomized: bool = True
-) -> List[Dict[str, Any]]:
+    arr: list[int], max_steps: int = 40000, randomized: bool = True
+) -> list[dict[str, Any]]:
     a = arr[:]
-    frames: List[Dict[str, Any]] = [_snap(a)]
+    frames: list[dict[str, Any]] = [_snap(a)]
 
     rng = random.Random()
 
@@ -126,8 +126,8 @@ ALGORITHMS = {
 
 
 def visualize(
-    algorithm_key: str, n: int = 30, seed: Optional[int] = None, unique: bool = True
-) -> Dict[str, Any]:
+    algorithm_key: str, n: int = 30, seed: int | None = None, unique: bool = True
+) -> dict[str, Any]:
     algo = ALGORITHMS.get(algorithm_key)
     if not algo:
         raise ValueError(f"Unknown algorithm '{algorithm_key}'")

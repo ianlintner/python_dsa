@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 import random
-from typing import Any, Dict, List, Optional, Set, Tuple
+from collections import deque
+from typing import Any
 
 
-def _layer_layout(n: int, layers: int) -> List[Tuple[float, float, int]]:
+def _layer_layout(n: int, layers: int) -> list[tuple[float, float, int]]:
     """
     Return normalized coordinates (x,y) in [0,1] and the assigned layer for each node.
     Nodes are distributed across 'layers' columns left-to-right.
@@ -15,7 +16,7 @@ def _layer_layout(n: int, layers: int) -> List[Tuple[float, float, int]]:
     rem = n % layers
     counts = [base + (1 if i < rem else 0) for i in range(layers)]
 
-    coords: List[Tuple[float, float, int]] = []
+    coords: list[tuple[float, float, int]] = []
     idx = 0
     for li, cnt in enumerate(counts):
         x = 0.08 + (0.84 * li / (layers - 1))  # margin on sides
@@ -41,8 +42,8 @@ def _layer_layout(n: int, layers: int) -> List[Tuple[float, float, int]]:
 
 
 def generate_dag(
-    n: int = 12, layers: int = 3, p: float = 0.35, seed: Optional[int] = None
-) -> Dict[str, Any]:
+    n: int = 12, layers: int = 3, p: float = 0.35, seed: int | None = None
+) -> dict[str, Any]:
     """
     Generate a random Directed Acyclic Graph (DAG) by assigning nodes to layers
     and adding edges that only go from a layer to a strictly later layer, with probability p.
@@ -54,11 +55,11 @@ def generate_dag(
     ]
 
     # group node ids by layer
-    by_layer: Dict[int, List[int]] = {}
+    by_layer: dict[int, list[int]] = {}
     for i, (_, _, li) in enumerate(coords):
         by_layer.setdefault(li, []).append(i)
 
-    edges: List[Tuple[int, int]] = []
+    edges: list[tuple[int, int]] = []
     # For each pair of layers (i, j) with j > i, add edges with prob p
     layer_keys = sorted(by_layer.keys())
     for i_idx, li in enumerate(layer_keys):
@@ -90,12 +91,12 @@ def generate_dag(
 
 def _frame(
     op: str,
-    current: Optional[int],
-    queue: List[int],
-    removed: Set[int],
-    highlight_edges: Optional[List[Tuple[int, int]]] = None,
-    order: Optional[List[int]] = None,
-) -> Dict[str, Any]:
+    current: int | None,
+    queue: list[int],
+    removed: set[int],
+    highlight_edges: list[tuple[int, int]] | None = None,
+    order: list[int] | None = None,
+) -> dict[str, Any]:
     return {
         "op": op,
         "current": current,
@@ -106,7 +107,7 @@ def _frame(
     }
 
 
-def kahn_frames(g: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, Any]]:
+def kahn_frames(g: dict[str, Any], max_steps: int = 50000) -> list[dict[str, Any]]:
     """
     Kahn's algorithm frames for topological sorting.
     Frame fields:
@@ -118,21 +119,19 @@ def kahn_frames(g: Dict[str, Any], max_steps: int = 50000) -> List[Dict[str, Any
       - op: textual operation state
     """
     n: int = g["n"]
-    edges: List[Tuple[int, int]] = [tuple(e) for e in g["edges"]]
-    adj: List[List[int]] = [[] for _ in range(n)]
-    indeg: List[int] = [0] * n
+    edges: list[tuple[int, int]] = [tuple(e) for e in g["edges"]]
+    adj: list[list[int]] = [[] for _ in range(n)]
+    indeg: list[int] = [0] * n
     for u, v in edges:
         adj[u].append(v)
         indeg[v] += 1
     for i in range(n):
         adj[i].sort()
 
-    from collections import deque
-
     q: deque[int] = deque([i for i in range(n) if indeg[i] == 0])
-    removed: Set[int] = set()
-    order: List[int] = []
-    frames: List[Dict[str, Any]] = []
+    removed: set[int] = set()
+    order: list[int] = []
+    frames: list[dict[str, Any]] = []
     frames.append(_frame("init", None, list(q), removed, order=order))
 
     steps = 0
@@ -175,8 +174,8 @@ ALGORITHMS = {
 
 
 def visualize(
-    algo_key: str, n: int = 12, layers: int = 3, p: float = 0.35, seed: Optional[int] = None
-) -> Dict[str, Any]:
+    algo_key: str, n: int = 12, layers: int = 3, p: float = 0.35, seed: int | None = None
+) -> dict[str, Any]:
     algo = ALGORITHMS.get(algo_key)
     if not algo:
         raise ValueError(f"Unknown algorithm '{algo_key}'")
