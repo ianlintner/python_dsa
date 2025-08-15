@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 class FenwickTree:
     """
     Fenwick Tree (Binary Indexed Tree) for prefix sums with point updates.
