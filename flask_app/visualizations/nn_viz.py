@@ -187,7 +187,7 @@ def visualize(
 
         if epoch == 1 or epoch % capture_every == 0 or epoch == epochs:
             grid_probs = _make_grid_probs(model, res=max(8, min(64, grid)))
-            frames.append(_frame(epoch=epoch, loss=avg_loss, grid=grid_probs))
+            frames.append(_frame(epoch=epoch, loss=avg_loss, grid_probs=grid_probs))
 
     # Serialize dataset for front-end
     points = [{"x": x, "y": y, "label": lbl} for (x, y, lbl) in pts]
