@@ -5,7 +5,7 @@ Unify the codebase under a single Python package namespace (interview_workbook) 
 
 This plan standardizes imports to a single top-level namespace and removes duplication between src/* modules and the root-level interview_workbook/* directory. It defines a precise file move strategy, configuration updates, import rewrites, and test changes to ensure a clean, maintainable structure. The dashboard will be updated to map discovered demos to the new package path, and the sorting visualization module will gain Merge and Heap algorithm frames. The plan also outlines a roadmap to expand common DSA coverage (trees, stacks/queues, additional patterns) while preserving current behavior and test coverage.
 
-[Types]  
+[Types]
 Centralize common type aliases for reuse across modules.
 
 Create a small types module to keep shared aliases:

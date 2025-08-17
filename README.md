@@ -59,19 +59,19 @@ Each implementation includes:
 
 Import directly from src/ packages (tests do the same):
 
-- Sorting (stable baseline)  
+- Sorting (stable baseline)
 ```
 from interview_workbook.algorithms.sorting.insertion_sort import insertion_sort
 print(insertion_sort([3, 1, 2]))  # [1, 2, 3]
 ```
 
-- Sorting (faster average case)  
+- Sorting (faster average case)
 ```
 from interview_workbook.algorithms.sorting.quick_sort import quick_sort
 print(quick_sort([5, 2, 8, 1]))
 ```
 
-- Searching (sorted array)  
+- Searching (sorted array)
 ```
 from interview_workbook.algorithms.searching.binary_search import binary_search, lower_bound, upper_bound
 arr = [1, 2, 2, 3, 5]
@@ -80,20 +80,20 @@ print(lower_bound(arr, 2))       # 1
 print(upper_bound(arr, 2))       # 3 (first index > 2)
 ```
 
-- Searching (unsorted/small)  
+- Searching (unsorted/small)
 ```
 from interview_workbook.algorithms.searching.linear_search import linear_search
 print(linear_search(["b", "a", "c"], "a"))  # 1
 ```
 
-- DP (LCS)  
+- DP (LCS)
 ```
 from interview_workbook.dp.lcs import lcs_length, lcs_reconstruct
 print(lcs_length("abcde", "ace"))     # 3
 print(lcs_reconstruct("abcde", "ace"))# "ace"
 ```
 
-- Graphs (SCC)  
+- Graphs (SCC)
 ```
 from interview_workbook.graphs.scc import tarjan_scc
 g = {0:[1],1:[2],2:[0,3],3:[4],4:[5],5:[3]}

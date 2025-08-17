@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 class TrieNode:
     """Node in a Trie data structure."""
 
