@@ -192,13 +192,11 @@ def discover_demos() -> dict[str, list[dict]]:
         module_name = ".".join(rel.with_suffix("").parts)
 
         try:
-            mod = importlib.import_module(module_name)
+            src_text = path.read_text(encoding="utf-8", errors="ignore")
         except Exception:
-            # Skip modules that fail to import
             continue
-
-        demo_fn = getattr(mod, "demo", None)
-        if callable(demo_fn):
+        import re
+        if re.search(r'^\s*def\s+demo\s*\(', src_text, flags=re.M):
             category = "/".join(rel.parts[:-1]) or "."
             title = rel.stem.replace("_", " ").title()
             demos.append(
@@ -219,7 +217,11 @@ def discover_demos() -> dict[str, list[dict]]:
     return categories
 
 
-CATEGORIES = discover_demos()
+from functools import lru_cache
+
+@lru_cache(maxsize=1)
+def get_categories() -> dict[str, list[dict]]:
+    return discover_demos()
 
 # Map discovered sorting modules to visualization keys
 SORTING_VIZ_MAP = {
@@ -245,7 +247,7 @@ PATH_VIZ_MODULES = {
 @app.route("/")
 def index():
     # Build categories with additional top-level visualization entries for the dashboard
-    categories = {k: v[:] for k, v in CATEGORIES.items()}
+    categories = {k: v[:] for k, v in get_categories().items()}
     categories.setdefault("visualizations", [])
     categories["visualizations"].append(
         {
@@ -341,7 +343,7 @@ def demo_page():
         return redirect(url_for("index"))
 
     meta = None
-    for demos in CATEGORIES.values():
+    for demos in get_categories().values():
         for d in demos:
             if d["id"] == module:
                 meta = d
@@ -364,7 +366,7 @@ def demo_run():
         abort(400, description="Missing module")
 
     meta = None
-    for demos in CATEGORIES.values():
+    for demos in get_categories().values():
         for d in demos:
             if d["id"] == module:
                 meta = d
