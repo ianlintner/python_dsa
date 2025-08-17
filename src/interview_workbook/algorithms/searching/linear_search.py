@@ -36,9 +36,9 @@ def linear_search(a: Sequence[T], target: T, key: Callable[[T], object] | None =
                 return i
         return -1
     else:
-        kt = key(target)
+        # Compare derived key from elements to the raw target value
         for i, v in enumerate(a):
-            if key(v) == kt:
+            if key(v) == target:
                 return i
         return -1
 
@@ -57,9 +57,8 @@ def find_all(a: Iterable[T], target: T, key: Callable[[T], object] | None = None
                 if v == target:
                     res.append(i)
         else:
-            kt = key(target)
             for i, v in enumerate(a):
-                if key(v) == kt:
+                if key(v) == target:
                     res.append(i)
     else:
         # Fallback for generic Iterables without random access (indices are based on enumeration order)
@@ -68,9 +67,8 @@ def find_all(a: Iterable[T], target: T, key: Callable[[T], object] | None = None
                 if v == target:
                     res.append(i)
         else:
-            kt = key(target)
             for i, v in enumerate(a):
-                if key(v) == kt:
+                if key(v) == target:
                     res.append(i)
     return res
 
