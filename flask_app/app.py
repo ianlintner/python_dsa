@@ -87,6 +87,31 @@ Time: O(V+E)
 Space: O(V)
 Use: Collapse SCCs to DAG, reasoning about cycles and components.
 """,
+    "a_star": """Summary: A* search using f(n)=g(n)+h(n) with admissible heuristic.
+Time: Depends on heuristic; up to O(b^d) worst-case
+Space: O(b^d) for open/closed sets
+Notes: Admissible and consistent heuristics ensure optimality; common h: Manhattan/Euclidean.
+""",
+    "gbfs": """Summary: Greedy Best-First expands node with lowest heuristic h(n).
+Time: Up to O(b^d)
+Space: O(b^d)
+Notes: Not optimal, can get stuck; fast with informative heuristics.
+""",
+    "kruskal": """Summary: Sort edges by weight; add if it doesn't form a cycle (Union-Find).
+Time: O(E log E) ≈ O(E log V)
+Space: O(V)
+Use: Sparse graphs; simple with DSU for cycle detection.
+""",
+    "prim": """Summary: Grow MST from a start node using PQ of crossing edges.
+Time: O(E log V) with binary heap; O(E + V log V) with Fibonacci heap
+Space: O(V)
+Use: Dense graphs or adjacency matrices; complements Kruskal.
+""",
+    "kahn": """Summary: Topological sort using indegrees and a queue.
+Time: O(V+E)
+Space: O(V)
+Use: DAG scheduling, dependency resolution; detects cycles if output size < V.
+""",
     # Strings
     "rabin_karp": """Summary: Rolling hash substring search.
 Time: Avg O(n+m), Worst O(nm) with many collisions
@@ -395,7 +420,20 @@ def viz_sorting():
             {"key": "bubble", "name": "Bubble Sort"},
             {"key": "insertion", "name": "Insertion Sort"},
         ]
-    return render_template("viz_sorting.html", algo=algo, algorithms=algorithms)
+    return render_template(
+        "viz_sorting.html",
+        algo=algo,
+        algorithms=algorithms,
+        notes=get_notes(
+            {
+                "quick": "quick_sort",
+                "bubble": "bubble_sort",
+                "insertion": "insertion_sort",
+                "merge": "merge_sort",
+                "heap": "heap_sort",
+            }.get(algo, algo)
+        ),
+    )
 
 
 @app.post("/api/viz/sorting")
@@ -432,7 +470,12 @@ def viz_graph():
         {"key": "bfs", "name": "Breadth-First Search"},
         {"key": "dfs", "name": "Depth-First Search"},
     ]
-    return render_template("viz_graph.html", algo=algo, algorithms=algorithms)
+    return render_template(
+        "viz_graph.html",
+        algo=algo,
+        algorithms=algorithms,
+        notes=get_notes({"bfs": "bfs_dfs", "dfs": "bfs_dfs"}.get(algo, "bfs_dfs")),
+    )
 
 
 @app.post("/api/viz/graph")
@@ -475,7 +518,12 @@ def viz_path():
             {"key": "bfs", "name": "Breadth-First Search"},
             {"key": "gbfs", "name": "Greedy Best-First Search"},
         ]
-    return render_template("viz_path.html", algo=algo, algorithms=algorithms)
+    return render_template(
+        "viz_path.html",
+        algo=algo,
+        algorithms=algorithms,
+        notes=get_notes({"astar": "a_star", "dijkstra": "dijkstra", "bfs": "bfs_dfs", "gbfs": "gbfs"}.get(algo, algo)),
+    )
 
 
 @app.post("/api/viz/path")
@@ -519,7 +567,18 @@ def viz_arrays():
                 "name": "Sliding Window (Min Len with Sum ≥ target)",
             },
         ]
-    return render_template("viz_arrays.html", algo=algo, algorithms=algorithms)
+    return render_template(
+        "viz_arrays.html",
+        algo=algo,
+        algorithms=algorithms,
+        notes=get_notes(
+            {
+                "binary_search": "binary_search",
+                "two_pointers_sum": "two_pointers",
+                "sliding_window_min_len_geq": "sliding_window",
+            }.get(algo, algo)
+        ),
+    )
 
 
 @app.post("/api/viz/arrays")
@@ -560,7 +619,12 @@ def viz_mst():
             {"key": "kruskal", "name": "Minimum Spanning Tree (Kruskal)"},
             {"key": "prim", "name": "Minimum Spanning Tree (Prim)"},
         ]
-    return render_template("viz_mst.html", algo=algo, algorithms=algorithms)
+    return render_template(
+        "viz_mst.html",
+        algo=algo,
+        algorithms=algorithms,
+        notes=get_notes({"kruskal": "kruskal", "prim": "prim"}.get(algo, algo)),
+    )
 
 
 @app.post("/api/viz/mst")
@@ -600,7 +664,12 @@ def viz_topo():
         algorithms = [
             {"key": "kahn", "name": "Topological Sort (Kahn's Algorithm)"},
         ]
-    return render_template("viz_topo.html", algo=algo, algorithms=algorithms)
+    return render_template(
+        "viz_topo.html",
+        algo=algo,
+        algorithms=algorithms,
+        notes=get_notes({"kahn": "kahn"}.get(algo, algo)),
+    )
 
 
 @app.post("/api/viz/topo")
