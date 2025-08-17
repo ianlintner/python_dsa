@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-  <article class="viz-page">
-    <header class="demo-header">
+  <article class="viz-page space-y-4">
+    <header class="demo-header mb-2 sm:mb-4">
       <div>
         <h2>Sorting Visualization</h2>
         <div class="meta">
@@ -32,14 +32,16 @@
 
         <label>
           N
-          <input id="n" type="range" min="5" max="150" step="1" value="40" />
-          <span id="nLabel">40</span>
+          <input id="n" type="range" min="5" max="150" step="1" value="40" aria-describedby="nHelp" />
+          <output id="nLabel" for="n">40</output>
+          <span id="nHelp" class="small">Array length</span>
         </label>
 
         <label>
           Speed (fps)
-          <input id="speed" type="range" min="1" max="60" step="1" value="24" />
-          <span id="speedLabel">24</span>
+          <input id="speed" type="range" min="1" max="60" step="1" value="24" aria-describedby="speedHelp" />
+          <output id="speedLabel" for="speed">24</output>
+          <span id="speedHelp" class="small">Animation rate</span>
         </label>
 
         <label class="row">
@@ -53,18 +55,18 @@
         </label>
 
         <div class="viz-buttons">
-          <button id="generate" class="btn" type="button">Generate</button>
-          <button id="play" class="btn" type="button">Play</button>
-          <button id="pause" class="btn secondary" type="button" disabled>Pause</button>
-          <button id="step" class="btn secondary" type="button">Step</button>
-          <button id="reset" class="btn secondary" type="button">Reset</button>
+          <button id="generate" class="btn" type="button" title="Generate a new array and frames">Generate</button>
+          <button id="play" class="btn" type="button" title="Play animation">Play</button>
+          <button id="pause" class="btn secondary" type="button" disabled title="Pause animation">Pause</button>
+          <button id="step" class="btn secondary" type="button" title="Advance one frame">Step</button>
+          <button id="reset" class="btn secondary" type="button" title="Reset to first frame">Reset</button>
         </div>
       </form>
     </section>
 
     <section class="panel">
-      <div id="status" class="viz-status">Ready</div>
-      <div id="bars" class="bars"></div>
+      <div id="status" class="viz-status" role="status" aria-live="polite" aria-atomic="true">Ready</div>
+      <div id="bars" class="bars" role="img" aria-label="Sorting bars visualization"></div>
     </section>
   </article>
 

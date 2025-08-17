@@ -1,17 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-  <h2>Available Demos</h2>
+  <header class="demo-header mb-4">
+    <div>
+      <h2>Algorithm Demos</h2>
+      <div class="meta">
+        <span class="badge">dashboard</span>
+        <span class="path">Run or visualize algorithms from src/ modules</span>
+      </div>
+    </div>
+  </header>
 
   {% if not categories %}
     <p>No demos discovered. Ensure modules under <code>src/</code> define a <code>demo()</code> function.</p>
   {% else %}
-    <div class="categories">
+    <div class="categories mt-4">
       {% for category, demos in categories.items() %}
         <section class="category">
-          <h3>{{ category }}</h3>
-          <ul class="demo-list">
+          <h3>{{ category }} <span class="badge">{{ demos|length }} demos</span></h3>
+          <ul class="demo-list" role="list">
             {% for d in demos %}
-              <li class="demo-item">
+              <li class="demo-item" role="listitem">
                 <div class="demo-title">{{ d.title }}</div>
                 <div class="demo-actions">
                   {% if category == 'visualizations' or d.id.startswith('viz.') %}
@@ -51,7 +59,7 @@
                 <div class="demo-id">{{ d.id }}</div>
                 <div class="panel run-panel" hidden>
                   <h4>Output</h4>
-                  <pre class="output"><code></code></pre>
+                  <pre class="output" role="status" aria-live="polite" aria-atomic="true"><code></code></pre>
                 </div>
               </li>
             {% endfor %}

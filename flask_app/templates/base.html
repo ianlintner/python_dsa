@@ -4,31 +4,91 @@
   <meta charset="utf-8" />
   <title>{{ title or "Python DSA Demos" }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        // Keep Tailwind in sync (class-based dark mode)
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+      } catch (e) {}
+    })();
+  </script>
+  <script>
+    // Configure Tailwind (CDN) to use class-based dark mode
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          container: { center: true, padding: '1rem' }
+        }
+      }
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4 flex-wrap">
       <h1 class="brand"><a href="{{ url_for('index') }}">Python DSA Demos</a></h1>
-      <nav>
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('big_o_guide') }}">Big-O Guide</a>
+      {% set ep = request.endpoint %}
+      <nav class="primary-nav flex flex-wrap items-center gap-2 text-sm" aria-label="Main">
+        <a href="{{ url_for('index') }}"
+           class="{{ 'active' if ep == 'index' else '' }}"
+           {% if ep == 'index' %}aria-current="page"{% endif %}>Home</a>
+        <a href="{{ url_for('big_o_guide') }}"
+           class="{{ 'active' if ep == 'big_o_guide' else '' }}"
+           {% if ep == 'big_o_guide' %}aria-current="page"{% endif %}>Big-O Guide</a>
         {% if meta %}
-          <a href="{{ url_for('source', module=meta.id) }}">View Source</a>
+          <a href="{{ url_for('source', module=meta.id) }}"
+             class="{{ 'active' if ep == 'source' else '' }}"
+             {% if ep == 'source' %}aria-current="page"{% endif %}>View Source</a>
         {% endif %}
         <a class="repo" href="https://github.com/ianlintner/python_dsa" target="_blank" rel="noopener">GitHub</a>
       </nav>
+      <div class="header-actions">
+        <button id="theme-toggle" class="btn secondary inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-md" type="button" aria-pressed="false" title="Toggle theme">Toggle theme</button>
+      </div>
     </div>
   </header>
 
-  <main class="container">
+  <main id="content" class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-6" tabindex="-1">
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
+  <footer class="site-footer" role="contentinfo">
+    <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
       <p>Flask UI for algorithm demos discovered under src/ (modules exposing demo()).</p>
     </div>
   </footer>
+
+  <script>
+    (function() {
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      function getTheme() {
+        return document.documentElement.getAttribute('data-theme') || 'dark';
+      }
+      function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        try { localStorage.setItem('theme', theme); } catch(e) {}
+        btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+        btn.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+      }
+      setTheme(getTheme());
+      btn.addEventListener('click', function() {
+        var next = getTheme() === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+      });
+    })();
+  </script>
 </body>
 </html>
