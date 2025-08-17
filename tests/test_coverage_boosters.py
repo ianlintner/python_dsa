@@ -10,7 +10,7 @@ def capture_stdout(fn, *args, **kwargs) -> str:
     old = sys.stdout
     try:
         sys.stdout = buf
-        out = fn(*args, **kwargs)
+        fn(*args, **kwargs)
         return buf.getvalue() or ""
     finally:
         sys.stdout = old
