@@ -82,8 +82,6 @@ def floyd_warshall(dist: list[list[float]]) -> tuple[list[list[float]], list[lis
     return dist, next_hop
 
 
-
-
 def reconstruct_path(next_hop: list[list[int | None]], u: int, v: int) -> list[int]:
     """
     Reconstruct path from u to v using next_hop produced by floyd_warshall.

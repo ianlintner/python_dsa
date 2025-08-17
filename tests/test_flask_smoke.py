@@ -1,8 +1,5 @@
-import importlib
-import typing as t
 
 import pytest
-
 from flask_app.app import app as flask_app  # type: ignore
 from flask_app.app import discover_demos  # type: ignore
 
@@ -111,7 +108,15 @@ def test_api_viz_nn(client):
     # Keep this light: small dataset, few epochs, small grid
     resp = client.post(
         "/api/viz/nn",
-        data={"dataset": "blobs", "n": "50", "hidden": "4", "lr": "0.1", "epochs": "1", "grid": "16", "seed": "0"},
+        data={
+            "dataset": "blobs",
+            "n": "50",
+            "hidden": "4",
+            "lr": "0.1",
+            "epochs": "1",
+            "grid": "16",
+            "seed": "0",
+        },
     )
     assert resp.status_code == 200
     assert isinstance(resp.get_json(), dict)

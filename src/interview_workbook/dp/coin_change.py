@@ -110,7 +110,7 @@ def coin_change_limited(coins: list[int], counts: list[int], amount: int) -> int
     dp = [float("inf")] * (amount + 1)
     dp[0] = 0
 
-    for coin, count in zip(coins, counts, strict=False):
+    for coin, count in zip(coins, counts):
         # Process from right to left to avoid using same coin multiple times
         for i in range(amount, coin - 1, -1):
             if dp[i - coin] != float("inf"):

@@ -1,8 +1,6 @@
 import importlib
 import random
 
-import pytest
-
 # Use the Flask app's discovery and runner to find and execute demo()s
 from flask_app.app import discover_demos, run_demo  # type: ignore
 

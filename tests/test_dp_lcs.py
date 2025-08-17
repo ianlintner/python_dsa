@@ -24,6 +24,7 @@ def test_lcs_reconstruct_examples():
         s = lcs_reconstruct(a, b)
         assert isinstance(s, str)
         assert len(s) == lcs_length(a, b)
+
         # s must be a subsequence of both a and b
         def is_subseq(x: str, t: str) -> bool:
             it = iter(t)

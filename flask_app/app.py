@@ -156,6 +156,7 @@ Use: Two-sum in sorted array, dedup, merging, partitioning.
 """,
 }
 
+
 def get_notes(module_name: str) -> str:
     """
     Returns a notes string for a given dotted module name.
@@ -347,7 +348,9 @@ def demo_page():
     if meta is None:
         abort(404, description=f"Demo not found for module {module}")
 
-    return render_template("demo.html", meta=meta, output=None, error=None, code=None, notes=get_notes(meta["id"]))
+    return render_template(
+        "demo.html", meta=meta, output=None, error=None, code=None, notes=get_notes(meta["id"])
+    )
 
 
 @app.post("/demo")
@@ -374,7 +377,9 @@ def demo_run():
     except Exception as e:
         error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
 
-    return render_template("demo.html", meta=meta, output=output, error=error, code=None, notes=get_notes(meta["id"]))
+    return render_template(
+        "demo.html", meta=meta, output=output, error=error, code=None, notes=get_notes(meta["id"])
+    )
 
 
 @app.post("/api/demo")
@@ -411,7 +416,9 @@ def source():
         "category": "/".join(rel.parts[:-1]),
         "path": str(filepath),
     }
-    return render_template("demo.html", meta=meta, output=None, error=None, code=code, notes=get_notes(meta["id"]))
+    return render_template(
+        "demo.html", meta=meta, output=None, error=None, code=code, notes=get_notes(meta["id"])
+    )
 
 
 @app.get("/viz/sorting")
@@ -530,7 +537,11 @@ def viz_path():
         "viz_path.html",
         algo=algo,
         algorithms=algorithms,
-        notes=get_notes({"astar": "a_star", "dijkstra": "dijkstra", "bfs": "bfs_dfs", "gbfs": "gbfs"}.get(algo, algo)),
+        notes=get_notes(
+            {"astar": "a_star", "dijkstra": "dijkstra", "bfs": "bfs_dfs", "gbfs": "gbfs"}.get(
+                algo, algo
+            )
+        ),
     )
 
 
@@ -745,6 +756,7 @@ def api_viz_nn():
 def big_o_guide():
     # Render Big-O/time-space complexity guide page
     return render_template("big_o.html")
+
 
 @app.get("/favicon.ico")
 def favicon_ico():

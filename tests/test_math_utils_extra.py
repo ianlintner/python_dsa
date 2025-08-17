@@ -27,7 +27,14 @@ def test_smallest_prime_factors_and_factorize():
     assert factorize_with_spf(1, spf) == []
     assert factorize_with_spf(2, spf) == [2]
     assert factorize_with_spf(18, spf) == [2, 3, 3]
-    assert factorize_with_spf(42, spf) in ([2, 3, 7], [3, 2, 7], [2, 7, 3], [7, 2, 3], [7, 3, 2], [3, 7, 2])
+    assert factorize_with_spf(42, spf) in (
+        [2, 3, 7],
+        [3, 2, 7],
+        [2, 7, 3],
+        [7, 2, 3],
+        [7, 3, 2],
+        [3, 7, 2],
+    )
 
 
 def test_prefix_sums_2d_and_sum_region():
