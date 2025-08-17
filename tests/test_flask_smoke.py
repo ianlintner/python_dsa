@@ -1,4 +1,3 @@
-
 import pytest
 from flask_app.app import app as flask_app  # type: ignore
 from flask_app.app import discover_demos  # type: ignore
