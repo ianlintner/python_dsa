@@ -9,6 +9,7 @@ dependencies = ["flask>=3.0.0"]
 dev = [
     "ruff>=0.5.6",
     "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
     "pre-commit>=3.6.0"
 ]
 
@@ -26,7 +27,7 @@ include = ["interview_workbook*"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-addopts = "-q"
+addopts = "-q --cov=src --cov-report=term-missing:skip-covered --cov-report=xml --cov-fail-under=90"
 
 [tool.ruff]
 target-version = "py39"

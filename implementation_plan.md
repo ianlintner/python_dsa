@@ -1,161 +1,125 @@
 # Implementation Plan
 
 [Overview]
-Unify the codebase under a single Python package namespace (interview_workbook) for consistency across CLI, tests, and the Flask dashboard, and add Merge Sort and Heap Sort visualizations.
+Ensure the repository maintains ≥90% test coverage and that all algorithm demos and Flask visualizations run without errors in CI by adding coverage enforcement, augmenting tests, and fixing any demo-breaking defects.
 
-This plan standardizes imports to a single top-level namespace and removes duplication between src/* modules and the root-level interview_workbook/* directory. It defines a precise file move strategy, configuration updates, import rewrites, and test changes to ensure a clean, maintainable structure. The dashboard will be updated to map discovered demos to the new package path, and the sorting visualization module will gain Merge and Heap algorithm frames. The plan also outlines a roadmap to expand common DSA coverage (trees, stacks/queues, additional patterns) while preserving current behavior and test coverage.
+This implementation will:
+- Enforce a 90% coverage threshold across all code under src/.
+- Expand the test suite to cover uncovered modules and to smoke-test Flask endpoints and headless demo() functions.
+- Fix a discovered defect in floyd_warshall that would break the negative-cycle demo, ensuring demos are stable.
+- Update CI to measure coverage and fail if the threshold is not met, with artifacts to aid local debugging.
 
-[Types]
-Centralize common type aliases for reuse across modules.
+[Types]  
+Minimal type-system changes: introduce an explicit negative-infinity constant and remove a runtime-unsafe sentinel.
 
-Create a small types module to keep shared aliases:
-- File: src/interview_workbook/types.py
-- Definitions:
-  - from collections.abc import Hashable, Sequence, Iterable, Callable
-  - Graph = dict[Hashable, list[Hashable]]
-  - WeightedGraph = dict[Hashable, list[tuple[Hashable, int]]]
-  - Index = int
-  - Pair = tuple[int, int]
-  - Comparable = object (note: Python typing lacks a direct Comparable bound; we’ll rely on runtime comparisons)
-Validation rules:
-- Graph/WeightedGraph keys must be hashable; adjacency lists must contain only hashable nodes.
-- Edge weights (int) are non-negative where algorithms assume Dijkstra; Bellman-Ford may accept negatives but not negative cycles unless explicitly stated.
+Type and constant specifications:
+- File: src/interview_workbook/graphs/floyd_warshall.py
+  - Add constant: NEG_INF: float = float("-inf")
+  - Replace any usage of undefined -INF sentinel with NEG_INF.
+  - Remove or inline dead helpers related to -INF placeholder (_propagate_neg_inf), or keep only if explicitly used.
+  - Keep existing typing (list[list[float]], list[list[int | None]]) and guard reconstruct_path against None safely (already present).
 
 [Files]
-Restructure modules under a single package, update configs, and clean duplicates.
+Add pytest-cov configuration, expand tests, and adjust a few existing files to enforce coverage and stabilize demos.
 
 New files to be created:
-- src/interview_workbook/__init__.py (expose high-level subpackages)
-- src/interview_workbook/types.py (common aliases)
-- src/interview_workbook/algorithms/__init__.py (moved from src/algorithms/__init__.py)
-- src/interview_workbook/algorithms/sorting/__init__.py (moved)
-- src/interview_workbook/algorithms/searching/__init__.py (moved)
-- src/interview_workbook/data_structures/__init__.py (moved)
-- src/interview_workbook/graphs/__init__.py (moved)
-- src/interview_workbook/strings/__init__.py (moved)
-- src/interview_workbook/dp/__init__.py (moved)
-- src/interview_workbook/patterns/__init__.py (moved)
-- src/interview_workbook/math_utils/__init__.py (moved)
-- src/interview_workbook/systems/__init__.py (moved)
-- src/interview_workbook/utils/__init__.py (moved)
+- tests/test_demos.py
+  - Purpose: iterate all modules under src that expose a callable demo() and assert they run without exceptions. Use deterministic seeds where applicable (via random.seed) and cap any excessive output by not asserting on content. Provide a skip/allowlist mechanism if any demo proves flaky on CI.
+- tests/test_flask_smoke.py
+  - Purpose: Flask smoke tests using app.test_client():
+    - GET routes: "/", "/big_o", "/viz_sorting", "/viz_graph", "/viz_path", "/viz_arrays", "/viz_mst", "/viz_topo", "/viz_nn"
+    - POST API routes with minimal payloads to validate JSON responses: "/api/viz/sorting", "/api/viz/graph", "/api/viz/path", "/api/viz/arrays", "/api/viz/mst", "/api/viz/topo", "/api/viz/nn"
+    - "/demo" flow: render page for a discovered module and run it via POST to ensure output/errors handling is robust.
+- tests/test_graphs_floyd_warshall.py
+  - Purpose: unit tests for floyd_warshall covering:
+    - No negative cycles, correct APSP distances and path reconstruction.
+    - Negative cycle case: verify distances influenced by the cycle become float("-inf") and next_hop paths are undefined (None).
+- tests/test_dp_lcs.py
+  - Purpose: coverage for src/dp/lcs.py (lcs_length and lcs_reconstruct basic assertions).
+- tests/test_math_utils_extra.py
+  - Purpose: additional coverage for number theory helpers not currently exercised (e.g., smallest_prime_factors, factorize_with_spf, prefix_sums_2d/sum_region, mod_inverse variants).
 
-Existing files to be moved (non-exhaustive, pattern-driven):
-- src/algorithms/... ➜ src/interview_workbook/algorithms/...
-- src/data_structures/... ➜ src/interview_workbook/data_structures/...
-- src/graphs/... ➜ src/interview_workbook/graphs/...
-- src/dp/... ➜ src/interview_workbook/dp/...
-- src/strings/... ➜ src/interview_workbook/strings/...
-- src/math_utils/... ➜ src/interview_workbook/math_utils/...
-- src/patterns/... ➜ src/interview_workbook/patterns/...
-- src/systems/... ➜ src/interview_workbook/systems/...
-- src/utils/... ➜ src/interview_workbook/utils/...
-- src/main.py remains in src/, but its DEMOS mapping will import interview_workbook.* modules.
+Existing files to be modified:
+- pyproject.toml
+  - [project.optional-dependencies].dev: add "pytest-cov>=4.1.0".
+  - [tool.pytest.ini_options].addopts: change to include coverage and threshold:
+    - "-q --cov=src --cov-report=term-missing:skip-covered --cov-report=xml --cov-fail-under=90"
+- .github/workflows/ci.yml
+  - Ensure tests run with coverage (picked up from addopts).
+  - Add step to upload coverage.xml as an artifact named "coverage-xml".
+- Makefile (optional quality-of-life)
+  - Add target coverage to run pytest with coverage (redundant if addopts exists but helpful):
+    - coverage: $(PYTHON) -m pytest
+- src/interview_workbook/graphs/floyd_warshall.py
+  - Replace -INF with an explicit NEG_INF constant; remove the name-defined type-ignores and any dead placeholder logic tied to the previous sentinel.
+  - Keep demo() intact; it should no longer error on negative cycles.
 
-Files to be modified:
-- pyproject.toml:
-  - [tool.setuptools.packages.find] include ➜ ["interview_workbook*"]
-  - Keep package-dir {"" = "src"}
-- tests/test_*.py:
-  - Update imports to interview_workbook.* (e.g., from algorithms.sorting.merge_sort ➜ from interview_workbook.algorithms.sorting.merge_sort)
-  - Update utils import to from interview_workbook.utils.check_sorted import is_sorted
-- tests/conftest.py:
-  - Likely unchanged (still adds src to sys.path). Remove any legacy comments pointing to top-level modules if needed.
-- src/main.py:
-  - Update DEMOS mapping module paths to interview_workbook.algorithms..., interview_workbook.graphs..., etc. Keep CLI keys (e.g., "sorting.merge_sort") stable for user ergonomics.
-- flask_app/app.py:
-  - SORTING_VIZ_MAP keys updated to "interview_workbook.algorithms.sorting.bubble_sort", etc.
-  - Visualization module imports remain under flask_app/visualizations (unchanged).
-  - discover_demos() will now find modules as "interview_workbook...." via src scan; no logic change required.
-- flask_app/templates/index.html:
-  - No template logic change; relies on updated sorting_viz_map and discovered IDs.
-- flask_app/visualizations/sorting_viz.py:
-  - Add merge_sort_frames and heap_sort_frames
-  - Add entries to ALGORITHMS: "merge", "heap"
-
-Files to be deleted or moved:
-- Root-level interview_workbook/ directory (duplicate implementation set):
-  - Action: audit for divergences; if files contain unique additions not present in src/, merge meaningful differences into src/interview_workbook/ equivalents; then remove the root-level interview_workbook/ to avoid ambiguity.
-  - Interim: optionally move to docs/legacy/ for reference if differences exist (non-installed).
-- Any leftover top-level package shims (src/algorithms, etc.) after migration: remove directories once imports and tests are green.
-
-Configuration file updates:
-- pyproject.toml changes as above
-- Optional: add mypy config later (deferred)
+Files to be moved/deleted:
+- None required. If _propagate_neg_inf is dead code after changes, either remove it or leave with a comment; choice documented in Functions section.
 
 [Functions]
-Introduce visualization frames and update module registries; no algorithmic behavior changes otherwise.
+Introduce no new library functions; fix a defect and add tests that exercise public functions and demos.
 
 New functions:
-- merge_sort_frames(arr: list[int], max_steps: int = 40000) -> list[dict[str, Any]]
-  - File: flask_app/visualizations/sorting_viz.py
-  - Purpose: Visualization frames for Merge Sort; show comparisons, merges, and final array.
-- heap_sort_frames(arr: list[int], max_steps: int = 40000) -> list[dict[str, Any]]
-  - File: flask_app/visualizations/sorting_viz.py
-  - Purpose: Visualization frames for Heap Sort; show heapify and extraction steps.
+- None in library code.
+- Test helpers inside tests/ as needed (e.g., a discover_demos() helper mirroring flask_app.app.discover_demos but operating purely on src to collect module demo() targets).
 
 Modified functions:
-- src/main.py: run_demo and DEMOS mapping updated to new module paths (interview_workbook.*)
-- flask_app/app.py:
-  - SORTING_VIZ_MAP content updated to interview_workbook.* module IDs
-  - No signature changes; only mapping and discovered IDs alignment
-- flask_app/visualizations/sorting_viz.py:
-  - visualize() to route "merge" and "heap" keys
+- src/interview_workbook/graphs/floyd_warshall.py:floyd_warshall(dist)
+  - Behavior change: when negative cycles are detected, set dist[i][j] = NEG_INF (float("-inf")) instead of an undefined -INF sentinel. Remove type: ignore[name-defined]. Ensure next_hop[i][j] = None in that case, consistent with "path undefined due to negative cycle" semantics.
+- Optional cleanup: remove _propagate_neg_inf or update its docstring to note it is no longer used.
 
 Removed functions:
-- None
+- src/interview_workbook/graphs/floyd_warshall.py:_propagate_neg_inf (only if unused after refactor). Replacement strategy: direct usage of NEG_INF.
 
 [Classes]
-No immediate new classes for the A-priority item; tree/DSA expansions are staged next.
-
-Future (deferred, part of “more common DSA” expansion):
-- New classes:
-  - BinaryTreeNode (src/interview_workbook/data_structures/trees.py)
-    - Fields: val: int | T, left: BinaryTreeNode | None, right: BinaryTreeNode | None
-    - Methods: inorder, preorder, postorder, level_order, insert_bst, search_bst, delete_bst
-- Modified classes:
-  - None in migration phase
-- Removed classes:
-  - None
+No new classes; no class modifications required.
 
 [Dependencies]
-No new runtime dependencies are required.
+Add pytest-cov for coverage enforcement.
 
-- Keep Flask>=3.0.0 for dashboard.
-- Dev tools unchanged (ruff, pytest, pre-commit).
-- Consider mypy in a future PR (deferred).
+Details:
+- Add dev dependency: pytest-cov>=4.1.0
+- No runtime dependencies added; Flask already present.
+- No coverage exclusions: apply to all src/*.
 
 [Testing]
-Adapt tests to the new namespace and add basic visualization checks.
+Add comprehensive tests for coverage and demo/visualization stability.
 
-- Update all tests to import from interview_workbook.*
-- Add lightweight tests for visualization functions (optional but recommended):
-  - For sorting_viz.merge_sort_frames and heap_sort_frames:
-    - Generate small arrays (n=5)
-    - Assert last frame is sorted
-    - Assert frames are non-empty and respect max_steps
-- Run existing suite to ensure parity:
-  - pytest -q
-- CI remains unchanged; ensure pre-commit and ruff run clean.
+Test additions and strategies:
+- Demos headless:
+  - Iterate all src modules with a callable demo() (excluding __init__.py).
+  - Import module and call demo(); assert no exception. Seed random if needed (random.seed(0)).
+  - Provide a small skip set if any demo is inherently long-running or env-sensitive (e.g., concurrency demos). If discovered flaky, parametrize to smaller bounds in future PR; for now, capture and mark xfail on instability.
+- Flask smoke tests:
+  - Use test_client to GET dashboard and visualization pages; assert 200 and that the HTML contains known titles.
+  - For each /api/viz/* endpoint, POST minimal valid payload and assert JSON contains expected keys ("frames", "grid", etc.) or valid "output" in /api/demo.
+  - Exercise /demo: GET to render meta then POST to run single representative demo (e.g., interview_workbook.algorithms.sorting.quick_sort).
+- Floyd–Warshall:
+  - Construct graphs with and without negative cycles:
+    - Without: verify specific shortest paths and reconstruct_path correctness.
+    - With: verify NEG_INF propagation and has_negative_cycle returns True. path reconstruction should return [] when undefined.
+- DP and number theory small cases:
+  - lcs_length/lcs_reconstruct simple strings.
+  - smallest_prime_factors + factorize_with_spf basic assertions.
+  - prefix_sums_2d + sum_region on a tiny matrix.
+  - mod_inverse_fermat/extgcd with small primes/composites where defined.
+
+Determinism and runtime:
+- Set seeds for visualizations and demos where possible.
+- Keep array sizes/grid sizes small in API payloads to keep CI runtime low.
 
 [Implementation Order]
-Migrate namespace first, then add visualizations, then de-duplicate and cleanup.
+Apply fixes and configuration before adding new tests, then enforce coverage in CI.
 
-1. Create new package skeleton under src/interview_workbook/ with __init__.py and types.py.
-2. Move modules from src/* into src/interview_workbook/* (algorithms, data_structures, graphs, dp, strings, patterns, math_utils, systems, utils). Keep relative filenames.
-3. Update pyproject.toml packages.find include=["interview_workbook*"].
-4. Rewrite imports across the repo to interview_workbook.* in:
-   - tests/**/*.py
-   - src/main.py DEMOS mapping module paths
-   - flask_app/app.py SORTING_VIZ_MAP keys
-5. Run ruff check --fix and ruff format to normalize imports; run pytest -q; fix any misses.
-6. Implement merge_sort_frames and heap_sort_frames in flask_app/visualizations/sorting_viz.py; register in ALGORITHMS with keys "merge" and "heap".
-7. Verify UI:
-   - Start Flask app; confirm discovered IDs show interview_workbook.* and visualization page includes Merge/Heap.
-   - Validate API endpoints return frames for the new algorithms.
-8. De-duplication:
-   - Diff root-level interview_workbook/** vs src/interview_workbook/**.
-   - Merge any unique content; remove root-level interview_workbook/ directory (or move to docs/legacy/).
-9. Final cleanup:
-   - Remove any now-empty top-level src/algorithms, src/graphs, etc.
-   - Re-run tests, update README import examples to interview_workbook.*.
-   - Commit with clear migration notes.
+1. Update pyproject.toml dev extras to include pytest-cov and update pytest addopts with coverage threshold and reports.
+2. Fix floyd_warshall: introduce NEG_INF constant and replace undefined -INF sentinel; remove type ignore; remove dead helper if applicable.
+3. Add tests:
+   - tests/test_graphs_floyd_warshall.py (APSP + negative cycle).
+   - tests/test_dp_lcs.py and tests/test_math_utils_extra.py (targeted coverage).
+   - tests/test_demos.py (headless demo() run).
+   - tests/test_flask_smoke.py (GET UI pages and /api endpoints).
+4. Update .github/workflows/ci.yml to upload coverage.xml as an artifact (tests already run with coverage via addopts).
+5. Optional: add Makefile coverage target (quality-of-life).
+6. Run pre-commit and pytest locally; confirm ≥90% coverage.
+7. Push; ensure CI passes with enforced coverage and green demo tests.

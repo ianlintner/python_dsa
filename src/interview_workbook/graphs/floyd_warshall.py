@@ -1,4 +1,5 @@
 INF = float("inf")
+NEG_INF: float = float("-inf")
 
 
 def build_adj_matrix(
@@ -73,27 +74,12 @@ def floyd_warshall(dist: list[list[float]]) -> tuple[list[list[float]], list[lis
                 for j in range(n):
                     if dist[k][j] == INF:
                         continue
-                    dist[i][j] = -INF  # type: ignore[name-defined]
+                    dist[i][j] = NEG_INF
                     next_hop[i][j] = None  # path not well-defined due to negative cycle influence
 
     return dist, next_hop
 
 
-# Python's float doesn't have -INF literal name in scope; define it explicitly
-_NEG_INF = float("-inf")
-
-
-def _is_neginf(x: float) -> bool:
-    return x == _NEG_INF
-
-
-# Replace -INF above with explicit float negative infinity
-def _propagate_neg_inf(dist: list[list[float]]) -> None:
-    n = len(dist)
-    for i in range(n):
-        for j in range(n):
-            if dist[i][j] == -INF:  # placeholder branch not used in final version
-                dist[i][j] = _NEG_INF
 
 
 def reconstruct_path(next_hop: list[list[int | None]], u: int, v: int) -> list[int]:
