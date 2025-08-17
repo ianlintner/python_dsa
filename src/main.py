@@ -7,7 +7,10 @@ DEMOS = {
     "sorting.merge_sort": ("interview_workbook.algorithms.sorting.merge_sort", "demo"),
     "sorting.quick_sort": ("interview_workbook.algorithms.sorting.quick_sort", "demo"),
     "sorting.heap_sort": ("interview_workbook.algorithms.sorting.heap_sort", "demo"),
-    "sorting.non_comparison_sorts": ("interview_workbook.algorithms.sorting.non_comparison_sorts", "demo"),
+    "sorting.non_comparison_sorts": (
+        "interview_workbook.algorithms.sorting.non_comparison_sorts",
+        "demo",
+    ),
     "sorting.insertion_sort": ("interview_workbook.algorithms.sorting.insertion_sort", "demo"),
     "sorting.selection_sort": ("interview_workbook.algorithms.sorting.selection_sort", "demo"),
     "sorting.bubble_sort": ("interview_workbook.algorithms.sorting.bubble_sort", "demo"),
@@ -15,7 +18,10 @@ DEMOS = {
     "searching.binary_search": ("interview_workbook.algorithms.searching.binary_search", "demo"),
     "searching.linear_search": ("interview_workbook.algorithms.searching.linear_search", "demo"),
     "searching.quickselect": ("interview_workbook.algorithms.searching.quickselect", "demo"),
-    "searching.advanced_search": ("interview_workbook.algorithms.searching.advanced_search", "demo"),
+    "searching.advanced_search": (
+        "interview_workbook.algorithms.searching.advanced_search",
+        "demo",
+    ),
     # Graph algorithms
     "graphs.dijkstra": ("interview_workbook.graphs.dijkstra", "demo"),
     "graphs.bfs_dfs": ("interview_workbook.graphs.bfs_dfs", "demo"),
@@ -28,7 +34,10 @@ DEMOS = {
     # Dynamic Programming
     "dp.fibonacci": ("interview_workbook.dp.fibonacci", "demo"),
     "dp.coin_change": ("interview_workbook.dp.coin_change", "demo"),
-    "dp.longest_increasing_subsequence": ("interview_workbook.dp.longest_increasing_subsequence", "demo"),
+    "dp.longest_increasing_subsequence": (
+        "interview_workbook.dp.longest_increasing_subsequence",
+        "demo",
+    ),
     "dp.knapsack": ("interview_workbook.dp.knapsack", "demo"),
     "dp.edit_distance": ("interview_workbook.dp.edit_distance", "demo"),
     "dp.bitmask_tsp": ("interview_workbook.dp.bitmask_tsp", "demo"),
@@ -45,7 +54,10 @@ DEMOS = {
     "patterns.monotonic_stack": ("interview_workbook.patterns.monotonic_stack", "demo"),
     "patterns.backtracking": ("interview_workbook.patterns.backtracking", "demo"),
     "patterns.meet_in_the_middle": ("interview_workbook.patterns.meet_in_the_middle", "demo"),
-    "patterns.binary_search_on_answer": ("interview_workbook.patterns.binary_search_on_answer", "demo"),
+    "patterns.binary_search_on_answer": (
+        "interview_workbook.patterns.binary_search_on_answer",
+        "demo",
+    ),
     "patterns.two_pointers": ("interview_workbook.patterns.two_pointers", "demo"),
     # Data structures
     "data_structures.union_find": ("interview_workbook.data_structures.union_find", "demo"),
