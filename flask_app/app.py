@@ -419,7 +419,7 @@ def viz_sorting():
     # Render sorting visualization page
     algo = request.args.get("algo", "quick")
     try:
-        from visualizations import sorting_viz as s_viz  # type: ignore
+        from flask_app.visualizations import sorting_viz as s_viz  # type: ignore
 
         algorithms = [{"key": k, "name": v["name"]} for k, v in s_viz.ALGORITHMS.items()]
     except Exception:
@@ -461,7 +461,7 @@ def api_viz_sorting():
         unique = unique.lower() != "false"
 
     try:
-        from visualizations import sorting_viz as s_viz  # type: ignore
+        from flask_app.visualizations import sorting_viz as s_viz  # type: ignore
 
         result = s_viz.visualize(algo, n=n, seed=seed, unique=unique)
         return jsonify(result)
@@ -502,7 +502,7 @@ def api_viz_graph():
     seed = int(seed) if seed not in (None, "", "null") else None
 
     try:
-        from visualizations import graph_viz as g_viz  # type: ignore
+        from flask_app.visualizations import graph_viz as g_viz  # type: ignore
 
         result = g_viz.visualize(algo, n=n, p=p, seed=seed, start=start)
         return jsonify(result)
@@ -516,7 +516,7 @@ def viz_path():
     # Render pathfinding visualization page (A*, Dijkstra, BFS, Greedy Best-First)
     algo = request.args.get("algo", "astar")
     try:
-        from visualizations import path_viz as p_viz  # type: ignore
+        from flask_app.visualizations import path_viz as p_viz  # type: ignore
 
         algorithms = [{"key": k, "name": v["name"]} for k, v in p_viz.ALGORITHMS.items()]
     except Exception:
@@ -549,7 +549,7 @@ def api_viz_path():
     seed = int(seed) if seed not in (None, "", "null") else None
 
     try:
-        from visualizations import path_viz as p_viz  # type: ignore
+        from flask_app.visualizations import path_viz as p_viz  # type: ignore
 
         result = p_viz.visualize(algo, rows=rows, cols=cols, density=density, seed=seed)
         return jsonify(result)
@@ -563,7 +563,7 @@ def viz_arrays():
     # Render array techniques visualization page (Binary Search / Two-Pointers / Sliding Window)
     algo = request.args.get("algo", "binary_search")
     try:
-        from visualizations import array_viz as a_viz  # type: ignore
+        from flask_app.visualizations import array_viz as a_viz  # type: ignore
 
         algorithms = [{"key": k, "name": v["name"]} for k, v in a_viz.ALGORITHMS.items()]
     except Exception:
@@ -605,7 +605,7 @@ def api_viz_arrays():
     target = int(target) if target not in (None, "", "null") else None
 
     try:
-        from visualizations import array_viz as a_viz  # type: ignore
+        from flask_app.visualizations import array_viz as a_viz  # type: ignore
 
         result = a_viz.visualize(algo, n=n, seed=seed, target=target)
         return jsonify(result)
@@ -619,7 +619,7 @@ def viz_mst():
     # Render MST visualization page (Kruskal/Prim)
     algo = request.args.get("algo", "kruskal")
     try:
-        from visualizations import mst_viz as m_viz  # type: ignore
+        from flask_app.visualizations import mst_viz as m_viz  # type: ignore
 
         algorithms = [{"key": k, "name": v["name"]} for k, v in m_viz.ALGORITHMS.items()]
     except Exception:
@@ -651,7 +651,7 @@ def api_viz_mst():
     seed = int(seed) if seed not in (None, "", "null") else None
 
     try:
-        from visualizations import mst_viz as m_viz  # type: ignore
+        from flask_app.visualizations import mst_viz as m_viz  # type: ignore
 
         result = m_viz.visualize(algo, n=n, k=k, seed=seed, start=start)
         return jsonify(result)
@@ -665,7 +665,7 @@ def viz_topo():
     # Render topological sort visualization page (Kahn's algorithm)
     algo = request.args.get("algo", "kahn")
     try:
-        from visualizations import topo_viz as t_viz  # type: ignore
+        from flask_app.visualizations import topo_viz as t_viz  # type: ignore
 
         algorithms = [{"key": k, "name": v["name"]} for k, v in t_viz.ALGORITHMS.items()]
     except Exception:
@@ -696,7 +696,7 @@ def api_viz_topo():
     seed = int(seed) if seed not in (None, "", "null") else None
 
     try:
-        from visualizations import topo_viz as t_viz  # type: ignore
+        from flask_app.visualizations import topo_viz as t_viz  # type: ignore
 
         result = t_viz.visualize(algo, n=n, layers=layers, p=p, seed=seed)
         return jsonify(result)
@@ -730,7 +730,7 @@ def api_viz_nn():
     seed = int(seed) if seed not in (None, "", "null") else None
 
     try:
-        from visualizations import nn_viz as nn  # type: ignore
+        from flask_app.visualizations import nn_viz as nn  # type: ignore
 
         result = nn.visualize(
             dataset=dataset, n=n, hidden=hidden, lr=lr, epochs=epochs, seed=seed, grid=grid
