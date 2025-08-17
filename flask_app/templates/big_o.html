@@ -177,3 +177,12 @@ Bitmask DP TSP (Held–Karp):
     <section class="panel">
       <h3>Tips</h3>
       <ul>
+        <li>Prefer O(n log n) over O(n^2) when n ≥ ~2k.</li>
+        <li>Use amortized O(1) hash maps carefully; worst-case O(n) possible.</li>
+        <li>When constraints are small (n ≤ 20), exponential/bitmask DP can be feasible.</li>
+        <li>When weights are small integers, consider counting/radix bucket techniques.</li>
+        <li>Greedy correctness often hinges on matroid/exchange properties or monotonicity.</li>
+      </ul>
+    </section>
+  </article>
+{% endblock %}
