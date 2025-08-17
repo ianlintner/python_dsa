@@ -9,6 +9,8 @@ def counting_sort(
     min_val: int | None = None,
     max_val: int | None = None,
     stable: bool = True,
+    min_value: int | None = None,
+    max_value: int | None = None,
 ) -> list[int]:
     """
     Counting Sort for integers (handles negatives via offset).
@@ -29,6 +31,11 @@ def counting_sort(
         New sorted list (does not modify input)
     """
     n = len(nums)
+    # Support alias kwargs used in some callers
+    if min_value is not None:
+        min_val = min_value
+    if max_value is not None:
+        max_val = max_value
     if n <= 1:
         return nums[:]
 
@@ -74,6 +81,8 @@ def counting_sort_by_key(
     key: Callable[[Any], int],
     key_min: int | None = None,
     key_max: int | None = None,
+    min_value: int | None = None,
+    max_value: int | None = None,
 ) -> list[Any]:
     """
     Stable counting sort by integer key in small range.
@@ -87,6 +96,11 @@ def counting_sort_by_key(
         New list stably sorted by key(item)
     """
     n = len(items)
+    # Support alias kwargs for key range
+    if min_value is not None:
+        key_min = min_value
+    if max_value is not None:
+        key_max = max_value
     if n <= 1:
         return items[:]
 
