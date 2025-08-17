@@ -4,6 +4,8 @@
 
 Clean, idiomatic Python implementations for senior/staff-level interview prep with complexity notes, pitfalls, demos, and tests.
 
+![Project overview screenshot](docs/assets/visual.png)
+
 This repo uses a src/ layout. Tests import modules directly from src/ via `tests/conftest.py`, so you can run and explore without packaging.
 
 ## Quickstart
