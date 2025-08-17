@@ -61,19 +61,19 @@ Import directly from src/ packages (tests do the same):
 
 - Sorting (stable baseline)  
 ```
-from algorithms.sorting.insertion_sort import insertion_sort
+from interview_workbook.algorithms.sorting.insertion_sort import insertion_sort
 print(insertion_sort([3, 1, 2]))  # [1, 2, 3]
 ```
 
 - Sorting (faster average case)  
 ```
-from algorithms.sorting.quick_sort import quick_sort
+from interview_workbook.algorithms.sorting.quick_sort import quick_sort
 print(quick_sort([5, 2, 8, 1]))
 ```
 
 - Searching (sorted array)  
 ```
-from algorithms.searching.binary_search import binary_search, lower_bound, upper_bound
+from interview_workbook.algorithms.searching.binary_search import binary_search, lower_bound, upper_bound
 arr = [1, 2, 2, 3, 5]
 print(binary_search(arr, 3))     # 3
 print(lower_bound(arr, 2))       # 1
@@ -82,20 +82,20 @@ print(upper_bound(arr, 2))       # 3 (first index > 2)
 
 - Searching (unsorted/small)  
 ```
-from algorithms.searching.linear_search import linear_search
+from interview_workbook.algorithms.searching.linear_search import linear_search
 print(linear_search(["b", "a", "c"], "a"))  # 1
 ```
 
 - DP (LCS)  
 ```
-from dp.lcs import lcs_length, lcs_reconstruct
+from interview_workbook.dp.lcs import lcs_length, lcs_reconstruct
 print(lcs_length("abcde", "ace"))     # 3
 print(lcs_reconstruct("abcde", "ace"))# "ace"
 ```
 
 - Graphs (SCC)  
 ```
-from graphs.scc import tarjan_scc
+from interview_workbook.graphs.scc import tarjan_scc
 g = {0:[1],1:[2],2:[0,3],3:[4],4:[5],5:[3]}
 print(tarjan_scc(g))  # e.g., [[0,2,1],[3,5,4]]
 ```
