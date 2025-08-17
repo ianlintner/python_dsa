@@ -45,7 +45,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-xml
+          # Use a unique artifact name per job to avoid 409 Conflict across matrix entries
+          name: coverage-xml-${{ matrix.os }}-py${{ matrix.python-version }}
           path: coverage.xml
           if-no-files-found: warn
           retention-days: 7
