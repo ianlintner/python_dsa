@@ -21,7 +21,7 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["*"]
+include = ["interview_workbook*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
