@@ -8,9 +8,13 @@ from pathlib import Path
 
 from flask import Flask, abort, jsonify, redirect, render_template, request, url_for
 
-# Ensure we can import modules from src/
+# Ensure we can import project packages (flask_app) and modules from src/
 ROOT_DIR = Path(__file__).resolve().parents[1]
 SRC_DIR = ROOT_DIR / "src"
+# Add project root for absolute imports like "flask_app.*" when running this file directly
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+# Add src for discovered demo modules under "src/"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
