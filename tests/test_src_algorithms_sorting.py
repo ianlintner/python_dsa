@@ -1,7 +1,7 @@
-from algorithms.sorting import bubble_sort as bs
-from algorithms.sorting import insertion_sort as ins
-from algorithms.sorting import non_comparison_sorts as ncs
-from algorithms.sorting import selection_sort as sel
+from interview_workbook.algorithms.sorting import bubble_sort as bs
+from interview_workbook.algorithms.sorting import insertion_sort as ins
+from interview_workbook.algorithms.sorting import non_comparison_sorts as ncs
+from interview_workbook.algorithms.sorting import selection_sort as sel
 
 
 def test_bubble_sort_variants():
