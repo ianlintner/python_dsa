@@ -17,6 +17,128 @@ if str(SRC_DIR) not in sys.path:
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
+# Central notes database for algorithm modules (keyed by full module name or basename)
+MODULE_NOTES: dict[str, str] = {
+    # Sorting
+    "bubble_sort": """Summary: Repeatedly swap adjacent out-of-order pairs; pushes largest to the end each pass.
+Time: Best O(n) (already sorted + early exit), Avg O(n^2), Worst O(n^2)
+Space: O(1) in-place
+Stability: Stable
+When to use: Teaching, tiny inputs, nearly-sorted with early exit.
+""",
+    "selection_sort": """Summary: Repeatedly select min element and place it at the front.
+Time: Best/Avg/Worst O(n^2)
+Space: O(1) in-place
+Stability: Not stable (simple implementations)
+When to use: Tiny inputs, minimal swaps needed situations.
+""",
+    "insertion_sort": """Summary: Build sorted prefix by inserting each element into position.
+Time: Best O(n), Avg/Worst O(n^2)
+Space: O(1) in-place
+Stability: Stable
+When to use: Nearly sorted data, small arrays, as base-case for hybrid sorts.
+""",
+    "merge_sort": """Summary: Divide-and-conquer; recursively sort halves then merge.
+Time: Best/Avg/Worst O(n log n)
+Space: O(n) auxiliary (linked-list variant can be O(1))
+Stability: Stable
+When to use: Guaranteed O(n log n), external sorting, stable requirement.
+""",
+    "quick_sort": """Summary: Partition around a pivot; recursively sort partitions.
+Time: Best/Avg O(n log n), Worst O(n^2) (poor pivots)
+Space: O(log n) average stack, O(n) worst stack
+Stability: Not stable (typical in-place)
+Notes: Use randomized/median-of-three pivot; switch to insertion sort for small slices.
+""",
+    "heap_sort": """Summary: Build max-heap, repeatedly extract max to end.
+Time: Best/Avg/Worst O(n log n)
+Space: O(1) in-place (array heap)
+Stability: Not stable
+When to use: O(1) extra memory requirement with predictable O(n log n).
+""",
+    # Searching / selection
+    "linear_search": """Summary: Scan sequentially until element found or end.
+Time: Best O(1), Avg/Worst O(n)
+Space: O(1)
+When to use: Unsorted data, tiny inputs.
+""",
+    "binary_search": """Summary: Repeatedly halve search interval in sorted data.
+Time: O(log n)
+Space: O(1) iterative, O(log n) recursive
+Requires: Monotonic/sorted sequence, random access preferred.
+""",
+    "quickselect": """Summary: Partition (QuickSort-style) to find k-th statistic.
+Time: Avg O(n), Worst O(n^2)
+Space: O(1) extra; recursion stack O(log n) avg
+Tip: Randomized pivots reduce worst-case likelihood. Median-of-medians -> O(n) worst-case.
+""",
+    # Graphs
+    "bfs_dfs": """Summary: BFS explores by levels; DFS dives deep along a branch.
+BFS Time: O(V+E), Space: O(V) queue; shortest paths in unweighted graphs.
+DFS Time: O(V+E), Space: O(V) stack; useful for cycles, topological order, components.
+""",
+    "dijkstra": """Summary: Single-source shortest paths on non-negative weights.
+Time: O((V+E) log V) with binary heap; O(V^2) with adjacency matrix
+Space: O(V)
+Requires: Non-negative edge weights. For negatives, use Bellman-Ford.
+""",
+    "scc": """Summary: Strongly Connected Components (Kosaraju/Tarjan).
+Time: O(V+E)
+Space: O(V)
+Use: Collapse SCCs to DAG, reasoning about cycles and components.
+""",
+    # Strings
+    "rabin_karp": """Summary: Rolling hash substring search.
+Time: Avg O(n+m), Worst O(nm) with many collisions
+Space: O(1) extra
+Notes: Great for multiple pattern search with hashing; watch for modulus/hash collisions.
+""",
+    # Data structures
+    "segment_tree": """Summary: Balanced tree over ranges for queries/updates.
+Build: O(n), Query/Update: O(log n)
+Space: O(n)
+Use: Range sum/min/max, lazy propagation for range updates.
+""",
+    "fenwick_tree": """Summary: Binary Indexed Tree for prefix aggregates.
+Build: O(n), Update/Prefix Query: O(log n)
+Space: O(n)
+Use: Compact alternative to segtree for prefix sums/diffs.
+""",
+    # DP / combinatorics
+    "fibonacci": """Summary: DP/memoization yields O(n) time vs exponential recursion.
+Time: O(n), Space: O(1) if iterative; O(n) with memo recursion stack.
+""",
+    "knapsack": """Summary: 0/1 knapsack DP over items and capacity.
+Time: O(nW), Space: O(W) with rolling array
+Notes: Pseudo-polynomial; NP-hard in general; consider value-based DP or meet-in-the-middle.
+""",
+    "lcs": """Summary: Longest Common Subsequence DP.
+Time: O(nm), Space: O(min(n,m)) with Hirschberg
+Use: Diff tools, sequence similarity.
+""",
+    "bitmask_tsp": """Summary: Held–Karp DP for TSP.
+Time: O(n^2 2^n), Space: O(n 2^n)
+Use: Small n exact TSP; else heuristics/approximation.
+""",
+    # Patterns
+    "sliding_window": """Summary: Maintain a window with two pointers to satisfy constraints.
+Typical Time: O(n), Space: O(1) or O(k) for counts.
+Use: Subarrays with sum/unique/count constraints.
+""",
+    "two_pointers": """Summary: Pair pointers moving toward/along an array.
+Typical Time: O(n), Space: O(1)
+Use: Two-sum in sorted array, dedup, merging, partitioning.
+""",
+}
+
+def get_notes(module_name: str) -> str | None:
+    """
+    Returns a notes string for a given dotted module name.
+    Falls back to using the basename (e.g. 'quick_sort') if full name not present.
+    """
+    base = module_name.split(".")[-1]
+    return MODULE_NOTES.get(module_name) or MODULE_NOTES.get(base)
+
 
 def discover_demos() -> dict[str, list[dict]]:
     """
@@ -192,7 +314,7 @@ def demo_page():
     if meta is None:
         abort(404, description=f"Demo not found for module {module}")
 
-    return render_template("demo.html", meta=meta, output=None, error=None, code=None)
+    return render_template("demo.html", meta=meta, output=None, error=None, code=None, notes=get_notes(meta["id"]))
 
 
 @app.post("/demo")
@@ -219,7 +341,7 @@ def demo_run():
     except Exception as e:
         error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
 
-    return render_template("demo.html", meta=meta, output=output, error=error, code=None)
+    return render_template("demo.html", meta=meta, output=output, error=error, code=None, notes=get_notes(meta["id"]))
 
 
 @app.post("/api/demo")
@@ -256,7 +378,7 @@ def source():
         "category": "/".join(rel.parts[:-1]),
         "path": str(filepath),
     }
-    return render_template("demo.html", meta=meta, output=None, error=None, code=code)
+    return render_template("demo.html", meta=meta, output=None, error=None, code=code, notes=get_notes(meta["id"]))
 
 
 @app.get("/viz/sorting")
@@ -541,6 +663,11 @@ def api_viz_nn():
         error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
         return jsonify({"error": error}), 500
 
+
+@app.get("/big-o")
+def big_o_guide():
+    # Render Big-O/time-space complexity guide page
+    return render_template("big_o.html")
 
 @app.get("/favicon.ico")
 def favicon_ico():

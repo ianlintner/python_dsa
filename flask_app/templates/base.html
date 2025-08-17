@@ -12,6 +12,7 @@
       <h1 class="brand"><a href="{{ url_for('index') }}">Python DSA Demos</a></h1>
       <nav>
         <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('big_o_guide') }}">Big-O Guide</a>
         {% if meta %}
           <a href="{{ url_for('source', module=meta.id) }}">View Source</a>
         {% endif %}
