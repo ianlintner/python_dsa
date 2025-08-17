@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import TypeVar
+from typing import Optional, TypeVar
 
 T = TypeVar("T")
 
 
-def insertion_sort(a: list[T], key: Callable[[T], object] | None = None) -> list[T]:
+def insertion_sort(a: list[T], key: Optional[Callable[[T], object]] = None) -> list[T]:
     """
     Insertion Sort (stable).
 
@@ -69,7 +69,7 @@ def insertion_sort(a: list[T], key: Callable[[T], object] | None = None) -> list
     return arr
 
 
-def insertion_sort_inplace(a: list[T], key: Callable[[T], object] | None = None) -> None:
+def insertion_sort_inplace(a: list[T], key: Optional[Callable[[T], object]] = None) -> None:
     """
     In-place insertion sort (mutates the input list).
 
