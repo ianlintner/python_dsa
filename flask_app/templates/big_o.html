@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block content %}
+  <article class="demo-page">
+    <header class="demo-header">
+      <div>
+        <h2>Big-O Time & Space Complexity Guide</h2>
+        <div class="meta">
+          <span class="badge">reference</span>
+          <span class="path">How to analyze and compare algorithms</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <h3>What is Big-O?</h3>
+      <p>
+        Big-O notation describes how the runtime or memory usage of an algorithm grows as the input size n increases.
+        It ignores constant factors and lower-order terms to focus on scalability.
+      </p>
+      <pre><code>
+O(1)     Constant       — Hash table insert/lookup (amortized), array index
+O(log n) Logarithmic    — Binary search, balanced BST height
+O(n)     Linear         — Scan array, counting
+O(n log n) Quasi-linear — Efficient comparison sorting (merge/heap/quick avg)
+O(n^2)   Quadratic      — Double loops (naive pairwise comparisons)
+O(n^3)   Cubic          — Triple nested loops
+O(2^n)   Exponential    — Some backtracking/DP without pruning (e.g., subsets)
+O(n!)    Factorial      — Permutations (e.g., brute-force TSP)
+      </code></pre>
+    </section>
+
+    <section class="panel">
+      <h3>How to Calculate Big-O (Rules of Thumb)</h3>
+      <ul>
+        <li>Sequential statements add: O(f(n)) + O(g(n)) → O(max(f,g)).</li>
+        <li>Loops multiply: A loop of k iterations doing O(f(n)) work → O(k·f(n)).</li>
+        <li>Nested loops multiply: for i in 1..n, for j in 1..n → O(n·n) = O(n^2).</li>
+        <li>Divide & conquer solves recurrence: T(n) = a·T(n/b) + O(n^d) → Master Theorem.</li>
+        <li>Drop constants and lower-order terms: O(2n + 3) → O(n); O(n + n log n) → O(n log n).</li>
+        <li>Amortized analysis for dynamic arrays, hash tables (averaging expensive rehash/resizes).</li>
+      </ul>
+      <pre><code>
+Master Theorem (simplified):
+Let T(n) = a·T(n/b) + O(n^d), with a ≥ 1, b > 1:
+- if a > b^d → T(n) = Θ(n^(log_b a))
+- if a = b^d → T(n) = Θ(n^d log n)
+- if a < b^d → T(n) = Θ(n^d)
+Examples:
+- Merge sort: a=2, b=2, d=1 → a = b^d → Θ(n log n)
+- Binary search: a=1, b=2, d=0 → a < b^d → Θ(1) per level → Θ(log n) levels
+      </code></pre>
+    </section>
+
+    <section class="panel">
+      <h3>Common Data Structures</h3>
+      <pre class="notes"><code>
+Array (dynamic):
+- Access: O(1), Insert/Delete end: Amortized O(1), Insert/Delete middle: O(n), Search: O(n)
+
+Linked List (singly):
+- Access k-th: O(k), Insert/Delete given node: O(1), Search: O(n)
+
+Hash Table (good hash):
+- Average: Insert/Find/Delete O(1), Worst-case O(n) (collisions)
+- Space: O(n)
+
+Balanced BST (AVL/Red-Black):
+- Insert/Find/Delete: O(log n), Inorder traversal: O(n)
+- Space: O(n)
+
+Heap (binary):
+- Push/Pop top: O(log n), Peek: O(1), Build from array: O(n)
+- Space: O(n)
+
+Fenwick Tree (BIT):
+- Update/Prefix sum: O(log n), Range sum: O(log n)
+- Space: O(n)
+
+Segment Tree:
+- Build: O(n), Query: O(log n), Update: O(log n)
+- Space: O(n)
+      </code></pre>
+    </section>
+
+    <section class="panel">
+      <h3>Sorting</h3>
+      <pre class="notes"><code>
+Bubble Sort:
+- Time: Best O(n) (optimized early-exit), Avg/Worst O(n^2)
+- Space: O(1), Stable: Yes
+
+Selection Sort:
+- Time: Best/Avg/Worst O(n^2)
+- Space: O(1), Stable: No (naive)
+
+Insertion Sort:
+- Time: Best O(n), Avg/Worst O(n^2)
+- Space: O(1), Stable: Yes
+
+Merge Sort:
+- Time: O(n log n) (all cases)
+- Space: O(n) (array), Stable: Yes
+
+Quick Sort:
+- Time: Avg O(n log n), Worst O(n^2) (bad pivots)
+- Space: O(log n) avg recursion, Stable: No
+- Tips: random/median-of-three pivot, switch to insertion for small subarrays
+
+Heap Sort:
+- Time: O(n log n)
+- Space: O(1), Stable: No
+      </code></pre>
+    </section>
+
+    <section class="panel">
+      <h3>Searching and Selection</h3>
+      <pre class="notes"><code>
+Linear Search:
+- Time: Best O(1), Avg/Worst O(n), Space: O(1)
+
+Binary Search (sorted array):
+- Time: O(log n), Space: O(1) iterative (O(log n) recursive)
+
+Quickselect (k-th order statistic):
+- Time: Avg O(n), Worst O(n^2), Space: O(1) extra
+- Randomized pivot reduces worst-case risk; Median-of-Medians → linear worst-case
+      </code></pre>
+    </section>
+
+    <section class="panel">
+      <h3>Graphs</h3>
+      <pre class="notes"><code>
+BFS / DFS:
+- Time: O(V + E), Space: O(V)
+- BFS yields shortest paths in unweighted graphs. DFS for cycles/SCC/topo.
+
+Dijkstra (non-negative weights):
+- Time: O((V+E) log V) with binary heap
+- Space: O(V), Fails with negative edges (use Bellman-Ford)
+
+A*:
+- Time/Space: Exponential in worst case; depends on heuristic quality
+- Admissible & consistent heuristics ensure optimality
+
+MST (Kruskal/Prim):
+- Kruskal: O(E log E), use DSU for cycle checks
+- Prim: O(E log V) with heap
+      </code></pre>
+    </section>
+
+    <section class="panel">
+      <h3>Dynamic Programming</h3>
+      <pre class="notes"><code>
+Fibonacci:
+- Naive recursion O(2^n); DP bottom-up O(n) time, O(1) space (two variables)
+
+0/1 Knapsack (capacity W, n items):
+- Time: O(nW), Space: O(W) with rolling array (pseudo-polynomial)
+
+LCS (length):
+- Time: O(nm), Space: O(min(n,m)) with Hirschberg
+
+Bitmask DP TSP (Held–Karp):
+- Time: O(n^2 · 2^n), Space: O(n · 2^n)
+      </code></pre>
+    </section>
+
+    <section class="panel">
+      <h3>Space Complexity Notes</h3>
+      <ul>
+        <li>Recursion depth counts toward space: quicksort/DFS may use O(h) stack.</li>
+        <li>In-place typically means O(1) auxiliary, not counting input/output storage.</li>
+        <li>Data structure overhead (e.g., pointers) can matter in practice despite O(n).</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h3>Tips</h3>
+      <ul>
