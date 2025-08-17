@@ -1,4 +1,4 @@
-[![CI](https://github.com/ianlintner/python_dsa/actions/workflows/ci.yml/badge.svg)](https://github.com/ianlintner/python_dsa/actions/workflows/ci.yml)
+[![CI](https://github.com/ianlintner/python_dsa/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ianlintner/python_dsa/actions/workflows/ci.yml)
 
 # Python Interview Algorithms Workbook
 
