@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+from typing import Optional
 
 
-def selection_sort(a: list, key: Callable[[object], object] | None = None) -> list:
+def selection_sort(a: list, key: Optional[Callable[[object], object]] = None) -> list:
     """
     Selection Sort (not stable).
 
@@ -61,7 +62,7 @@ def selection_sort(a: list, key: Callable[[object], object] | None = None) -> li
     return arr
 
 
-def selection_sort_inplace(a: list, key: Callable[[object], object] | None = None) -> None:
+def selection_sort_inplace(a: list, key: Optional[Callable[[object], object]] = None) -> None:
     """
     In-place selection sort (mutates the input list).
     """
