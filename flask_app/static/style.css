@@ -345,3 +345,17 @@ a:hover { opacity: 0.9; }
 .grid .cell.goal {
   box-shadow: inset 0 0 0 2px rgba(59,130,246,0.9);
 }
+
+/* Notes and small text helpers */
+.notes {
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.small {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 4px;
+}
