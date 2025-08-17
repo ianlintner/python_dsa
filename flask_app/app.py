@@ -63,9 +63,11 @@ CATEGORIES = discover_demos()
 
 # Map discovered sorting modules to visualization keys
 SORTING_VIZ_MAP = {
-    "algorithms.sorting.bubble_sort": "bubble",
-    "algorithms.sorting.insertion_sort": "insertion",
-    "algorithms.sorting.quick_sort": "quick",
+    "interview_workbook.algorithms.sorting.bubble_sort": "bubble",
+    "interview_workbook.algorithms.sorting.insertion_sort": "insertion",
+    "interview_workbook.algorithms.sorting.quick_sort": "quick",
+    "interview_workbook.algorithms.sorting.merge_sort": "merge",
+    "interview_workbook.algorithms.sorting.heap_sort": "heap",
 }
 
 # Graph visualizations (BFS/DFS) available for this module

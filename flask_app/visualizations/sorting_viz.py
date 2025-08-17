@@ -106,6 +106,100 @@ def quick_sort_frames(
     return frames
 
 
+def merge_sort_frames(arr: list[int], max_steps: int = 40000) -> list[dict[str, Any]]:
+    a = arr[:]
+    frames: list[dict[str, Any]] = [_snap(a)]
+
+    def merge(lo: int, mid: int, hi: int) -> None:
+        nonlocal frames
+        left = a[lo : mid + 1]
+        right = a[mid + 1 : hi + 1]
+        i = j = 0
+        k = lo
+        while i < len(left) and j < len(right):
+            if len(frames) >= max_steps:
+                return
+            # compare elements about to be merged
+            frames.append(_snap(a, k, k, "compare"))
+            if left[i] <= right[j]:
+                a[k] = left[i]
+                i += 1
+            else:
+                a[k] = right[j]
+                j += 1
+            frames.append(_snap(a, k, k, "merge"))
+            k += 1
+        while i < len(left):
+            if len(frames) >= max_steps:
+                return
+            a[k] = left[i]
+            frames.append(_snap(a, k, k, "merge"))
+            i += 1
+            k += 1
+        while j < len(right):
+            if len(frames) >= max_steps:
+                return
+            a[k] = right[j]
+            frames.append(_snap(a, k, k, "merge"))
+            j += 1
+            k += 1
+
+    def sort(lo: int, hi: int) -> None:
+        if lo >= hi or len(frames) >= max_steps:
+            return
+        mid = (lo + hi) // 2
+        sort(lo, mid)
+        sort(mid + 1, hi)
+        merge(lo, mid, hi)
+
+    sort(0, len(a) - 1)
+    frames.append(_snap(a))
+    return frames
+
+
+def heap_sort_frames(arr: list[int], max_steps: int = 40000) -> list[dict[str, Any]]:
+    a = arr[:]
+    n = len(a)
+    frames: list[dict[str, Any]] = [_snap(a)]
+
+    def sift_down(i: int, end: int) -> None:
+        nonlocal frames
+        while True:
+            if len(frames) >= max_steps:
+                return
+            largest = i
+            l = 2 * i + 1
+            r = 2 * i + 2
+            if l <= end:
+                frames.append(_snap(a, i, l, "compare"))
+                if a[l] > a[largest]:
+                    largest = l
+            if r <= end:
+                frames.append(_snap(a, i, r, "compare"))
+                if a[r] > a[largest]:
+                    largest = r
+            if largest == i:
+                return
+            a[i], a[largest] = a[largest], a[i]
+            frames.append(_snap(a, i, largest, "swap"))
+            i = largest
+
+    # Build max heap
+    for i in range(n // 2 - 1, -1, -1):
+        sift_down(i, n - 1)
+
+    # Extract elements one by one
+    for end in range(n - 1, 0, -1):
+        a[0], a[end] = a[end], a[0]
+        frames.append(_snap(a, 0, end, "extract"))
+        sift_down(0, end - 1)
+        if len(frames) >= max_steps:
+            break
+
+    frames.append(_snap(a))
+    return frames
+
+
 ALGORITHMS = {
     "bubble": {
         "name": "Bubble Sort",
@@ -120,6 +214,16 @@ ALGORITHMS = {
     "quick": {
         "name": "Quick Sort",
         "frames": quick_sort_frames,
+        "default_n": 40,
+    },
+    "merge": {
+        "name": "Merge Sort",
+        "frames": merge_sort_frames,
+        "default_n": 40,
+    },
+    "heap": {
+        "name": "Heap Sort",
+        "frames": heap_sort_frames,
         "default_n": 40,
     },
 }
