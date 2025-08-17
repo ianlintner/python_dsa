@@ -4,6 +4,7 @@ import importlib
 import io
 import sys
 import traceback
+from functools import lru_cache
 from pathlib import Path
 
 from flask import Flask, abort, jsonify, redirect, render_template, request, url_for
@@ -196,7 +197,8 @@ def discover_demos() -> dict[str, list[dict]]:
         except Exception:
             continue
         import re
-        if re.search(r'^\s*def\s+demo\s*\(', src_text, flags=re.M):
+
+        if re.search(r"^\s*def\s+demo\s*\(", src_text, flags=re.M):
             category = "/".join(rel.parts[:-1]) or "."
             title = rel.stem.replace("_", " ").title()
             demos.append(
@@ -217,11 +219,10 @@ def discover_demos() -> dict[str, list[dict]]:
     return categories
 
 
-from functools import lru_cache
-
 @lru_cache(maxsize=1)
 def get_categories() -> dict[str, list[dict]]:
     return discover_demos()
+
 
 # Map discovered sorting modules to visualization keys
 SORTING_VIZ_MAP = {

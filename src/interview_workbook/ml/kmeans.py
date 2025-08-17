@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from typing import List, Sequence, Optional
-import random
 import math
-
+import random
+from typing import List, Optional, Sequence
 
 Point = List[float]
 
@@ -96,10 +95,15 @@ class KMeans:
                 break
 
         self.cluster_centers_ = centroids
-        self.labels_ = [min(range(self.n_clusters), key=lambda c: _dist2(x, centroids[c])) for x in X]
+        self.labels_ = [
+            min(range(self.n_clusters), key=lambda c: _dist2(x, centroids[c])) for x in X
+        ]
         return self
 
     def predict(self, X: List[Point]) -> List[int]:
         if not self.cluster_centers_:
             raise RuntimeError("Model not fitted")
-        return [min(range(self.n_clusters), key=lambda c: _dist2(x, self.cluster_centers_[c])) for x in X]
+        return [
+            min(range(self.n_clusters), key=lambda c: _dist2(x, self.cluster_centers_[c]))
+            for x in X
+        ]

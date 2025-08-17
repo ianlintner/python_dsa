@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-from typing import Callable, Iterable, List, Optional, Sequence
 import random
-
+from typing import Callable, Iterable, List, Optional, Sequence
 
 Vector = List[float]
 

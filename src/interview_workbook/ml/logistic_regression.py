@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from typing import List, Sequence
 import math
+from typing import List, Sequence
 
 
 def _sigmoid(z: float) -> float:
