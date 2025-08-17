@@ -156,13 +156,21 @@ Use: Two-sum in sorted array, dedup, merging, partitioning.
 """,
 }
 
-def get_notes(module_name: str) -> str | None:
+def get_notes(module_name: str) -> str:
     """
     Returns a notes string for a given dotted module name.
-    Falls back to using the basename (e.g. 'quick_sort') if full name not present.
+    Falls back to using the basename (e.g. 'quick_sort') if full name not present).
+    If not found, returns a generic Big-O helper note so the UI always shows guidance.
     """
     base = module_name.split(".")[-1]
-    return MODULE_NOTES.get(module_name) or MODULE_NOTES.get(base)
+    note = MODULE_NOTES.get(module_name) or MODULE_NOTES.get(base)
+    if note:
+        return note
+    title = base.replace("_", " ").title()
+    return f"""Summary: {title} — notes not yet curated.
+Time: Estimate via loops/recurrences; common classes: O(1), O(log n), O(n), O(n log n), O(n^2)
+Space: Count auxiliary structures and recursion depth.
+Tip: See the Big-O Guide for how to derive bounds and compare trade-offs."""
 
 
 def discover_demos() -> dict[str, list[dict]]:
