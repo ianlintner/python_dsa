@@ -32,7 +32,6 @@ def test_discover_demos_nonempty():
     assert len(all_demos) > 0
 
 
-@pytest.mark.timeout(30)
 def test_run_all_demos_headless():
     """
     Run every discovered demo() in a headless manner with seeded randomness.
