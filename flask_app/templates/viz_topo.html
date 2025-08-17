@@ -11,6 +11,14 @@
       </div>
     </header>
 
+    {% if notes %}
+      <section class="panel">
+        <h3>Algorithm Notes</h3>
+        <pre class="notes"><code>{{ notes }}</code></pre>
+        <p class="small"><a href="{{ url_for('big_o_guide') }}">Big-O Guide</a></p>
+      </section>
+    {% endif %}
+
     <section class="panel">
       <form id="controls" class="viz-controls" onsubmit="return false;">
         <label>
