@@ -1,3 +1,5 @@
+[![CI](https://github.com/ianlintner/python_dsa/actions/workflows/ci.yml/badge.svg)](https://github.com/ianlintner/python_dsa/actions/workflows/ci.yml)
+
 # Python Interview Algorithms Workbook
 
 Clean, idiomatic Python implementations for senior/staff-level interview prep with complexity notes, pitfalls, demos, and tests.
