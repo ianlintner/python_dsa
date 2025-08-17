@@ -1,8 +1,5 @@
 import io
 import sys
-from importlib import import_module
-
-import pytest
 
 
 def capture_stdout(fn, *args, **kwargs) -> str:

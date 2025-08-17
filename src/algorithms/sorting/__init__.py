@@ -24,5 +24,17 @@ def __getattr__(name: str) -> Any:
       - non_comparison_sorts
     """
     if name in __all__:
-        return import_module(f"{__name__}.{name}")
+        import sys
+
+        canonical = f"interview_workbook.algorithms.sorting.{name}"
+        # If already imported under canonical path, reuse it to avoid reload/circulars
+        if canonical in sys.modules:
+            return sys.modules[canonical]
+        # Try canonical import first
+        try:
+            return import_module(canonical)
+        except ModuleNotFoundError:
+            # Fallback to local under src/ if present
+            local = f"{__name__}.{name}"
+            return import_module(local)
     raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
