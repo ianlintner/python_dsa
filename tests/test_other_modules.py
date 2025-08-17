@@ -1,16 +1,16 @@
 import pytest
 
-from dp.coin_change import (
+from interview_workbook.dp.coin_change import (
     coin_change_count_ways,
     coin_change_min_coins,
 )
-from dp.edit_distance import (
+from interview_workbook.dp.edit_distance import (
     edit_distance,
     edit_distance_optimized,
 )
 
 # DP
-from dp.fibonacci import (
+from interview_workbook.dp.fibonacci import (
     climbing_stairs,
     fibonacci_bottom_up,
     fibonacci_matrix_power,
@@ -19,27 +19,27 @@ from dp.fibonacci import (
     house_robber,
     tribonacci,
 )
-from dp.longest_increasing_subsequence import (
+from interview_workbook.dp.longest_increasing_subsequence import (
     lis_binary_search,
 )
 
 # Graphs
-from graphs.bfs_dfs import (
+from interview_workbook.graphs.bfs_dfs import (
     bfs,
     connected_components_undirected,
     dfs_iterative,
     is_bipartite,
 )
-from graphs.dijkstra import (
+from interview_workbook.graphs.dijkstra import (
     dijkstra,
 )
-from graphs.topological_sort import (
+from interview_workbook.graphs.topological_sort import (
     build_graph_from_edges,
     topological_sort_kahn,
 )
 
 # Math
-from math_utils.number_theory import (
+from interview_workbook.math_utils.number_theory import (
     apply_range_increment,
     difference_array,
     gcd,
@@ -50,39 +50,39 @@ from math_utils.number_theory import (
     recover_from_difference,
     sieve_of_eratosthenes,
 )
-from patterns.binary_search_on_answer import (
+from interview_workbook.patterns.binary_search_on_answer import (
     ship_within_days,
 )
-from patterns.meet_in_the_middle import (
+from interview_workbook.patterns.meet_in_the_middle import (
     subset_sum_mitm,
 )
 
 # Patterns
-from patterns.sliding_window import (
+from interview_workbook.patterns.sliding_window import (
     length_of_longest_substring_without_repeating,
     min_window_substring,
 )
-from patterns.two_pointers import (
+from interview_workbook.patterns.two_pointers import (
     three_sum,
 )
 
 # Strings
-from strings.kmp import (
+from interview_workbook.strings.kmp import (
     kmp_search,
     kmp_search_first_occurrence,
 )
-from strings.manacher import (
+from interview_workbook.strings.manacher import (
     manacher_longest_palindromic_substring,
 )
-from strings.rabin_karp import (
+from interview_workbook.strings.rabin_karp import (
     rabin_karp_search,
 )
-from strings.z_algorithm import (
+from interview_workbook.strings.z_algorithm import (
     z_search,
 )
 
 # Systems
-from systems.rate_limiter import LeakyBucket, TokenBucket
+from interview_workbook.systems.rate_limiter import LeakyBucket, TokenBucket
 
 
 class TestDPFibonacciFamily:
