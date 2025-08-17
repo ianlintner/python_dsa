@@ -42,6 +42,9 @@ lint-fix:
 test:
 	$(PYTHON) -m pytest -q
 
+coverage:
+	$(PYTHON) -m pytest
+
 check: format-check lint
 
 ci: install precommit-all test
