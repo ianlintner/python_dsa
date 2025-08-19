@@ -196,32 +196,59 @@ def demo():
                 }
             )
 
+    # Format results as test results string
+    test_results_lines = ["=== Top K Frequent Elements ===", ""]
+    passed_count = 0
+    total_time = sum(r["time_ms"] for r in results)
+
+    for result in results:
+        status = "✓ PASS" if result["passed"] else "✗ FAIL"
+        test_results_lines.append(f"Test Case {result['test_case']}: {status}")
+        test_results_lines.append(f"  Description: {result['description']}")
+        test_results_lines.append(f"  Input: {result['input']}")
+        test_results_lines.append(f"  Expected: {result['expected']}")
+        test_results_lines.append(f"  Got: {result['actual']}")
+        test_results_lines.append(f"  Time: {result['time_ms']:.3f}ms")
+        test_results_lines.append("")
+        if result["passed"]:
+            passed_count += 1
+
+    test_results_lines.append(f"Results: {passed_count}/{len(results)} passed")
+    test_results_lines.append(f"Total time: {total_time:.3f}ms")
+
+    if passed_count == len(results):
+        test_results_lines.append("🎉 All tests passed!")
+    else:
+        test_results_lines.append(f"❌ {len(results) - passed_count} test(s) failed")
+
+    test_results_str = "\n".join(test_results_lines)
+
+    approach_notes = """
+Key Insights:
+• Min heap keeps track of k largest frequencies efficiently
+• Counter from collections simplifies frequency counting
+• Bucket sort approach achieves O(n) time complexity
+• Quick select can also solve in average O(n) time
+
+Common Pitfalls:
+• Remember result can be returned in any order
+• Consider edge case where k equals number of unique elements
+• Min heap vs max heap choice affects implementation
+• Bucket sort works well when frequency range is limited
+
+Follow-up Questions:
+• How would you optimize for very large k values?
+• What if k is larger than number of unique elements?
+• Can you solve in O(n) time guaranteed?
+• How would you handle streaming data?
+"""
+
     return create_demo_output(
-        title="Top K Frequent Elements",
-        description="Find k most frequent elements using heap",
-        results=results,
-        complexity_analysis={
-            "time": "O(n log k) - heap operations, O(n) with bucket sort",
-            "space": "O(n + k) - counter and heap storage",
-        },
-        key_insights=[
-            "Min heap keeps track of k largest frequencies efficiently",
-            "Counter from collections simplifies frequency counting",
-            "Bucket sort approach achieves O(n) time complexity",
-            "Quick select can also solve in average O(n) time",
-        ],
-        common_pitfalls=[
-            "Remember result can be returned in any order",
-            "Consider edge case where k equals number of unique elements",
-            "Min heap vs max heap choice affects implementation",
-            "Bucket sort works well when frequency range is limited",
-        ],
-        follow_up_questions=[
-            "How would you optimize for very large k values?",
-            "What if k is larger than number of unique elements?",
-            "Can you solve in O(n) time guaranteed?",
-            "How would you handle streaming data?",
-        ],
+        problem_title="Top K Frequent Elements",
+        test_results=test_results_str,
+        time_complexity="O(n log k) - heap operations, O(n) with bucket sort",
+        space_complexity="O(n + k) - counter and heap storage",
+        approach_notes=approach_notes,
     )
 
 
@@ -232,7 +259,7 @@ register_problem(
     title="Top K Frequent Elements",
     category=Category.ARRAYS_HASHING,
     difficulty=Difficulty.MEDIUM,
-    tags={
+    tags=[
         "array",
         "hash-table",
         "divide-and-conquer",
@@ -241,8 +268,7 @@ register_problem(
         "bucket-sort",
         "counting",
         "quickselect",
-    },
-    module="src.interview_workbook.leetcode.arrays_hashing.top_k_frequent_elements",
+    ],
     url="https://leetcode.com/problems/top-k-frequent-elements/",
     notes="Heap-based solution for finding k most frequent elements",
 )

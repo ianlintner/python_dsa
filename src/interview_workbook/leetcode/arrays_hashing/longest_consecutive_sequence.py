@@ -10,7 +10,7 @@ You must write an algorithm that runs in O(n) time.
 from typing import List
 
 from .._registry import register_problem
-from .._runner import TestCase, create_demo_output, run_test_cases
+from .._runner import TestCase, create_demo_output
 from .._types import Category, Difficulty
 
 
@@ -146,9 +146,9 @@ def demo():
             expected=7,
             description="Negative numbers - sequence [-1,0,1,3,4,5,6]",
         ),
-        TestCase(input_args=([]), expected=0, description="Empty array"),
-        TestCase(input_args=([1]), expected=1, description="Single element"),
-        TestCase(input_args=([1, 3, 5, 7]), expected=1, description="No consecutive numbers"),
+        TestCase(input_args=([],), expected=0, description="Empty array"),
+        TestCase(input_args=([1],), expected=1, description="Single element"),
+        TestCase(input_args=([1, 3, 5, 7],), expected=1, description="No consecutive numbers"),
         TestCase(
             input_args=([2, 20, 4, 10, 3, 4, 5]),
             expected=4,
@@ -156,34 +156,96 @@ def demo():
         ),
     ]
 
-    results = run_test_cases(solution.longestConsecutive, test_cases)
+    # Execute test cases manually
+    results = []
+    for i, test_case in enumerate(test_cases):
+        try:
+            import time
+
+            start_time = time.perf_counter()
+
+            nums = test_case.input_args[0]
+            actual = solution.longestConsecutive(nums)
+
+            end_time = time.perf_counter()
+
+            results.append(
+                {
+                    "test_case": i + 1,
+                    "description": test_case.description,
+                    "input": f"nums={nums}",
+                    "expected": test_case.expected,
+                    "actual": actual,
+                    "passed": actual == test_case.expected,
+                    "time_ms": (end_time - start_time) * 1000,
+                }
+            )
+        except Exception as e:
+            results.append(
+                {
+                    "test_case": i + 1,
+                    "description": test_case.description,
+                    "input": f"nums={test_case.input_args[0]}",
+                    "expected": test_case.expected,
+                    "actual": f"Error: {str(e)}",
+                    "passed": False,
+                    "time_ms": 0,
+                }
+            )
+
+    # Format results as test results string
+    test_results_lines = ["=== Longest Consecutive Sequence ===", ""]
+    passed_count = 0
+    total_time = sum(r["time_ms"] for r in results)
+
+    for result in results:
+        status = "✓ PASS" if result["passed"] else "✗ FAIL"
+        test_results_lines.append(f"Test Case {result['test_case']}: {status}")
+        test_results_lines.append(f"  Description: {result['description']}")
+        test_results_lines.append(f"  Input: {result['input']}")
+        test_results_lines.append(f"  Expected: {result['expected']}")
+        test_results_lines.append(f"  Got: {result['actual']}")
+        test_results_lines.append(f"  Time: {result['time_ms']:.3f}ms")
+        test_results_lines.append("")
+        if result["passed"]:
+            passed_count += 1
+
+    test_results_lines.append(f"Results: {passed_count}/{len(results)} passed")
+    test_results_lines.append(f"Total time: {total_time:.3f}ms")
+
+    if passed_count == len(results):
+        test_results_lines.append("🎉 All tests passed!")
+    else:
+        test_results_lines.append(f"❌ {len(results) - passed_count} test(s) failed")
+
+    test_results_str = "\n".join(test_results_lines)
+
+    approach_notes = """
+Key Insights:
+• Hash set provides O(1) lookup to check consecutive numbers
+• Only start counting from sequence beginnings (num-1 not in set)
+• Each number is visited at most twice (once in outer loop, once in inner)
+• Sorting approach is simpler but O(n log n) time complexity
+
+Common Pitfalls:
+• Remember to handle duplicates correctly
+• Only start sequences from the beginning (optimization key)
+• Empty array edge case returns 0
+• Don't count the same sequence multiple times
+
+Follow-up Questions:
+• How would you handle very large integers?
+• Can you find all consecutive sequences, not just the longest?
+• What if you need to return the actual sequence, not just length?
+• How would you optimize for mostly consecutive arrays?
+"""
 
     return create_demo_output(
-        title="Longest Consecutive Sequence",
-        description="Find longest consecutive sequence using hash set",
-        results=results,
-        complexity_analysis={
-            "time": "O(n) - each element visited at most twice",
-            "space": "O(n) - hash set storage for all unique elements",
-        },
-        key_insights=[
-            "Hash set provides O(1) lookup to check consecutive numbers",
-            "Only start counting from sequence beginnings (num-1 not in set)",
-            "Each number is visited at most twice (once in outer loop, once in inner)",
-            "Sorting approach is simpler but O(n log n) time complexity",
-        ],
-        common_pitfalls=[
-            "Remember to handle duplicates correctly",
-            "Only start sequences from the beginning (optimization key)",
-            "Empty array edge case returns 0",
-            "Don't count the same sequence multiple times",
-        ],
-        follow_up_questions=[
-            "How would you handle very large integers?",
-            "Can you find all consecutive sequences, not just the longest?",
-            "What if you need to return the actual sequence, not just length?",
-            "How would you optimize for mostly consecutive arrays?",
-        ],
+        problem_title="Longest Consecutive Sequence",
+        test_results=test_results_str,
+        time_complexity="O(n) - each element visited at most twice",
+        space_complexity="O(n) - hash set storage for all unique elements",
+        approach_notes=approach_notes,
     )
 
 
@@ -194,8 +256,7 @@ register_problem(
     title="Longest Consecutive Sequence",
     category=Category.ARRAYS_HASHING,
     difficulty=Difficulty.MEDIUM,
-    tags={"array", "hash-table", "union-find"},
-    module="src.interview_workbook.leetcode.arrays_hashing.longest_consecutive_sequence",
+    tags=["array", "hash-table", "union-find"],
     url="https://leetcode.com/problems/longest-consecutive-sequence/",
     notes="Hash set approach for O(n) consecutive sequence detection",
 )

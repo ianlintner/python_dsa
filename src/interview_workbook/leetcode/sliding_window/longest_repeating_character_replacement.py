@@ -11,7 +11,7 @@ the above operations.
 from collections import defaultdict
 
 from .._registry import register_problem
-from .._runner import TestCase, create_demo_output, run_test_cases
+from .._runner import TestCase, create_demo_output
 from .._types import Category, Difficulty
 
 
@@ -133,35 +133,70 @@ def demo():
         TestCase(input_args=("ABCABC", 2), expected=4, description="Repeating pattern"),
     ]
 
-    results = run_test_cases(solution.characterReplacement, test_cases)
+    # Execute test cases manually
+    results = []
+    for i, test_case in enumerate(test_cases):
+        try:
+            import time
+
+            start_time = time.perf_counter()
+
+            s, k = test_case.input_args
+            actual = solution.characterReplacement(s, k)
+
+            end_time = time.perf_counter()
+
+            results.append(
+                {
+                    "test_case": i + 1,
+                    "description": test_case.description,
+                    "input": f"s='{s}', k={k}",
+                    "expected": test_case.expected,
+                    "actual": actual,
+                    "passed": actual == test_case.expected,
+                    "time_ms": (end_time - start_time) * 1000,
+                }
+            )
+        except Exception as e:
+            results.append(
+                {
+                    "test_case": i + 1,
+                    "description": test_case.description,
+                    "input": f"s='{test_case.input_args[0]}', k={test_case.input_args[1]}",
+                    "expected": test_case.expected,
+                    "actual": f"Error: {str(e)}",
+                    "passed": False,
+                    "time_ms": 0,
+                }
+            )
 
     # Format results as test results string
     test_results_lines = ["=== Longest Repeating Character Replacement ===", ""]
     passed_count = 0
-    total_time = sum(r.get("time_ms", 0) for r in results)
-    
-    for i, result in enumerate(results):
+    total_time = sum(r["time_ms"] for r in results)
+
+    for result in results:
         status = "✓ PASS" if result["passed"] else "✗ FAIL"
-        test_results_lines.append(f"Test Case {i+1}: {status}")
-        test_results_lines.append(f"  Description: {result.get('description', 'N/A')}")
-        test_results_lines.append(f"  Input: {result.get('input', 'N/A')}")
-        test_results_lines.append(f"  Expected: {result.get('expected', 'N/A')}")
-        test_results_lines.append(f"  Got: {result.get('actual', 'N/A')}")
-        test_results_lines.append(f"  Time: {result.get('time_ms', 0):.3f}ms")
+        test_results_lines.append(f"Test Case {result['test_case']}: {status}")
+        test_results_lines.append(f"  Description: {result['description']}")
+        test_results_lines.append(f"  Input: {result['input']}")
+        test_results_lines.append(f"  Expected: {result['expected']}")
+        test_results_lines.append(f"  Got: {result['actual']}")
+        test_results_lines.append(f"  Time: {result['time_ms']:.3f}ms")
         test_results_lines.append("")
         if result["passed"]:
             passed_count += 1
-    
+
     test_results_lines.append(f"Results: {passed_count}/{len(results)} passed")
     test_results_lines.append(f"Total time: {total_time:.3f}ms")
-    
+
     if passed_count == len(results):
         test_results_lines.append("🎉 All tests passed!")
     else:
         test_results_lines.append(f"❌ {len(results) - passed_count} test(s) failed")
-    
+
     test_results_str = "\n".join(test_results_lines)
-    
+
     approach_notes = """
 Key Insights:
 • Sliding window with character frequency tracking

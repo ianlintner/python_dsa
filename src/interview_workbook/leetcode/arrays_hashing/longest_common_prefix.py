@@ -9,7 +9,7 @@ If there is no common prefix, return an empty string "".
 from typing import List
 
 from .._registry import register_problem
-from .._runner import TestCase, create_demo_output, run_test_cases
+from .._runner import TestCase, create_demo_output
 from .._types import Category, Difficulty
 
 
@@ -174,34 +174,96 @@ def demo():
         ),
     ]
 
-    results = run_test_cases(solution.longestCommonPrefix, test_cases)
+    # Execute test cases manually
+    results = []
+    for i, test_case in enumerate(test_cases):
+        try:
+            import time
+
+            start_time = time.perf_counter()
+
+            strs = test_case.input_args[0]
+            actual = solution.longestCommonPrefix(strs)
+
+            end_time = time.perf_counter()
+
+            results.append(
+                {
+                    "test_case": i + 1,
+                    "description": test_case.description,
+                    "input": f"strs={strs}",
+                    "expected": test_case.expected,
+                    "actual": actual,
+                    "passed": actual == test_case.expected,
+                    "time_ms": (end_time - start_time) * 1000,
+                }
+            )
+        except Exception as e:
+            results.append(
+                {
+                    "test_case": i + 1,
+                    "description": test_case.description,
+                    "input": f"strs={test_case.input_args[0]}",
+                    "expected": test_case.expected,
+                    "actual": f"Error: {str(e)}",
+                    "passed": False,
+                    "time_ms": 0,
+                }
+            )
+
+    # Format results as test results string
+    test_results_lines = ["=== Longest Common Prefix ===", ""]
+    passed_count = 0
+    total_time = sum(r["time_ms"] for r in results)
+
+    for result in results:
+        status = "✓ PASS" if result["passed"] else "✗ FAIL"
+        test_results_lines.append(f"Test Case {result['test_case']}: {status}")
+        test_results_lines.append(f"  Description: {result['description']}")
+        test_results_lines.append(f"  Input: {result['input']}")
+        test_results_lines.append(f"  Expected: '{result['expected']}'")
+        test_results_lines.append(f"  Got: '{result['actual']}'")
+        test_results_lines.append(f"  Time: {result['time_ms']:.3f}ms")
+        test_results_lines.append("")
+        if result["passed"]:
+            passed_count += 1
+
+    test_results_lines.append(f"Results: {passed_count}/{len(results)} passed")
+    test_results_lines.append(f"Total time: {total_time:.3f}ms")
+
+    if passed_count == len(results):
+        test_results_lines.append("🎉 All tests passed!")
+    else:
+        test_results_lines.append(f"❌ {len(results) - passed_count} test(s) failed")
+
+    test_results_str = "\n".join(test_results_lines)
+
+    approach_notes = """
+Key Insights:
+• Horizontal scanning reduces prefix with each comparison
+• Vertical scanning compares character by character across strings
+• Early termination when no common prefix possible
+• String.startswith() provides clean comparison logic
+
+Common Pitfalls:
+• Handle empty input array correctly
+• Consider empty strings within the array
+• Don't forget to handle single string case
+• Be careful with string indexing bounds
+
+Follow-up Questions:
+• How would you optimize for very long strings?
+• What if strings are sorted lexicographically?
+• How would you find longest common suffix instead?
+• Can you solve using binary search on prefix length?
+"""
 
     return create_demo_output(
-        title="Longest Common Prefix",
-        description="Find longest common prefix among array of strings",
-        results=results,
-        complexity_analysis={
-            "time": "O(S) - where S is sum of all characters in all strings",
-            "space": "O(1) - constant extra space for horizontal scanning",
-        },
-        key_insights=[
-            "Horizontal scanning reduces prefix with each comparison",
-            "Vertical scanning compares character by character across strings",
-            "Early termination when no common prefix possible",
-            "String.startswith() provides clean comparison logic",
-        ],
-        common_pitfalls=[
-            "Handle empty input array correctly",
-            "Consider empty strings within the array",
-            "Don't forget to handle single string case",
-            "Be careful with string indexing bounds",
-        ],
-        follow_up_questions=[
-            "How would you optimize for very long strings?",
-            "What if strings are sorted lexicographically?",
-            "How would you find longest common suffix instead?",
-            "Can you solve using binary search on prefix length?",
-        ],
+        problem_title="Longest Common Prefix",
+        test_results=test_results_str,
+        time_complexity="O(S) - where S is sum of all characters in all strings",
+        space_complexity="O(1) - constant extra space for horizontal scanning",
+        approach_notes=approach_notes,
     )
 
 
