@@ -91,7 +91,7 @@ def demo():
     test_results_lines = ["=== Valid Anagram ===", ""]
     passed_count = 0
     total_time = sum(r.get("time_ms", 0) for r in results)
-    
+
     for result in results:
         status = "✓ PASS" if result["passed"] else "✗ FAIL"
         test_results_lines.append(f"Test Case {result['test_case']}: {status}")
@@ -104,17 +104,17 @@ def demo():
         test_results_lines.append("")
         if result["passed"]:
             passed_count += 1
-    
+
     test_results_lines.append(f"Results: {passed_count}/{len(results)} passed")
     test_results_lines.append(f"Total time: {total_time:.3f}ms")
-    
+
     if passed_count == len(results):
         test_results_lines.append("🎉 All tests passed!")
     else:
         test_results_lines.append(f"❌ {len(results) - passed_count} test(s) failed")
-    
+
     test_results_str = "\n".join(test_results_lines)
-    
+
     approach_notes = """
 Key Insights:
 • Anagrams must have same length and character frequencies

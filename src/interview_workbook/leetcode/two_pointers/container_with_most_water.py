@@ -103,31 +103,11 @@ def demo():
     results = run_test_cases(solution.maxArea, test_cases)
 
     return create_demo_output(
-        title="Container With Most Water",
-        description="Find maximum water area using two pointers technique",
-        results=results,
-        complexity_analysis={
-            "time": "O(n) - single pass with two pointers",
-            "space": "O(1) - only using pointer variables",
-        },
-        key_insights=[
-            "Area is determined by width × min(left_height, right_height)",
-            "Always move the pointer with the smaller height inward",
-            "Moving the taller line can never improve the solution",
-            "Two pointers start at extremes and converge toward center",
-        ],
-        common_pitfalls=[
-            "Don't move both pointers at once - only move the shorter one",
-            "Remember area = width × height, where height is the minimum",
-            "The optimal solution may not use the tallest lines",
-            "Consider edge cases with only 2 elements",
-        ],
-        follow_up_questions=[
-            "What if you could slant the container?",
-            "How would you find all pairs that give maximum area?",
-            "Can you solve if heights can be negative?",
-            "What about 3D version with rectangular containers?",
-        ],
+        problem_title="Container With Most Water",
+        test_results=results,
+        time_complexity="O(n) - single pass with two pointers",
+        space_complexity="O(1) - only using pointer variables",
+        approach_notes="Two pointers with greedy strategy - always move shorter line inward",
     )
 
 
@@ -138,8 +118,7 @@ register_problem(
     title="Container With Most Water",
     category=Category.TWO_POINTERS,
     difficulty=Difficulty.MEDIUM,
-    tags={"array", "two-pointers", "greedy"},
-    module="src.interview_workbook.leetcode.two_pointers.container_with_most_water",
+    tags=["array", "two-pointers", "greedy"],
     url="https://leetcode.com/problems/container-with-most-water/",
     notes="Two pointers with greedy strategy - always move shorter line inward",
 )

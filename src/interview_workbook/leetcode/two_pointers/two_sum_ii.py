@@ -122,31 +122,11 @@ def demo():
     results = run_test_cases(solution.twoSum, test_cases)
 
     return create_demo_output(
-        title="Two Sum II - Input Array Is Sorted",
-        description="Find two numbers that sum to target using two pointers",
-        results=results,
-        complexity_analysis={
-            "time": "O(n) - single pass with two pointers",
-            "space": "O(1) - only using two pointer variables",
-        },
-        key_insights=[
-            "Two pointers technique leverages sorted array property",
-            "Move left pointer right when sum is too small",
-            "Move right pointer left when sum is too large",
-            "Problem guarantees exactly one solution exists",
-        ],
-        common_pitfalls=[
-            "Remember to return 1-indexed positions, not 0-indexed",
-            "Don't forget that array is sorted - this enables two pointers",
-            "Avoid using extra space (hash map) when two pointers suffices",
-            "Handle negative numbers correctly",
-        ],
-        follow_up_questions=[
-            "What if there were multiple solutions?",
-            "How would you modify for 0-indexed output?",
-            "What if the array wasn't sorted?",
-            "Can you solve for three numbers summing to target?",
-        ],
+        problem_title="Two Sum II - Input Array Is Sorted",
+        test_results=results,
+        time_complexity="O(n) - single pass with two pointers",
+        space_complexity="O(1) - only using two pointer variables",
+        approach_notes="Two pointers technique on sorted array for O(1) space solution",
     )
 
 
@@ -158,7 +138,6 @@ register_problem(
     category=Category.TWO_POINTERS,
     difficulty=Difficulty.MEDIUM,
     tags=["array", "two-pointers", "binary-search"],
-    module="src.interview_workbook.leetcode.two_pointers.two_sum_ii",
     url="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
     notes="Two pointers technique on sorted array for O(1) space solution",
 )
