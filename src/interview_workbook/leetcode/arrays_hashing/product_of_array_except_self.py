@@ -139,31 +139,11 @@ def demo():
     results = run_test_cases(solution.productExceptSelf, test_cases)
 
     return create_demo_output(
-        title="Product of Array Except Self",
-        description="Calculate product of all elements except self without division",
-        results=results,
-        complexity_analysis={
-            "time": "O(n) - two passes through array",
-            "space": "O(1) - excluding output array, constant extra space",
-        },
-        key_insights=[
-            "Left pass calculates product of all elements to the left",
-            "Right pass multiplies by product of all elements to the right",
-            "Combining left and right products gives final result",
-            "No division operation needed, handles zeros naturally",
-        ],
-        common_pitfalls=[
-            "Remember to handle zero elements correctly",
-            "Division approach fails with zeros and isn't allowed",
-            "Space complexity excludes the output array",
-            "Initialize result array with 1s for multiplication",
-        ],
-        follow_up_questions=[
-            "How would you handle integer overflow?",
-            "What if division was allowed but zeros exist?",
-            "Can you solve with only one pass?",
-            "How would you optimize for sparse arrays?",
-        ],
+        "Product of Array Except Self",
+        results,
+        time_complexity="O(n) - two passes through array",
+        space_complexity="O(1) - excluding output array, constant extra space",
+        approach_notes="Left and right pass approach to calculate products without division",
     )
 
 
@@ -175,7 +155,6 @@ register_problem(
     category=Category.ARRAYS_HASHING,
     difficulty=Difficulty.MEDIUM,
     tags={"array", "prefix-sum"},
-    module="src.interview_workbook.leetcode.arrays_hashing.product_of_array_except_self",
     url="https://leetcode.com/problems/product-of-array-except-self/",
     notes="Left and right pass approach to calculate products without division",
 )
