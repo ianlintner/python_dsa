@@ -1,10 +1,10 @@
 """
 LeetCode 1: Two Sum
 
-Given an array of integers `nums` and an integer `target`, return indices of the 
+Given an array of integers `nums` and an integer `target`, return indices of the
 two numbers such that they add up to target.
 
-You may assume that each input would have exactly one solution, and you may not 
+You may assume that each input would have exactly one solution, and you may not
 use the same element twice. You can return the answer in any order.
 
 URL: https://leetcode.com/problems/two-sum/
@@ -41,28 +41,28 @@ class Solution:
     def twoSum(self, nums: list[int], target: int) -> list[int]:
         """
         Find two numbers in nums that add up to target.
-        
+
         Args:
             nums: List of integers
             target: Target sum
-            
+
         Returns:
             List of two indices [i, j] where nums[i] + nums[j] == target
         """
         # Hash map to store value -> index mapping
         seen = {}
-        
+
         for i, num in enumerate(nums):
             complement = target - num
-            
+
             # Check if complement exists in our hash map
             if complement in seen:
                 # Found our pair!
                 return [seen[complement], i]
-            
+
             # Store current number and its index
             seen[num] = i
-        
+
         # Should never reach here given problem constraints
         return []
 
@@ -81,13 +81,9 @@ test_cases = [
 def demo() -> str:
     """Run Two Sum demo with test cases."""
     solution = Solution()
-    
-    test_results = run_test_cases(
-        solution.twoSum,
-        test_cases,
-        "LeetCode 1: Two Sum"
-    )
-    
+
+    test_results = run_test_cases(solution.twoSum, test_cases, "LeetCode 1: Two Sum")
+
     return create_demo_output(
         "Two Sum",
         test_results,
@@ -99,7 +95,7 @@ Key insights:
 2. For each element, check if its complement (target - element) exists
 3. Single pass solution is more efficient than nested loops O(n²)
 4. Space-time tradeoff: O(n) space for O(n) time vs O(1) space for O(n²) time
-        """.strip()
+        """.strip(),
     )
 
 
@@ -112,5 +108,5 @@ register_problem(
     difficulty=Difficulty.EASY,
     tags=["array", "hashmap"],
     url="https://leetcode.com/problems/two-sum/",
-    notes="Classic hash table problem, fundamental pattern for complement searches"
+    notes="Classic hash table problem, fundamental pattern for complement searches",
 )

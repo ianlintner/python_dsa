@@ -16,7 +16,7 @@ from ._registry import get_all, by_category, by_slug, validate_registry
 
 __all__ = [
     "Difficulty",
-    "Category", 
+    "Category",
     "ProblemMeta",
     "get_all",
     "by_category",

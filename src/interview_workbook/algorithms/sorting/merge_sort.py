@@ -101,7 +101,7 @@ def demo():
     test_cases = [[5, 1, 4, 2, 8, 0, 2], [1], [], [3, 3, 3, 3], [5, 4, 3, 2, 1], list(range(10))]
 
     for i, arr in enumerate(test_cases):
-        print(f"Test {i+1}: {arr}")
+        print(f"Test {i + 1}: {arr}")
         sorted_arr = merge_sort(arr)
         print(f"Sorted:  {sorted_arr}")
 

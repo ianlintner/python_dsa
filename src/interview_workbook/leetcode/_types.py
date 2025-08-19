@@ -8,6 +8,7 @@ from typing import TypedDict
 
 class Difficulty(Enum):
     """Problem difficulty levels."""
+
     EASY = "Easy"
     MEDIUM = "Medium"
     HARD = "Hard"
@@ -15,6 +16,7 @@ class Difficulty(Enum):
 
 class Category(Enum):
     """Problem categories based on algorithmic patterns."""
+
     ARRAYS_HASHING = "arrays_hashing"
     TWO_POINTERS = "two_pointers"
     SLIDING_WINDOW = "sliding_window"
@@ -36,6 +38,7 @@ class Category(Enum):
 
 class ProblemMeta(TypedDict):
     """Metadata for a LeetCode problem."""
+
     id: int | None  # LeetCode problem ID when applicable
     slug: str  # Filesystem-safe identifier (e.g., "two_sum")
     title: str  # Human-readable title (e.g., "Two Sum")
@@ -49,10 +52,36 @@ class ProblemMeta(TypedDict):
 
 # Common tags used across problems for additional categorization
 COMMON_TAGS = {
-    "hashmap", "array", "string", "two_pointers", "sliding_window",
-    "binary_search", "sorting", "stack", "queue", "heap", "priority_queue",
-    "linked_list", "tree", "binary_tree", "bst", "trie", "graph", "dfs", "bfs",
-    "union_find", "topological_sort", "backtracking", "dynamic_programming",
-    "greedy", "divide_conquer", "math", "bit_manipulation", "simulation",
-    "prefix_sum", "monotonic_stack", "intervals", "design"
+    "hashmap",
+    "array",
+    "string",
+    "two_pointers",
+    "sliding_window",
+    "binary_search",
+    "sorting",
+    "stack",
+    "queue",
+    "heap",
+    "priority_queue",
+    "linked_list",
+    "tree",
+    "binary_tree",
+    "bst",
+    "trie",
+    "graph",
+    "dfs",
+    "bfs",
+    "union_find",
+    "topological_sort",
+    "backtracking",
+    "dynamic_programming",
+    "greedy",
+    "divide_conquer",
+    "math",
+    "bit_manipulation",
+    "simulation",
+    "prefix_sum",
+    "monotonic_stack",
+    "intervals",
+    "design",
 }

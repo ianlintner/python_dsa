@@ -114,7 +114,7 @@ def demo():
     target = 10
     i, j = two_sum_sorted(arr, target)
     print(
-        f"two_sum_sorted({arr}, {target}) -> indices=({i},{j}), values=({arr[i] if i!=-1 else None},{arr[j] if j!=-1 else None})"
+        f"two_sum_sorted({arr}, {target}) -> indices=({i},{j}), values=({arr[i] if i != -1 else None},{arr[j] if j != -1 else None})"
     )
     print()
 

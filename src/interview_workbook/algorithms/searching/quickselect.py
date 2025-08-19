@@ -227,7 +227,7 @@ def demo():
     ]
 
     for i, arr in enumerate(test_arrays):
-        print(f"Test {i+1}: {arr}")
+        print(f"Test {i + 1}: {arr}")
         sorted_arr = sorted(arr)
         print(f"Sorted: {sorted_arr}")
 

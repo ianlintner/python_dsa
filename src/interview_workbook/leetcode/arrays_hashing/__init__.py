@@ -6,7 +6,7 @@ including lookups, frequency counting, and efficient data access.
 
 Common patterns:
 - Hash maps for O(1) lookups
-- Array traversal and manipulation  
+- Array traversal and manipulation
 - Frequency counting
 - Two-pass algorithms
 - In-place operations

@@ -244,7 +244,7 @@ def demo():
     us_min = coin_change_min_coins(us_coins, us_amount)
     us_greedy_count, us_greedy_coins = coin_change_greedy(us_coins, us_amount)
 
-    print(f"US coins for ${us_amount/100:.2f}:")
+    print(f"US coins for ${us_amount / 100:.2f}:")
     print(f"DP solution: {us_min} coins")
     print(f"Greedy solution: {us_greedy_count} coins: {us_greedy_coins}")
     print()
@@ -266,7 +266,7 @@ def demo():
     all_ways = coin_change_all_denominations(small_amount)
     print(f"All ways to make {small_amount} cents with US coins:")
     for i, way in enumerate(all_ways[:5]):  # Show first 5
-        print(f"  {i+1}: {way}")
+        print(f"  {i + 1}: {way}")
     if len(all_ways) > 5:
         print(f"  ... and {len(all_ways) - 5} more ways")
     print()

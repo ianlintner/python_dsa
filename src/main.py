@@ -88,37 +88,37 @@ def discover_demos() -> dict[str, tuple[str, str]]:
     """
     discovered = {}
     src_dir = Path(__file__).parent  # Should be src/
-    
+
     for path in src_dir.rglob("*.py"):
         if path.name == "__init__.py":
             continue
-        
+
         # Get relative path from src/
         try:
             rel = path.relative_to(src_dir)
         except ValueError:
             continue  # Skip files outside src/
-        
+
         # Convert path to module name
         module_name = ".".join(rel.with_suffix("").parts)
-        
+
         # Read file and check for demo() function
         try:
             src_text = path.read_text(encoding="utf-8", errors="ignore")
         except Exception:
             continue
-        
+
         # Look for def demo( pattern
         if re.search(r"^\s*def\s+demo\s*\(", src_text, flags=re.M):
             # Create demo key based on module path
             # Convert interview_workbook.leetcode.arrays_hashing.two_sum -> leetcode.arrays_hashing.two_sum
             if module_name.startswith("interview_workbook."):
-                demo_key = module_name[len("interview_workbook."):]
+                demo_key = module_name[len("interview_workbook.") :]
             else:
                 demo_key = module_name
-            
+
             discovered[demo_key] = (module_name, "demo")
-    
+
     return discovered
 
 
@@ -126,12 +126,12 @@ def get_all_demos() -> dict[str, tuple[str, str]]:
     """Get combined static and dynamically discovered demos."""
     all_demos = DEMOS.copy()
     discovered = discover_demos()
-    
+
     # Add discovered demos, avoiding conflicts with static ones
     for key, value in discovered.items():
         if key not in all_demos:
             all_demos[key] = value
-    
+
     return all_demos
 
 
@@ -139,7 +139,7 @@ def list_demos():
     """List all available demos."""
     all_demos = get_all_demos()
     print("Available demos:")
-    
+
     # Group demos by category for better organization
     categories = {}
     for key in all_demos:
@@ -148,7 +148,7 @@ def list_demos():
         else:
             category = "misc"
         categories.setdefault(category, []).append(key)
-    
+
     for category in sorted(categories):
         print(f"\n  {category}:")
         for demo_key in sorted(categories[category]):

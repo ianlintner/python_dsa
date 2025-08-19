@@ -185,7 +185,7 @@ def demo():
     ]
 
     for i, arr in enumerate(test_cases):
-        print(f"Test {i+1}: {arr}")
+        print(f"Test {i + 1}: {arr}")
 
         if arr:
             # Show heap building process

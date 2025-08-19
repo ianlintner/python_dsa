@@ -284,14 +284,14 @@ def demo():
     print("Basic LIS Examples:")
     for i, nums in enumerate(test_arrays):
         if not nums:
-            print(f"Array {i+1}: [] -> LIS length: 0")
+            print(f"Array {i + 1}: [] -> LIS length: 0")
             continue
 
         length_n2 = lis_dp_n2(nums)
         length_nlogn = lis_binary_search(nums)
         length_recon, subsequence = lis_with_reconstruction(nums)
 
-        print(f"Array {i+1}: {nums}")
+        print(f"Array {i + 1}: {nums}")
         print(f"  O(n²) DP: {length_n2}")
         print(f"  O(n log n): {length_nlogn}")
         print(f"  With reconstruction: {length_recon}, subsequence: {subsequence}")

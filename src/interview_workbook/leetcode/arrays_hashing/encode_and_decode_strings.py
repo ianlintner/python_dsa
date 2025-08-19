@@ -1,7 +1,7 @@
 """
 Encode and Decode Strings - LeetCode Problem (Premium)
 
-Design an algorithm to encode a list of strings to a string. The encoded string 
+Design an algorithm to encode a list of strings to a string. The encoded string
 is then sent over the network and is decoded back to the original list of strings.
 
 Machine 1 (sender) has the function:
@@ -25,7 +25,7 @@ Implement the encode and decode methods.
 Note:
 - The string may contain any possible characters out of 256 valid ASCII characters.
 - Your algorithm should be generalized enough to work on any possible characters.
-- Do not use class member/global/static variables to store states. 
+- Do not use class member/global/static variables to store states.
 - Do not rely on any library method such as eval or serialize methods.
 """
 
@@ -40,59 +40,59 @@ class Solution:
         """
         Encode list of strings using length prefix format.
         Format: "length#string" for each string
-        
+
         Time Complexity: O(n) - where n is total characters in all strings
         Space Complexity: O(n) - for the encoded string
-        
+
         Args:
             strs: List of strings to encode
-            
+
         Returns:
             str: Encoded string
         """
         encoded = ""
         for s in strs:
             # Format: length + '#' + string
-            encoded += str(len(s)) + '#' + s
+            encoded += str(len(s)) + "#" + s
         return encoded
-    
+
     def decode(self, s: str) -> List[str]:
         """
         Decode string back to list of strings.
-        
+
         Time Complexity: O(n) - single pass through encoded string
         Space Complexity: O(n) - for the result list
-        
+
         Args:
             s: Encoded string
-            
+
         Returns:
             List[str]: Decoded list of strings
         """
         result = []
         i = 0
-        
+
         while i < len(s):
             # Find the delimiter '#'
-            delimiter_pos = s.find('#', i)
-            
+            delimiter_pos = s.find("#", i)
+
             # Extract the length
             length = int(s[i:delimiter_pos])
-            
+
             # Extract the string of specified length
             start = delimiter_pos + 1
-            string = s[start:start + length]
+            string = s[start : start + length]
             result.append(string)
-            
+
             # Move to next encoded string
             i = start + length
-        
+
         return result
-    
+
     def encodeAlternative(self, strs: List[str]) -> str:
         """
         Alternative encoding using escape characters.
-        
+
         Time Complexity: O(n)
         Space Complexity: O(n)
         """
@@ -102,20 +102,20 @@ class Solution:
             escaped = s.replace("/", "//").replace(":", "/:")
             encoded += escaped + ":"
         return encoded
-    
+
     def decodeAlternative(self, s: str) -> List[str]:
         """
         Alternative decoding using escape characters.
-        
+
         Time Complexity: O(n)
         Space Complexity: O(n)
         """
         result = []
         i = 0
         start = 0
-        
+
         while i < len(s):
-            if s[i] == ':':
+            if s[i] == ":":
                 # Found end of string
                 string = s[start:i]
                 # Unescape: replace "/:" with ":" and "//" with "/"
@@ -123,137 +123,120 @@ class Solution:
                 result.append(string)
                 i += 1
                 start = i
-            elif s[i] == '/' and i + 1 < len(s) and s[i + 1] in ['/', ':']:
+            elif s[i] == "/" and i + 1 < len(s) and s[i + 1] in ["/", ":"]:
                 # Skip escape sequence
                 i += 2
             else:
                 i += 1
-        
+
         return result
 
 
 def demo():
     """Demonstrate Encode and Decode Strings solution with test cases."""
     solution = Solution()
-    
+
     def test_encode_decode(strs):
         """Helper to test round trip encoding/decoding."""
         encoded = solution.encode(strs)
         decoded = solution.decode(encoded)
         return decoded == strs
-    
+
     test_cases = [
+        TestCase(input_args=(["hello", "world"],), expected=True, description="Basic string list"),
+        TestCase(input_args=([""],), expected=True, description="Single empty string"),
+        TestCase(input_args=([],), expected=True, description="Empty list"),
+        TestCase(input_args=(["", "", ""],), expected=True, description="Multiple empty strings"),
         TestCase(
-            input_args=(["hello", "world"],),
-            expected=True,
-            description="Basic string list"
-        ),
-        TestCase(
-            input_args=([""],),
-            expected=True,
-            description="Single empty string"
-        ),
-        TestCase(
-            input_args=([],),
-            expected=True,
-            description="Empty list"
-        ),
-        TestCase(
-            input_args=(["", "", ""],),
-            expected=True,
-            description="Multiple empty strings"
-        ),
-        TestCase(
-            input_args=(["a", "bb", "ccc"],),
-            expected=True,
-            description="Different length strings"
+            input_args=(["a", "bb", "ccc"],), expected=True, description="Different length strings"
         ),
         TestCase(
             input_args=(["#", "##", "###"],),
             expected=True,
-            description="Strings with delimiter characters"
+            description="Strings with delimiter characters",
         ),
         TestCase(
             input_args=(["123", "45#67", "8#9#0"],),
             expected=True,
-            description="Strings with numbers and delimiters"
+            description="Strings with numbers and delimiters",
         ),
         TestCase(
             input_args=(["hello#world", "test:case", "escape//slash"],),
             expected=True,
-            description="Strings with special characters"
+            description="Strings with special characters",
         ),
-        TestCase(
-            input_args=(["ä", "中文", "🚀"],),
-            expected=True,
-            description="Unicode strings"
-        ),
+        TestCase(input_args=(["ä", "中文", "🚀"],), expected=True, description="Unicode strings"),
     ]
-    
+
     # Test the round-trip encoding and decoding
     results = []
     for i, test_case in enumerate(test_cases):
         try:
             import time
+
             start_time = time.perf_counter()
-            
+
             strs = test_case.input_args[0]
             encoded = solution.encode(strs)
             decoded = solution.decode(encoded)
             actual = decoded == strs
-            
+
             end_time = time.perf_counter()
-            
-            results.append({
-                'test_case': i + 1,
-                'description': test_case.description,
-                'input': strs,
-                'encoded': encoded,
-                'decoded': decoded,
-                'expected': test_case.expected,
-                'actual': actual,
-                'passed': actual == test_case.expected,
-                'time_ms': (end_time - start_time) * 1000
-            })
+
+            results.append(
+                {
+                    "test_case": i + 1,
+                    "description": test_case.description,
+                    "input": strs,
+                    "encoded": encoded,
+                    "decoded": decoded,
+                    "expected": test_case.expected,
+                    "actual": actual,
+                    "passed": actual == test_case.expected,
+                    "time_ms": (end_time - start_time) * 1000,
+                }
+            )
         except Exception as e:
-            results.append({
-                'test_case': i + 1,
-                'description': test_case.description,
-                'input': test_case.input_args[0],
-                'encoded': f"Error: {str(e)}",
-                'decoded': f"Error: {str(e)}",
-                'expected': test_case.expected,
-                'actual': False,
-                'passed': False,
-                'time_ms': 0
-            })
-    
+            results.append(
+                {
+                    "test_case": i + 1,
+                    "description": test_case.description,
+                    "input": test_case.input_args[0],
+                    "encoded": f"Error: {str(e)}",
+                    "decoded": f"Error: {str(e)}",
+                    "expected": test_case.expected,
+                    "actual": False,
+                    "passed": False,
+                    "time_ms": 0,
+                }
+            )
+
     return create_demo_output(
         title="Encode and Decode Strings",
         description="Encode list of strings to single string and decode back",
         results=results,
         complexity_analysis={
             "time": "O(n) - where n is total characters in all strings",
-            "space": "O(n) - for encoded string and result list"
+            "space": "O(n) - for encoded string and result list",
         },
         key_insights=[
             "Length prefix format handles any characters including delimiters",
             "Format: 'length#string' allows unambiguous parsing",
             "Alternative escape character approach is more complex",
-            "Must handle empty strings and edge cases correctly"
+            "Must handle empty strings and edge cases correctly",
         ],
         common_pitfalls=[
             "Don't use characters that appear in input as delimiters",
             "Length prefix approach is safer than escape sequences",
             "Handle empty strings and empty lists correctly",
-            "Consider Unicode and multi-byte character handling"
+            "Consider Unicode and multi-byte character handling",
         ],
         follow_up_questions=[
             "How would you optimize for repeated encoding/decoding?",
             "What if strings are very large and memory is limited?",
             "How would you handle compression in the encoding?",
-            "What about thread safety for concurrent operations?"
-        ]
+            "What about thread safety for concurrent operations?",
+        ],
     )
 
 
@@ -267,5 +250,5 @@ register_problem(
     tags={"array", "string", "design"},
     module="src.interview_workbook.leetcode.arrays_hashing.encode_and_decode_strings",
     url="https://leetcode.com/problems/encode-and-decode-strings/",
-    notes="Length prefix encoding for safe string serialization"
+    notes="Length prefix encoding for safe string serialization",
 )

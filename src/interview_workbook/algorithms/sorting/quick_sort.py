@@ -179,7 +179,7 @@ def demo():
     ]
 
     for i, arr in enumerate(test_cases):
-        print(f"Test {i+1}: {arr}")
+        print(f"Test {i + 1}: {arr}")
 
         # Test different variants
         result1 = quick_sort(arr)

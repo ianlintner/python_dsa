@@ -113,16 +113,16 @@ def edit_distance_with_operations(word1: str, word2: str) -> tuple[int, list[str
             j -= 1
         elif i > 0 and j > 0 and dp[i][j] == dp[i - 1][j - 1] + 1:
             # Replace
-            operations.append(f"replace '{word1[i-1]}' with '{word2[j-1]}'")
+            operations.append(f"replace '{word1[i - 1]}' with '{word2[j - 1]}'")
             i -= 1
             j -= 1
         elif i > 0 and dp[i][j] == dp[i - 1][j] + 1:
             # Delete
-            operations.append(f"delete '{word1[i-1]}'")
+            operations.append(f"delete '{word1[i - 1]}'")
             i -= 1
         elif j > 0 and dp[i][j] == dp[i][j - 1] + 1:
             # Insert
-            operations.append(f"insert '{word2[j-1]}'")
+            operations.append(f"insert '{word2[j - 1]}'")
             j -= 1
 
     operations.reverse()

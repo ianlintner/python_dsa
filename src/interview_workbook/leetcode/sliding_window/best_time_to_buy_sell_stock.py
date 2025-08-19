@@ -3,10 +3,10 @@ LeetCode 121: Best Time to Buy and Sell Stock
 
 You are given an array `prices` where `prices[i]` is the price of a given stock on the ith day.
 
-You want to maximize your profit by choosing a single day to buy one stock and choosing 
+You want to maximize your profit by choosing a single day to buy one stock and choosing
 a different day in the future to sell that stock.
 
-Return the maximum profit you can achieve from this transaction. If you cannot achieve 
+Return the maximum profit you can achieve from this transaction. If you cannot achieve
 any profit, return 0.
 
 URL: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
@@ -45,31 +45,31 @@ class Solution:
     def maxProfit(self, prices: list[int]) -> int:
         """
         Find maximum profit from single buy-sell transaction.
-        
+
         Args:
             prices: List of stock prices by day
-            
+
         Returns:
             Maximum profit achievable, or 0 if no profit possible
         """
         if not prices or len(prices) < 2:
             return 0
-        
+
         min_price = prices[0]  # Track minimum price seen so far
-        max_profit = 0         # Track maximum profit achievable
-        
+        max_profit = 0  # Track maximum profit achievable
+
         for price in prices[1:]:
             # Calculate profit if we sell today
             profit = price - min_price
-            
+
             # Update maximum profit
             max_profit = max(max_profit, profit)
-            
+
             # Update minimum price for future transactions
             min_price = min(min_price, price)
-        
+
         return max_profit
-    
+
     def maxProfitAlternative(self, prices: list[int]) -> int:
         """
         Alternative implementation using explicit buy/sell day tracking.
@@ -77,19 +77,19 @@ class Solution:
         """
         if not prices or len(prices) < 2:
             return 0
-        
+
         max_profit = 0
         buy_day = 0  # Index of best day to buy so far
-        
+
         for sell_day in range(1, len(prices)):
             # Calculate profit for current sell day
             profit = prices[sell_day] - prices[buy_day]
             max_profit = max(max_profit, profit)
-            
+
             # Update buy day if we found a lower price
             if prices[sell_day] < prices[buy_day]:
                 buy_day = sell_day
-        
+
         return max_profit
 
 
@@ -100,7 +100,7 @@ test_cases = [
     TestCase(([1, 2],), 1, "Simple profit case"),
     TestCase(([2, 1, 2, 1, 0, 1, 2],), 2, "Multiple opportunities, best is 0->2"),
     TestCase(([1],), 0, "Single price"),
-    TestCase(([], ), 0, "Empty array"),
+    TestCase(([],), 0, "Empty array"),
     TestCase(([5, 5, 5, 5],), 0, "All prices same"),
     TestCase(([1, 2, 3, 4, 5],), 4, "Steadily increasing"),
     TestCase(([2, 4, 1],), 2, "Peak in middle"),
@@ -111,13 +111,11 @@ test_cases = [
 def demo() -> str:
     """Run Best Time to Buy and Sell Stock demo with test cases."""
     solution = Solution()
-    
+
     test_results = run_test_cases(
-        solution.maxProfit,
-        test_cases,
-        "LeetCode 121: Best Time to Buy and Sell Stock"
+        solution.maxProfit, test_cases, "LeetCode 121: Best Time to Buy and Sell Stock"
     )
-    
+
     return create_demo_output(
         "Best Time to Buy and Sell Stock",
         test_results,
@@ -139,7 +137,7 @@ Alternative approaches:
 1. Brute force O(n²): Try all pairs, but inefficient
 2. Dynamic programming: dp[i] = max profit ending at day i
 3. Kadane's algorithm variant: Transform to max subarray problem
-        """.strip()
+        """.strip(),
     )
 
 
@@ -152,5 +150,5 @@ register_problem(
     difficulty=Difficulty.EASY,
     tags=["array", "sliding_window", "dynamic_programming"],
     url="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
-    notes="Classic sliding window problem disguised as stock trading; demonstrates min/max tracking pattern"
+    notes="Classic sliding window problem disguised as stock trading; demonstrates min/max tracking pattern",
 )
