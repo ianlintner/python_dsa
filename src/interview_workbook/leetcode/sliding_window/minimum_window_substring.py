@@ -9,9 +9,8 @@ The testcases will be generated such that the answer is unique.
 """
 
 from collections import Counter, defaultdict
-from .._registry import register_problem
-from .._runner import TestCase, run_test_cases, create_demo_output
-from .._types import Category, Difficulty
+
+from interview_workbook.leetcode._runner import TestCase, run_test_cases
 
 
 class Solution:
@@ -42,7 +41,7 @@ class Solution:
         window_counts = defaultdict(int)
 
         # Result tracking
-        min_len = float('inf')
+        min_len = float("inf")
         min_left = 0
 
         for right in range(len(s)):
@@ -69,7 +68,7 @@ class Solution:
 
                 left += 1
 
-        return "" if min_len == float('inf') else s[min_left:min_left + min_len]
+        return "" if min_len == float("inf") else s[min_left : min_left + min_len]
 
     def minWindowBruteForce(self, s: str, t: str) -> str:
         """
@@ -83,11 +82,11 @@ class Solution:
 
         t_count = Counter(t)
         min_window = ""
-        min_len = float('inf')
+        min_len = float("inf")
 
         for i in range(len(s)):
             for j in range(i, len(s)):
-                window = s[i:j+1]
+                window = s[i : j + 1]
                 window_count = Counter(window)
 
                 # Check if window contains all characters of t
@@ -107,47 +106,29 @@ class Solution:
 def demo():
     """Demonstrate Minimum Window Substring solution with test cases."""
     solution = Solution()
-
     test_cases = [
         TestCase(
             input_args=("ADOBECODEBANC", "ABC"),
             expected="BANC",
-            description="Basic case - 'BANC' contains A, B, C"
+            description="Sample case 1",
+        ),
+        TestCase(input_args=("a", "a"), expected="a", description="Sample case 2"),
+        TestCase(input_args=("a", "aa"), expected="", description="Sample case 3"),
+        TestCase(
+            input_args=(
+                "cabwefgewcwaefgcf",
+                "cae",
+            ),
+            expected="cwae",
+            description="Complex case",
         ),
         TestCase(
-            input_args=("a", "a"),
-            expected="a",
-            description="Single character match"
+            input_args=(
+                "wegdtzwabazduwwdysdetrrctotpcepalvzaasccoagwagzsyzgruutxnhvyzrnckdqyucdfnmiauaomhprrxydtjjzqykywajqwpgzsrsgttgvjhpaprgvdzwlqsrsdhcejhsfxcpnfseggdsdkdoffrxgqowlshlnlcbkqtsydlvdaytwcttjpqnyukdbmdgeiipslzckvoyyqwdltmzowdybytezcvlnvwsidodbdbhfxggctbhcbkchgrwamdgyxggmaaacvgfkbktjtpxyhpzapzxxjngeeepzmtwnazxjcnyrczayjtocsrcamzvkfimzezgdtdufhcrssmlzgrsnxvspyyyatvhspvejuhcglaoefkjgkzwqvdyqdxtrdkqyvfnggkobwpswjagzmhwbxcakfcqhyexjlbapxdbyehfvkqltcmidkdddctkehscrxzckpyiltoqnimgkhprbrcdfzaayzmqsgtbjccyzepbktrjfzsxvqfwzwepawgqhqnmjpckdmvqyizgmphxhqgsgwtqnfclayhtqmbdipwlpdwfskxhfqgrqrrcrvmepkxtzwcwzncevqpkdvdzbfqhbvrzjhybkkmkxgvzrohvibfzehklmkivolaafvfshowkxhvowkehwgsxjqecxdlqtpyqqvnvlhkgtutdlcndjltvbwzmtdlzddrmvazjpdpmvgpnpbahyqhcsdgzjfslhzkpjdntkgmhtyzhsyecqrfzpnhylqbmgwuaaxtedwczdshikxgwaxmftlmryamdqrpfkhmdsaxtfklwvuwdkfzkzjhxikbvhfvlumfazhqozlddsmmjqnuwjxkshqtpopfnyqnzwvjtjzrcbqoykdqpgkcenzcpuwefowlszdqhvtwafmhiwxbywjjcqhbhfpvpnwshscoyblcqfbsrxhyoibdqvgppnzakzgqyowgpvzkppktwlxyxpdatvmcavqfqsrgnbqvmjyxfozprsrlqxqxjtrlzmfqfygqkhgdaxlxzryrfkdwdqxnhbsnfqsqlfvlolnpttgrpsaqtmvscwtwppkgdvnzcbydysbjkxyksltkmgbtdrvdnruwqvdtdbbmcnowfmejdrgdwgdzkxdojnyrhkozqhqwdsqbdjbvohvobbtuxqgxrjhsbfylrplrqgbczxlgtejdlitpbgmjzjplbvhycnazawczutnkozjtgxzqgxbxwvyvqjvxfddoouiicvuvbrcykqjpawhhzcegzlqflpsdjnvggscibcbdssefgvcsadxqjowmttmcxkyvmyidgvgqklvvdvxcqkwqihdbqjbizmlkdoohxcwdxdjvgbwznkqvpffpqjltzjkwlwnbjbbfhfbtctqdehyvnbwklpumqwwsxhklprxjqfggbjylfkqbibdvrlnhvfjcycdgxbmsbfbykepivnfkspdxfhqwqtyjhyqvlmjvycpgxkuprpqoujydfrntqsjvdmgwcqjgecimjcpnstlgcngqxkvdoldfzqwsgcjzacekxnimfqcrrzlqefkpxyzgdrfnsfokzztksjkdxfvtmkzccnxkcjhkzwqvtinpgpspovknhkvzvcrvpcnjqzjjfafvnlqdvxjqovxdsmyczcttubmbgzygsjwkfqwftfavdkmdvxpjpcttphwegdqwsqzjzbrfavqhcfvzljqtsgxwsyzaqdphcntnlzqkcytfbumolmgdkqzuagzjfghllkqhvsqchmzjtzukzmlsrksatktpjrqcbjcquvgwmttbhgngxdvwmstbfqucqkktmhgpskpddbdpqljgfkxkxlhxgbhhfqhzdhocxvyfkxqlzfzwtxjdqxrhgfhkskzqsbnpvfqfkuhslfpxpfngjhjzxjwdybcnhghxqjhfyepqpfnpgrwbdcjtgkxelgsxndwlhdzgagvnvhjphzqgvpqcrtnxvlvxhqvgzfhscvhfjdgncjgjvdgrplxibuqzxqvemhkzcsvqxhpxqpgppcvhdftlbhxgjzqdxfyccrctnplzgmgfblxqkqjcrvxljhzngfvymkrhmjwhspvcgtavqfmumhtfyqfdhwehqgbvdxhgvlwcwdnjmkcgqlfmdlzjqxbwmpgtctjyuhjhqhsnswmgmjlmrjflxlnkplbxgyhcrsntlzpxizkplxjxkqlgxfchddfxjdqygbtcwejxvzxksbjhgymbagvqzecuuprnbdcswvzsyvytnxdxwvmcskgtjbddzfkgsgpqtntdd",
+                "f",
+            ),
+            expected="f",
+            description="Extremely long string case",
         ),
-        TestCase(
-            input_args=("a", "aa"),
-            expected="",
-            description="Not enough characters in s"
-        ),
-        TestCase(
-            input_args=("ab", "b"),
-            expected="b",
-            description="Single character target"
-        ),
-        TestCase(
-            input_args=("ADOBECODEBANC", "AABC"),
-            expected="ADOBECODEBA",
-            description="Target with duplicates"
-        ),
-        TestCase(
-            input_args=("a", "b"),
-            expected="",
-            description="No match possible"
-        ),
-        TestCase(
-            input_args=("abc", "def"),
-            expected="",
-            description="Completely different characters"
-        ),
-        TestCase(
-            input_args=("AAAAAAA", "AA"),
-            expected="AA",
-            description="Multiple same characters"
-        ),
-        TestCase(
-            input_args=("wegdtzwabazduwwdysdetrrctotpcepalvzaasccoagwagzsyzgruutxnhvyzrnckdqyucdfnmiauaomhprrxydtjjzqykywajqwpgzsrsgttgvjhpaprgvdzwlqsrsdhcejhsfxcpnfseggdsdkdoffrxgqowlshlnlcbkqtsydlvdaytwcttjpqnyukdbmdgeiipslzckvoyyqwdltmzowdybytezcvlnvwsidodbdbhfxggctbhcbkchgrwamdgyxggmaaacvgfkbktjtpxyhpzapzxxjngeeepzmtwnazxjcnyrczayjtocsrcamzvkfimzezgdtdufhcrssmlzgrsnxvspyyyatvhspvejuhcglaoefkjgkzwqvdyqdxtrdkqyvfnggkobwpswjagzmhwbxcakfcqhyexjlbapxdbyehfvkqltcmidkdddctkehscrxzckpyiltoqnimgkhprbrcdfzaayzmqsgtbjccyzepbktrjfzsxvqfwzwepawgqhqnmjpckdmvqyizgmphxhqgsgwtqnfclayhtqmbdipwlpdwfskxhfqgrqrrcrvmepkxtzwcwzncevqpkdvdzbfqhbvrzjhybkkmkxgvzrohvibfzehklmkivolaafvfshowkxhvowkehwgsxjqecxdlqtpyqqvnvlhkgtutdlcndjltvbwzmtdlzddrmvazjpdpmvgpnpbahyqhcsdgzjfslhzkpjdntkgmhtyzhsyecqrfzpnhylqbmgwuaaxtedwczdshikxgwaxmftlmryamdqrpfkhmdsaxtfklwvuwdkfzkzjhxikbvhfvlumfazhqozlddsmmjqnuwjxkshqtpopfnyqnzwvjtjzrcbqoykdqpgkcenzcpuwefowlszdqhvtwafmhiwxbywjjcqhbhfpvpnwshscoyblcqfbsrxhyoibdqvgppnzakzgqyowgpvzkppktwlxyxpdatvmcavqfqsrgnbqvmjyxfozprsrlqxqxjtrlzmfqfygqkhgdaxlxzryrfkdwdqxnhbsnfqsqlfvlolnpttgrpsaqtmvscwtwppkgdvnzcbydysbjkxyksltkmgbtdrvdnruwqvdtdbbmcnowfmejdrgdwgdzkxdojnyrhkozqhqwdsqbdjbvohvobbtuxqgxrjhsbfylrplrqgbczxlgtejdlitpbgmjzjplbvhycnazawczutnkozjtgxzqgxbxwvyvqjvxfddoouiicvuvbrcykqjpawhhzcegzlqflpsdjnvggscibcbdssefgvcsadxqjowmttmcxkyvmyidgvgqklvvdvxcqkwqihdbqjbizmlkdoohxcwdxdjvgbwznkqvpffpqjltzjkwlwnbjbbfhfbtctqdehyvnbwklpumqwwsxhklprxjqfggbjylfkqbibdvrlnhvfjcycdgxbmsbfbykepivnfkspdxfhqwqtyjhyqvlmjvycpgxkuprpqoujydfrntqsjvdmgwcqjgecimjcpnstlgcngqxkvdoldfzqwsgcjzacekxnimfqcrrzlqefkpxyzgdrfnsfokzztksjkdxfvtmkzccnxkcjhkzwqvtinpgpspovknhkvzvcrvpcnjqzjjfafvnlqdvxjqovxdsmyczcttubmbgzygsjwkfqwftfavdkmdvxpjpcttphwegdqwsqzjzbrfavqhcfvzljqtsgxwsyzaqdphcntnlzqkcytfbumolmgdkqzuagzjfghllkqhvsqchmzjtzukzmlsrksatktpjrqcbjcquvgwmttbhgngxdvwmstbfqucqkktmhgpskpddbdpqljgfkxkxlhxgbhhfqhzdhocxvyfkxqlzfzwtxjdqxrhgfhkskzqsbnpvfqfkuhslfpxpfngjhjzxjwdybcnhghxqjhfyepqpfnpgrwbdcjtgkxelgsxndwlhdzgagvnvhjphzqgvpqcrtnxvlvxhqvgzfhscvhfjdgncjgjvdgrplxibuqzxqvemhkzcsvqxhpxqpgppcvhdftlbhxgjzqdxfyccrctnplzgmgfblxqkqjcrvxljhzngfvymkrhmjwhspvcgtavqfmumhtfyqfdhwehqgbvdxhgvlwcwdnjmkcgqlfmdlzjqxbwmpgtctjyuhjhqhsnswmgmjlmrjflxlnkplbxgyhcrsntlzpxizkplxjxkqlgxfchddfxjdqygbtcwejxvzxksbjhgymbagvqzecuuprnbdcswvzsyvytnxdxwvmcskgtjbddzfkgsgpqtntddvqslhzxwfvsppznssdedjjlznhklnxqhpzrmqttdgqstjbzwfvhxxqplpqvzbawzijdslbjdyxlwmwsjgggqfzkxjdkqnygmjhryqtxlwcxrvfnezxhtxzqrgnlsqdtgkrvlhldngtnqvhwqvbwjfvbpmhfgwjdqnkvbvpvppvqfdxdcfrvvvdxkttxfjbkglzpxdwqxqvaqtwcqsevqrytquvlzkejhfmtvqfhmefmgncpzfmtfbfqkrtrrkngqffkklzafnqwkffmtmsctevwegwcqjbvktrkhxbqhbxnfmspwlzrjdqrpnvnpjvlcwdtdwdbnwgvddmdxpqbdxfmjgmvdnqawfxqmhruzrbhyzjajfxncjxnfgdwyjzgmgdpqxzxtmvtdyldqnfqzlttjklrxpkxprwjpegfrdkpfntmqblgqmwtqfgbmrblufbbbrrmbxdqtrzzqtvpdnjnlvntvtqgsmtmwscdndtgwgzwdshmsbagyzphhlmjgmthuvjptxpbwacnpykwjvmxmgcgnyxzprldqmgvqhxkdhhkxlprqclwjgmzpqnxjcqzrhkzzefxjqcvdszgfqtkvlbjxgqhqzntsjnxkbgbvjjsjtdldrpztqwshwbklnhrvflyxrzqhqxjhexzpghdpgjjuxtfhlkqgnmhvpwgzwlghvtzykkdmzjrjzjdsvnwhvlqkldthzbhsxwsghdxdgrxedqjklrfzjwtdsgulvnhrdkpjpdfcxhbpdfzscqxtydytxsgckdujcrczmwbmysjrexphfbljclxkdhrjdvfvgbkdvcxlrmpmcfehzzwjrvjfnmxdzphlrbstnhwxggtgdqyvcrdqjxfbxjfbqzhytfmxswrvlzrqjpvzszdwvwlwnhdgdxlhplxdhcmvlwbtmcygzjbxqjkgqcmpncvxhrcpmttlwpmvqtdqchqbxgbqpqrhfjqbmkqzjdsmzrnxmdfhxcsvvwdjqtmcqrkkczfdrdqrwwgmfglxzqzvmhsqmtdqwfvxlzjchkgmqxdmzjyqqfqrqglswdsxwlmjlpvqnhqpzhptwqmzzxmfnjdqcfrtzlfqfmxhfrqpctfdjhfzxqxrxxfqrwzjmzzjqmcrqrldxgtrftphjkxjftqhbljvcxgpmbvfqjxvdrrlmxkbmfdjhthgzqxjfgvrwbxhvgvqdsbjmnwhlqmqqxbbdvgqgbjfnkgtgqrkvxjxkzqtdcsqrxvbplmlxtdkpnwzlmjgwqjmrjtdlzfzzvhqfmjvdmkrztdgmjfvtmzljncvzwpgtdtbjlrgrqktbtkmpngrftlzzxsvjqzgvrwgdlgrgrsqwjzlblfcfvwzrkjhdbcqltqhzlpbqnrnqgrzqpwtgsxtlcqczzqcsgwfdjzppgxjmtqrtzdzldvdpzwdlrhjzqhsrvgzzrxxjqcjfxbzhxhxpljgfvjhpqcgfxhfjkchzdzrxsjhqpgdclfkbcswhlkqrtzrkqwxxwrzwvmlgjmwqhxqdrgszqzjjhdpvvnsvfwrtfrnnkjcqmqgxqvttjmjshwpfhbgpncfldxnzlqkhtrqwjfbccwpdjcfqnjjxfrczlcvwfctkmqgflcvnfxwpxwnqjjgtbtpxbhwlqfcxqsqjrzbwcklxdnjrljxqmzmmlnmdqxzrgdqmwmjgmqjhkfvfbzcjjfdgmdslzhdrsndgvqjhsbfglqlckqjpphjtcqnwtwghpsmxjmzrkptqhccldtqfdpjqtdwsrjftxmjzqsvrpmvtplfgwqhfwcdwsbwjnpghdqhzpnqmfqrwkzwbxlglbwvgwmzjhckpvgnpxzbrjxkbngnlwrqfxlkmddqbphmkqxbdpmpcbqmbwlmmrwvgsxwscctxlvcbvjbqnwvjbdvvnjghvhdbktvhfvqdqrwtnjnmqstwmthjcltmzxpkbdtvqqxgghcswhqwsrfkqjgtrfgrctdlpmqrnzxzzzczcvnnhtwsjjdhmqnszjkdnktjrrmrjzzmdrpwfngpktdgrqcdpdbztjmbxwhlznnqcjgdmrhzjztdgvrjlpqxxwdcmcmvqcpgvxsjsqlbrqjghwxschlrmcnrwzjnqzgbdljnhsqzwgwmckmgrpqtqzjgftttmkrzvkjbhqpbdlcwgsprbvcxfdbvvpzcwgnqmplzrlqmfqsmqcdzcbslcvgtvvqvpvsmpbncnrwlvhqcnzppfjlhcdvvmwktvmjfvhqmtqkplzqhhvlblqwqmkhrjqfxmlfxqnrhlccbqvgmqnbwmjgvqgzfxtfmcglgcvtpgmxrkcqcqzfvtqjqmrjtwbdvqxzvfljdlmnlxsqgtdrjppljfflnxzkjcqjvndkxvtwgjqfbzmwqhqfplsdxmsdkfrxdjtxltmtkzxmxplpzjhqbqnpfpthwcrtnthqxtwxqhzjjlxhqfmddbzwtkdngztpgzcpkfpkwszwvmxjjnxdwktghfjqdbrfcztscglpqtqhqqlvjvdkcpxlcqbdchbhrjwclzgfwfdzjdtjmmvrfwqmxjbhvvgqbdjmnvxddlxpvfzjnhgshwtzxktjwmvgqjcgszljsgcdpfclxvfgxnvxtxhftmxgrkldjhcrcgkzwrmgbrfqxvwlqnbgwlzcqttmzzvvsjphrjhlfgpkxmsfvvqdhfwtshtzfxftcmhfwmkdnvdtrqrrvpmhqwqnbrrzwgkmkxksgcmpqfbxjjzzlwmgdvhccxbxdhlzjjhkjdzbchswgkwvqqxkbwrgtjvtbnnvkllmqkjxqpzklpzldgkcbvxjqwqpgkvlbrqchhczwlqtblphwhdkmvhgwwqzwklcbfrwmlfkpdrjsvgnfvvpvglpccdvgzcfgmlcmjddssgddcmlwmwbsxdwhfrtzfggmxlqpwlfhzvgfnmzdqzgrwkwgdlbgmwxjhzmhdmrmdklnchzqtdczvjrvpljqxlpmfnqnlghsgbqmqfwmvmsrqxlkmvfngjhqhqnpdxlxccklfrvdcswdgltwvhpxmhmsjvpzflxdqzjdwjvdwrqjgjxjqfpbssgscxzdjrxdwgqpjhqmdrjjjnnbtrglpgqzlcwblzxzqrlndckftbqssbdkqjrdrhhlhtcdzxfdsfmhkzgnxpxhrpqmlqdkhhlmqqmnhbqvgvgfhqvzlrjhmlbdvsqgczzdgjxqzcssjlgjkqhjxjdvxjdnjbzgmbbmqbdgdsmtqzklzrqxhbhbhbcxkcxpjtrkqbfqwlsqjphkrtxdrcbjkfjdqgzzmdnkmjhgckksmwtpwhzmqjgqsqcpgqxhvwklwlddmdxvhnmhkqtphdzftjzfxhgqlpjsxhxqfvdnwxwtqzjgpqtwdxmvxhbrtttfwbxpjjfrpzctmvjfnmgwgwbcbqmcdsgqxqdnjjkcvphntwjrcwqlfqmfcmpklcqlsfhvnxfrkcjqzlbrrdrmdbmgccdnjlpbpfhnlftxzckkzzjnhzwxhqjqlmwcnlqnvzptmhqtnhzsdmgvnrtqgtbvqzlwqhtdlhkgzdckwqkvbzdswlcnvdpwdrmqjsczcxfgtqwjzgpfqngvtwqwnxmkzvqslrcfggtcwqctzrcmdcthgqcrqcjdnpqtgdbgbdvcbhjfgjsrmvxjscqhgclfpxtxjgzpxgkwqvtwbqjvtdqmgqqtxdcqnvsdqccjjnhzpzlqvtqcshrtgzgzjhrfhsvjjmgnqrbxvcplzglrlgbsnvpgpmnzxqbxlvtwlqrthjtjkfcdgbtmpqzrhslqslvcvlmxhhhlnvtddgtpnwjvcqjxqwrxxcsmjjvlqrftkcthmcckrcdmxfrsmgkdgcmmnczqzkmwzqjgbbgxghncnlnxczmtcrtzsvzlbrgvwhmnhtpjlxnqczprcqrgdwhzjqnbcvkzpdtrqfwjcblwtwrrthzhtmcwjhwqqtcnqccrhrdmqhfvgdxwxqgmbwbtqdlqjsxdczlrwzmjnfzqdxbljzdbnhxlgzxmdqxqglcmgzsjvtdsvkbfqfzmlrmqdqqgktbkhqhmvnqsfhlzfhdmdnvcdjnbtqnnrlbjvswddbnbcqsqzfvckcgkfdbqhkfkjsrmvlkkplmcqnvczhfjjdztdqqhqbqwxgdqtqmrbdngtztcrwgzsmjmbkdtdmpkqzlvbcrqssjwmwqzbpgrphwrfzfbfxdszfpckrftdwfszgcxsqjwxnvjrmddzfvnwzxpjqrtxwqxsqkrjzvzltgqghxsmttxcbrhzhkdhcvqjzgvgwzqnxdnqbkqrftvmhmwzljxrcwjjjwqghhkwmjpldrxkhdjzxmvzxnhkjklsqzqfjdggjxgwxpkmnqlthmpzfgdhjxfdqzqgcczfjfdrjljzwlbqccqljqbmxqtgcxlpzmpdzcnmvlmvqmxdrtrgrnqmmpwjhtpfdlcbcrvxqjcwprzdpzcscjhgwxpdppjwmxnvpqcnwcpqgwpxmxqzptrdrmwzjmqltvkxtggxsqbbmhpxqpnfcrqmqfqhzlbmnwbcqlfrqgnlmjhgtqmjbcgvkgqtzfkqvdsbrzcrrcmwswtgjdbnsjhcrvxgzpswjmtnqdrglzhtjmjmfzcgxtdmhcnvjxhxkrddbwwjhpmdsfgqwzzvnpqqmqgdmpwmbwdhqcrxlftxwglpnfzcmfwzwcfpnbhgvqkjzpgddrmjnffpzqllndbwdnfvdjzrgsdnzmxzmlvjwdlbwdmjbxszdqghfvfzfqbjczkctqrbgpnkxfxlzrbtcvcxhrbxzdxthgqbvztvpmrcttgrnxmtgzqdqcxmcfzbrqvlmrhbqhqzbklqgfmbkglsthqknflfvdkxhzlgjdxfvwctptflgczjgfhpqrfwzjjcfjpkwqwrfwgxxmxzpgjnfbgswcgvdgxdsmhgqxkqgmtngpjlfrtnfqjxzsqrtnrcxqgmdbvgqvdrqgfqcfspzjgvvqnqmfhdfgmjwqcnfnrqtvlrrbpdcxdgckxdmdnlqvqqqhtjmkpntpmqsxzhqnbgcmvgxltwqzmwzfrwclhwnqbtwfqbclbgcltcnmvzgwvfpbgqqwpnzlqzwbqtwstllcsbxjtgcdlkgvqhqmqzxhgzjjspdmqrktrzhlrchqrdpqzmnfbxhqbxqcjgfcjrtbmpkqtrdlztzlmntwqhbtmvxfbllwczqjgqpgxdzhbtbqmclqwjhkxczrddmplmqzfzlqvdvhptkxtlgwpgkjkqhbcllptqmgzltldzzxcgjpxrljxkrhpqsnrmxtpbwbqzrhmfpjlklscbkglhfdmctznjpzxzpqkcgzqhtrxrxqjrdbbkdplznnvdqjqmqgmxdvnfcjqmnqjbjjjprdpbvvqpdxqqqrwvrxdbfnclzmtmqbnxkqtttkdnbbttmwdsjzrfvcqjjhqjztxpkdngzhvvndfbzfkpzwmnjqsqzvfqrqhxdxztllcfjznjrncdhmxkgvqwsrbqsmkdztgvktdnftqjmlxnxtncwjqdqmhvfgmqxbxxhgdqlbpgvdhzqzxvrmkmzjqssfzkcnfnrwqwjqvlhqxdmpzmkdlftqgpptrszwnfpntlbwfkcfwlsljjdptjdpnfjzhdjbrpfgtsmmxmjvsqfbfjckgdhlmkxsqrhjkjrsmfhqprrmhqhmrlqjfzlhvphdqtvdjdqbhppnzlvfrjqkgpmxbhqvqlqgcpgqzbrbnvnhvnswqrvjhfscqpkqmjdwlcpxddxqsccmkcnctrxdmqfqrtfqpgbbjlqbqglqdcchjcbldwlphgwsfgmptwlqfrmdjgvwwgttzqgzxfxdwphjnxdgnqgljzjlvtlkrdmbrnncdlqdjzppnxkgbmxkdgkztqpjdwlgpxpctxgrqzjhvmfqssnhvqsqbqjjgwdsgdgcfvdwxdhtqzlhzzrnrrxhpjkzhrlqghmmxgmndhqmkggrmnbvlttnqkqrqmrpqzzkrqthqfpcrcpjhbfvmjmjqzglzglfrwghmhfrqvnpqhxkbcdbcqjgpmwfjcztvnscpczvhzhgccgglhvsgtpmfztrlnkwqbqdkcrthqwjgshcfcvspgpnrqxkzxmrxrcdqvqnlbxnlzqf
+    ]
+    run_test_cases(solution.minWindow, test_cases, "Minimum Window Substring")

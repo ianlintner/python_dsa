@@ -36,10 +36,10 @@ def test_valid_palindrome_samples():
         assert result == test_case.expected, f"Failed on {test_case.description}"
 
     # Test specific cases
-    assert solution.isPalindrome("A man, a plan, a canal: Panama") == True
-    assert solution.isPalindrome("race a car") == False
-    assert solution.isPalindrome("") == True
-    assert solution.isPalindrome("a") == True
+    assert solution.isPalindrome("A man, a plan, a canal: Panama")
+    assert not solution.isPalindrome("race a car")
+    assert solution.isPalindrome("")
+    assert solution.isPalindrome("a")
 
 
 def test_best_time_to_buy_sell_stock_samples():
@@ -206,9 +206,9 @@ def test_edge_cases():
 
     # Palindrome edge cases
     palindrome = PalindromeSolution()
-    assert palindrome.isPalindrome("") == True  # Empty string
-    assert palindrome.isPalindrome("a") == True  # Single char
-    assert palindrome.isPalindrome(".,") == True  # Non-alphanumeric only
+    assert palindrome.isPalindrome("")  # Empty string
+    assert palindrome.isPalindrome("a")  # Single char
+    assert palindrome.isPalindrome(".,")  # Non-alphanumeric only
 
     # Stock edge cases
     stock = StockSolution()
