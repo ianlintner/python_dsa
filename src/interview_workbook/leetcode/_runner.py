@@ -140,7 +140,7 @@ def run_problem_demo(slug: str) -> str:
         return module.demo()
 
     except ImportError as e:
-        raise ImportError(f"Failed to import problem module {problem['module']}: {e}")
+        raise ImportError(f"Failed to import problem module {problem['module']}: {e}") from e
 
 
 def get_solution_class(problem: ProblemMeta) -> type:
@@ -165,7 +165,7 @@ def get_solution_class(problem: ProblemMeta) -> type:
         return module.Solution
 
     except ImportError as e:
-        raise ImportError(f"Failed to import Solution from {problem['module']}: {e}")
+        raise ImportError(f"Failed to import Solution from {problem['module']}: {e}") from e
 
 
 def format_complexity_info(time_complexity: str, space_complexity: str) -> str:

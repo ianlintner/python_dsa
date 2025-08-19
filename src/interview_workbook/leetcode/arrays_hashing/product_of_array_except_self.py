@@ -83,7 +83,6 @@ class Solution:
         Note: This approach doesn't work if array contains zeros and
         division is not allowed in the problem statement.
         """
-        n = len(nums)
 
         # Count zeros and calculate product of non-zero elements
         zero_count = 0
