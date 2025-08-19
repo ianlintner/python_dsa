@@ -212,32 +212,59 @@ def demo():
                 }
             )
 
+    # Format results as test results string
+    test_results_lines = ["=== Encode and Decode Strings ===", ""]
+    passed_count = 0
+    total_time = sum(r["time_ms"] for r in results)
+    
+    for result in results:
+        status = "✓ PASS" if result["passed"] else "✗ FAIL"
+        test_results_lines.append(f"Test Case {result['test_case']}: {status}")
+        test_results_lines.append(f"  Description: {result['description']}")
+        test_results_lines.append(f"  Input: {result['input']}")
+        test_results_lines.append(f"  Expected: {result['expected']}")
+        test_results_lines.append(f"  Got: {result['actual']}")
+        test_results_lines.append(f"  Time: {result['time_ms']:.3f}ms")
+        test_results_lines.append("")
+        if result["passed"]:
+            passed_count += 1
+    
+    test_results_lines.append(f"Results: {passed_count}/{len(results)} passed")
+    test_results_lines.append(f"Total time: {total_time:.3f}ms")
+    
+    if passed_count == len(results):
+        test_results_lines.append("🎉 All tests passed!")
+    else:
+        test_results_lines.append(f"❌ {len(results) - passed_count} test(s) failed")
+    
+    test_results_str = "\n".join(test_results_lines)
+    
+    approach_notes = """
+Key Insights:
+• Length prefix format handles any characters including delimiters
+• Format: 'length#string' allows unambiguous parsing
+• Alternative escape character approach is more complex
+• Must handle empty strings and edge cases correctly
+
+Common Pitfalls:
+• Don't use characters that appear in input as delimiters
+• Length prefix approach is safer than escape sequences
+• Handle empty strings and empty lists correctly
+• Consider Unicode and multi-byte character handling
+
+Follow-up Questions:
+• How would you optimize for repeated encoding/decoding?
+• What if strings are very large and memory is limited?
+• How would you handle compression in the encoding?
+• What about thread safety for concurrent operations?
+"""
+
     return create_demo_output(
-        title="Encode and Decode Strings",
-        description="Encode list of strings to single string and decode back",
-        results=results,
-        complexity_analysis={
-            "time": "O(n) - where n is total characters in all strings",
-            "space": "O(n) - for encoded string and result list",
-        },
-        key_insights=[
-            "Length prefix format handles any characters including delimiters",
-            "Format: 'length#string' allows unambiguous parsing",
-            "Alternative escape character approach is more complex",
-            "Must handle empty strings and edge cases correctly",
-        ],
-        common_pitfalls=[
-            "Don't use characters that appear in input as delimiters",
-            "Length prefix approach is safer than escape sequences",
-            "Handle empty strings and empty lists correctly",
-            "Consider Unicode and multi-byte character handling",
-        ],
-        follow_up_questions=[
-            "How would you optimize for repeated encoding/decoding?",
-            "What if strings are very large and memory is limited?",
-            "How would you handle compression in the encoding?",
-            "What about thread safety for concurrent operations?",
-        ],
+        problem_title="Encode and Decode Strings",
+        test_results=test_results_str,
+        time_complexity="O(n) - where n is total characters in all strings",
+        space_complexity="O(n) - for encoded string and result list",
+        approach_notes=approach_notes,
     )
 
 
@@ -248,8 +275,7 @@ register_problem(
     title="Encode and Decode Strings",
     category=Category.ARRAYS_HASHING,
     difficulty=Difficulty.MEDIUM,
-    tags={"array", "string", "design"},
-    module="src.interview_workbook.leetcode.arrays_hashing.encode_and_decode_strings",
+    tags=["array", "string", "design"],
     url="https://leetcode.com/problems/encode-and-decode-strings/",
     notes="Length prefix encoding for safe string serialization",
 )

@@ -212,8 +212,7 @@ register_problem(
     title="Longest Common Prefix",
     category=Category.ARRAYS_HASHING,
     difficulty=Difficulty.EASY,
-    tags={"string", "array"},
-    module="src.interview_workbook.leetcode.arrays_hashing.longest_common_prefix",
+    tags=["string", "array"],
     url="https://leetcode.com/problems/longest-common-prefix/",
     notes="String comparison with horizontal scanning approach",
 )

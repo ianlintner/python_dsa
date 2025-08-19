@@ -135,32 +135,59 @@ def demo():
 
     results = run_test_cases(solution.characterReplacement, test_cases)
 
+    # Format results as test results string
+    test_results_lines = ["=== Longest Repeating Character Replacement ===", ""]
+    passed_count = 0
+    total_time = sum(r.get("time_ms", 0) for r in results)
+    
+    for i, result in enumerate(results):
+        status = "✓ PASS" if result["passed"] else "✗ FAIL"
+        test_results_lines.append(f"Test Case {i+1}: {status}")
+        test_results_lines.append(f"  Description: {result.get('description', 'N/A')}")
+        test_results_lines.append(f"  Input: {result.get('input', 'N/A')}")
+        test_results_lines.append(f"  Expected: {result.get('expected', 'N/A')}")
+        test_results_lines.append(f"  Got: {result.get('actual', 'N/A')}")
+        test_results_lines.append(f"  Time: {result.get('time_ms', 0):.3f}ms")
+        test_results_lines.append("")
+        if result["passed"]:
+            passed_count += 1
+    
+    test_results_lines.append(f"Results: {passed_count}/{len(results)} passed")
+    test_results_lines.append(f"Total time: {total_time:.3f}ms")
+    
+    if passed_count == len(results):
+        test_results_lines.append("🎉 All tests passed!")
+    else:
+        test_results_lines.append(f"❌ {len(results) - passed_count} test(s) failed")
+    
+    test_results_str = "\n".join(test_results_lines)
+    
+    approach_notes = """
+Key Insights:
+• Sliding window with character frequency tracking
+• Key insight: window_size - max_char_count = replacements needed
+• Shrink window when replacements exceed k
+• max_char_count tracks most frequent character in current window
+
+Common Pitfalls:
+• Remember to update max_char_count when adding characters
+• Window becomes invalid when replacements needed > k
+• Consider that we want the longest valid window
+• Optimization: don't need to recalculate max_char_count when shrinking
+
+Follow-up Questions:
+• What if we could replace with any character, not just uppercase letters?
+• How would you modify to find the actual substring, not just length?
+• What if k could be negative or zero?
+• Can you solve for lowercase letters or mixed case?
+"""
+
     return create_demo_output(
-        title="Longest Repeating Character Replacement",
-        description="Find longest repeating character substring with at most k replacements",
-        results=results,
-        complexity_analysis={
-            "time": "O(n) - single pass through string with sliding window",
-            "space": "O(1) - at most 26 characters in frequency map",
-        },
-        key_insights=[
-            "Sliding window with character frequency tracking",
-            "Key insight: window_size - max_char_count = replacements needed",
-            "Shrink window when replacements exceed k",
-            "max_char_count tracks most frequent character in current window",
-        ],
-        common_pitfalls=[
-            "Remember to update max_char_count when adding characters",
-            "Window becomes invalid when replacements needed > k",
-            "Consider that we want the longest valid window",
-            "Optimization: don't need to recalculate max_char_count when shrinking",
-        ],
-        follow_up_questions=[
-            "What if we could replace with any character, not just uppercase letters?",
-            "How would you modify to find the actual substring, not just length?",
-            "What if k could be negative or zero?",
-            "Can you solve for lowercase letters or mixed case?",
-        ],
+        problem_title="Longest Repeating Character Replacement",
+        test_results=test_results_str,
+        time_complexity="O(n) - single pass through string with sliding window",
+        space_complexity="O(1) - at most 26 characters in frequency map",
+        approach_notes=approach_notes,
     )
 
 
@@ -171,8 +198,7 @@ register_problem(
     title="Longest Repeating Character Replacement",
     category=Category.SLIDING_WINDOW,
     difficulty=Difficulty.MEDIUM,
-    tags={"hash-table", "string", "sliding-window"},
-    module="src.interview_workbook.leetcode.sliding_window.longest_repeating_character_replacement",
+    tags=["hash-table", "string", "sliding-window"],
     url="https://leetcode.com/problems/longest-repeating-character-replacement/",
     notes="Sliding window with character frequency and replacement counting",
 )

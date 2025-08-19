@@ -129,32 +129,59 @@ def demo():
                 }
             )
 
+    # Format results as test results string
+    test_results_lines = ["=== Group Anagrams ===", ""]
+    passed_count = 0
+    total_time = sum(r["time_ms"] for r in results)
+    
+    for result in results:
+        status = "✓ PASS" if result["passed"] else "✗ FAIL"
+        test_results_lines.append(f"Test Case {result['test_case']}: {status}")
+        test_results_lines.append(f"  Description: {result['description']}")
+        test_results_lines.append(f"  Input: {result['input']}")
+        test_results_lines.append(f"  Expected: {result['expected']}")
+        test_results_lines.append(f"  Got: {result['actual']}")
+        test_results_lines.append(f"  Time: {result['time_ms']:.3f}ms")
+        test_results_lines.append("")
+        if result["passed"]:
+            passed_count += 1
+    
+    test_results_lines.append(f"Results: {passed_count}/{len(results)} passed")
+    test_results_lines.append(f"Total time: {total_time:.3f}ms")
+    
+    if passed_count == len(results):
+        test_results_lines.append("🎉 All tests passed!")
+    else:
+        test_results_lines.append(f"❌ {len(results) - passed_count} test(s) failed")
+    
+    test_results_str = "\n".join(test_results_lines)
+    
+    approach_notes = """
+Key Insights:
+• Anagrams have identical sorted character sequences
+• Hash map with sorted string as key groups anagrams efficiently
+• Alternative: use character frequency tuple as key for O(n*m) time
+• defaultdict simplifies group creation logic
+
+Common Pitfalls:
+• Remember anagrams can be returned in any order
+• Consider empty strings as valid input
+• Character frequency approach only works for lowercase letters
+• Sorting approach works for any character set
+
+Follow-up Questions:
+• How would you optimize for very long strings?
+• What if strings contain unicode characters?
+• Can you solve without sorting individual strings?
+• How would you handle case-insensitive anagrams?
+"""
+
     return create_demo_output(
-        title="Group Anagrams",
-        description="Group anagrams using sorted strings as keys",
-        results=results,
-        complexity_analysis={
-            "time": "O(n * m log m) - where n is number of strings, m is max string length",
-            "space": "O(n * m) - for storing all strings in groups",
-        },
-        key_insights=[
-            "Anagrams have identical sorted character sequences",
-            "Hash map with sorted string as key groups anagrams efficiently",
-            "Alternative: use character frequency tuple as key for O(n*m) time",
-            "defaultdict simplifies group creation logic",
-        ],
-        common_pitfalls=[
-            "Remember anagrams can be returned in any order",
-            "Consider empty strings as valid input",
-            "Character frequency approach only works for lowercase letters",
-            "Sorting approach works for any character set",
-        ],
-        follow_up_questions=[
-            "How would you optimize for very long strings?",
-            "What if strings contain unicode characters?",
-            "Can you solve without sorting individual strings?",
-            "How would you handle case-insensitive anagrams?",
-        ],
+        problem_title="Group Anagrams",
+        test_results=test_results_str,
+        time_complexity="O(n * m log m) - where n is number of strings, m is max string length",
+        space_complexity="O(n * m) - for storing all strings in groups",
+        approach_notes=approach_notes,
     )
 
 
@@ -165,8 +192,7 @@ register_problem(
     title="Group Anagrams",
     category=Category.ARRAYS_HASHING,
     difficulty=Difficulty.MEDIUM,
-    tags={"array", "hash-table", "string", "sorting"},
-    module="src.interview_workbook.leetcode.arrays_hashing.group_anagrams",
+    tags=["array", "hash-table", "string", "sorting"],
     url="https://leetcode.com/problems/group-anagrams/",
     notes="Hash map with sorted string keys to group anagrams",
 )

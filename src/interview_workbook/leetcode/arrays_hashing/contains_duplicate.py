@@ -64,12 +64,14 @@ def demo():
         TestCase(input_args=([0, 0],), expected=True, description="Two zeros"),
     ]
 
-    test_results = run_test_cases(solution.containsDuplicate, test_cases, "LeetCode 217: Contains Duplicate")
+    test_results = run_test_cases(
+        solution.containsDuplicate, test_cases, "LeetCode 217: Contains Duplicate"
+    )
 
     approach_notes = """
 Key Insights:
-• Hash set provides O(1) average lookup time for duplicate detection
-• Early termination when duplicate found improves performance
+• Hashmap provides O(1) average lookup time for duplicate detection
+• Early termination when duplicate found improves performance  
 • Alternative O(n log n) sorting solution uses O(1) space
 • Consider space vs time tradeoffs between hashmap and sorting approaches
 
