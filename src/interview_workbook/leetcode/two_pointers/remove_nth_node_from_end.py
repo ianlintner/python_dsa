@@ -204,31 +204,11 @@ def demo():
             )
 
     return create_demo_output(
-        title="Remove Nth Node From End of List",
-        description="Remove nth node from end using two pointers technique",
-        results=results,
-        complexity_analysis={
-            "time": "O(L) - single pass through linked list where L is length",
-            "space": "O(1) - only using pointer variables",
-        },
-        key_insights=[
-            "Two pointers maintain n+1 gap to find node before target",
-            "Dummy node simplifies edge case handling (removing head)",
-            "Fast pointer moves n+1 steps ahead, then both move together",
-            "When fast reaches end, slow is at node before target",
-        ],
-        common_pitfalls=[
-            "Handle edge case where head node needs to be removed",
-            "Remember n is 1-indexed (1st from end is last node)",
-            "Use dummy node to avoid special cases",
-            "Ensure fast pointer moves n+1 steps, not n steps",
-        ],
-        follow_up_questions=[
-            "What if n is larger than the list length?",
-            "How would you handle doubly linked lists?",
-            "Can you solve without knowing the list length?",
-            "What about removing multiple nodes from end?",
-        ],
+        problem_title="Remove Nth Node From End of List",
+        test_results=results,
+        time_complexity="O(L) - single pass through linked list where L is length",
+        space_complexity="O(1) - only using pointer variables",
+        approach_notes="Two pointers technique for linked list manipulation in single pass",
     )
 
 
@@ -239,8 +219,7 @@ register_problem(
     title="Remove Nth Node From End of List",
     category=Category.TWO_POINTERS,
     difficulty=Difficulty.MEDIUM,
-    tags={"linked-list", "two-pointers"},
-    module="src.interview_workbook.leetcode.two_pointers.remove_nth_node_from_end",
+    tags=["linked-list", "two-pointers"],
     url="https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
     notes="Two pointers technique for linked list manipulation in single pass",
 )

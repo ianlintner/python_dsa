@@ -188,31 +188,11 @@ def demo():
             )
 
     return create_demo_output(
-        title="3Sum",
-        description="Find all unique triplets that sum to zero",
-        results=results,
-        complexity_analysis={
-            "time": "O(n²) - outer loop O(n) × inner two pointers O(n)",
-            "space": "O(1) - excluding output array, constant extra space",
-        },
-        key_insights=[
-            "Sort array first to enable two pointers technique",
-            "Fix first element, use two pointers for remaining pair",
-            "Skip duplicates at all three levels to avoid duplicate triplets",
-            "Two pointers approach reduces inner complexity from O(n²) to O(n)",
-        ],
-        common_pitfalls=[
-            "Must skip duplicates to avoid duplicate triplets",
-            "Remember to sort array first for two pointers",
-            "Handle edge cases: empty array, less than 3 elements",
-            "Be careful with indices when skipping duplicates",
-        ],
-        follow_up_questions=[
-            "How would you solve 4Sum or kSum in general?",
-            "What if you needed to find triplets with different target sum?",
-            "How would you optimize for arrays with many duplicates?",
-            "Can you solve without sorting the array?",
-        ],
+        problem_title="3Sum",
+        test_results=results,
+        time_complexity="O(n²) - outer loop O(n) × inner two pointers O(n)",
+        space_complexity="O(1) - excluding output array, constant extra space",
+        approach_notes="Sort + two pointers technique to find unique triplets summing to zero",
     )
 
 
@@ -223,8 +203,7 @@ register_problem(
     title="3Sum",
     category=Category.TWO_POINTERS,
     difficulty=Difficulty.MEDIUM,
-    tags={"array", "two-pointers", "sorting"},
-    module="src.interview_workbook.leetcode.two_pointers.three_sum",
+    tags=["array", "two-pointers", "sorting"],
     url="https://leetcode.com/problems/3sum/",
     notes="Sort + two pointers technique to find unique triplets summing to zero",
 )
