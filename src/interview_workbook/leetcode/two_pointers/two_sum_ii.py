@@ -157,7 +157,7 @@ register_problem(
     title="Two Sum II - Input Array Is Sorted",
     category=Category.TWO_POINTERS,
     difficulty=Difficulty.MEDIUM,
-    tags={"array", "two-pointers", "binary-search"},
+    tags=["array", "two-pointers", "binary-search"],
     module="src.interview_workbook.leetcode.two_pointers.two_sum_ii",
     url="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
     notes="Two pointers technique on sorted array for O(1) space solution",

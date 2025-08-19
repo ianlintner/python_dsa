@@ -195,31 +195,11 @@ def demo():
     results = run_test_cases(solution.checkInclusion, test_cases)
 
     return create_demo_output(
-        title="Permutation in String",
-        description="Check if s2 contains a permutation of s1 using sliding window",
-        results=results,
-        complexity_analysis={
-            "time": "O(n + m) - where n is len(s1), m is len(s2)",
-            "space": "O(1) - at most 26 characters in frequency maps",
-        },
-        key_insights=[
-            "Fixed-size sliding window of length len(s1)",
-            "Compare character frequencies instead of generating permutations",
-            "Counter comparison or array comparison for frequency matching",
-            "Optimization: track number of matching frequency counts",
-        ],
-        common_pitfalls=[
-            "Handle case where s1 is longer than s2",
-            "Remember to remove character leaving window",
-            "Frequency comparison is key - not character order",
-            "Be careful with Counter deletion when count reaches 0",
-        ],
-        follow_up_questions=[
-            "How would you find all starting indices of permutations?",
-            "What if we needed case-insensitive matching?",
-            "Can you optimize further using rolling hash?",
-            "How would you handle Unicode characters?",
-        ],
+        problem_title="Permutation in String",
+        test_results=results,
+        time_complexity="O(n + m) - where n is len(s1), m is len(s2)",
+        space_complexity="O(1) - at most 26 characters in frequency maps",
+        approach_notes="Fixed-size sliding window with character frequency comparison",
     )
 
 
@@ -230,8 +210,7 @@ register_problem(
     title="Permutation in String",
     category=Category.SLIDING_WINDOW,
     difficulty=Difficulty.MEDIUM,
-    tags={"hash-table", "two-pointers", "string", "sliding-window"},
-    module="src.interview_workbook.leetcode.sliding_window.permutation_in_string",
+    tags=["hash-table", "two-pointers", "string", "sliding-window"],
     url="https://leetcode.com/problems/permutation-in-string/",
     notes="Fixed-size sliding window with character frequency comparison",
 )

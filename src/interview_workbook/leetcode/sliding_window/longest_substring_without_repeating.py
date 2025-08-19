@@ -118,31 +118,11 @@ def demo():
     results = run_test_cases(solution.lengthOfLongestSubstring, test_cases)
 
     return create_demo_output(
-        title="Longest Substring Without Repeating Characters",
-        description="Find longest substring without repeating characters using sliding window",
-        results=results,
-        complexity_analysis={
-            "time": "O(n) - each character visited at most twice",
-            "space": "O(min(m, n)) - hash map/set storage where m is charset size",
-        },
-        key_insights=[
-            "Sliding window technique with left and right pointers",
-            "Hash map stores character to index mapping for quick lookup",
-            "When duplicate found, move left pointer past previous occurrence",
-            "Alternative set-based approach shrinks window by removing characters",
-        ],
-        common_pitfalls=[
-            "Handle empty string edge case",
-            "Remember to update character's most recent index",
-            "When using hash map, check if previous index is within current window",
-            "Set-based approach needs while loop to shrink window properly",
-        ],
-        follow_up_questions=[
-            "What if we need to return the actual substring, not just length?",
-            "How would you modify for at most k distinct characters?",
-            "What about case-insensitive comparison?",
-            "How would you optimize for specific character sets (e.g., only lowercase)?",
-        ],
+        problem_title="Longest Substring Without Repeating Characters",
+        test_results=results,
+        time_complexity="O(n) - each character visited at most twice",
+        space_complexity="O(min(m, n)) - hash map/set storage where m is charset size",
+        approach_notes="Sliding window technique with hash map for tracking character positions",
     )
 
 
@@ -153,8 +133,7 @@ register_problem(
     title="Longest Substring Without Repeating Characters",
     category=Category.SLIDING_WINDOW,
     difficulty=Difficulty.MEDIUM,
-    tags={"hash-table", "string", "sliding-window"},
-    module="src.interview_workbook.leetcode.sliding_window.longest_substring_without_repeating",
+    tags=["hash-table", "string", "sliding-window"],
     url="https://leetcode.com/problems/longest-substring-without-repeating-characters/",
     notes="Sliding window with hash map for tracking character positions",
 )

@@ -177,31 +177,11 @@ def demo():
     results = run_test_cases(solution.trap, test_cases)
 
     return create_demo_output(
-        title="Trapping Rain Water",
-        description="Calculate trapped rainwater using two pointers technique",
-        results=results,
-        complexity_analysis={
-            "time": "O(n) - single pass through array with two pointers",
-            "space": "O(1) - only using pointer variables and counters",
-        },
-        key_insights=[
-            "Water level at any position = min(left_max, right_max)",
-            "Two pointers approach processes smaller side first",
-            "Always move pointer with smaller max height",
-            "Alternative DP approach uses O(n) space for left/right max arrays",
-        ],
-        common_pitfalls=[
-            "Handle edge cases: empty array, arrays with < 3 elements",
-            "Water can only be trapped between taller bars on both sides",
-            "Don't forget to update max heights as you traverse",
-            "Stack approach is valid but more complex than two pointers",
-        ],
-        follow_up_questions=[
-            "How would you handle 2D version of this problem?",
-            "What if heights could be negative?",
-            "Can you visualize the water trapping process?",
-            "How would you optimize for very sparse arrays?",
-        ],
+        problem_title="Trapping Rain Water",
+        test_results=results,
+        time_complexity="O(n) - single pass through array with two pointers",
+        space_complexity="O(1) - only using pointer variables and counters",
+        approach_notes="Two pointers technique for O(1) space solution to rainwater trapping",
     )
 
 
@@ -212,8 +192,7 @@ register_problem(
     title="Trapping Rain Water",
     category=Category.TWO_POINTERS,
     difficulty=Difficulty.HARD,
-    tags={"array", "two-pointers", "dynamic-programming", "stack", "monotonic-stack"},
-    module="src.interview_workbook.leetcode.two_pointers.trapping_rain_water",
+    tags=["array", "two-pointers", "dynamic-programming", "stack", "monotonic-stack"],
     url="https://leetcode.com/problems/trapping-rain-water/",
     notes="Two pointers technique for O(1) space solution to rainwater trapping",
 )

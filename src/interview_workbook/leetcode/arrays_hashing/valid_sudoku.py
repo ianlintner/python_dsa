@@ -258,31 +258,11 @@ def demo():
     results = run_test_cases(solution.isValidSudoku, test_cases)
 
     return create_demo_output(
-        title="Valid Sudoku",
-        description="Validate sudoku board using hash sets for constraint checking",
-        results=results,
-        complexity_analysis={
-            "time": "O(1) - fixed 9x9 grid size (81 cells)",
-            "space": "O(1) - fixed number of hash sets (27 sets total)",
-        },
-        key_insights=[
-            "Use separate hash sets for rows, columns, and 3x3 boxes",
-            "Box index calculation: (row // 3) * 3 + col // 3",
-            "Single pass through board is sufficient",
-            "Alternative: encode constraints as strings in single set",
-        ],
-        common_pitfalls=[
-            "Remember to skip empty cells ('.')",
-            "Box index calculation can be tricky - practice the formula",
-            "Don't confuse validation with solving sudoku",
-            "Each constraint (row/col/box) must be checked independently",
-        ],
-        follow_up_questions=[
-            "How would you modify for different board sizes?",
-            "Can you validate while board is being filled?",
-            "What about generalizing to N×N sudoku with √N×√N boxes?",
-            "How would you find the first invalid cell?",
-        ],
+        problem_title="Valid Sudoku",
+        test_results=results,
+        time_complexity="O(1) - fixed 9x9 grid size (81 cells)",
+        space_complexity="O(1) - fixed number of hash sets (27 sets total)",
+        approach_notes="Use separate hash sets for rows, columns, and 3x3 boxes",
     )
 
 
@@ -293,8 +273,7 @@ register_problem(
     title="Valid Sudoku",
     category=Category.ARRAYS_HASHING,
     difficulty=Difficulty.MEDIUM,
-    tags={"array", "hash-table"},
-    module="src.interview_workbook.leetcode.arrays_hashing.valid_sudoku",
+    tags=["array", "hash-table"],
     url="https://leetcode.com/problems/valid-sudoku/",
     notes="Hash set validation of sudoku constraints for rows, columns, and boxes",
 )

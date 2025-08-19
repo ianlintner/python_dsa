@@ -87,32 +87,60 @@ def demo():
 
     results = run_test_cases(solution.isAnagram, test_cases)
 
+    # Format results as test results string
+    test_results_lines = ["=== Valid Anagram ===", ""]
+    passed_count = 0
+    total_time = sum(r.get("time_ms", 0) for r in results)
+    
+    for result in results:
+        status = "✓ PASS" if result["passed"] else "✗ FAIL"
+        test_results_lines.append(f"Test Case {result['test_case']}: {status}")
+        test_results_lines.append(f"  Description: {result['description']}")
+        test_results_lines.append(f"  Input: {result['input']}")
+        test_results_lines.append(f"  Expected: {result['expected']}")
+        test_results_lines.append(f"  Got: {result['actual']}")
+        if "time_ms" in result:
+            test_results_lines.append(f"  Time: {result['time_ms']:.3f}ms")
+        test_results_lines.append("")
+        if result["passed"]:
+            passed_count += 1
+    
+    test_results_lines.append(f"Results: {passed_count}/{len(results)} passed")
+    test_results_lines.append(f"Total time: {total_time:.3f}ms")
+    
+    if passed_count == len(results):
+        test_results_lines.append("🎉 All tests passed!")
+    else:
+        test_results_lines.append(f"❌ {len(results) - passed_count} test(s) failed")
+    
+    test_results_str = "\n".join(test_results_lines)
+    
+    approach_notes = """
+Key Insights:
+• Anagrams must have same length and character frequencies
+• Hash map provides O(1) character lookup and counting
+• Early length check avoids unnecessary processing
+• Counter approach from collections provides cleaner code
+
+Common Pitfalls:
+• Don't forget to check string lengths first
+• Consider case sensitivity requirements
+• Handle empty strings correctly
+• Be careful with character count decrementing logic
+
+Follow-up Questions:
+• What if inputs contain unicode characters?
+• How would you handle case-insensitive anagrams?
+• Can you optimize space further for specific constraints?
+• How would you find all anagram groups in a list?
+"""
+
     return create_demo_output(
-        title="Valid Anagram",
-        description="Check if two strings are anagrams using character frequency counting",
-        results=results,
-        complexity_analysis={
-            "time": "O(n) - single pass through both strings",
-            "space": "O(1) - at most 26 characters in frequency map",
-        },
-        key_insights=[
-            "Anagrams must have same length and character frequencies",
-            "Hash map provides O(1) character lookup and counting",
-            "Early length check avoids unnecessary processing",
-            "Counter approach from collections provides cleaner code",
-        ],
-        common_pitfalls=[
-            "Don't forget to check string lengths first",
-            "Consider case sensitivity requirements",
-            "Handle empty strings correctly",
-            "Be careful with character count decrementing logic",
-        ],
-        follow_up_questions=[
-            "What if inputs contain unicode characters?",
-            "How would you handle case-insensitive anagrams?",
-            "Can you optimize space further for specific constraints?",
-            "How would you find all anagram groups in a list?",
-        ],
+        problem_title="Valid Anagram",
+        test_results=test_results_str,
+        time_complexity="O(n) - single pass through both strings",
+        space_complexity="O(1) - at most 26 characters in frequency map",
+        approach_notes=approach_notes,
     )
 
 
@@ -123,8 +151,7 @@ register_problem(
     title="Valid Anagram",
     category=Category.ARRAYS_HASHING,
     difficulty=Difficulty.EASY,
-    tags={"hash-table", "string", "sorting"},
-    module="src.interview_workbook.leetcode.arrays_hashing.valid_anagram",
+    tags=["hash-table", "string", "sorting"],
     url="https://leetcode.com/problems/valid-anagram/",
     notes="Character frequency counting with hash map",
 )
