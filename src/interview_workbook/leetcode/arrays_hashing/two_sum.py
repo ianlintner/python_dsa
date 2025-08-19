@@ -72,7 +72,7 @@ test_cases = [
     TestCase((([2, 7, 11, 15], 9)), [0, 1], "Basic case: first two elements"),
     TestCase((([3, 2, 4], 6)), [1, 2], "Target requires latter elements"),
     TestCase((([3, 3], 6)), [0, 1], "Duplicate elements"),
-    TestCase((([1, 5, 3, 7, 9, 2], 8)), [1, 3], "Multiple possibilities, return first found"),
+    TestCase((([1, 5, 3, 7, 9, 2], 8)), [1, 2], "Multiple possibilities, return first found"),
     TestCase((([0, 4, 3, 0], 0)), [0, 3], "Zero target with zero elements"),
     TestCase((([-1, -2, -3, -4, -5], -8)), [2, 4], "Negative numbers"),
 ]
@@ -91,7 +91,7 @@ def demo() -> str:
         space_complexity="O(n)",
         approach_notes="""
 Key insights:
-1. Use hash map to store seen values and their indices
+1. Use hashmap to store seen values and their indices
 2. For each element, check if its complement (target - element) exists
 3. Single pass solution is more efficient than nested loops O(n²)
 4. Space-time tradeoff: O(n) space for O(n) time vs O(1) space for O(n²) time

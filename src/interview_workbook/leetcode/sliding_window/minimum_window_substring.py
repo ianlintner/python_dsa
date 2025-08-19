@@ -105,30 +105,32 @@ class Solution:
 
 def demo():
     """Demonstrate Minimum Window Substring solution with test cases."""
-    solution = Solution()
-    test_cases = [
-        TestCase(
-            input_args=("ADOBECODEBANC", "ABC"),
-            expected="BANC",
-            description="Sample case 1",
-        ),
-        TestCase(input_args=("a", "a"), expected="a", description="Sample case 2"),
-        TestCase(input_args=("a", "aa"), expected="", description="Sample case 3"),
-        TestCase(
-            input_args=(
-                "cabwefgewcwaefgcf",
-                "cae",
+    run_test_cases(
+        Solution().minWindow,
+        [
+            TestCase(
+                input_args=("ADOBECODEBANC", "ABC"),
+                expected="BANC",
+                description="Sample case 1",
             ),
-            expected="cwae",
-            description="Complex case",
-        ),
-        TestCase(
-            input_args=(
-                "wegdtzwabazduwwdysdetrrctotpcepalvzaasccoagwagzsyzgruutxnhvyzrnckdqyucdfnmiauaomhprrxydtjjzqykywajqwpgzsrsgttgvjhpaprgvdzwlqsrsdhcejhsfxcpnfseggdsdkdoffrxgqowlshlnlcbkqtsydlvdaytwcttjpqnyukdbmdgeiipslzckvoyyqwdltmzowdybytezcvlnvwsidodbdbhfxggctbhcbkchgrwamdgyxggmaaacvgfkbktjtpxyhpzapzxxjngeeepzmtwnazxjcnyrczayjtocsrcamzvkfimzezgdtdufhcrssmlzgrsnxvspyyyatvhspvejuhcglaoefkjgkzwqvdyqdxtrdkqyvfnggkobwpswjagzmhwbxcakfcqhyexjlbapxdbyehfvkqltcmidkdddctkehscrxzckpyiltoqnimgkhprbrcdfzaayzmqsgtbjccyzepbktrjfzsxvqfwzwepawgqhqnmjpckdmvqyizgmphxhqgsgwtqnfclayhtqmbdipwlpdwfskxhfqgrqrrcrvmepkxtzwcwzncevqpkdvdzbfqhbvrzjhybkkmkxgvzrohvibfzehklmkivolaafvfshowkxhvowkehwgsxjqecxdlqtpyqqvnvlhkgtutdlcndjltvbwzmtdlzddrmvazjpdpmvgpnpbahyqhcsdgzjfslhzkpjdntkgmhtyzhsyecqrfzpnhylqbmgwuaaxtedwczdshikxgwaxmftlmryamdqrpfkhmdsaxtfklwvuwdkfzkzjhxikbvhfvlumfazhqozlddsmmjqnuwjxkshqtpopfnyqnzwvjtjzrcbqoykdqpgkcenzcpuwefowlszdqhvtwafmhiwxbywjjcqhbhfpvpnwshscoyblcqfbsrxhyoibdqvgppnzakzgqyowgpvzkppktwlxyxpdatvmcavqfqsrgnbqvmjyxfozprsrlqxqxjtrlzmfqfygqkhgdaxlxzryrfkdwdqxnhbsnfqsqlfvlolnpttgrpsaqtmvscwtwppkgdvnzcbydysbjkxyksltkmgbtdrvdnruwqvdtdbbmcnowfmejdrgdwgdzkxdojnyrhkozqhqwdsqbdjbvohvobbtuxqgxrjhsbfylrplrqgbczxlgtejdlitpbgmjzjplbvhycnazawczutnkozjtgxzqgxbxwvyvqjvxfddoouiicvuvbrcykqjpawhhzcegzlqflpsdjnvggscibcbdssefgvcsadxqjowmttmcxkyvmyidgvgqklvvdvxcqkwqihdbqjbizmlkdoohxcwdxdjvgbwznkqvpffpqjltzjkwlwnbjbbfhfbtctqdehyvnbwklpumqwwsxhklprxjqfggbjylfkqbibdvrlnhvfjcycdgxbmsbfbykepivnfkspdxfhqwqtyjhyqvlmjvycpgxkuprpqoujydfrntqsjvdmgwcqjgecimjcpnstlgcngqxkvdoldfzqwsgcjzacekxnimfqcrrzlqefkpxyzgdrfnsfokzztksjkdxfvtmkzccnxkcjhkzwqvtinpgpspovknhkvzvcrvpcnjqzjjfafvnlqdvxjqovxdsmyczcttubmbgzygsjwkfqwftfavdkmdvxpjpcttphwegdqwsqzjzbrfavqhcfvzljqtsgxwsyzaqdphcntnlzqkcytfbumolmgdkqzuagzjfghllkqhvsqchmzjtzukzmlsrksatktpjrqcbjcquvgwmttbhgngxdvwmstbfqucqkktmhgpskpddbdpqljgfkxkxlhxgbhhfqhzdhocxvyfkxqlzfzwtxjdqxrhgfhkskzqsbnpvfqfkuhslfpxpfngjhjzxjwdybcnhghxqjhfyepqpfnpgrwbdcjtgkxelgsxndwlhdzgagvnvhjphzqgvpqcrtnxvlvxhqvgzfhscvhfjdgncjgjvdgrplxibuqzxqvemhkzcsvqxhpxqpgppcvhdftlbhxgjzqdxfyccrctnplzgmgfblxqkqjcrvxljhzngfvymkrhmjwhspvcgtavqfmumhtfyqfdhwehqgbvdxhgvlwcwdnjmkcgqlfmdlzjqxbwmpgtctjyuhjhqhsnswmgmjlmrjflxlnkplbxgyhcrsntlzpxizkplxjxkqlgxfchddfxjdqygbtcwejxvzxksbjhgymbagvqzecuuprnbdcswvzsyvytnxdxwvmcskgtjbddzfkgsgpqtntdd",
-                "f",
+            TestCase(input_args=("a", "a"), expected="a", description="Sample case 2"),
+            TestCase(input_args=("a", "aa"), expected="", description="Sample case 3"),
+            TestCase(
+                input_args=(
+                    "cabwefgewcwaefgcf",
+                    "cae",
+                ),
+                expected="cwae",
+                description="Complex case",
             ),
-            expected="f",
-            description="Extremely long string case",
-        ),
-    ]
-    run_test_cases(solution.minWindow, test_cases, "Minimum Window Substring")
+            TestCase(
+                input_args=(
+                    "wegdtzwabazduwwdysdetrrctotpcepalvzaasccoagwagzsyzgruutxnhvyzrnckdqyucdfnmiauaomhprrxydtjjzqykywajqwpgzsrsgttgvjhpaprgvdzwlqsrsdhcejhsfxcpnfseggdsdkdoffrxgqowlshlnlcbkqtsydlvdaytwcttjpqnyukdbmdgeiipslzckvoyyqwdltmzowdybytezcvlnvwsidodbdbhfxggctbhcbkchgrwamdgyxggmaaacvgfkbktjtpxyhpzapzxxjngeeepzmtwnazxjcnyrczayjtocsrcamzvkfimzezgdtdufhcrssmlzgrsnxvspyyyatvhspvejuhcglaoefkjgkzwqvdyqdxtrdkqyvfnggkobwpswjagzmhwbxcakfcqhyexjlbapxdbyehfvkqltcmidkdddctkehscrxzckpyiltoqnimgkhprbrcdfzaayzmqsgtbjccyzepbktrjfzsxvqfwzwepawgqhqnmjpckdmvqyizgmphxhqgsgwtqnfclayhtqmbdipwlpdwfskxhfqgrqrrcrvmepkxtzwcwzncevqpkdvdzbfqhbvrzjhybkkmkxgvzrohvibfzehklmkivolaafvfshowkxhvowkehwgsxjqecxdlqtpyqqvnvlhkgtutdlcndjltvbwzmtdlzddrmvazjpdpmvgpnpbahyqhcsdgzjfslhzkpjdntkgmhtyzhsyecqrfzpnhylqbmgwuaaxtedwczdshikxgwaxmftlmryamdqrpfkhmdsaxtfklwvuwdkfzkzjhxikbvhfvlumfazhqozlddsmmjqnuwjxkshqtpopfnyqnzwvjtjzrcbqoykdqpgkcenzcpuwefowlszdqhvtwafmhiwxbywjjcqhbhfpvpnwshscoyblcqfbsrxhyoibdqvgppnzakzgqyowgpvzkppktwlxyxpdatvmcavqfqsrgnbqvmjyxfozprsrlqxqxjtrlzmfqfygqkhgdaxlxzryrfkdwdqxnhbsnfqsqlfvlolnpttgrpsaqtmvscwtwppkgdvnzcbydysbjkxyksltkmgbtdrvdnruwqvdtdbbmcnowfmejdrgdwgdzkxdojnyrhkozqhqwdsqbdjbvohvobbtuxqgxrjhsbfylrplrqgbczxlgtejdlitpbgmjzjplbvhycnazawczutnkozjtgxzqgxbxwvyvqjvxfddoouiicvuvbrcykqjpawhhzcegzlqflpsdjnvggscibcbdssefgvcsadxqjowmttmcxkyvmyidgvgqklvvdvxcqkwqihdbqjbizmlkdoohxcwdxdjvgbwznkqvpffpqjltzjkwlwnbjbbfhfbtctqdehyvnbwklpumqwwsxhklprxjqfggbjylfkqbibdvrlnhvfjcycdgxbmsbfbykepivnfkspdxfhqwqtyjhyqvlmjvycpgxkuprpqoujydfrntqsjvdmgwcqjgecimjcpnstlgcngqxkvdoldfzqwsgcjzacekxnimfqcrrzlqefkpxyzgdrfnsfokzztksjkdxfvtmkzccnxkcjhkzwqvtinpgpspovknhkvzvcrvpcnjqzjjfafvnlqdvxjqovxdsmyczcttubmbgzygsjwkfqwftfavdkmdvxpjpcttphwegdqwsqzjzbrfavqhcfvzljqtsgxwsyzaqdphcntnlzqkcytfbumolmgdkqzuagzjfghllkqhvsqchmzjtzukzmlsrksatktpjrqcbjcquvgwmttbhgngxdvwmstbfqucqkktmhgpskpddbdpqljgfkxkxlhxgbhhfqhzdhocxvyfkxqlzfzwtxjdqxrhgfhkskzqsbnpvfqfkuhslfpxpfngjhjzxjwdybcnhghxqjhfyepqpfnpgrwbdcjtgkxelgsxndwlhdzgagvnvhjphzqgvpqcrtnxvlvxhqvgzfhscvhfjdgncjgjvdgrplxibuqzxqvemhkzcsvqxhpxqpgppcvhdftlbhxgjzqdxfyccrctnplzgmgfblxqkqjcrvxljhzngfvymkrhmjwhspvcgtavqfmumhtfyqfdhwehqgbvdxhgvlwcwdnjmkcgqlfmdlzjqxbwmpgtctjyuhjhqhsnswmgmjlmrjflxlnkplbxgyhcrsntlzpxizkplxjxkqlgxfchddfxjdqygbtcwejxvzxksbjhgymbagvqzecuuprnbdcswvzsyvytnxdxwvmcskgtjbddzfkgsgpqtntdd",
+                    "f",
+                ),
+                expected="f",
+                description="Extremely long string case",
+            ),
+        ],
+        "Minimum Window Substring",
+    )

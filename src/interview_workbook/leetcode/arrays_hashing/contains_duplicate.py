@@ -64,30 +64,31 @@ def demo():
         TestCase(input_args=([0, 0],), expected=True, description="Two zeros"),
     ]
 
-    results = run_test_cases(solution.containsDuplicate, test_cases)
+    test_results = run_test_cases(solution.containsDuplicate, test_cases, "LeetCode 217: Contains Duplicate")
+
+    approach_notes = """
+Key Insights:
+• Hash set provides O(1) average lookup time for duplicate detection
+• Early termination when duplicate found improves performance
+• Alternative O(n log n) sorting solution uses O(1) space
+• Consider space vs time tradeoffs between hashmap and sorting approaches
+
+Common Pitfalls:
+• Remember that empty arrays have no duplicates
+• Consider edge cases like single elements
+
+Follow-up Questions:
+• What if we cannot use extra space?
+• How would you modify for duplicate count?
+• Can you solve in O(1) space for specific constraints?
+"""
 
     return create_demo_output(
-        title="Contains Duplicate",
-        description="Check if array contains duplicates using hash set",
-        results=results,
-        complexity_analysis={
-            "time": "O(n) - single pass through array",
-            "space": "O(n) - hash set storage in worst case",
-        },
-        key_insights=[
-            "Hash set provides O(1) average lookup time",
-            "Early termination when duplicate found",
-            "Alternative O(n log n) sorting solution uses O(1) space",
-        ],
-        common_pitfalls=[
-            "Remember that empty arrays have no duplicates",
-            "Consider space vs time tradeoffs between hash set and sorting approaches",
-        ],
-        follow_up_questions=[
-            "What if we cannot use extra space?",
-            "How would you modify for duplicate count?",
-            "Can you solve in O(1) space for specific constraints?",
-        ],
+        problem_title="LeetCode 217: Contains Duplicate",
+        test_results=test_results,
+        time_complexity="O(n) - single pass through array",
+        space_complexity="O(n) - hash set storage in worst case",
+        approach_notes=approach_notes,
     )
 
 
@@ -98,8 +99,7 @@ register_problem(
     title="Contains Duplicate",
     category=Category.ARRAYS_HASHING,
     difficulty=Difficulty.EASY,
-    tags={"array", "hash-table"},
-    module="src.interview_workbook.leetcode.arrays_hashing.contains_duplicate",
+    tags=["array", "hash-table"],
     url="https://leetcode.com/problems/contains-duplicate/",
     notes="Classic hash set problem for duplicate detection",
 )
