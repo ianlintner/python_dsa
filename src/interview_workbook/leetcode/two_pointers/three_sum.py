@@ -8,8 +8,9 @@ Notice that the solution set must not contain duplicate triplets.
 """
 
 from typing import List
+
 from .._registry import register_problem
-from .._runner import TestCase, run_test_cases, create_demo_output
+from .._runner import TestCase, create_demo_output
 from .._types import Category, Difficulty
 
 

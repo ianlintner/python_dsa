@@ -9,8 +9,8 @@ from interview_workbook.leetcode._registry import (
     by_category,
     by_slug,
     get_all,
-    validate_registry,
     get_stats,
+    validate_registry,
 )
 from interview_workbook.leetcode._types import Category, Difficulty
 
@@ -19,8 +19,8 @@ def test_registry_not_empty():
     """Registry should have at least some problems after importing modules."""
     # Import modules to trigger registration
     import interview_workbook.leetcode.arrays_hashing.two_sum  # noqa: F401
-    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
     import interview_workbook.leetcode.sliding_window.best_time_to_buy_sell_stock  # noqa: F401
+    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
 
     assert len(PROBLEMS) >= 3, "Registry should contain at least 3 problems"
 
@@ -29,8 +29,8 @@ def test_validate_registry():
     """Registry validation should pass for properly registered problems."""
     # Import modules to populate registry
     import interview_workbook.leetcode.arrays_hashing.two_sum  # noqa: F401
-    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
     import interview_workbook.leetcode.sliding_window.best_time_to_buy_sell_stock  # noqa: F401
+    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
 
     # Should not raise any exceptions
     validate_registry()
@@ -84,8 +84,8 @@ def test_get_stats():
     """get_stats should return correct statistics."""
     # Import modules to populate registry
     import interview_workbook.leetcode.arrays_hashing.two_sum  # noqa: F401
-    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
     import interview_workbook.leetcode.sliding_window.best_time_to_buy_sell_stock  # noqa: F401
+    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
 
     stats = get_stats()
 
@@ -104,8 +104,8 @@ def test_problem_metadata_format():
     """Each problem should have properly formatted metadata."""
     # Import modules to populate registry
     import interview_workbook.leetcode.arrays_hashing.two_sum  # noqa: F401
-    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
     import interview_workbook.leetcode.sliding_window.best_time_to_buy_sell_stock  # noqa: F401
+    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
 
     for problem in PROBLEMS:
         # Required fields
@@ -139,8 +139,8 @@ def test_unique_constraints():
     """Problems should have unique slugs and IDs."""
     # Import modules to populate registry
     import interview_workbook.leetcode.arrays_hashing.two_sum  # noqa: F401
-    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
     import interview_workbook.leetcode.sliding_window.best_time_to_buy_sell_stock  # noqa: F401
+    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
 
     slugs = [p["slug"] for p in PROBLEMS]
     assert len(slugs) == len(set(slugs)), "All slugs should be unique"
@@ -154,8 +154,8 @@ def test_module_path_consistency():
     """Module paths should match expected patterns."""
     # Import modules to populate registry
     import interview_workbook.leetcode.arrays_hashing.two_sum  # noqa: F401
-    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
     import interview_workbook.leetcode.sliding_window.best_time_to_buy_sell_stock  # noqa: F401
+    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
 
     for problem in PROBLEMS:
         expected_module = (
@@ -176,8 +176,8 @@ def test_specific_problems(slug, expected_category):
     """Test specific seed problems are registered correctly."""
     # Import modules to populate registry
     import interview_workbook.leetcode.arrays_hashing.two_sum  # noqa: F401
-    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
     import interview_workbook.leetcode.sliding_window.best_time_to_buy_sell_stock  # noqa: F401
+    import interview_workbook.leetcode.two_pointers.valid_palindrome  # noqa: F401
 
     problem = by_slug(slug)
     assert problem is not None, f"Problem {slug} should be registered"

@@ -34,7 +34,7 @@ from interview_workbook.leetcode._types import Category
 # Get all problems
 problems = get_all()
 
-# Get problems by category  
+# Get problems by category
 arrays_problems = by_category(Category.ARRAYS_HASHING)
 ```
 
@@ -48,7 +48,7 @@ Focus on array manipulation and hash table usage patterns.
 
 **Planned:**
 - [ ] `contains_duplicate` - Contains Duplicate (Easy)
-- [ ] `valid_anagram` - Valid Anagram (Easy) 
+- [ ] `valid_anagram` - Valid Anagram (Easy)
 - [ ] `group_anagrams` - Group Anagrams (Medium)
 - [ ] `top_k_frequent_elements` - Top K Frequent Elements (Medium)
 - [ ] `product_of_array_except_self` - Product of Array Except Self (Medium)
@@ -57,7 +57,7 @@ Focus on array manipulation and hash table usage patterns.
 - [ ] `encode_and_decode_strings` - Encode and Decode Strings (Medium)
 - [ ] `longest_common_prefix` - Longest Common Prefix (Easy)
 
-### Two Pointers (6 problems) 
+### Two Pointers (6 problems)
 Problems solved using two-pointer technique with opposite or same direction pointers.
 
 **Implemented:**
@@ -90,7 +90,7 @@ Problems utilizing stack data structure for parsing, validation, and computation
 
 **Planned:**
 - [ ] `valid_parentheses` - Valid Parentheses (Easy)
-- [ ] `min_stack` - Min Stack (Easy) 
+- [ ] `min_stack` - Min Stack (Easy)
 - [ ] `evaluate_reverse_polish_notation` - Evaluate Reverse Polish Notation (Medium)
 - [ ] `generate_parentheses` - Generate Parentheses (Medium)
 - [ ] `daily_temperatures` - Daily Temperatures (Medium)
@@ -235,7 +235,7 @@ Mathematical algorithms and geometric problems.
 
 **Phase 1 Complete:** ✅
 - [x] Foundation infrastructure (types, registry, runner)
-- [x] CLI discovery enhancement 
+- [x] CLI discovery enhancement
 - [x] Seed problems (3 problems across 3 categories)
 - [x] Test infrastructure
 

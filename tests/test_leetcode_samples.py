@@ -4,7 +4,7 @@ Tests for LeetCode problem sample cases and demo functionality.
 
 import pytest
 
-from interview_workbook.leetcode._runner import run_test_cases, TestCase
+from interview_workbook.leetcode._runner import TestCase, run_test_cases
 
 
 def test_two_sum_samples():
@@ -66,8 +66,8 @@ def test_demo_functions_run():
     """Test that demo functions execute without errors."""
     # Import and run each demo
     from interview_workbook.leetcode.arrays_hashing import two_sum
-    from interview_workbook.leetcode.two_pointers import valid_palindrome
     from interview_workbook.leetcode.sliding_window import best_time_to_buy_sell_stock
+    from interview_workbook.leetcode.two_pointers import valid_palindrome
 
     # Each demo should return a string and not raise exceptions
     result1 = two_sum.demo()
@@ -166,8 +166,8 @@ def test_demo_content_quality(problem_module, expected_demo_content):
 def test_solution_classes_exist():
     """Test that all seed problems have Solution classes with expected methods."""
     from interview_workbook.leetcode.arrays_hashing import two_sum
-    from interview_workbook.leetcode.two_pointers import valid_palindrome
     from interview_workbook.leetcode.sliding_window import best_time_to_buy_sell_stock
+    from interview_workbook.leetcode.two_pointers import valid_palindrome
 
     # Two Sum
     assert hasattr(two_sum, "Solution")
@@ -191,11 +191,11 @@ def test_solution_classes_exist():
 def test_edge_cases():
     """Test edge cases for the implemented problems."""
     from interview_workbook.leetcode.arrays_hashing.two_sum import Solution as TwoSumSolution
-    from interview_workbook.leetcode.two_pointers.valid_palindrome import (
-        Solution as PalindromeSolution,
-    )
     from interview_workbook.leetcode.sliding_window.best_time_to_buy_sell_stock import (
         Solution as StockSolution,
+    )
+    from interview_workbook.leetcode.two_pointers.valid_palindrome import (
+        Solution as PalindromeSolution,
     )
 
     # Two Sum edge cases
@@ -220,11 +220,11 @@ def test_edge_cases():
 def test_test_case_descriptions():
     """Test that test cases have meaningful descriptions."""
     from interview_workbook.leetcode.arrays_hashing.two_sum import test_cases as two_sum_cases
-    from interview_workbook.leetcode.two_pointers.valid_palindrome import (
-        test_cases as palindrome_cases,
-    )
     from interview_workbook.leetcode.sliding_window.best_time_to_buy_sell_stock import (
         test_cases as stock_cases,
+    )
+    from interview_workbook.leetcode.two_pointers.valid_palindrome import (
+        test_cases as palindrome_cases,
     )
 
     all_test_cases = two_sum_cases + palindrome_cases + stock_cases

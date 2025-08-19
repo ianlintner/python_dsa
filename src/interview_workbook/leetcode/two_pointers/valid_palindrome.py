@@ -34,7 +34,7 @@ Follow-ups:
 """
 
 from interview_workbook.leetcode._registry import register_problem
-from interview_workbook.leetcode._runner import TestCase, run_test_cases, create_demo_output
+from interview_workbook.leetcode._runner import TestCase, create_demo_output, run_test_cases
 from interview_workbook.leetcode._types import Category, Difficulty
 
 

@@ -13,9 +13,10 @@ Note:
 - Only the filled cells need to be validated according to the mentioned rules.
 """
 
-from typing import List, Set
+from typing import List
+
 from .._registry import register_problem
-from .._runner import TestCase, run_test_cases, create_demo_output
+from .._runner import TestCase, create_demo_output, run_test_cases
 from .._types import Category, Difficulty
 
 

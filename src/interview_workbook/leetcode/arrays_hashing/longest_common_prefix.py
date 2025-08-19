@@ -7,8 +7,9 @@ If there is no common prefix, return an empty string "".
 """
 
 from typing import List
+
 from .._registry import register_problem
-from .._runner import TestCase, run_test_cases, create_demo_output
+from .._runner import TestCase, create_demo_output, run_test_cases
 from .._types import Category, Difficulty
 
 

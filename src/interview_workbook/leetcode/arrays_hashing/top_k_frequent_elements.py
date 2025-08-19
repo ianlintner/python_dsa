@@ -5,11 +5,12 @@ Given an integer array nums and an integer k, return the k most frequent element
 You may return the answer in any order.
 """
 
-from typing import List, Dict
-from collections import Counter
 import heapq
+from collections import Counter
+from typing import List
+
 from .._registry import register_problem
-from .._runner import TestCase, run_test_cases, create_demo_output
+from .._runner import TestCase, create_demo_output
 from .._types import Category, Difficulty
 
 

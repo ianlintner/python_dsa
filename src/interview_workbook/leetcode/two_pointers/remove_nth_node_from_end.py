@@ -5,8 +5,9 @@ Given the head of a linked list, remove the nth node from the end of the list an
 """
 
 from typing import Optional
+
 from .._registry import register_problem
-from .._runner import TestCase, run_test_cases, create_demo_output
+from .._runner import TestCase, create_demo_output
 from .._types import Category, Difficulty
 
 

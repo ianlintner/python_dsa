@@ -11,8 +11,8 @@ This package provides:
 - Metadata registry for discovery and validation
 """
 
-from ._types import Difficulty, Category, ProblemMeta
-from ._registry import get_all, by_category, by_slug, validate_registry
+from ._registry import by_category, by_slug, get_all, validate_registry
+from ._types import Category, Difficulty, ProblemMeta
 
 __all__ = [
     "Difficulty",

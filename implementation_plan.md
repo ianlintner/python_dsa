@@ -7,7 +7,7 @@ This implementation integrates a new leetcode-style problem package under src/in
 
 This fills a practical gap: the repo already contains algorithmic building blocks (sorting/searching, DS, DP, graphs) but lacks a curated leetcode-problem suite. The new layer cross-links patterns to problems, provides runnable demos for each, and preserves the repository’s style of clear docstrings, complexity, pitfalls, and interviewer follow-ups.
 
-[Types]  
+[Types]
 Define canonical metadata and enums to index and validate the curated set.
 
 Types to add (in a new module src/interview_workbook/leetcode/_types.py):

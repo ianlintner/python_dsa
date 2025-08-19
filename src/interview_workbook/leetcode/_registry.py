@@ -2,8 +2,6 @@
 Registry for LeetCode problems with metadata and access helpers.
 """
 
-import os
-from pathlib import Path
 from typing import Any
 
 from ._types import Category, Difficulty, ProblemMeta
