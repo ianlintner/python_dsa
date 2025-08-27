@@ -118,11 +118,11 @@ Key insights:
 # Register the problem
 register_problem(
     id=704,
-    slug="binary_search",
+    slug="binary_search", 
     title="Binary Search",
     category=Category.BINARY_SEARCH,
     difficulty=Difficulty.EASY,
-    tags=['array', 'binary_search'],
+    tags=["Array", "Binary Search"],
     url="https://leetcode.com/problems/binary-search/",
-    notes="Foundation problem demonstrating classic binary search template with O(log n) time complexity",
+    notes="Classic binary search implementation on sorted array"
 )

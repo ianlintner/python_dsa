@@ -150,7 +150,7 @@ register_problem(
     title="Search in Rotated Sorted Array",
     category=Category.BINARY_SEARCH,
     difficulty=Difficulty.MEDIUM,
-    tags=['array', 'binary_search'],
+    tags=["Array", "Binary Search"],
     url="https://leetcode.com/problems/search-in-rotated-sorted-array/",
-    notes="Classic binary search variation handling rotation by detecting which half is sorted at each step",
+    notes="Modified binary search for rotated sorted array"
 )
