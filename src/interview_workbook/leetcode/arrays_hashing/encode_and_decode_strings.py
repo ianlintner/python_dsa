@@ -32,7 +32,7 @@ Note:
 from typing import List
 
 from .._registry import register_problem
-from .._runner import TestCase, create_demo_output
+from .._runner import TestCase, create_demo_output, run_test_cases
 from .._types import Category, Difficulty
 
 
@@ -169,75 +169,7 @@ def demo():
         TestCase(input_args=(["ä", "中文", "🚀"],), expected=True, description="Unicode strings"),
     ]
 
-    # Test the round-trip encoding and decoding
-    results = []
-    for i, test_case in enumerate(test_cases):
-        try:
-            import time
-
-            start_time = time.perf_counter()
-
-            strs = test_case.input_args[0]
-            encoded = solution.encode(strs)
-            decoded = solution.decode(encoded)
-            actual = decoded == strs
-
-            end_time = time.perf_counter()
-
-            results.append(
-                {
-                    "test_case": i + 1,
-                    "description": test_case.description,
-                    "input": strs,
-                    "encoded": encoded,
-                    "decoded": decoded,
-                    "expected": test_case.expected,
-                    "actual": actual,
-                    "passed": actual == test_case.expected,
-                    "time_ms": (end_time - start_time) * 1000,
-                }
-            )
-        except Exception as e:
-            results.append(
-                {
-                    "test_case": i + 1,
-                    "description": test_case.description,
-                    "input": test_case.input_args[0],
-                    "encoded": f"Error: {str(e)}",
-                    "decoded": f"Error: {str(e)}",
-                    "expected": test_case.expected,
-                    "actual": False,
-                    "passed": False,
-                    "time_ms": 0,
-                }
-            )
-
-    # Format results as test results string
-    test_results_lines = ["=== Encode and Decode Strings ===", ""]
-    passed_count = 0
-    total_time = sum(r["time_ms"] for r in results)
-
-    for result in results:
-        status = "✓ PASS" if result["passed"] else "✗ FAIL"
-        test_results_lines.append(f"Test Case {result['test_case']}: {status}")
-        test_results_lines.append(f"  Description: {result['description']}")
-        test_results_lines.append(f"  Input: {result['input']}")
-        test_results_lines.append(f"  Expected: {result['expected']}")
-        test_results_lines.append(f"  Got: {result['actual']}")
-        test_results_lines.append(f"  Time: {result['time_ms']:.3f}ms")
-        test_results_lines.append("")
-        if result["passed"]:
-            passed_count += 1
-
-    test_results_lines.append(f"Results: {passed_count}/{len(results)} passed")
-    test_results_lines.append(f"Total time: {total_time:.3f}ms")
-
-    if passed_count == len(results):
-        test_results_lines.append("🎉 All tests passed!")
-    else:
-        test_results_lines.append(f"❌ {len(results) - passed_count} test(s) failed")
-
-    test_results_str = "\n".join(test_results_lines)
+    results = run_test_cases(test_encode_decode, test_cases)
 
     approach_notes = """
 Key Insights:
@@ -261,7 +193,7 @@ Follow-up Questions:
 
     return create_demo_output(
         problem_title="Encode and Decode Strings",
-        test_results=test_results_str,
+        test_results=results,
         time_complexity="O(n) - where n is total characters in all strings",
         space_complexity="O(n) - for encoded string and result list",
         approach_notes=approach_notes,

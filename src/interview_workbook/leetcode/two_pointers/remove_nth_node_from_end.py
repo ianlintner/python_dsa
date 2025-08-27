@@ -143,12 +143,8 @@ def demo():
             expected=[1, 2, 3, 5],
             description="Remove 2nd node from end",
         ),
-        TestCase(
-            input_args=([1], 1), expected=[], description="Remove only node"
-        ),
-        TestCase(
-            input_args=([1, 2], 1), expected=[1], description="Remove last node"
-        ),
+        TestCase(input_args=([1], 1), expected=[], description="Remove only node"),
+        TestCase(input_args=([1, 2], 1), expected=[1], description="Remove last node"),
         TestCase(
             input_args=([1, 2], 2),
             expected=[2],

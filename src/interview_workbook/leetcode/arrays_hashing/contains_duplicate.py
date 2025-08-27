@@ -71,7 +71,7 @@ def demo():
     approach_notes = """
 Key Insights:
 • Hashmap provides O(1) average lookup time for duplicate detection
-• Early termination when duplicate found improves performance  
+• Early termination when duplicate found improves performance
 • Alternative O(n log n) sorting solution uses O(1) space
 • Consider space vs time tradeoffs between hashmap and sorting approaches
 
