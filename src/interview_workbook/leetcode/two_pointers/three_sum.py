@@ -147,16 +147,26 @@ def demo():
         TestCase(input_args=([1, -1, -1, 0],), expected=[[-1, 0, 1]], description="Needs sorting"),
         TestCase(
             input_args=([-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6],),
-            expected=sorted([sorted(triplet) for triplet in [[-4, -2, 6], [-4, 0, 4], [-4, 1, 3], [-4, 2, 2], [-2, -2, 4], [-2, 0, 2]]]),
+            expected=sorted(
+                [
+                    sorted(triplet)
+                    for triplet in [
+                        [-4, -2, 6],
+                        [-4, 0, 4],
+                        [-4, 1, 3],
+                        [-4, 2, 2],
+                        [-2, -2, 4],
+                        [-2, 0, 2],
+                    ]
+                ]
+            ),
             description="Many duplicates",
         ),
         TestCase(input_args=([],), expected=[], description="Empty array"),
         TestCase(input_args=([1, 2],), expected=[], description="Less than 3 elements"),
     ]
 
-    test_results = run_test_cases(
-        test_three_sum_with_sorting, test_cases, "LeetCode 15: 3Sum"
-    )
+    test_results = run_test_cases(test_three_sum_with_sorting, test_cases, "LeetCode 15: 3Sum")
 
     approach_notes = """
 Key Insights:
