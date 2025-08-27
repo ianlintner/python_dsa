@@ -10,7 +10,7 @@ Notice that the solution set must not contain duplicate triplets.
 from typing import List
 
 from .._registry import register_problem
-from .._runner import TestCase, create_demo_output
+from .._runner import TestCase, create_demo_output, run_test_cases
 from .._types import Category, Difficulty
 
 
@@ -125,10 +125,15 @@ def demo():
         """Sort triplets for consistent comparison."""
         return sorted([sorted(triplet) for triplet in result])
 
+    def test_three_sum_with_sorting(nums):
+        """Wrapper function that handles result sorting for consistent comparison."""
+        result = solution.threeSum(nums)
+        return sort_result(result)
+
     test_cases = [
         TestCase(
             input_args=([-1, 0, 1, 2, -1, -4],),
-            expected=[[-1, -1, 2], [-1, 0, 1]],
+            expected=sorted([sorted(triplet) for triplet in [[-1, -1, 2], [-1, 0, 1]]]),
             description="Basic case with two triplets",
         ),
         TestCase(input_args=([0, 1, 1],), expected=[], description="No valid triplets"),
@@ -142,57 +147,41 @@ def demo():
         TestCase(input_args=([1, -1, -1, 0],), expected=[[-1, 0, 1]], description="Needs sorting"),
         TestCase(
             input_args=([-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6],),
-            expected=[[-4, -2, 6], [-4, 0, 4], [-4, 1, 3], [-4, 2, 2], [-2, -2, 4], [-2, 0, 2]],
+            expected=sorted([sorted(triplet) for triplet in [[-4, -2, 6], [-4, 0, 4], [-4, 1, 3], [-4, 2, 2], [-2, -2, 4], [-2, 0, 2]]]),
             description="Many duplicates",
         ),
         TestCase(input_args=([],), expected=[], description="Empty array"),
         TestCase(input_args=([1, 2],), expected=[], description="Less than 3 elements"),
     ]
 
-    # Custom comparison function that handles any order
-    def compare_results(actual, expected):
-        return sort_result(actual) == sort_result(expected)
+    test_results = run_test_cases(
+        test_three_sum_with_sorting, test_cases, "LeetCode 15: 3Sum"
+    )
 
-    results = []
-    for i, test_case in enumerate(test_cases):
-        try:
-            import time
+    approach_notes = """
+Key Insights:
+• Sort array first to enable two pointers technique
+• Skip duplicate values to avoid duplicate triplets
+• Use two pointers after fixing first element to find remaining pair
+• Time complexity O(n²) is optimal for this problem
 
-            start_time = time.perf_counter()
-            actual = solution.threeSum(*test_case.input_args)
-            end_time = time.perf_counter()
+Common Pitfalls:
+• Forgetting to skip duplicate values leads to duplicate results
+• Not handling edge cases like empty arrays or arrays with < 3 elements
+• Incorrect two pointer movement can miss valid solutions
 
-            passed = compare_results(actual, test_case.expected)
-            results.append(
-                {
-                    "test_case": i + 1,
-                    "description": test_case.description,
-                    "input": test_case.input_args,
-                    "expected": test_case.expected,
-                    "actual": actual,
-                    "passed": passed,
-                    "time_ms": (end_time - start_time) * 1000,
-                }
-            )
-        except Exception as e:
-            results.append(
-                {
-                    "test_case": i + 1,
-                    "description": test_case.description,
-                    "input": test_case.input_args,
-                    "expected": test_case.expected,
-                    "actual": f"Error: {str(e)}",
-                    "passed": False,
-                    "time_ms": 0,
-                }
-            )
+Follow-up Questions:
+• How would you modify for 4Sum or kSum?
+• Can you solve without sorting?
+• How to handle very large arrays efficiently?
+"""
 
     return create_demo_output(
-        problem_title="3Sum",
-        test_results=results,
+        problem_title="LeetCode 15: 3Sum",
+        test_results=test_results,
         time_complexity="O(n²) - outer loop O(n) × inner two pointers O(n)",
         space_complexity="O(1) - excluding output array, constant extra space",
-        approach_notes="Sort + two pointers technique to find unique triplets summing to zero",
+        approach_notes=approach_notes,
     )
 
 
