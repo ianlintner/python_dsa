@@ -11,12 +11,16 @@ This package provides:
 - Metadata registry for discovery and validation
 """
 
+from ._discovery import ensure_problems_loaded  # Auto-discover problems
 from ._registry import by_category, by_slug, get_all, validate_registry
 from ._types import Category, Difficulty, ProblemMeta
 
+# Ensure all problems are loaded on import
+ensure_problems_loaded()
+
 __all__ = [
     "Difficulty",
-    "Category",
+    "Category", 
     "ProblemMeta",
     "get_all",
     "by_category",
