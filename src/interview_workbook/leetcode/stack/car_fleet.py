@@ -45,10 +45,13 @@ class Solution:
         Algorithm:
         1. Pair each car's position with its speed and sort by position (descending)
         2. Calculate arrival time for each car: (target - position) / speed
-        3. Use stack to track fleet formation:
-           - If current car arrives later than previous, it starts a new fleet
-           - If current car arrives earlier/same time, it joins the previous fleet
+        3. Traverse from closest to target to furthest, using a stack:
+           - If current car's arrival time > last fleet's time: new fleet
+           - Otherwise: current car catches up and joins the last fleet
         4. Return the number of fleets (stack size)
+        
+        Key insight: We process cars from closest to target to furthest.
+        A slower car ahead can be caught by a faster car behind.
         
         Args:
             target: Distance to destination
@@ -61,22 +64,23 @@ class Solution:
         if not position or not speed:
             return 0
             
-        # Pair position with speed and sort by position (closest to target first)
+        # Pair each car's position with its speed
         cars = list(zip(position, speed))
-        cars.sort(reverse=True)  # Sort by position descending (closest to target first)
+        # Sort by position in descending order (closest to target first)
+        cars.sort(reverse=True)
         
         stack = []  # Stack to track arrival times of fleet leaders
         
         for pos, spd in cars:
-            # Calculate time to reach target
-            arrival_time = (target - pos) / spd
+            # Calculate time for this car to reach the target
+            time = (target - pos) / spd
             
-            # If stack is empty or current car takes longer than the last fleet,
-            # it forms a new fleet
-            if not stack or arrival_time > stack[-1]:
-                stack.append(arrival_time)
-            # Otherwise, current car catches up and joins the existing fleet
-            # (we don't add it to stack as it's not a fleet leader)
+            # If this car takes longer than the current slowest fleet,
+            # it forms a new fleet (can't catch up)
+            if not stack or time > stack[-1]:
+                stack.append(time)
+            # Otherwise, this car will catch up to the fleet ahead
+            # and join it, so we don't add it to the stack
         
         return len(stack)
 
