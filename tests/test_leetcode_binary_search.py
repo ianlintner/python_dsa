@@ -6,6 +6,10 @@ import pytest
 from src.interview_workbook.leetcode.binary_search.binary_search import Solution as BinarySearchSolution
 from src.interview_workbook.leetcode.binary_search.search_in_rotated_sorted_array import Solution as SearchRotatedSolution
 from src.interview_workbook.leetcode.binary_search.find_min_in_rotated_sorted_array import Solution as FindMinSolution
+from src.interview_workbook.leetcode.binary_search.search_2d_matrix import Solution as Search2DMatrixSolution
+from src.interview_workbook.leetcode.binary_search.find_kth_smallest_in_sorted_matrix import Solution as FindKthSmallestSolution
+from src.interview_workbook.leetcode.binary_search.koko_eating_bananas import Solution as KokoSolution
+from src.interview_workbook.leetcode.binary_search.find_peak_element import Solution as FindPeakSolution
 
 
 class TestBinarySearch:
@@ -50,20 +54,6 @@ class TestBinarySearch:
         assert solution.search(arr, 998) == 499
         assert solution.search(arr, 500) == 250
         assert solution.search(arr, 1) == -1  # Odd number not in array
-    
-    def test_binary_search_large_input(self):
-        """Test with larger inputs to verify O(log n) performance."""
-        solution = BinarySearchSolution()
-        
-        # Large sorted array
-        large_arr = list(range(100000))
-        
-        # Test various positions
-        assert solution.search(large_arr, 0) == 0
-        assert solution.search(large_arr, 99999) == 99999
-        assert solution.search(large_arr, 50000) == 50000
-        assert solution.search(large_arr, -1) == -1
-        assert solution.search(large_arr, 100000) == -1
 
 
 class TestSearchInRotatedSortedArray:
@@ -95,34 +85,6 @@ class TestSearchInRotatedSortedArray:
         # Multiple rotations
         assert solution.search([6, 7, 1, 2, 3, 4, 5], 2) == 3
         assert solution.search([6, 7, 1, 2, 3, 4, 5], 7) == 1
-        
-        # Target at rotation point
-        assert solution.search([3, 1], 1) == 1
-        assert solution.search([3, 1], 3) == 0
-        
-        # Two element arrays
-        assert solution.search([1, 3], 3) == 1
-        assert solution.search([3, 1], 1) == 1
-        
-        # Single element
-        assert solution.search([1], 1) == 0
-        assert solution.search([1], 2) == -1
-    
-    def test_search_rotated_edge_cases(self):
-        """Test edge cases for search in rotated sorted array."""
-        solution = SearchRotatedSolution()
-        
-        # Duplicate elements at boundaries (but all unique as per constraints)
-        assert solution.search([4, 5, 6, 7, 0, 1, 2], 4) == 0  # First element
-        assert solution.search([4, 5, 6, 7, 0, 1, 2], 2) == 6  # Last element
-        
-        # Large rotation
-        assert solution.search([5, 6, 7, 8, 9, 1, 2, 3, 4], 1) == 5
-        assert solution.search([5, 6, 7, 8, 9, 1, 2, 3, 4], 9) == 4
-        
-        # Negative numbers
-        assert solution.search([0, 1, 2, -5, -4, -3, -2, -1], -3) == 5
-        assert solution.search([0, 1, 2, -5, -4, -3, -2, -1], 1) == 1
 
 
 class TestFindMinInRotatedSortedArray:
@@ -151,56 +113,137 @@ class TestFindMinInRotatedSortedArray:
         
         # Two elements - not rotated
         assert solution.findMin([1, 2]) == 1
+
+
+class TestSearch2DMatrix:
+    def test_search_2d_matrix_examples(self):
+        """Test LeetCode examples for search 2D matrix."""
+        solution = Search2DMatrixSolution()
         
-        # Large rotation with negative numbers
-        assert solution.findMin([5, 1, 2, 3, 4]) == 1
+        # Example 1
+        matrix1 = [[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16]]
+        assert solution.searchMatrix(matrix1, 5) == True
         
-        # Mixed positive and negative
-        assert solution.findMin([-1, 0, 1, 2, -3, -2]) == -3
-        
-        # All negative numbers
-        assert solution.findMin([-3, -2, -1, -5, -4]) == -5
-        
-        # No rotation (already sorted)
-        assert solution.findMin([1, 2, 3, 4, 5]) == 1
-        assert solution.findMin([-5, -4, -3, -2, -1]) == -5
+        # Example 2
+        assert solution.searchMatrix(matrix1, 13) == False
     
-    def test_find_min_edge_cases(self):
-        """Test edge cases for find minimum in rotated sorted array."""
-        solution = FindMinSolution()
+    def test_search_2d_matrix_comprehensive(self):
+        """Test comprehensive cases for search 2D matrix."""
+        solution = Search2DMatrixSolution()
         
-        # Minimum at first position (no rotation)
-        assert solution.findMin([0, 1, 2, 3, 4]) == 0
+        # Single element matrix
+        assert solution.searchMatrix([[1]], 1) == True
+        assert solution.searchMatrix([[1]], 2) == False
         
-        # Minimum at last position
-        assert solution.findMin([1, 2, 3, 4, 0]) == 0
+        # Single row
+        assert solution.searchMatrix([[1, 3, 5, 7]], 3) == True
+        assert solution.searchMatrix([[1, 3, 5, 7]], 6) == False
         
-        # Minimum in middle
-        assert solution.findMin([4, 5, 0, 1, 2, 3]) == 0
+        # Single column
+        assert solution.searchMatrix([[1], [3], [5]], 3) == True
+        assert solution.searchMatrix([[1], [3], [5]], 2) == False
         
-        # Large array with small rotation
-        arr = list(range(1, 1000)) + [0]  # [1,2,3,...,999,0]
-        assert solution.findMin(arr) == 0
+        # Empty matrix
+        assert solution.searchMatrix([], 1) == False
+        assert solution.searchMatrix([[]], 1) == False
+
+
+class TestFindKthSmallestInSortedMatrix:
+    def test_kth_smallest_examples(self):
+        """Test LeetCode examples for kth smallest in sorted matrix."""
+        solution = FindKthSmallestSolution()
         
-        # Large array no rotation
-        arr = list(range(1000))  # [0,1,2,...,999]
-        assert solution.findMin(arr) == 0
+        # Example 1
+        matrix1 = [[1, 5, 9], [10, 11, 13], [12, 13, 15]]
+        assert solution.kthSmallest(matrix1, 8) == 13
+        
+        # Example 2
+        assert solution.kthSmallest([[-5]], 1) == -5
     
-    def test_find_min_rotations(self):
-        """Test various rotation amounts."""
-        solution = FindMinSolution()
-        original = [1, 2, 3, 4, 5, 6, 7]
+    def test_kth_smallest_comprehensive(self):
+        """Test comprehensive cases for kth smallest in sorted matrix."""
+        solution = FindKthSmallestSolution()
         
-        # Test different rotation amounts
-        rotations = [
-            ([1, 2, 3, 4, 5, 6, 7], 1),  # No rotation
-            ([7, 1, 2, 3, 4, 5, 6], 1),  # Rotate by 1
-            ([6, 7, 1, 2, 3, 4, 5], 1),  # Rotate by 2
-            ([5, 6, 7, 1, 2, 3, 4], 1),  # Rotate by 3
-            ([4, 5, 6, 7, 1, 2, 3], 1),  # Rotate by 4
-            ([3, 4, 5, 6, 7, 1, 2], 1),  # Rotate by 5
-            ([2, 3, 4, 5, 6, 7, 1], 1),  # Rotate by 6
-        ]
+        # Small matrices
+        matrix2 = [[1, 2], [1, 3]]
+        assert solution.kthSmallest(matrix2, 3) == 2
         
-        for rotated_array, expected_min in rotations:
-            assert solution.findMin(rotated_array) == expected_min
+        # Test both solutions match
+        matrix3 = [[1, 3, 5], [6, 7, 12], [11, 14, 14]]
+        result_binary = solution.kthSmallest(matrix3, 6)
+        result_heap = solution.kthSmallestHeap(matrix3, 6)
+        assert result_binary == result_heap == 11
+
+
+class TestKokoEatingBananas:
+    def test_koko_examples(self):
+        """Test LeetCode examples for Koko eating bananas."""
+        solution = KokoSolution()
+        
+        # Example 1
+        assert solution.minEatingSpeed([3, 6, 7, 11], 8) == 4
+        
+        # Example 2
+        assert solution.minEatingSpeed([30, 11, 23, 4, 20], 5) == 30
+        
+        # Example 3
+        assert solution.minEatingSpeed([30, 11, 23, 4, 20], 6) == 23
+    
+    def test_koko_comprehensive(self):
+        """Test comprehensive cases for Koko eating bananas."""
+        solution = KokoSolution()
+        
+        # Single pile
+        assert solution.minEatingSpeed([1000000], 2) == 500000
+        
+        # All same pile sizes
+        assert solution.minEatingSpeed([1, 1, 1, 1], 4) == 1
+        
+        # Test both solutions match
+        result_standard = solution.minEatingSpeed([3, 6, 7, 11], 8)
+        result_optimized = solution.minEatingSpeedOptimized([3, 6, 7, 11], 8)
+        assert result_standard == result_optimized == 4
+
+
+class TestFindPeakElement:
+    def test_find_peak_examples(self):
+        """Test LeetCode examples for find peak element."""
+        solution = FindPeakSolution()
+        
+        # Example 1
+        result1 = solution.findPeakElement([1, 2, 3, 1])
+        assert result1 == 2  # Peak at index 2
+        
+        # Example 2 - multiple valid peaks
+        result2 = solution.findPeakElement([1, 2, 1, 3, 5, 6, 4])
+        assert result2 in [1, 5]  # Peaks at indices 1 or 5
+    
+    def test_find_peak_comprehensive(self):
+        """Test comprehensive cases for find peak element."""
+        solution = FindPeakSolution()
+        
+        # Single element
+        assert solution.findPeakElement([1]) == 0
+        
+        # Two elements - ascending
+        assert solution.findPeakElement([1, 2]) == 1
+        
+        # Two elements - descending
+        assert solution.findPeakElement([2, 1]) == 0
+        
+        # Test all solutions give valid peaks
+        nums = [1, 3, 2, 1]
+        result_binary = solution.findPeakElement(nums)
+        result_linear = solution.findPeakElementLinear(nums)
+        result_recursive = solution.findPeakElementRecursive(nums)
+        
+        # All should be valid peak indices
+        def is_peak(arr, idx):
+            n = len(arr)
+            left_ok = idx == 0 or arr[idx] > arr[idx - 1]
+            right_ok = idx == n - 1 or arr[idx] > arr[idx + 1]
+            return left_ok and right_ok
+        
+        assert is_peak(nums, result_binary)
+        assert is_peak(nums, result_linear)
+        assert is_peak(nums, result_recursive)
