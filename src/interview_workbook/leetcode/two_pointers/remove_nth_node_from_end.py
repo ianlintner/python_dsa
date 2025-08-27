@@ -7,7 +7,7 @@ Given the head of a linked list, remove the nth node from the end of the list an
 from typing import Optional
 
 from .._registry import register_problem
-from .._runner import TestCase, create_demo_output
+from .._runner import TestCase, create_demo_output, run_test_cases
 from .._types import Category, Difficulty
 
 
@@ -131,77 +131,47 @@ def demo():
     """Demonstrate Remove Nth Node From End solution with test cases."""
     solution = Solution()
 
+    def test_remove_nth(linked_list_values, n):
+        """Wrapper function for testing with lists instead of linked lists."""
+        linked_list = create_linked_list(linked_list_values)
+        result_head = solution.removeNthFromEnd(linked_list, n)
+        return linked_list_to_list(result_head)
+
     test_cases = [
         TestCase(
-            input_args=(create_linked_list([1, 2, 3, 4, 5]), 2),
+            input_args=([1, 2, 3, 4, 5], 2),
             expected=[1, 2, 3, 5],
             description="Remove 2nd node from end",
         ),
         TestCase(
-            input_args=(create_linked_list([1]), 1), expected=[], description="Remove only node"
+            input_args=([1], 1), expected=[], description="Remove only node"
         ),
         TestCase(
-            input_args=(create_linked_list([1, 2]), 1), expected=[1], description="Remove last node"
+            input_args=([1, 2], 1), expected=[1], description="Remove last node"
         ),
         TestCase(
-            input_args=(create_linked_list([1, 2]), 2),
+            input_args=([1, 2], 2),
             expected=[2],
             description="Remove first node",
         ),
         TestCase(
-            input_args=(create_linked_list([1, 2, 3, 4, 5, 6]), 6),
+            input_args=([1, 2, 3, 4, 5, 6], 6),
             expected=[2, 3, 4, 5, 6],
             description="Remove head node",
         ),
         TestCase(
-            input_args=(create_linked_list([1, 2, 3, 4, 5, 6]), 1),
+            input_args=([1, 2, 3, 4, 5, 6], 1),
             expected=[1, 2, 3, 4, 5],
             description="Remove tail node",
         ),
         TestCase(
-            input_args=(create_linked_list([1, 2, 3, 4, 5, 6]), 3),
+            input_args=([1, 2, 3, 4, 5, 6], 3),
             expected=[1, 2, 3, 5, 6],
             description="Remove middle node",
         ),
     ]
 
-    results = []
-    for i, test_case in enumerate(test_cases):
-        try:
-            import time
-
-            start_time = time.perf_counter()
-
-            # Execute the solution
-            result_head = solution.removeNthFromEnd(*test_case.input_args)
-            actual = linked_list_to_list(result_head)
-
-            end_time = time.perf_counter()
-
-            passed = actual == test_case.expected
-            results.append(
-                {
-                    "test_case": i + 1,
-                    "description": test_case.description,
-                    "input": f"List: {linked_list_to_list(test_case.input_args[0])}, n: {test_case.input_args[1]}",
-                    "expected": test_case.expected,
-                    "actual": actual,
-                    "passed": passed,
-                    "time_ms": (end_time - start_time) * 1000,
-                }
-            )
-        except Exception as e:
-            results.append(
-                {
-                    "test_case": i + 1,
-                    "description": test_case.description,
-                    "input": f"List: {linked_list_to_list(test_case.input_args[0]) if test_case.input_args[0] else []}, n: {test_case.input_args[1]}",
-                    "expected": test_case.expected,
-                    "actual": f"Error: {str(e)}",
-                    "passed": False,
-                    "time_ms": 0,
-                }
-            )
+    results = run_test_cases(test_remove_nth, test_cases)
 
     return create_demo_output(
         problem_title="Remove Nth Node From End of List",
