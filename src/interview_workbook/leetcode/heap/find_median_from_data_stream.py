@@ -147,7 +147,7 @@ def create_demo_output() -> str:
     operations = [1, 2, 3, 4, 5]
 
     output.append("Operations: addNum(1), addNum(2), findMedian(), addNum(3), findMedian()")
-    for i, num in enumerate(operations):
+    for _i, num in enumerate(operations):
         median_finder.addNum(num)
         median = median_finder.findMedian()
         output.append(f"After adding {num}: median = {median}")
@@ -269,7 +269,7 @@ def test_median_finder():
         median_finder = MedianFinder()
         results = []
 
-        for j, (op, inp) in enumerate(zip(test_case["operations"], test_case["inputs"])):
+        for _j, (op, inp) in enumerate(zip(test_case["operations"], test_case["inputs"])):
             if op == "MedianFinder":
                 results.append(None)
             elif op == "addNum":
@@ -286,16 +286,18 @@ def test_median_finder():
 
 TEST_CASES = [
     TestCase(
-        input_data={
-            "operations": ["MedianFinder", "addNum", "findMedian", "addNum", "findMedian"],
-            "inputs": [[], [1], [], [2], []],
-        },
+        name="Basic two-element median finding",
+        input_args=(
+            ["MedianFinder", "addNum", "findMedian", "addNum", "findMedian"],
+            [[], [1], [], [2], []],
+        ),
         expected=[None, None, 1.0, None, 1.5],
         description="Basic two-element median finding",
     ),
     TestCase(
-        input_data={
-            "operations": [
+        name="Three-element progression", 
+        input_args=(
+            [
                 "MedianFinder",
                 "addNum",
                 "addNum",
@@ -303,13 +305,11 @@ TEST_CASES = [
                 "addNum",
                 "findMedian",
             ],
-            "inputs": [[], [1], [2], [], [3], []],
-        },
+            [[], [1], [2], [], [3], []],
+        ),
         expected=[None, None, None, 1.5, None, 2.0],
         description="Three-element progression",
     ),
-]
-
 
 def test_solution():
     """Test the MedianFinder implementation."""
