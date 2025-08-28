@@ -159,7 +159,7 @@ def create_demo_output() -> str:
         ([1, 3, 1, 3, 100], 103),
     ]
 
-    for nums, expected in test_cases:
+    for nums, _expected in test_cases:
         result = solution.rob(nums)
         demos.append(f"Houses: {nums}")
         demos.append(f"Max money: {result}")
@@ -300,20 +300,20 @@ def create_demo_output() -> str:
 
 # Test cases
 TEST_CASES = [
-    TestCase(input=[[1, 2, 3, 1]], expected=4, description="Standard case: rob houses 0 and 2"),
-    TestCase(input=[[2, 7, 9, 3, 1]], expected=12, description="Rob houses 0, 2, 4 for max money"),
-    TestCase(input=[[2, 1, 1, 2]], expected=4, description="Rob houses 0 and 3"),
-    TestCase(input=[[5]], expected=5, description="Single house - rob it"),
-    TestCase(input=[[1, 2]], expected=2, description="Two houses - rob the richer one"),
-    TestCase(input=[[2, 1]], expected=2, description="Two houses - rob the first one"),
-    TestCase(input=[[]], expected=0, description="Empty array - no houses to rob"),
+    TestCase(input_args=([1, 2, 3, 1],), expected=4, description="Standard case: rob houses 0 and 2"),
+    TestCase(input_args=([2, 7, 9, 3, 1],), expected=12, description="Rob houses 0, 2, 4 for max money"),
+    TestCase(input_args=([2, 1, 1, 2],), expected=4, description="Rob houses 0 and 3"),
+    TestCase(input_args=([5],), expected=5, description="Single house - rob it"),
+    TestCase(input_args=([1, 2],), expected=2, description="Two houses - rob the richer one"),
+    TestCase(input_args=([2, 1],), expected=2, description="Two houses - rob the first one"),
+    TestCase(input_args=([],), expected=0, description="Empty array - no houses to rob"),
     TestCase(
-        input=[[1, 3, 1, 3, 100]], expected=103, description="Large final house changes strategy"
+        input_args=([1, 3, 1, 3, 100],), expected=103, description="Large final house changes strategy"
     ),
     TestCase(
-        input=[[10, 5, 2, 7, 8]], expected=19, description="Rob houses 0, 3 for optimal result"
+        input_args=([10, 5, 2, 7, 8],), expected=19, description="Rob houses 0, 3 for optimal result"
     ),
-    TestCase(input=[[1, 1, 1, 1, 1]], expected=3, description="All equal - rob every other house"),
+    TestCase(input_args=([1, 1, 1, 1, 1],), expected=3, description="All equal - rob every other house"),
 ]
 
 
