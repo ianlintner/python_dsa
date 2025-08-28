@@ -215,7 +215,7 @@ def create_demo_output() -> str:
 def test_solution():
     """Test the reverse bits solution."""
     solution = Solution()
-    
+
     def run_tests(func_name: str, func):
         print(f"\nTesting {func_name}:")
         for i, test_case in enumerate(TEST_CASES):
