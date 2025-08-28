@@ -250,7 +250,6 @@ def demo():
         result_head2 = solution.addTwoNumbersRecursive(head1, head2)
         result_values2 = linked_list_to_list(result_head2)
         print(f"Result (Recursive): {result_values2}")
-        status2 = "✓ PASS" if result_values2 == expected else "✗ FAIL"
 
         # Test simplified solution
         head1 = create_linked_list(l1_vals)

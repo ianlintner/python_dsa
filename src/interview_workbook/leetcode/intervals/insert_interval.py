@@ -109,7 +109,6 @@ class Solution:
 
         # Binary search for the insertion position
         left, right = 0, len(intervals) - 1
-        insert_pos = len(intervals)
 
         while left <= right:
             mid = (left + right) // 2
