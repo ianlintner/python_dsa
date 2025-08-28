@@ -2,7 +2,7 @@
 Tries (Prefix Trees) Category - LeetCode Problems
 
 Prefix tree (trie) data structure implementation and applications.
-Tries are tree-like data structures that store strings in a way that allows 
+Tries are tree-like data structures that store strings in a way that allows
 for efficient prefix-based searches and operations.
 
 Key Concepts:
@@ -22,3 +22,4 @@ This category covers:
 - Basic trie implementation and operations
 - Advanced search patterns with wildcards
 - Real-world applications of prefix trees
+"""
