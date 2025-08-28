@@ -31,17 +31,17 @@ CATEGORY_INFO = {
         "Recursive exploration of solution space",
         "Pruning invalid branches early (backtrack)",
         "Generate all possible combinations, permutations, subsets",
-        "Constraint satisfaction problems", 
+        "Constraint satisfaction problems",
         "Decision tree exploration with rollback",
-        "State space search with undoing changes"
+        "State space search with undoing changes",
     ],
     "common_patterns": [
         "Choose, explore, unchoose (backtrack)",
         "Building solutions incrementally",
         "Using recursion with base cases",
         "Tracking visited states and undoing changes",
-        "Early termination when constraints violated"
-    ]
+        "Early termination when constraints violated",
+    ],
 }
 
-__all__ = ['CATEGORY_INFO']
+__all__ = ["CATEGORY_INFO"]

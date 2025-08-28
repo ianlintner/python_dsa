@@ -44,89 +44,89 @@ class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
         """
         Find all start indices of anagrams of p in s.
-        
+
         Args:
             s: Source string to search in
             p: Pattern string to find anagrams of
-            
+
         Returns:
             List of starting indices where anagrams are found
         """
         if len(p) > len(s):
             return []
-        
+
         result = []
         p_count = Counter(p)
         window_count = Counter()
-        
+
         # Initialize window with first len(p) characters
         for i in range(len(p)):
             window_count[s[i]] += 1
-        
+
         # Check if initial window is an anagram
         if window_count == p_count:
             result.append(0)
-        
+
         # Slide the window
         for i in range(len(p), len(s)):
             # Add new character to window
             window_count[s[i]] += 1
-            
+
             # Remove character that's sliding out
             left_char = s[i - len(p)]
             window_count[left_char] -= 1
             if window_count[left_char] == 0:
                 del window_count[left_char]
-            
+
             # Check if current window is an anagram
             if window_count == p_count:
                 result.append(i - len(p) + 1)
-        
+
         return result
-    
+
     def findAnagramsOptimized(self, s: str, p: str) -> List[int]:
         """
         Optimized version using array instead of Counter for lowercase letters only.
-        
+
         Args:
             s: Source string to search in
             p: Pattern string to find anagrams of
-            
+
         Returns:
             List of starting indices where anagrams are found
         """
         if len(p) > len(s):
             return []
-        
+
         result = []
-        
+
         # Frequency arrays for pattern and sliding window
         p_freq = [0] * 26
         window_freq = [0] * 26
-        
+
         # Count pattern frequencies
         for char in p:
-            p_freq[ord(char) - ord('a')] += 1
-        
+            p_freq[ord(char) - ord("a")] += 1
+
         # Initialize sliding window
         for i in range(len(p)):
-            window_freq[ord(s[i]) - ord('a')] += 1
-        
+            window_freq[ord(s[i]) - ord("a")] += 1
+
         # Check initial window
         if window_freq == p_freq:
             result.append(0)
-        
+
         # Slide the window
         for i in range(len(p), len(s)):
             # Add new character
-            window_freq[ord(s[i]) - ord('a')] += 1
+            window_freq[ord(s[i]) - ord("a")] += 1
             # Remove old character
-            window_freq[ord(s[i - len(p)]) - ord('a')] -= 1
-            
+            window_freq[ord(s[i - len(p)]) - ord("a")] -= 1
+
             # Check if current window matches pattern
             if window_freq == p_freq:
                 result.append(i - len(p) + 1)
-        
+
         return result
 
 
@@ -147,9 +147,11 @@ test_cases = [
 def demo() -> str:
     """Run Find All Anagrams demo with test cases."""
     solution = Solution()
-    
-    test_results = run_test_cases(solution.findAnagrams, test_cases, "LeetCode 438: Find All Anagrams in a String")
-    
+
+    test_results = run_test_cases(
+        solution.findAnagrams, test_cases, "LeetCode 438: Find All Anagrams in a String"
+    )
+
     return create_demo_output(
         "Find All Anagrams in a String",
         test_results,

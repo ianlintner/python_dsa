@@ -30,16 +30,16 @@ CATEGORY_INFO = {
     "description": "Problems involving interval manipulation, merging, and scheduling",
     "key_concepts": [
         "Interval merging and overlapping",
-        "Sorting by start/end times", 
+        "Sorting by start/end times",
         "Greedy scheduling algorithms",
         "Event processing and sweep line",
-        "Meeting room scheduling patterns"
+        "Meeting room scheduling patterns",
     ],
     "common_patterns": [
         "Sort intervals then merge overlapping",
         "Use priority queue for dynamic scheduling",
         "Transform intervals to events for processing",
-        "Greedy selection for optimization problems"
+        "Greedy selection for optimization problems",
     ],
-    "category": Category.INTERVALS
+    "category": Category.INTERVALS,
 }

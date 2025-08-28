@@ -43,33 +43,33 @@ class Solution:
         """
         Move all zeros to end while maintaining relative order of non-zeros.
         Modifies array in-place.
-        
+
         Args:
             nums: Array of integers (modified in-place)
         """
         # Two-pointer approach: write pointer tracks where to place next non-zero
         write_pos = 0
-        
+
         # First pass: move all non-zero elements to the front
         for read_pos in range(len(nums)):
             if nums[read_pos] != 0:
                 nums[write_pos] = nums[read_pos]
                 write_pos += 1
-        
+
         # Second pass: fill remaining positions with zeros
         while write_pos < len(nums):
             nums[write_pos] = 0
             write_pos += 1
-    
+
     def moveZeroesSwap(self, nums: List[int]) -> None:
         """
         Alternative implementation using swapping.
-        
+
         Args:
             nums: Array of integers (modified in-place)
         """
         left = 0  # Points to next position for non-zero element
-        
+
         for right in range(len(nums)):
             if nums[right] != 0:
                 # Swap non-zero element to left position
@@ -102,7 +102,7 @@ test_cases = [
 def demo() -> str:
     """Run Move Zeroes demo with test cases."""
     test_results = run_test_cases(test_move_zeroes, test_cases, "LeetCode 283: Move Zeroes")
-    
+
     return create_demo_output(
         "Move Zeroes",
         test_results,

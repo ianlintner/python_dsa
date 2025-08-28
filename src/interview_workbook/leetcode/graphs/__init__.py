@@ -30,13 +30,13 @@ Problem Categories:
 1. **Graph Traversal & Construction**
    - Number of Islands: Connected components in 2D grid
    - Clone Graph: Deep copy of graph structure
-   
+
 2. **Topological Sort & Scheduling**
    - Course Schedule: Cycle detection in directed graph
    - Course Schedule II: Topological ordering of courses
-   
+
 3. **Multi-source & Boundary Problems**
-   - Pacific Atlantic Water Flow: Multi-source BFS from boundaries  
+   - Pacific Atlantic Water Flow: Multi-source BFS from boundaries
    - Surrounded Regions: Boundary-connected region identification
    - Rotting Oranges: Time-based multi-source propagation
 
@@ -54,7 +54,7 @@ Space Complexities:
 
 Real-world Applications:
 - Social networks: Friend recommendations, community detection
-- Navigation systems: Route planning, reachability analysis  
+- Navigation systems: Route planning, reachability analysis
 - Dependency resolution: Build systems, package managers
 - Network analysis: Connectivity, shortest paths
 - Game development: Pathfinding, level generation
@@ -70,11 +70,11 @@ CATEGORY_INFO = {
     "description": "Graph algorithms including traversal, topological sorting, and connectivity",
     "key_concepts": [
         "Breadth-First Search (BFS) and Depth-First Search (DFS)",
-        "Topological sorting and cycle detection", 
+        "Topological sorting and cycle detection",
         "Connected components and union-find",
         "Grid-based graph problems",
         "Multi-source algorithms and boundary conditions",
-        "Graph construction and cloning"
+        "Graph construction and cloning",
     ],
     "common_patterns": [
         "Island counting with DFS/BFS traversal",
@@ -82,6 +82,6 @@ CATEGORY_INFO = {
         "Graph cloning with visited tracking",
         "Boundary propagation with multi-source BFS",
         "State spreading over time",
-        "Region modification and marking"
-    ]
+        "Region modification and marking",
+    ],
 }

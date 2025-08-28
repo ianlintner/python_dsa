@@ -45,59 +45,59 @@ class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         """
         Find maximum in each sliding window of size k.
-        
+
         Args:
             nums: Array of integers
             k: Window size
-            
+
         Returns:
             Array of maximum values for each window position
         """
         if not nums or k == 0:
             return []
-        
+
         result = []
         # Deque stores indices in decreasing order of their values
         dq = deque()
-        
+
         for i in range(len(nums)):
             # Remove indices outside current window
             while dq and dq[0] <= i - k:
                 dq.popleft()
-            
+
             # Remove indices whose values are smaller than current element
             # (they can never be maximum while current element is in window)
             while dq and nums[dq[-1]] < nums[i]:
                 dq.pop()
-            
+
             # Add current index
             dq.append(i)
-            
+
             # Add maximum to result when window size is reached
             if i >= k - 1:
                 result.append(nums[dq[0]])
-        
+
         return result
-    
+
     def maxSlidingWindowBruteForce(self, nums: List[int], k: int) -> List[int]:
         """
         Brute force solution for comparison - O(nk) time complexity.
-        
+
         Args:
             nums: Array of integers
             k: Window size
-            
+
         Returns:
             Array of maximum values for each window position
         """
         if not nums or k == 0:
             return []
-        
+
         result = []
         for i in range(len(nums) - k + 1):
-            window_max = max(nums[i:i + k])
+            window_max = max(nums[i : i + k])
             result.append(window_max)
-        
+
         return result
 
 
@@ -107,7 +107,9 @@ test_cases = [
     TestCase(([1], 1), [1], "Single element"),
     TestCase(([1, -1], 1), [1, -1], "Window size 1"),
     TestCase(([9, 11], 2), [11], "Two elements, window size 2"),
-    TestCase(([4, -2, -3, 4, -1, 2, 1, -5, 4], 3), [4, 4, 4, 4, 2, 2, 1, 4], "Mixed positive/negative"),
+    TestCase(
+        ([4, -2, -3, 4, -1, 2, 1, -5, 4], 3), [4, 4, 4, 4, 2, 2, 1, 4], "Mixed positive/negative"
+    ),
     TestCase(([1, 2, 3, 4, 5], 3), [3, 4, 5], "Increasing sequence"),
     TestCase(([5, 4, 3, 2, 1], 3), [5, 4, 3], "Decreasing sequence"),
     TestCase(([7, 2, 4], 2), [7, 4], "Simple case"),
@@ -117,9 +119,11 @@ test_cases = [
 def demo() -> str:
     """Run Sliding Window Maximum demo with test cases."""
     solution = Solution()
-    
-    test_results = run_test_cases(solution.maxSlidingWindow, test_cases, "LeetCode 239: Sliding Window Maximum")
-    
+
+    test_results = run_test_cases(
+        solution.maxSlidingWindow, test_cases, "LeetCode 239: Sliding Window Maximum"
+    )
+
     return create_demo_output(
         "Sliding Window Maximum",
         test_results,

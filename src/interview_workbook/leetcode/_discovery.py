@@ -88,6 +88,7 @@ def ensure_problems_loaded() -> None:
 # Track imported modules to prevent re-imports
 _IMPORTED_MODULES = set()
 
+
 def discover_and_import_all() -> dict[str, bool]:
     """
     Discover and import all problem modules.
@@ -103,10 +104,10 @@ def discover_and_import_all() -> dict[str, bool]:
         if module_path in _IMPORTED_MODULES:
             results[module_path] = True
             continue
-            
+
         success = import_problem_module(module_path)
         results[module_path] = success
-        
+
         if success:
             _IMPORTED_MODULES.add(module_path)
 

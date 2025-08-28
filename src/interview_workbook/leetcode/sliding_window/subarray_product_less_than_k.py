@@ -1,7 +1,7 @@
 """
 LeetCode 713: Subarray Product Less Than K
 
-Given an array of integers nums and an integer k, return the number of contiguous 
+Given an array of integers nums and an integer k, return the number of contiguous
 subarrays where the product of all the elements in the subarray is strictly less than k.
 
 Time Complexity: O(n)
@@ -18,11 +18,11 @@ class Solution:
     def numSubarraysWithProduct(self, nums: List[int], k: int) -> int:
         """
         Two-pointer/sliding window approach.
-        
+
         Key insight: For a valid window [left, right], all subarrays ending at 'right'
         and starting from any position between 'left' and 'right' are valid.
         The count is (right - left + 1).
-        
+
         Algorithm:
         1. Use two pointers: left and right
         2. Expand right pointer and multiply product
@@ -31,38 +31,38 @@ class Solution:
         """
         if k <= 1:
             return 0  # No positive product can be less than 1
-        
+
         count = 0
         product = 1
         left = 0
-        
+
         for right in range(len(nums)):
             product *= nums[right]
-            
+
             # Shrink window from left while product >= k
             while product >= k:
                 product //= nums[left]
                 left += 1
-            
+
             # All subarrays ending at 'right' and starting from 'left' to 'right'
             # have product < k
             count += right - left + 1
-        
+
         return count
-    
+
     def numSubarraysWithProduct_bruteforce(self, nums: List[int], k: int) -> int:
         """
         Brute force approach for comparison.
-        
+
         Time Complexity: O(n^2)
         Space Complexity: O(1)
         """
         if k <= 1:
             return 0
-        
+
         count = 0
         n = len(nums)
-        
+
         for i in range(n):
             product = 1
             for j in range(i, n):
@@ -71,7 +71,7 @@ class Solution:
                     count += 1
                 else:
                     break  # No need to continue as product will only increase
-        
+
         return count
 
 
@@ -81,61 +81,61 @@ test_cases = [
         name="Example 1",
         input={"nums": [10, 5, 2, 6], "k": 100},
         expected=8,
-        description="Multiple valid subarrays"
+        description="Multiple valid subarrays",
     ),
     TestCase(
         name="Example 2",
         input={"nums": [1, 2, 3], "k": 0},
         expected=0,
-        description="k is 0, no valid subarrays"
+        description="k is 0, no valid subarrays",
     ),
     TestCase(
         name="Single element",
         input={"nums": [1], "k": 2},
         expected=1,
-        description="Single element less than k"
+        description="Single element less than k",
     ),
     TestCase(
         name="No valid subarrays",
         input={"nums": [10, 20, 30], "k": 5},
         expected=0,
-        description="All elements >= k"
+        description="All elements >= k",
     ),
     TestCase(
         name="All elements valid",
         input={"nums": [1, 1, 1], "k": 10},
         expected=6,
-        description="All subarrays have product < k"
+        description="All subarrays have product < k",
     ),
     TestCase(
         name="Large numbers",
         input={"nums": [1, 2, 3, 4, 5], "k": 10},
         expected=11,
-        description="Mixed valid and invalid subarrays"
+        description="Mixed valid and invalid subarrays",
     ),
     TestCase(
         name="k is 1",
         input={"nums": [1, 2, 3], "k": 1},
         expected=0,
-        description="Edge case: k = 1, no positive products < 1"
-    )
+        description="Edge case: k = 1, no positive products < 1",
+    ),
 ]
 
 
 def demo():
     """Demonstrate the sliding window approach for subarray product."""
     solution = Solution()
-    
+
     print("=== LeetCode 713: Subarray Product Less Than K ===\n")
-    
+
     # Example with detailed explanation
     nums = [10, 5, 2, 6]
     k = 100
-    
+
     print(f"Input: nums = {nums}, k = {k}")
     print(f"Output: {solution.numSubarraysWithProduct(nums, k)}")
     print()
-    
+
     # Show all valid subarrays manually
     print("Valid subarrays:")
     valid_count = 0
@@ -144,24 +144,24 @@ def demo():
         for j in range(i, len(nums)):
             product *= nums[j]
             if product < k:
-                subarray = nums[i:j+1]
+                subarray = nums[i : j + 1]
                 print(f"  {subarray} -> product = {product}")
                 valid_count += 1
             else:
                 break
     print(f"Total count: {valid_count}")
     print()
-    
+
     # Compare approaches
     print("Comparison of approaches:")
     print(f"Sliding window: {solution.numSubarraysWithProduct(nums, k)}")
     print(f"Brute force: {solution.numSubarraysWithProduct_bruteforce(nums, k)}")
-    
+
     return create_demo_output(
         title="Subarray Product Less Than K",
         description="Find count of contiguous subarrays with product < k",
         input_data={"nums": nums, "k": k},
-        expected_output=solution.numSubarraysWithProduct(nums, k)
+        expected_output=solution.numSubarraysWithProduct(nums, k),
     )
 
 
@@ -176,5 +176,5 @@ register_problem(
     title="Subarray Product Less Than K",
     difficulty=Difficulty.MEDIUM,
     category=Category.SLIDING_WINDOW,
-    solution_file=__file__
+    solution_file=__file__,
 )
