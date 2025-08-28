@@ -218,7 +218,6 @@ def create_demo_output() -> str:
 
         # Get results from different approaches
         result_dfs = solution.pacificAtlantic(heights)
-        result_bfs = solution.pacificAtlanticBFS(heights)
 
         output.append(f"✅ Cells reaching both oceans: {len(result_dfs)}")
         output.append(f"   Coordinates: {sorted(result_dfs)}")
