@@ -156,8 +156,7 @@ def cmd_fix_slugs(args):
 def generate_problem_template(slug, title, category, difficulty, url, tags, problem_id=None):
     """Generate a problem module template."""
 
-    # Create the problem description template
-    tags_str = ", ".join(tags)
+    # Create the problem description template  
     id_comment = f"LeetCode {problem_id}: " if problem_id else ""
 
     template = f'''"""
