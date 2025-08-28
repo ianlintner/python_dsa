@@ -95,7 +95,7 @@ class Solution:
             return 0
 
         stack = [(root, False)]
-        heights = {}  # node -> height
+        heights = {}  # id(node) -> height
         max_diameter = 0
 
         while stack:
@@ -103,11 +103,11 @@ class Solution:
 
             if visited:
                 # Post-order processing: both children processed
-                left_height = heights.get(node.left, 0)
-                right_height = heights.get(node.right, 0)
+                left_height = heights.get(id(node.left), 0) if node.left else 0
+                right_height = heights.get(id(node.right), 0) if node.right else 0
 
                 # Calculate height of current node
-                heights[node] = 1 + max(left_height, right_height)
+                heights[id(node)] = 1 + max(left_height, right_height)
 
                 # Update max diameter
                 diameter_through_node = left_height + right_height
