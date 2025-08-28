@@ -36,6 +36,11 @@ def register_problem(
         else:
             raise ValueError("Must provide either slug, title, or module_path")
 
+    # Check if problem already exists - prevent duplicates
+    existing_problem = by_slug(slug)
+    if existing_problem is not None:
+        return existing_problem  # Return existing problem instead of registering duplicate
+
     # Convert string category to enum
     if isinstance(category, str):
         # Handle different string formats
