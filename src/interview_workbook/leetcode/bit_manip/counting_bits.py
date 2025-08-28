@@ -10,9 +10,9 @@ Space Complexity: O(1) - excluding the output array
 
 from typing import List
 
-from ..._registry import register_problem
-from ..._runner import TestCase, create_demo_output, run_test_cases
-from ..._types import Category, Difficulty
+from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
+from .._types import Category, Difficulty
 
 
 class Solution:
@@ -88,102 +88,129 @@ class Solution:
 
 
 # Test cases
-test_cases = [
+TEST_CASES = [
     TestCase(
-        name="Example 1", input={"n": 2}, expected=[0, 1, 1], description="n=2: [0,1,2] -> [0,1,1]"
+        input_args=(2,),
+        expected=[0, 1, 1],
+        description="n=2: [0,1,2] -> [0,1,1]",
     ),
     TestCase(
-        name="Example 2",
-        input={"n": 5},
+        input_args=(5,),
         expected=[0, 1, 1, 2, 1, 2],
         description="n=5: [0,1,2,3,4,5] -> [0,1,1,2,1,2]",
     ),
-    TestCase(name="Single number", input={"n": 0}, expected=[0], description="n=0: only number 0"),
     TestCase(
-        name="Small range", input={"n": 1}, expected=[0, 1], description="n=1: numbers 0 and 1"
+        input_args=(0,),
+        expected=[0],
+        description="n=0: only number 0",
     ),
     TestCase(
-        name="Power of 2",
-        input={"n": 8},
+        input_args=(1,),
+        expected=[0, 1],
+        description="n=1: numbers 0 and 1",
+    ),
+    TestCase(
+        input_args=(8,),
         expected=[0, 1, 1, 2, 1, 2, 2, 3, 1],
         description="n=8: includes powers of 2",
     ),
     TestCase(
-        name="Larger range",
-        input={"n": 15},
+        input_args=(15,),
         expected=[0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4],
         description="n=15: full 4-bit range",
     ),
 ]
 
 
-def demo():
-    """Demonstrate different approaches to count bits."""
+def create_demo_output() -> str:
+    """Create comprehensive demo showing different approaches and analysis."""
     solution = Solution()
 
-    print("=== LeetCode 338: Counting Bits ===\n")
+    output = []
+    output.append("=== LeetCode 338: Counting Bits ===\n")
 
     # Example with detailed explanation
     n = 8
-    print(f"Input: n = {n}")
-    print(f"Output: {solution.countBits(n)}")
-    print()
+    output.append(f"Input: n = {n}")
+    output.append(f"Output: {solution.countBits(n)}")
+    output.append("")
 
     # Show binary representations
-    print("Binary representations and bit counts:")
+    output.append("Binary representations and bit counts:")
     result = solution.countBits(n)
     for i in range(n + 1):
         binary = bin(i)[2:]  # Remove '0b' prefix
-        print(f"  {i:2d}: {binary:>4s} -> {result[i]} bits")
-    print()
+        output.append(f"  {i:2d}: {binary:>4s} -> {result[i]} bits")
+    output.append("")
 
     # Show DP recurrence step by step
-    print("DP recurrence (dp[i] = dp[i >> 1] + (i & 1)):")
+    output.append("DP recurrence (dp[i] = dp[i >> 1] + (i & 1)):")
     dp = [0] * (n + 1)
 
     for i in range(1, n + 1):
         parent = i >> 1
         bit = i & 1
         dp[i] = dp[parent] + bit
-        print(f"  dp[{i}] = dp[{parent}] + ({i} & 1) = {dp[parent]} + {bit} = {dp[i]}")
-    print()
+        output.append(f"  dp[{i}] = dp[{parent}] + ({i} & 1) = {dp[parent]} + {bit} = {dp[i]}")
+    output.append("")
 
     # Compare approaches
-    print("Comparison of approaches:")
+    output.append("Comparison of approaches:")
     test_n = 5
-    print(f"n = {test_n}")
-    print(f"  Right shift DP:  {solution.countBits(test_n)}")
-    print(f"  Kernighan DP:    {solution.countBits_kernighan(test_n)}")
-    print(f"  Offset DP:       {solution.countBits_offset(test_n)}")
-    print(f"  Naive approach:  {solution.countBits_naive(test_n)}")
-    print()
+    output.append(f"n = {test_n}")
+    output.append(f"  Right shift DP:  {solution.countBits(test_n)}")
+    output.append(f"  Kernighan DP:    {solution.countBits_kernighan(test_n)}")
+    output.append(f"  Offset DP:       {solution.countBits_offset(test_n)}")
+    output.append(f"  Naive approach:  {solution.countBits_naive(test_n)}")
+    output.append("")
 
     # Show pattern recognition
-    print("Pattern in powers of 2:")
+    output.append("Pattern in powers of 2:")
     powers = [1, 2, 4, 8, 16]
     for p in powers:
         if p <= 16:
             result_p = solution.countBits(p)
-            print(f"  Range [0, {p}]: {result_p}")
+            output.append(f"  Range [0, {p}]: {result_p}")
 
-    return create_demo_output(
-        title="Counting Bits",
-        description="Count 1 bits for all numbers from 0 to n",
-        input_data={"n": n},
-        expected_output=solution.countBits(n),
+    return "\n".join(output)
+
+
+def test_solution():
+    """Test the counting bits solution."""
+    solution = Solution()
+    
+    def run_tests(func_name: str, func):
+        print(f"\nTesting {func_name}:")
+        for i, test_case in enumerate(TEST_CASES):
+            result = func(test_case.input_args[0])
+            status = "✓" if result == test_case.expected else "✗"
+            print(f"  Test {i + 1}: {status} - {test_case.description}")
+            if result != test_case.expected:
+                print(f"    Expected: {test_case.expected}, Got: {result}")
+
+    run_tests("Right Shift DP", solution.countBits)
+    run_tests("Kernighan DP", solution.countBits_kernighan)
+    run_tests("Offset DP", solution.countBits_offset)
+    run_tests("Naive Approach", solution.countBits_naive)
+
+    # Run standard test framework
+    run_test_cases(
+        solution.countBits,
+        TEST_CASES,
+        "Counting Bits",
     )
-
-
-if __name__ == "__main__":
-    run_test_cases(Solution().countBits, test_cases)
 
 
 # Register the problem
 register_problem(
-    slug="counting-bits",
+    slug="counting_bits",
     leetcode_num=338,
     title="Counting Bits",
     difficulty=Difficulty.EASY,
     category=Category.BIT_MANIP,
-    solution_file=__file__,
+    solution_func=lambda n: Solution().countBits(n),
+    test_func=test_solution,
+    demo_func=create_demo_output,
+    tags=["bit-manipulation", "dynamic-programming"],
+    notes="DP: dp[i] = dp[i >> 1] + (i & 1) - right shift removes bit, add back if odd",
 )

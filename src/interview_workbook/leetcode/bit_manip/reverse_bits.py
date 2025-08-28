@@ -11,9 +11,9 @@ Time Complexity: O(1) - fixed 32 iterations
 Space Complexity: O(1)
 """
 
-from ..._registry import register_problem
-from ..._runner import TestCase, create_demo_output, run_test_cases
-from ..._types import Category, Difficulty
+from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
+from .._types import Category, Difficulty
 
 
 class Solution:
@@ -99,86 +99,80 @@ class Solution:
 
 
 # Test cases
-test_cases = [
+TEST_CASES = [
     TestCase(
-        name="Example 1",
-        input={"n": 0b00000010100101000001111010011100},  # 43261596
+        input_args=(0b00000010100101000001111010011100,),  # 43261596
         expected=0b00111001011110000010100101000000,  # 964176192
         description="Standard bit reversal example",
     ),
     TestCase(
-        name="Example 2",
-        input={"n": 0b11111111111111111111111111111101},  # 4294967293
+        input_args=(0b11111111111111111111111111111101,),  # 4294967293
         expected=0b10111111111111111111111111111111,  # 3221225471
         description="Nearly all bits set",
     ),
     TestCase(
-        name="All zeros",
-        input={"n": 0b00000000000000000000000000000000},  # 0
+        input_args=(0b00000000000000000000000000000000,),  # 0
         expected=0b00000000000000000000000000000000,  # 0
         description="All bits are zero",
     ),
     TestCase(
-        name="All ones",
-        input={"n": 0b11111111111111111111111111111111},  # 4294967295
+        input_args=(0b11111111111111111111111111111111,),  # 4294967295
         expected=0b11111111111111111111111111111111,  # 4294967295
         description="All bits are one",
     ),
     TestCase(
-        name="Single bit at start",
-        input={"n": 0b10000000000000000000000000000000},  # 2147483648
+        input_args=(0b10000000000000000000000000000000,),  # 2147483648
         expected=0b00000000000000000000000000000001,  # 1
         description="Single bit at leftmost position",
     ),
     TestCase(
-        name="Single bit at end",
-        input={"n": 0b00000000000000000000000000000001},  # 1
+        input_args=(0b00000000000000000000000000000001,),  # 1
         expected=0b10000000000000000000000000000000,  # 2147483648
         description="Single bit at rightmost position",
     ),
     TestCase(
-        name="Pattern",
-        input={"n": 0b10101010101010101010101010101010},  # 2863311530
+        input_args=(0b10101010101010101010101010101010,),  # 2863311530
         expected=0b01010101010101010101010101010101,  # 1431655765
         description="Alternating bit pattern",
     ),
 ]
 
 
-def demo():
-    """Demonstrate different approaches to reverse bits."""
+def create_demo_output() -> str:
+    """Create comprehensive demo showing different approaches and analysis."""
     solution = Solution()
 
-    print("=== LeetCode 190: Reverse Bits ===\n")
+    output = []
+    output.append("=== LeetCode 190: Reverse Bits ===\n")
 
     # Example with detailed explanation
     n = 43261596  # 00000010100101000001111010011100
-    print(f"Input:  {n}")
-    print(f"Binary: {format(n, '032b')}")
+    output.append(f"Input:  {n}")
+    output.append(f"Binary: {format(n, '032b')}")
 
     result = solution.reverseBits(n)
-    print(f"Output: {result}")
-    print(f"Binary: {format(result, '032b')}")
-    print()
+    output.append(f"Output: {result}")
+    output.append(f"Binary: {format(result, '032b')}")
+    output.append("")
 
     # Show bit-by-bit reversal process
-    print("Bit-by-bit reversal process:")
+    output.append("Bit-by-bit reversal process:")
     temp_n = n
     temp_result = 0
 
-    print(f"Input:  {format(temp_n, '032b')}")
+    output.append(f"Input:  {format(temp_n, '032b')}")
     for i in range(5):  # Show first 5 steps
         bit = temp_n & 1
         temp_result = (temp_result << 1) | bit
         temp_n >>= 1
-        print(f"Step {i + 1}: {format(temp_result, '032b')} (added bit {bit})")
+        output.append(f"Step {i + 1}: {format(temp_result, '032b')} (added bit {bit})")
 
-    print("...")
-    print(f"Final:  {format(result, '032b')}")
-    print()
+    output.append("...")
+    output.append(f"Final:  {format(result, '032b')}")
+    output.append("")
 
     # Compare different approaches
-    print("Comparison of approaches:")
+    output.append("Comparison of approaches:")
     test_cases_demo = [
         (1, "00000000000000000000000000000001"),
         (43261596, "00000010100101000001111010011100"),
@@ -186,18 +180,18 @@ def demo():
     ]
 
     for num, binary in test_cases_demo:
-        print(f"\nInput: {num} ({binary})")
-        print(f"  Bit-by-bit:      {solution.reverseBits(num)}")
-        print(f"  Built-in string: {solution.reverseBits_builtin(num)}")
-        print(f"  Divide-conquer:  {solution.reverseBits_divide_conquer(num)}")
-        print(f"  Lookup table:    {solution.reverseBits_lookup(num)}")
+        output.append(f"\nInput: {num} ({binary})")
+        output.append(f"  Bit-by-bit:      {solution.reverseBits(num)}")
+        output.append(f"  Built-in string: {solution.reverseBits_builtin(num)}")
+        output.append(f"  Divide-conquer:  {solution.reverseBits_divide_conquer(num)}")
+        output.append(f"  Lookup table:    {solution.reverseBits_lookup(num)}")
 
     # Show divide and conquer steps
-    print("\n=== Divide and Conquer Approach ===")
-    print("Example with n = 43261596:")
+    output.append("\n=== Divide and Conquer Approach ===")
+    output.append("Example with n = 43261596:")
 
     demo_n = 43261596
-    print(f"Original: {format(demo_n, '032b')}")
+    output.append(f"Original: {format(demo_n, '032b')}")
 
     # Step by step divide and conquer
     steps = [
@@ -209,30 +203,51 @@ def demo():
     ]
 
     for i, (desc, mask) in enumerate(steps, 1):
-        print(f"Step {i}: {desc}")
-        print(f"         Mask: {mask}")
+        output.append(f"Step {i}: {desc}")
+        output.append(f"         Mask: {mask}")
 
     final_result = solution.reverseBits_divide_conquer(demo_n)
-    print(f"Final:   {format(final_result, '032b')} = {final_result}")
+    output.append(f"Final:   {format(final_result, '032b')} = {final_result}")
 
-    return create_demo_output(
-        title="Reverse Bits",
-        description="Reverse the bits of a 32-bit unsigned integer",
-        input_data={"n": n},
-        expected_output=solution.reverseBits(n),
+    return "\n".join(output)
+
+
+def test_solution():
+    """Test the reverse bits solution."""
+    solution = Solution()
+    
+    def run_tests(func_name: str, func):
+        print(f"\nTesting {func_name}:")
+        for i, test_case in enumerate(TEST_CASES):
+            result = func(test_case.input_args[0])
+            status = "✓" if result == test_case.expected else "✗"
+            print(f"  Test {i + 1}: {status} - {test_case.description}")
+            if result != test_case.expected:
+                print(f"    Expected: {test_case.expected}, Got: {result}")
+
+    run_tests("Bit-by-bit Approach", solution.reverseBits)
+    run_tests("Built-in String", solution.reverseBits_builtin)
+    run_tests("Divide-Conquer", solution.reverseBits_divide_conquer)
+    run_tests("Lookup Table", solution.reverseBits_lookup)
+
+    # Run standard test framework
+    run_test_cases(
+        solution.reverseBits,
+        TEST_CASES,
+        "Reverse Bits",
     )
-
-
-if __name__ == "__main__":
-    run_test_cases(Solution().reverseBits, test_cases)
 
 
 # Register the problem
 register_problem(
-    slug="reverse-bits",
+    slug="reverse_bits",
     leetcode_num=190,
     title="Reverse Bits",
     difficulty=Difficulty.EASY,
     category=Category.BIT_MANIP,
-    solution_file=__file__,
+    solution_func=lambda n: Solution().reverseBits(n),
+    test_func=test_solution,
+    demo_func=create_demo_output,
+    tags=["bit-manipulation", "divide-and-conquer"],
+    notes="Reverse 32-bit integer: bit-by-bit or divide-and-conquer approaches",
 )
