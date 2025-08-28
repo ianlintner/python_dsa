@@ -10,7 +10,7 @@ Space Complexity: O(1) - excluding the output array
 from typing import List
 
 from .._registry import register_problem
-from .._runner import TestCase, create_demo_output, run_test_cases
+from .._runner import TestCase, create_demo_output
 from .._types import Category, Difficulty
 
 
@@ -259,11 +259,11 @@ def create_demo_output():
 def test_solution():
     """Test function for the spiral matrix problem."""
     solution = Solution()
-    
+
     for test_case in TEST_CASES:
         matrix = test_case.input_args[0]
         result = solution.spiralOrder(matrix)
-        
+
         if result == test_case.expected:
             print(f"✓ {test_case.name}: PASS")
         else:

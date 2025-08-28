@@ -13,7 +13,7 @@ Space Complexity: O(1)
 from typing import List
 
 from .._registry import register_problem
-from .._runner import TestCase, create_demo_output, run_test_cases
+from .._runner import TestCase, create_demo_output
 from .._types import Category, Difficulty
 
 
@@ -122,13 +122,15 @@ TEST_CASES = [
     ),
     TestCase(
         name="5x5 matrix",
-        input_args=([
-            [1, 2, 3, 4, 5],
-            [6, 7, 8, 9, 10],
-            [11, 12, 13, 14, 15],
-            [16, 17, 18, 19, 20],
-            [21, 22, 23, 24, 25],
-        ],),
+        input_args=(
+            [
+                [1, 2, 3, 4, 5],
+                [6, 7, 8, 9, 10],
+                [11, 12, 13, 14, 15],
+                [16, 17, 18, 19, 20],
+                [21, 22, 23, 24, 25],
+            ],
+        ),
         expected=[
             [21, 16, 11, 6, 1],
             [22, 17, 12, 7, 2],
@@ -214,12 +216,12 @@ def create_demo_output():
 def test_solution():
     """Test function for the rotate image problem."""
     solution = Solution()
-    
+
     for test_case in TEST_CASES:
         matrix = test_case.input_args[0]
         matrix_copy = [row[:] for row in matrix]
         solution.rotate(matrix_copy)
-        
+
         if matrix_copy == test_case.expected:
             print(f"✓ {test_case.name}: PASS")
         else:

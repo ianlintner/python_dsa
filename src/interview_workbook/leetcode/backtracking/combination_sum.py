@@ -269,38 +269,45 @@ def create_demo_output() -> str:
 # Comprehensive test cases
 TEST_CASES = [
     TestCase(
-        input_data={"candidates": [2, 3, 6, 7], "target": 7},
-        expected_output=[[2, 2, 3], [7]],
+        name="Classic example with multiple solutions",
+        input_args=([2, 3, 6, 7], 7),
+        expected=[[2, 2, 3], [7]],
         description="Classic example with multiple solutions",
     ),
     TestCase(
-        input_data={"candidates": [2, 3, 5], "target": 8},
-        expected_output=[[2, 2, 2, 2], [2, 3, 3], [3, 5]],
+        name="Multiple ways to reach target",
+        input_args=([2, 3, 5], 8),
+        expected=[[2, 2, 2, 2], [2, 3, 3], [3, 5]],
         description="Multiple ways to reach target",
     ),
     TestCase(
-        input_data={"candidates": [2], "target": 1},
-        expected_output=[],
+        name="Impossible case",
+        input_args=([2], 1),
+        expected=[],
         description="Impossible case - target smaller than minimum candidate",
     ),
     TestCase(
-        input_data={"candidates": [1], "target": 1},
-        expected_output=[[1]],
+        name="Single element exact match",
+        input_args=([1], 1),
+        expected=[[1]],
         description="Single element exact match",
     ),
     TestCase(
-        input_data={"candidates": [1], "target": 2},
-        expected_output=[[1, 1]],
+        name="Reusing single element",
+        input_args=([1], 2),
+        expected=[[1, 1]],
         description="Reusing single element multiple times",
     ),
     TestCase(
-        input_data={"candidates": [3, 5, 4], "target": 8},
-        expected_output=[[3, 5], [4, 4]],
+        name="Simple case requiring multiple uses",
+        input_args=([3, 5, 4], 8),
+        expected=[[3, 5], [4, 4]],
         description="Simple case requiring multiple uses",
     ),
     TestCase(
-        input_data={"candidates": [2, 7, 6, 3, 5, 1], "target": 9},
-        expected_output=[
+        name="Many candidates with medium target",
+        input_args=([2, 7, 6, 3, 5, 1], 9),
+        expected=[
             [1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 3],
             [1, 1, 1, 1, 1, 4],
@@ -332,22 +339,20 @@ def test_solution():
         """Normalize output by sorting each combination and the list of combinations."""
         return sorted([sorted(combo) for combo in combinations])
 
-    def test_function(candidates, target):
-        solution = Solution()
+    solution = Solution()
+    
+    for test_case in TEST_CASES:
+        candidates, target = test_case.input_args
         result = solution.combinationSum(candidates, target)
-        return normalize_output(result)
-
-    # Normalize expected outputs
-    normalized_test_cases = []
-    for case in TEST_CASES:
-        normalized_case = TestCase(
-            input_data=case.input_data,
-            expected_output=normalize_output(case.expected_output),
-            description=case.description,
-        )
-        normalized_test_cases.append(normalized_case)
-
-    run_test_cases(test_function, normalized_test_cases)
+        normalized_result = normalize_output(result)
+        normalized_expected = normalize_output(test_case.expected)
+        
+        if normalized_result == normalized_expected:
+            print(f"✓ {test_case.name}: PASS")
+        else:
+            print(f"✗ {test_case.name}: FAIL")
+            print(f"  Expected: {normalized_expected}")
+            print(f"  Got: {normalized_result}")
 
 
 # Register the problem
@@ -357,7 +362,9 @@ register_problem(
     title="Combination Sum",
     difficulty=Difficulty.MEDIUM,
     category=Category.BACKTRACKING,
-    solution_func=Solution().combinationSum,
+    solution_func=lambda args: Solution().combinationSum(args[0], args[1]),
     test_func=test_solution,
     demo_func=create_demo_output,
+    tags=["backtracking", "array", "recursion"],
+    notes="Find all unique combinations that sum to target using backtracking with reuse allowed",
 )
