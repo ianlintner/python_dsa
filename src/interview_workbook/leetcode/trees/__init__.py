@@ -6,7 +6,7 @@ Focus on recursive and iterative approaches to common tree problems.
 
 Problems in this category:
 1. LeetCode 226: Invert Binary Tree (Easy)
-2. LeetCode 104: Maximum Depth of Binary Tree (Easy)  
+2. LeetCode 104: Maximum Depth of Binary Tree (Easy)
 3. LeetCode 543: Diameter of Binary Tree (Easy)
 4. LeetCode 110: Balanced Binary Tree (Easy)
 5. LeetCode 100: Same Tree (Easy)
@@ -37,9 +37,9 @@ CATEGORY_INFO = {
     "problems": 8,
     "patterns": [
         "Recursive tree traversal",
-        "Tree validation and properties", 
+        "Tree validation and properties",
         "Level-order traversal with BFS",
         "Tree modification and reconstruction",
-        "Height and depth calculations"
-    ]
+        "Height and depth calculations",
+    ],
 }

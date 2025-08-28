@@ -6,7 +6,7 @@ Focus on pointer manipulation, traversal techniques, and common linked list oper
 
 Problems implemented:
 - reverse_linked_list: Reverse Linked List (Easy)
-- merge_two_sorted_lists: Merge Two Sorted Lists (Easy) 
+- merge_two_sorted_lists: Merge Two Sorted Lists (Easy)
 - reorder_list: Reorder List (Medium)
 - remove_nth_node_from_end: Remove Nth Node From End of List (Medium)
 - linked_list_cycle: Linked List Cycle (Easy)

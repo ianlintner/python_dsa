@@ -17,42 +17,42 @@ from .top100_manifest import TOP_100_MANIFEST, get_category_stats, get_problems_
 def audit_implementation_status() -> Dict[str, any]:
     """
     Audit current implementation status against the Top 100 manifest.
-    
+
     Returns:
         Dict with implementation status, missing problems, etc.
     """
     ensure_problems_loaded()
-    
+
     # Get registered problems
     registered = get_registered_slugs()
-    
+
     # Get manifest problems
     manifest_slugs = {p["slug"] for p in TOP_100_MANIFEST}
-    
+
     # Calculate status
     implemented = registered & manifest_slugs
     missing = manifest_slugs - registered
     extra = registered - manifest_slugs  # Problems implemented but not in Top 100
-    
+
     # Get detailed info
     manifest_by_slug = {p["slug"]: p for p in TOP_100_MANIFEST}
     registered_problems = {p["slug"]: p for p in get_all()}
-    
+
     # Group by category
     implemented_by_category = {}
     missing_by_category = {}
-    
+
     for category in Category:
         cat_name = category.value
         manifest_problems = get_problems_by_category(category)
         manifest_category_slugs = {p["slug"] for p in manifest_problems}
-        
+
         impl_in_cat = implemented & manifest_category_slugs
         missing_in_cat = missing & manifest_category_slugs
-        
+
         implemented_by_category[cat_name] = sorted(impl_in_cat)
         missing_by_category[cat_name] = sorted(missing_in_cat)
-    
+
     return {
         "total_manifest": len(manifest_slugs),
         "total_implemented": len(implemented),
@@ -75,11 +75,11 @@ def generate_category_section(category: Category, audit_data: Dict) -> str:
     cat_name = category.value
     problems = get_problems_by_category(category)
     implemented = set(audit_data["implemented_by_category"][cat_name])
-    
+
     # Category header with count
     total_in_category = len(problems)
     impl_in_category = len(implemented)
-    
+
     # Convert category name to display name
     display_name = cat_name.replace("_", " ").title()
     if display_name == "Arrays Hashing":
@@ -94,11 +94,11 @@ def generate_category_section(category: Category, audit_data: Dict) -> str:
         display_name = "Bit Manipulation"
     elif display_name == "Math Geometry":
         display_name = "Math & Geometry"
-    
+
     lines = [
         f"### {display_name} ({impl_in_category}/{total_in_category} problems)",
     ]
-    
+
     # Add category description based on category
     descriptions = {
         Category.ARRAYS_HASHING: "Focus on array manipulation and hash table usage patterns.",
@@ -119,36 +119,36 @@ def generate_category_section(category: Category, audit_data: Dict) -> str:
         Category.BIT_MANIP: "Bitwise operations and bit manipulation techniques.",
         Category.MATH_GEOMETRY: "Mathematical algorithms and geometric problems.",
     }
-    
+
     if category in descriptions:
         lines.append(descriptions[category])
         lines.append("")
-    
+
     # Separate implemented and planned
     implemented_problems = [p for p in problems if p["slug"] in implemented]
     missing_problems = [p for p in problems if p["slug"] not in implemented]
-    
+
     if implemented_problems:
         lines.append("**Implemented:**")
         for prob in implemented_problems:
-            lines.append(f'- [x] `{prob["slug"]}` - {prob["title"]} ({prob["difficulty"].value})')
+            lines.append(f"- [x] `{prob['slug']}` - {prob['title']} ({prob['difficulty'].value})")
         lines.append("")
-    
+
     if missing_problems:
         lines.append("**Planned:**")
         for prob in missing_problems:
-            lines.append(f'- [ ] `{prob["slug"]}` - {prob["title"]} ({prob["difficulty"].value})')
+            lines.append(f"- [ ] `{prob['slug']}` - {prob['title']} ({prob['difficulty'].value})")
         lines.append("")
-    
+
     return "\n".join(lines)
 
 
 def generate_neetcode_docs(audit_data: Dict) -> str:
     """Generate the complete NEETCODE_TOP100.md content."""
-    
+
     total = audit_data["total_manifest"]
     implemented = audit_data["total_implemented"]
-    
+
     content = f"""# NeetCode Top 100 LeetCode Problems
 
 This document provides an index of the curated NeetCode Top 100 problems implemented in this repository.
@@ -197,14 +197,14 @@ arrays_problems = by_category(Category.ARRAYS_HASHING)
     for category in Category:
         content += generate_category_section(category, audit_data)
         content += "\n"
-    
+
     # Implementation status
     content += f"""## Implementation Status
 
-**Progress:** {implemented}/{total} problems implemented ({implemented/total*100:.1f}%)
+**Progress:** {implemented}/{total} problems implemented ({implemented / total * 100:.1f}%)
 
 """
-    
+
     # Category breakdown
     content += "**By Category:**\n"
     for category in Category:
@@ -212,7 +212,7 @@ arrays_problems = by_category(Category.ARRAYS_HASHING)
         cat_total = len(get_problems_by_category(category))
         cat_impl = len(audit_data["implemented_by_category"][cat_name])
         cat_pct = (cat_impl / cat_total * 100) if cat_total > 0 else 0
-        
+
         display_name = cat_name.replace("_", " ").title()
         if display_name == "Arrays Hashing":
             display_name = "Arrays & Hashing"
@@ -224,9 +224,9 @@ arrays_problems = by_category(Category.ARRAYS_HASHING)
             display_name = "Bit Manipulation"
         elif display_name == "Math Geometry":
             display_name = "Math & Geometry"
-            
+
         content += f"- {display_name}: {cat_impl}/{cat_total} ({cat_pct:.0f}%)\n"
-    
+
     content += f"""
 
 ## Technical Architecture
@@ -267,7 +267,7 @@ See existing implementations for examples and patterns to follow.
 *This document is auto-generated from the manifest and current implementations.*
 *Last updated: {audit_data["total_implemented"]}/{audit_data["total_manifest"]} problems implemented*
 """
-    
+
     return content
 
 
@@ -287,7 +287,7 @@ def update_docs_file() -> bool:
     try:
         docs_path = Path("docs/NEETCODE_TOP100.md")
         new_content = generate_docs()
-        
+
         # Write new content
         docs_path.write_text(new_content, encoding="utf-8")
         return True
@@ -300,29 +300,29 @@ def print_audit_summary(audit_data: Dict = None) -> None:
     """Print a summary of the audit results."""
     if audit_data is None:
         audit_data = run_audit()
-    
+
     total = audit_data["total_manifest"]
     impl = audit_data["total_implemented"]
     missing = audit_data["total_missing"]
-    
+
     print(f"🎯 NeetCode Top 100 Implementation Status")
     print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    print(f"📊 Progress: {impl}/{total} ({impl/total*100:.1f}%)")
+    print(f"📊 Progress: {impl}/{total} ({impl / total * 100:.1f}%)")
     print(f"✅ Implemented: {impl}")
     print(f"❌ Missing: {missing}")
-    
+
     if audit_data["extra_slugs"]:
         print(f"➕ Extra: {len(audit_data['extra_slugs'])}")
-    
+
     print(f"\n📁 Discovered modules: {len(audit_data['discovered_modules'])}")
-    
+
     if missing > 0:
         print(f"\n🔍 Next to implement:")
         for i, slug in enumerate(sorted(audit_data["missing_slugs"])[:5]):
             prob = audit_data["manifest_by_slug"][slug]
-            print(f"   {i+1}. {slug} ({prob['difficulty'].value})")
+            print(f"   {i + 1}. {slug} ({prob['difficulty'].value})")
         if missing > 5:
-            print(f"   ... and {missing-5} more")
+            print(f"   ... and {missing - 5} more")
 
 
 if __name__ == "__main__":

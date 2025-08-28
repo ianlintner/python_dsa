@@ -44,18 +44,18 @@ class MinStack:
         Initialize the MinStack data structure.
         Uses two stacks: main stack for elements, min stack for tracking minimums.
         """
-        self.stack = []      # Main stack to store all elements
+        self.stack = []  # Main stack to store all elements
         self.min_stack = []  # Stack to store minimum values at each level
 
     def push(self, val: int) -> None:
         """
         Push element val onto stack.
-        
+
         Args:
             val: Integer value to push
         """
         self.stack.append(val)
-        
+
         # Push onto min_stack if it's empty or val is <= current minimum
         # We use <= to handle duplicates correctly
         if not self.min_stack or val <= self.min_stack[-1]:
@@ -67,7 +67,7 @@ class MinStack:
         """
         if not self.stack:
             return
-        
+
         # If the popped element was the minimum, also pop from min_stack
         popped = self.stack.pop()
         if self.min_stack and popped == self.min_stack[-1]:
@@ -76,7 +76,7 @@ class MinStack:
     def top(self) -> int:
         """
         Get the top element of the stack.
-        
+
         Returns:
             The top element of the stack
         """
@@ -85,7 +85,7 @@ class MinStack:
     def getMin(self) -> int:
         """
         Retrieve the minimum element in the stack.
-        
+
         Returns:
             The minimum element in the stack
         """
@@ -96,17 +96,17 @@ class Solution:
     def test_min_stack_operations(self, operations: list, values: list) -> list:
         """
         Test MinStack with a sequence of operations.
-        
+
         Args:
             operations: List of operation names
             values: List of values for each operation (None for operations without values)
-            
+
         Returns:
             List of results for operations that return values
         """
         min_stack = MinStack()
         results = []
-        
+
         for i, op in enumerate(operations):
             if op == "MinStack":
                 results.append(None)
@@ -120,71 +120,133 @@ class Solution:
                 results.append(min_stack.top())
             elif op == "getMin":
                 results.append(min_stack.getMin())
-        
+
         return results
 
 
 # Test cases
 test_cases = [
     TestCase(
-        (["MinStack", "push", "push", "push", "getMin", "pop", "top", "getMin"],
-         [None, -2, 0, -3, None, None, None, None]),
+        (
+            ["MinStack", "push", "push", "push", "getMin", "pop", "top", "getMin"],
+            [None, -2, 0, -3, None, None, None, None],
+        ),
         [None, None, None, None, -3, None, 0, -2],
-        "Basic operations example"
+        "Basic operations example",
     ),
     TestCase(
-        (["MinStack", "push", "push", "getMin", "getMin", "push", "getMin", "getMin", "top", "getMin", "pop", "getMin"],
-         [None, 2, 0, None, None, 3, None, None, None, None, None, None]),
+        (
+            [
+                "MinStack",
+                "push",
+                "push",
+                "getMin",
+                "getMin",
+                "push",
+                "getMin",
+                "getMin",
+                "top",
+                "getMin",
+                "pop",
+                "getMin",
+            ],
+            [None, 2, 0, None, None, 3, None, None, None, None, None, None],
+        ),
         [None, None, None, 0, 0, None, 0, 0, 3, 0, None, 0],
-        "Multiple getMin calls"
+        "Multiple getMin calls",
     ),
     TestCase(
-        (["MinStack", "push", "push", "push", "top", "pop", "getMin", "pop", "getMin", "pop", "push", "top", "getMin", "push", "top", "getMin", "pop", "getMin"],
-         [None, 1, 2, 1, None, None, None, None, None, None, 1, None, None, -1, None, None, None, None]),
+        (
+            [
+                "MinStack",
+                "push",
+                "push",
+                "push",
+                "top",
+                "pop",
+                "getMin",
+                "pop",
+                "getMin",
+                "pop",
+                "push",
+                "top",
+                "getMin",
+                "push",
+                "top",
+                "getMin",
+                "pop",
+                "getMin",
+            ],
+            [
+                None,
+                1,
+                2,
+                1,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                1,
+                None,
+                None,
+                -1,
+                None,
+                None,
+                None,
+                None,
+            ],
+        ),
         [None, None, None, None, 1, None, 1, None, 1, None, None, 1, 1, None, -1, -1, None, 1],
-        "Complex sequence with duplicates"
+        "Complex sequence with duplicates",
     ),
     TestCase(
-        (["MinStack", "push", "getMin", "push", "getMin", "push", "getMin"],
-         [None, 5, None, 3, None, 1, None]),
+        (
+            ["MinStack", "push", "getMin", "push", "getMin", "push", "getMin"],
+            [None, 5, None, 3, None, 1, None],
+        ),
         [None, None, 5, None, 3, None, 1],
-        "Decreasing sequence"
+        "Decreasing sequence",
     ),
     TestCase(
-        (["MinStack", "push", "getMin", "push", "getMin", "push", "getMin"],
-         [None, 1, None, 3, None, 5, None]),
+        (
+            ["MinStack", "push", "getMin", "push", "getMin", "push", "getMin"],
+            [None, 1, None, 3, None, 5, None],
+        ),
         [None, None, 1, None, 1, None, 1],
-        "Increasing sequence - minimum stays same"
+        "Increasing sequence - minimum stays same",
     ),
     TestCase(
-        (["MinStack", "push", "push", "push", "getMin", "pop", "pop", "pop"],
-         [None, 1, 1, 1, None, None, None, None]),
+        (
+            ["MinStack", "push", "push", "push", "getMin", "pop", "pop", "pop"],
+            [None, 1, 1, 1, None, None, None, None],
+        ),
         [None, None, None, None, 1, None, None, None],
-        "All elements are the same"
+        "All elements are the same",
     ),
     TestCase(
-        (["MinStack", "push", "top", "getMin"],
-         [None, -1, None, None]),
+        (["MinStack", "push", "top", "getMin"], [None, -1, None, None]),
         [None, None, -1, -1],
-        "Single element"
+        "Single element",
     ),
     TestCase(
-        (["MinStack", "push", "push", "getMin", "pop", "getMin"],
-         [None, 0, 1, None, None, None]),
+        (["MinStack", "push", "push", "getMin", "pop", "getMin"], [None, 0, 1, None, None, None]),
         [None, None, None, 0, None, 0],
-        "Minimum not affected by pop"
+        "Minimum not affected by pop",
     ),
     TestCase(
-        (["MinStack", "push", "push", "getMin", "pop", "getMin"],
-         [None, 1, 0, None, None, None]),
+        (["MinStack", "push", "push", "getMin", "pop", "getMin"], [None, 1, 0, None, None, None]),
         [None, None, None, 0, None, 1],
-        "Minimum changes after pop"
+        "Minimum changes after pop",
     ),
     TestCase(
-        (["MinStack", "push", "push", "push", "push", "pop", "pop", "pop", "pop"],
-         [None, 2147483646, 2147483646, 2147483647, 2147483647, None, None, None, None]),
+        (
+            ["MinStack", "push", "push", "push", "push", "pop", "pop", "pop", "pop"],
+            [None, 2147483646, 2147483646, 2147483647, 2147483647, None, None, None, None],
+        ),
         [None, None, None, None, None, None, None, None, None],
-        "Large numbers edge case"
+        "Large numbers edge case",
     ),
 ]
 
@@ -193,7 +255,9 @@ def demo() -> str:
     """Run Min Stack demo with test cases."""
     solution = Solution()
 
-    test_results = run_test_cases(solution.test_min_stack_operations, test_cases, "LeetCode 155: Min Stack")
+    test_results = run_test_cases(
+        solution.test_min_stack_operations, test_cases, "LeetCode 155: Min Stack"
+    )
 
     return create_demo_output(
         "Min Stack",
@@ -217,7 +281,7 @@ register_problem(
     title="Min Stack",
     category=Category.STACK,
     difficulty=Difficulty.EASY,
-    tags=['stack', 'design'],
+    tags=["stack", "design"],
     url="https://leetcode.com/problems/min-stack/",
     notes="Classic stack design problem using auxiliary stack to track minimums in O(1) time",
 )

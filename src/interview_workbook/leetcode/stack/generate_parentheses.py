@@ -47,29 +47,29 @@ class Solution:
     def generateParentheses(self, n: int) -> List[str]:
         """
         Generate all valid combinations of n pairs of parentheses using backtracking.
-        
+
         Args:
             n: Number of pairs of parentheses
-            
+
         Returns:
             List of all valid parentheses combinations
         """
         result = []
-        
+
         def backtrack(current: str, open_count: int, close_count: int) -> None:
             # Base case: we've used all n pairs
             if len(current) == 2 * n:
                 result.append(current)
                 return
-            
+
             # Add opening parenthesis if we haven't used all n
             if open_count < n:
                 backtrack(current + "(", open_count + 1, close_count)
-            
+
             # Add closing parenthesis if we have unmatched opening ones
             if close_count < open_count:
                 backtrack(current + ")", open_count, close_count + 1)
-        
+
         backtrack("", 0, 0)
         return result
 
@@ -80,11 +80,26 @@ test_cases = [
     TestCase((2,), ["(())", "()()"], "Example: n=2"),
     TestCase((3,), ["((()))", "(()())", "(())()", "()(())", "()()()"], "Example: n=3"),
     TestCase((0,), [""], "Edge case: n=0"),
-    TestCase((4,), [
-        "(((())))", "((()()))", "((())())", "((()))()", "(()(()))", 
-        "(()()())", "(()())()", "(())(())", "(())()()", "()((()))",
-        "()(()())", "()(())()", "()()(())", "()()()()"
-    ], "Larger case: n=4"),
+    TestCase(
+        (4,),
+        [
+            "(((())))",
+            "((()()))",
+            "((())())",
+            "((()))()",
+            "(()(()))",
+            "(()()())",
+            "(()())()",
+            "(())(())",
+            "(())()()",
+            "()((()))",
+            "()(()())",
+            "()(())()",
+            "()()(())",
+            "()()()()",
+        ],
+        "Larger case: n=4",
+    ),
 ]
 
 
@@ -92,7 +107,9 @@ def demo() -> str:
     """Run Generate Parentheses demo with test cases."""
     solution = Solution()
 
-    test_results = run_test_cases(solution.generateParentheses, test_cases, "LeetCode 22: Generate Parentheses")
+    test_results = run_test_cases(
+        solution.generateParentheses, test_cases, "LeetCode 22: Generate Parentheses"
+    )
 
     return create_demo_output(
         "Generate Parentheses",
@@ -117,7 +134,7 @@ register_problem(
     title="Generate Parentheses",
     category=Category.STACK,
     difficulty=Difficulty.MEDIUM,
-    tags=['string', 'dynamic_programming', 'backtracking'],
+    tags=["string", "dynamic_programming", "backtracking"],
     url="https://leetcode.com/problems/generate-parentheses/",
     notes="Classic backtracking problem using recursive generation with constraints",
 )

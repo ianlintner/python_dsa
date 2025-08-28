@@ -42,102 +42,60 @@ class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         """
         Evaluate Reverse Polish Notation expression.
-        
+
         Args:
             tokens: List of strings representing RPN expression
-            
+
         Returns:
             Integer result of the expression
         """
         stack = []
-        operators = {'+', '-', '*', '/'}
-        
+        operators = {"+", "-", "*", "/"}
+
         for token in tokens:
             if token in operators:
                 # Pop two operands (note: order matters for - and /)
                 right = stack.pop()
                 left = stack.pop()
-                
-                if token == '+':
+
+                if token == "+":
                     result = left + right
-                elif token == '-':
+                elif token == "-":
                     result = left - right
-                elif token == '*':
+                elif token == "*":
                     result = left * right
-                elif token == '/':
+                elif token == "/":
                     # Division should truncate towards zero
                     result = int(left / right)
-                
+
                 stack.append(result)
             else:
                 # It's a number (could be negative)
                 stack.append(int(token))
-        
+
         # The final result should be the only element left
         return stack[0]
 
 
 # Test cases
 test_cases = [
-    TestCase(
-        (["2", "1", "+", "3", "*"],),
-        9,
-        "Basic arithmetic: ((2 + 1) * 3) = 9"
-    ),
-    TestCase(
-        (["4", "13", "5", "/", "+"],),
-        6,
-        "Division and addition: (4 + (13 / 5)) = 6"
-    ),
+    TestCase((["2", "1", "+", "3", "*"],), 9, "Basic arithmetic: ((2 + 1) * 3) = 9"),
+    TestCase((["4", "13", "5", "/", "+"],), 6, "Division and addition: (4 + (13 / 5)) = 6"),
     TestCase(
         (["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"],),
         22,
-        "Complex expression with negative numbers"
+        "Complex expression with negative numbers",
     ),
+    TestCase((["3", "11", "+", "5", "-"],), 9, "Addition then subtraction: ((3 + 11) - 5) = 9"),
+    TestCase((["3", "11", "5", "+", "-"],), -13, "Subtraction with addition: (3 - (11 + 5)) = -13"),
+    TestCase((["18"],), 18, "Single number"),
+    TestCase((["4", "3", "-"],), 1, "Simple subtraction: (4 - 3) = 1"),
+    TestCase((["4", "3", "/"],), 1, "Division truncating towards zero: (4 / 3) = 1"),
+    TestCase((["-3", "4", "/"],), 0, "Negative division truncating towards zero: (-3 / 4) = 0"),
+    TestCase((["3", "-4", "/"],), 0, "Division with negative divisor: (3 / -4) = 0"),
+    TestCase((["-78", "-33", "+"],), -111, "Addition of negative numbers: (-78 + -33) = -111"),
     TestCase(
-        (["3", "11", "+", "5", "-"],),
-        9,
-        "Addition then subtraction: ((3 + 11) - 5) = 9"
-    ),
-    TestCase(
-        (["3", "11", "5", "+", "-"],),
-        -13,
-        "Subtraction with addition: (3 - (11 + 5)) = -13"
-    ),
-    TestCase(
-        (["18"],),
-        18,
-        "Single number"
-    ),
-    TestCase(
-        (["4", "3", "-"],),
-        1,
-        "Simple subtraction: (4 - 3) = 1"
-    ),
-    TestCase(
-        (["4", "3", "/"],),
-        1,
-        "Division truncating towards zero: (4 / 3) = 1"
-    ),
-    TestCase(
-        (["-3", "4", "/"],),
-        0,
-        "Negative division truncating towards zero: (-3 / 4) = 0"
-    ),
-    TestCase(
-        (["3", "-4", "/"],),
-        0,
-        "Division with negative divisor: (3 / -4) = 0"
-    ),
-    TestCase(
-        (["-78", "-33", "+"],),
-        -111,
-        "Addition of negative numbers: (-78 + -33) = -111"
-    ),
-    TestCase(
-        (["1", "2", "+", "3", "*", "4", "-"],),
-        5,
-        "Multiple operations: (((1 + 2) * 3) - 4) = 5"
+        (["1", "2", "+", "3", "*", "4", "-"],), 5, "Multiple operations: (((1 + 2) * 3) - 4) = 5"
     ),
 ]
 
@@ -146,7 +104,9 @@ def demo() -> str:
     """Run Evaluate Reverse Polish Notation demo with test cases."""
     solution = Solution()
 
-    test_results = run_test_cases(solution.evalRPN, test_cases, "LeetCode 150: Evaluate Reverse Polish Notation")
+    test_results = run_test_cases(
+        solution.evalRPN, test_cases, "LeetCode 150: Evaluate Reverse Polish Notation"
+    )
 
     return create_demo_output(
         "Evaluate Reverse Polish Notation",
@@ -171,7 +131,7 @@ register_problem(
     title="Evaluate Reverse Polish Notation",
     category=Category.STACK,
     difficulty=Difficulty.MEDIUM,
-    tags=['array', 'stack', 'math'],
+    tags=["array", "stack", "math"],
     url="https://leetcode.com/problems/evaluate-reverse-polish-notation/",
     notes="Classic postfix expression evaluation using stack with proper division handling",
 )

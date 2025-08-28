@@ -22,36 +22,36 @@ def get_leetcode_base_dir() -> Path:
 def discover_problem_modules() -> Set[str]:
     """
     Discover all problem module paths by scanning the filesystem.
-    
+
     Returns:
         Set of module paths like "interview_workbook.leetcode.arrays_hashing.two_sum"
     """
     base_dir = get_leetcode_base_dir()
     modules = set()
-    
+
     for category in Category:
         category_dir = base_dir / category.value
         if not category_dir.exists() or not category_dir.is_dir():
             continue
-            
+
         for py_file in category_dir.glob("*.py"):
             if py_file.name.startswith("_") or py_file.name == "__init__.py":
                 continue
-                
+
             module_name = py_file.stem
             module_path = f"interview_workbook.leetcode.{category.value}.{module_name}"
             modules.add(module_path)
-    
+
     return modules
 
 
 def import_problem_module(module_path: str) -> bool:
     """
     Import a problem module to trigger its register_problem() call.
-    
+
     Args:
         module_path: Full dotted module path
-        
+
     Returns:
         True if import succeeded, False otherwise
     """
@@ -69,17 +69,17 @@ def import_problem_module(module_path: str) -> bool:
 def discover_and_import_all() -> dict[str, bool]:
     """
     Discover and import all problem modules.
-    
+
     Returns:
         Dict mapping module_path -> import_success
     """
     modules = discover_problem_modules()
     results = {}
-    
+
     for module_path in sorted(modules):
         success = import_problem_module(module_path)
         results[module_path] = success
-    
+
     return results
 
 

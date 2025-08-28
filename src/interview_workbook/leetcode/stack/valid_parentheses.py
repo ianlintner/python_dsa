@@ -40,19 +40,19 @@ class Solution:
     def isValid(self, s: str) -> bool:
         """
         Check if parentheses/brackets are valid using a stack.
-        
+
         Args:
             s: String containing brackets
-            
+
         Returns:
             True if brackets are properly matched, False otherwise
         """
         # Stack to keep track of opening brackets
         stack = []
-        
+
         # Mapping of closing brackets to opening brackets
-        bracket_map = {')': '(', '}': '{', ']': '['}
-        
+        bracket_map = {")": "(", "}": "{", "]": "["}
+
         for char in s:
             if char in bracket_map:  # Closing bracket
                 # Check if stack is empty or top doesn't match
@@ -60,7 +60,7 @@ class Solution:
                     return False
             else:  # Opening bracket
                 stack.append(char)
-        
+
         # Valid if no unmatched opening brackets remain
         return len(stack) == 0
 
@@ -108,7 +108,7 @@ register_problem(
     title="Valid Parentheses",
     category=Category.STACK,
     difficulty=Difficulty.EASY,
-    tags=['string', 'stack'],
+    tags=["string", "stack"],
     url="https://leetcode.com/problems/valid-parentheses/",
     notes="TODO: Add implementation notes",
 )

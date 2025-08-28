@@ -48,54 +48,82 @@ class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         """
         Search for target in 2D matrix using binary search.
-        
+
         The key insight is to treat the 2D matrix as a flattened 1D array
         since the matrix properties guarantee it would be sorted when flattened.
-        
+
         Args:
             matrix: 2D matrix with sorted rows and sorted column starts
             target: Target value to search for
-            
+
         Returns:
             True if target exists in matrix, False otherwise
         """
         if not matrix or not matrix[0]:
             return False
-            
+
         m, n = len(matrix), len(matrix[0])
         left, right = 0, m * n - 1
-        
+
         while left <= right:
             mid = left + (right - left) // 2
-            
+
             # Convert 1D index to 2D coordinates
             row = mid // n
             col = mid % n
             mid_val = matrix[row][col]
-            
+
             if mid_val == target:
                 return True
             elif mid_val < target:
                 left = mid + 1
             else:
                 right = mid - 1
-        
+
         return False
 
 
 # Test cases
 test_cases = [
-    TestCase(([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 5), True, "Example 1: target exists"),
-    TestCase(([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 13), True, "Example 2: target at end"),
-    TestCase(([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 20), False, "Example 3: target not found"),
+    TestCase(
+        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 5),
+        True,
+        "Example 1: target exists",
+    ),
+    TestCase(
+        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 13),
+        True,
+        "Example 2: target at end",
+    ),
+    TestCase(
+        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 20),
+        False,
+        "Example 3: target not found",
+    ),
     TestCase(([[1]], 1), True, "Single element matrix - found"),
     TestCase(([[1]], 2), False, "Single element matrix - not found"),
     TestCase(([[1, 3]], 3), True, "Single row - target at end"),
     TestCase(([[1], [3]], 1), True, "Single column - target at start"),
-    TestCase(([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 1), True, "Target at beginning"),
-    TestCase(([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 17), True, "Target at very end"),
-    TestCase(([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 0), False, "Target smaller than all"),
-    TestCase(([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 15), False, "Target between existing values"),
+    TestCase(
+        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 1),
+        True,
+        "Target at beginning",
+    ),
+    TestCase(
+        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 17),
+        True,
+        "Target at very end",
+    ),
+    TestCase(
+        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 0),
+        False,
+        "Target smaller than all",
+    ),
+    TestCase(
+        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 15),
+        False,
+        "Target between existing values",
+    ),
     TestCase(([[-5, -2], [0, 3]], -2), True, "Negative numbers"),
 ]
 
@@ -104,7 +132,9 @@ def demo() -> str:
     """Run Search a 2D Matrix demo with test cases."""
     solution = Solution()
 
-    test_results = run_test_cases(solution.searchMatrix, test_cases, "LeetCode 74: Search a 2D Matrix")
+    test_results = run_test_cases(
+        solution.searchMatrix, test_cases, "LeetCode 74: Search a 2D Matrix"
+    )
 
     return create_demo_output(
         "Search a 2D Matrix",
@@ -139,7 +169,7 @@ register_problem(
     difficulty=Difficulty.MEDIUM,
     tags=["Array", "Binary Search", "Matrix"],
     url="https://leetcode.com/problems/search-a-2d-matrix/",
-    notes="Binary search on 2D matrix treated as flattened 1D array"
+    notes="Binary search on 2D matrix treated as flattened 1D array",
 )
 
 

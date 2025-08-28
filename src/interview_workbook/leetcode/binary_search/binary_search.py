@@ -1,7 +1,7 @@
 """
 LeetCode 704: Binary Search
 
-Given an array of integers nums which is sorted in ascending order, and an integer target, 
+Given an array of integers nums which is sorted in ascending order, and an integer target,
 write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
 
 You must write an algorithm with O(log n) runtime complexity.
@@ -51,20 +51,20 @@ class Solution:
     def search(self, nums: List[int], target: int) -> int:
         """
         Binary search for target in sorted array.
-        
+
         Args:
             nums: Sorted array of integers in ascending order
             target: Target value to search for
-            
+
         Returns:
             Index of target if found, -1 otherwise
         """
         left, right = 0, len(nums) - 1
-        
+
         while left <= right:
             # Avoid integer overflow: use left + (right - left) // 2
             mid = left + (right - left) // 2
-            
+
             if nums[mid] == target:
                 return mid
             elif nums[mid] < target:
@@ -73,7 +73,7 @@ class Solution:
             else:
                 # Target is in left half
                 right = mid - 1
-        
+
         # Target not found
         return -1
 
@@ -118,11 +118,11 @@ Key insights:
 # Register the problem
 register_problem(
     id=704,
-    slug="binary_search", 
+    slug="binary_search",
     title="Binary Search",
     category=Category.BINARY_SEARCH,
     difficulty=Difficulty.EASY,
     tags=["Array", "Binary Search"],
     url="https://leetcode.com/problems/binary-search/",
-    notes="Classic binary search implementation on sorted array"
+    notes="Classic binary search implementation on sorted array",
 )

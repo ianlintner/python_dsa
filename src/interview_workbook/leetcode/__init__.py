@@ -20,7 +20,7 @@ ensure_problems_loaded()
 
 __all__ = [
     "Difficulty",
-    "Category", 
+    "Category",
     "ProblemMeta",
     "get_all",
     "by_category",
