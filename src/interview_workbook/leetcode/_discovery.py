@@ -66,23 +66,6 @@ def import_problem_module(module_path: str) -> bool:
         return False
 
 
-def discover_and_import_all() -> dict[str, bool]:
-    """
-    Discover and import all problem modules.
-
-    Returns:
-        Dict mapping module_path -> import_success
-    """
-    modules = discover_problem_modules()
-    results = {}
-
-    for module_path in sorted(modules):
-        success = import_problem_module(module_path)
-        results[module_path] = success
-
-    return results
-
-
 def get_registered_slugs() -> Set[str]:
     """Get set of slugs for all registered problems."""
     return {p["slug"] for p in get_all()}
@@ -102,5 +85,34 @@ def ensure_problems_loaded() -> None:
         discover_and_import_all()
 
 
-# Auto-discovery on module import
-discover_and_import_all()
+# Track imported modules to prevent re-imports
+_IMPORTED_MODULES = set()
+
+def discover_and_import_all() -> dict[str, bool]:
+    """
+    Discover and import all problem modules.
+
+    Returns:
+        Dict mapping module_path -> import_success
+    """
+    modules = discover_problem_modules()
+    results = {}
+
+    for module_path in sorted(modules):
+        # Skip if already imported
+        if module_path in _IMPORTED_MODULES:
+            results[module_path] = True
+            continue
+            
+        success = import_problem_module(module_path)
+        results[module_path] = success
+        
+        if success:
+            _IMPORTED_MODULES.add(module_path)
+
+    return results
+
+
+# Auto-discovery on module import (only run once)
+if not _IMPORTED_MODULES:
+    discover_and_import_all()
