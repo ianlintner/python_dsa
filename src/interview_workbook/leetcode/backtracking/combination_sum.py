@@ -341,9 +341,9 @@ def test_solution():
         normalized_expected = normalize_output(test_case.expected)
 
         if normalized_result == normalized_expected:
-            print(f"✓ {test_case.name}: PASS")
+            print(f"✓ {test_case.description}: PASS")
         else:
-            print(f"✗ {test_case.name}: FAIL")
+            print(f"✗ {test_case.description}: FAIL")
             print(f"  Expected: {normalized_expected}")
             print(f"  Got: {normalized_result}")
 

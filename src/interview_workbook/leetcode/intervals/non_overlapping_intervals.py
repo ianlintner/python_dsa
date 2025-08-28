@@ -262,10 +262,10 @@ def test_solution():
 
     test_cases_formatted = [
         TestCase(
-        input_args=tc.input_data,
-        expected=tc.expected,
-        description=tc.description,
-    )
+            input_args=tc.input_data,
+            expected=tc.expected,
+            description=tc.description,
+        )
         for tc in TEST_CASES
     ]
 

@@ -244,47 +244,66 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_args=([[1, 3], [6, 9]], [2, 5],
-    ),
+        input_args=(
+            [[1, 3], [6, 9]],
+            [2, 5],
+        ),
         expected=[[1, 5], [6, 9]],
         description="Insert overlapping with first interval",
     ),
     TestCase(
-        input_args=([[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]], [4, 8],
-    ),
+        input_args=(
+            [[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]],
+            [4, 8],
+        ),
         expected=[[1, 2], [3, 10], [12, 16]],
         description="Insert merging multiple intervals",
     ),
     TestCase(
-        input_args=([], [5, 7],
-    ), expected=[[5, 7]], description="Insert into empty array"),
-    TestCase(
-        input_args=([[1, 5]], [6, 8],
+        input_args=(
+            [],
+            [5, 7],
+        ),
+        expected=[[5, 7]],
+        description="Insert into empty array",
     ),
+    TestCase(
+        input_args=(
+            [[1, 5]],
+            [6, 8],
+        ),
         expected=[[1, 5], [6, 8]],
         description="Insert non-overlapping after",
     ),
     TestCase(
-        input_args=([[3, 5]], [1, 2],
-    ),
+        input_args=(
+            [[3, 5]],
+            [1, 2],
+        ),
         expected=[[1, 2], [3, 5]],
         description="Insert non-overlapping before",
     ),
     TestCase(
-        input_args=([[1, 3]], [2, 2],
-    ),
+        input_args=(
+            [[1, 3]],
+            [2, 2],
+        ),
         expected=[[1, 3]],
         description="Insert point interval that overlaps",
     ),
     TestCase(
-        input_args=([[1, 2], [3, 5], [6, 7]], [0, 10],
-    ),
+        input_args=(
+            [[1, 2], [3, 5], [6, 7]],
+            [0, 10],
+        ),
         expected=[[0, 10]],
         description="New interval covers all existing",
     ),
     TestCase(
-        input_args=([[1, 5]], [0, 3],
-    ),
+        input_args=(
+            [[1, 5]],
+            [0, 3],
+        ),
         expected=[[0, 5]],
         description="Partial overlap extending start",
     ),
@@ -305,10 +324,10 @@ def test_solution():
 
     test_cases_formatted = [
         TestCase(
-        input_args=tc.input_data,
-        expected=tc.expected,
-        description=tc.description,
-    )
+            input_args=tc.input_data,
+            expected=tc.expected,
+            description=tc.description,
+        )
         for tc in TEST_CASES
     ]
 
