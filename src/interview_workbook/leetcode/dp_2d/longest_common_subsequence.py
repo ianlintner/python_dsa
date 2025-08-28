@@ -404,9 +404,9 @@ def test_solution():
         result2 = solution.longestCommonSubsequence2D(text1, text2)
         result3 = solution.longestCommonSubsequenceRecursive(text1, text2)
 
-        assert (
-            result1 == result2 == result3
-        ), f"Inconsistent results: {result1}, {result2}, {result3}"
+        assert result1 == result2 == result3, (
+            f"Inconsistent results: {result1}, {result2}, {result3}"
+        )
         return result1
 
     run_test_cases(test_function, TEST_CASES)

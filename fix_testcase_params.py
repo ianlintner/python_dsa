@@ -17,15 +17,16 @@ import os
 import re
 from pathlib import Path
 
+
 def fix_testcase_in_file(file_path):
     """Fix TestCase parameters in a single file."""
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
 
     original_content = content
 
     # Pattern to match TestCase constructor calls
-    testcase_pattern = r'TestCase\s*\(\s*([^)]+)\s*\)'
+    testcase_pattern = r"TestCase\s*\(\s*([^)]+)\s*\)"
 
     def fix_testcase_match(match):
         args_str = match.group(1)
@@ -48,19 +49,19 @@ def fix_testcase_in_file(file_path):
                 quote_char = None
                 current_arg += char
             elif not in_quotes:
-                if char == '(':
+                if char == "(":
                     paren_depth += 1
                     current_arg += char
-                elif char == ')':
+                elif char == ")":
                     paren_depth -= 1
                     current_arg += char
-                elif char == '[':
+                elif char == "[":
                     bracket_depth += 1
                     current_arg += char
-                elif char == ']':
+                elif char == "]":
                     bracket_depth -= 1
                     current_arg += char
-                elif char == ',' and paren_depth == 0 and bracket_depth == 0:
+                elif char == "," and paren_depth == 0 and bracket_depth == 0:
                     args.append(current_arg.strip())
                     current_arg = ""
                 else:
@@ -78,44 +79,45 @@ def fix_testcase_in_file(file_path):
 
         for arg in args:
             arg = arg.strip()
-            if arg.startswith('name='):
+            if arg.startswith("name="):
                 # Change name= to description=
-                fixed_args.append('description=' + arg[5:])
-            elif arg.startswith('input_data='):
+                fixed_args.append("description=" + arg[5:])
+            elif arg.startswith("input_data="):
                 # Change input_data= to input_args=
-                fixed_args.append('input_args=' + arg[11:])
+                fixed_args.append("input_args=" + arg[11:])
                 input_args_found = True
-            elif arg.startswith('input='):
+            elif arg.startswith("input="):
                 # Change input= to input_args=
-                fixed_args.append('input_args=' + arg[6:])
+                fixed_args.append("input_args=" + arg[6:])
                 input_args_found = True
-            elif arg.startswith('expected='):
+            elif arg.startswith("expected="):
                 fixed_args.append(arg)
                 expected_found = True
-            elif arg.startswith('description='):
+            elif arg.startswith("description="):
                 fixed_args.append(arg)
             else:
                 # Positional argument - figure out what it should be
                 if not input_args_found:
-                    fixed_args.append('input_args=' + arg)
+                    fixed_args.append("input_args=" + arg)
                     input_args_found = True
                 elif not expected_found:
-                    fixed_args.append('expected=' + arg)
+                    fixed_args.append("expected=" + arg)
                     expected_found = True
                 else:
                     fixed_args.append(arg)
 
-        return f'TestCase(\n        {",\n        ".join(fixed_args)},\n    )'
+        return f"TestCase(\n        {',\n        '.join(fixed_args)},\n    )"
 
     # Apply the fixes
     content = re.sub(testcase_pattern, fix_testcase_match, content, flags=re.MULTILINE | re.DOTALL)
 
     if content != original_content:
         print(f"Fixed TestCase parameters in: {file_path}")
-        with open(file_path, 'w', encoding='utf-8') as f:
+        with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
         return True
     return False
+
 
 def main():
     """Main function to fix all TestCase issues."""
@@ -123,13 +125,14 @@ def main():
     files_fixed = 0
 
     for py_file in leetcode_dir.rglob("*.py"):
-        if py_file.name.startswith('_'):
+        if py_file.name.startswith("_"):
             continue  # Skip internal files
 
         if fix_testcase_in_file(py_file):
             files_fixed += 1
 
     print(f"Fixed TestCase parameters in {files_fixed} files")
+
 
 if __name__ == "__main__":
     main()

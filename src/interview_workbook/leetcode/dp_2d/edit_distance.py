@@ -490,9 +490,9 @@ def test_solution():
         result2 = solution.minDistance2D(word1, word2)
         result3 = solution.minDistanceRecursive(word1, word2)
 
-        assert (
-            result1 == result2 == result3
-        ), f"Inconsistent results: {result1}, {result2}, {result3}"
+        assert result1 == result2 == result3, (
+            f"Inconsistent results: {result1}, {result2}, {result3}"
+        )
         return result1
 
     run_test_cases(test_function, TEST_CASES)
