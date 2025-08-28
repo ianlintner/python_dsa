@@ -145,7 +145,7 @@ def demo() -> str:
         approach_notes="""
 Key insights:
 1. Treat 2D matrix as conceptual 1D sorted array due to matrix properties
-2. Convert 1D binary search index to 2D coordinates: row = idx // n, col = idx % n  
+2. Convert 1D binary search index to 2D coordinates: row = idx // n, col = idx % n
 3. Matrix properties ensure flattened array would be sorted
 4. Use standard binary search template with coordinate conversion
 5. Handle edge cases: empty matrix, single element, boundary values

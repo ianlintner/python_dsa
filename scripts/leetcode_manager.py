@@ -156,7 +156,7 @@ def cmd_fix_slugs(args):
 def generate_problem_template(slug, title, category, difficulty, url, tags, problem_id=None):
     """Generate a problem module template."""
 
-    # Create the problem description template  
+    # Create the problem description template
     id_comment = f"LeetCode {problem_id}: " if problem_id else ""
 
     template = f'''"""
@@ -194,10 +194,10 @@ class Solution:
     def placeholder_method(self, param: int) -> int:
         """
         [Method description]
-        
+
         Args:
             param: [Parameter description]
-            
+
         Returns:
             [Return value description]
         """
@@ -266,23 +266,23 @@ class TestSolution:
     def test_example_cases(self):
         """Test with provided examples."""
         solution = Solution()
-        
+
         # TODO: Add test cases
         # Example:
         # assert solution.method_name(input) == expected_output
         pass
-    
+
     def test_edge_cases(self):
         """Test edge cases."""
         solution = Solution()
-        
+
         # TODO: Add edge case tests
         pass
-    
+
     def test_large_input(self):
         """Test with larger inputs."""
         solution = Solution()
-        
+
         # TODO: Add performance tests if needed
         pass
 '''

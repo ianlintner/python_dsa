@@ -3,7 +3,6 @@ Tests for Valid Parentheses
 """
 
 
-
 class TestSolution:
     def test_example_cases(self):
         """Test with provided examples."""

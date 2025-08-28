@@ -300,7 +300,9 @@ TEST_CASES = [
     TestCase(input_args=([2, 3, 2],), expected=3, description="Cannot rob first and last together"),
     TestCase(input_args=([1, 2, 3, 1],), expected=4, description="Rob houses 1 and 3 (0-indexed)"),
     TestCase(
-        input_args=([1, 2, 3],), expected=3, description="Three houses - rob the maximum single house"
+        input_args=([1, 2, 3],),
+        expected=3,
+        description="Three houses - rob the maximum single house",
     ),
     TestCase(input_args=([5],), expected=5, description="Single house - no circular constraint"),
     TestCase(input_args=([1, 2],), expected=2, description="Two houses - rob the larger one"),
@@ -321,7 +323,9 @@ TEST_CASES = [
         description="Larger example with circular constraint",
     ),
     TestCase(
-        input_args=([1, 1, 1, 1, 1],), expected=2, description="All equal - can rob at most 2 houses"
+        input_args=([1, 1, 1, 1, 1],),
+        expected=2,
+        description="All equal - can rob at most 2 houses",
     ),
 ]
 

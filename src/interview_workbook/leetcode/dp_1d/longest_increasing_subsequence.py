@@ -332,11 +332,15 @@ def create_demo_output() -> str:
 
 # Test cases
 TEST_CASES = [
-    TestCase(input_args=([10, 9, 2, 5, 3, 7, 101, 18],), expected=4, description="Standard LIS example"),
+    TestCase(
+        input_args=([10, 9, 2, 5, 3, 7, 101, 18],), expected=4, description="Standard LIS example"
+    ),
     TestCase(input_args=([0, 1, 0, 3, 2, 3],), expected=4, description="LIS: [0,1,2,3]"),
     TestCase(input_args=([7, 7, 7, 7, 7, 7, 7],), expected=1, description="All equal elements"),
     TestCase(
-        input_args=([1, 3, 6, 7, 9, 4, 10, 5, 6],), expected=6, description="LIS: [1,3,4,5,6] or similar"
+        input_args=([1, 3, 6, 7, 9, 4, 10, 5, 6],),
+        expected=6,
+        description="LIS: [1,3,4,5,6] or similar",
     ),
     TestCase(input_args=([10, 2, 3],), expected=2, description="Simple case: [2,3]"),
     TestCase(input_args=([1, 2, 3, 4, 5],), expected=5, description="Already sorted increasing"),

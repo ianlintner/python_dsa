@@ -295,7 +295,7 @@ TEST_CASES = [
         description="Basic two-element median finding",
     ),
     TestCase(
-        name="Three-element progression", 
+        name="Three-element progression",
         input_args=(
             [
                 "MedianFinder",

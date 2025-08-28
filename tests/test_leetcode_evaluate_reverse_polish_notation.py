@@ -3,7 +3,6 @@ Tests for Evaluate Reverse Polish Notation
 """
 
 
-
 class TestSolution:
     def test_example_cases(self):
         """Test with provided examples."""

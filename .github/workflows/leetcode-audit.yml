@@ -3,7 +3,7 @@ name: LeetCode Top 100 Documentation Audit
 on:
   push:
     branches: [main]
-    paths: 
+    paths:
       - 'src/interview_workbook/leetcode/**'
       - 'docs/NEETCODE_TOP100.md'
   pull_request:
@@ -15,29 +15,29 @@ on:
 jobs:
   audit-docs:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Set up Python 3.12
       uses: actions/setup-python@v4
       with:
         python-version: "3.12"
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -e .
-    
+
     - name: Run LeetCode audit
       run: |
         python scripts/leetcode_manager.py audit
-    
+
     - name: Check if docs are up to date
       run: |
         # Generate fresh docs
         python scripts/leetcode_manager.py update-docs
-        
+
         # Check if git shows any changes
         if ! git diff --quiet docs/NEETCODE_TOP100.md; then
           echo "❌ Documentation is out of date!"

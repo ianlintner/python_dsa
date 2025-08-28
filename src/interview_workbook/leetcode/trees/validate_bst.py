@@ -216,9 +216,9 @@ def demo():
         print(f"Bounds iterative result: {result5}")
 
         # Verify all approaches give same result
-        assert result1 == result2 == result3 == result4 == result5 == expected, (
-            f"Mismatch in test case {i}"
-        )
+        assert (
+            result1 == result2 == result3 == result4 == result5 == expected
+        ), f"Mismatch in test case {i}"
         print("✅ All approaches passed")
         print()
 

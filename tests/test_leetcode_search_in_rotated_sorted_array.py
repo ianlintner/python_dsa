@@ -3,7 +3,6 @@ Tests for Search in Rotated Sorted Array
 """
 
 
-
 class TestSolution:
     def test_example_cases(self):
         """Test with provided examples."""

@@ -324,7 +324,9 @@ TEST_CASES = [
     TestCase(input_args=(10, 1), expected=1, description="Single column - only move down"),
     TestCase(input_args=(2, 2), expected=2, description="Minimum non-trivial case"),
     TestCase(input_args=(4, 4), expected=20, description="4x4 square grid"),
-    TestCase(input_args=(23, 12), expected=193536720, description="Larger grid for performance test"),
+    TestCase(
+        input_args=(23, 12), expected=193536720, description="Larger grid for performance test"
+    ),
 ]
 
 
