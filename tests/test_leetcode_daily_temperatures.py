@@ -2,7 +2,6 @@
 Tests for Daily Temperatures
 """
 
-from src.interview_workbook.leetcode.stack.daily_temperatures import Solution
 
 
 class TestSolution:
