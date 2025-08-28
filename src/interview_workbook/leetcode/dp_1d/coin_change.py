@@ -12,6 +12,7 @@ Space Complexity: O(amount)
 """
 
 from typing import List
+
 from .._registry import register_problem
 from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
@@ -64,11 +65,11 @@ class Solution:
             if remaining == 0:
                 return 0
             if remaining < 0:
-                return float('inf')
+                return float("inf")
             if remaining in memo:
                 return memo[remaining]
 
-            result = float('inf')
+            result = float("inf")
             for coin in coins:
                 result = min(result, dp(remaining - coin) + 1)
 
@@ -76,7 +77,7 @@ class Solution:
             return result
 
         result = dp(amount)
-        return result if result != float('inf') else -1
+        return result if result != float("inf") else -1
 
     def coinChangeBFS(self, coins: List[int], amount: int) -> int:
         """
@@ -182,14 +183,17 @@ def create_demo_output() -> str:
                 demos.append("Optimal coin selection:")
                 current_amount = amount
                 coin_count = {}
-                
+
                 while current_amount > 0:
                     for coin in coins:
-                        if coin <= current_amount and dp[current_amount - coin] == dp[current_amount] - 1:
+                        if (
+                            coin <= current_amount
+                            and dp[current_amount - coin] == dp[current_amount] - 1
+                        ):
                             coin_count[coin] = coin_count.get(coin, 0) + 1
                             current_amount -= coin
                             break
-                
+
                 for coin, count in sorted(coin_count.items()):
                     demos.append(f"  Use {count}x coin of value {coin}")
 
@@ -224,7 +228,7 @@ def create_demo_output() -> str:
         dp_result = solution.coinChange(coins, amount)
         # Note: greedy might modify coins array, so use copy
         greedy_result = solution.coinChangeGreedy(coins.copy(), amount)
-        
+
         demos.append(f"Coins: {coins}, Amount: {amount}")
         demos.append(f"DP result: {dp_result}")
         demos.append(f"Greedy result: {greedy_result}")
@@ -304,7 +308,9 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(input=[[1, 3, 4], 6], expected=2, description="Use coins 3+3 for optimal solution"),
-    TestCase(input=[[2], 3], expected=-1, description="Impossible to make odd amount with even coin"),
+    TestCase(
+        input=[[2], 3], expected=-1, description="Impossible to make odd amount with even coin"
+    ),
     TestCase(input=[[1], 0], expected=0, description="Zero amount needs zero coins"),
     TestCase(input=[[1, 2, 5], 11], expected=3, description="Standard coin change example"),
     TestCase(input=[[1, 4, 5], 8], expected=2, description="Use coins 4+4 instead of 5+1+1+1"),

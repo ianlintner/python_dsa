@@ -8,6 +8,7 @@ Space Complexity: O(n)
 """
 
 from typing import List
+
 from .._registry import register_problem
 from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
@@ -110,7 +111,7 @@ class Solution:
             memo[(i, prev_val)] = result
             return result
 
-        return lis_ending_at(0, float('-inf'))
+        return lis_ending_at(0, float("-inf"))
 
     def lengthOfLISWithSequence(self, nums: List[int]) -> tuple[int, List[int]]:
         """
@@ -191,7 +192,7 @@ def create_demo_output() -> str:
     for nums, expected in test_cases:
         result = solution.lengthOfLIS(nums)
         length, sequence = solution.lengthOfLISWithSequence(nums)
-        
+
         demos.append(f"Array: {nums}")
         demos.append(f"LIS length: {result}")
         demos.append(f"One possible LIS: {sequence}")
@@ -203,7 +204,7 @@ def create_demo_output() -> str:
                 for j in range(i):
                     if nums[j] < nums[i]:
                         dp[i] = max(dp[i], dp[j] + 1)
-            
+
             demos.append("DP values (length ending at each index):")
             demos.append(f"  {dp}")
 
@@ -230,7 +231,7 @@ def create_demo_output() -> str:
     demos.append("=== Step-by-Step Example ===")
     example = [10, 9, 2, 5, 3, 7, 101, 18]
     demos.append(f"Array: {example}")
-    
+
     tails = []
     for i, num in enumerate(example):
         left, right = 0, len(tails)
@@ -243,13 +244,13 @@ def create_demo_output() -> str:
 
         action = "append" if left == len(tails) else f"replace tails[{left}]"
         old_tails = tails.copy()
-        
+
         if left == len(tails):
             tails.append(num)
         else:
             tails[left] = num
 
-        demos.append(f"Step {i+1}: num={num}")
+        demos.append(f"Step {i + 1}: num={num}")
         demos.append(f"  Before: tails = {old_tails}")
         demos.append(f"  Action: {action}")
         demos.append(f"  After:  tails = {tails}")
@@ -285,7 +286,7 @@ def create_demo_output() -> str:
 
     # Pattern analysis
     demos.append("=== Common Patterns ===")
-    
+
     patterns = [
         ("Strictly increasing", [1, 2, 3, 4, 5]),
         ("Strictly decreasing", [5, 4, 3, 2, 1]),
@@ -334,7 +335,9 @@ TEST_CASES = [
     TestCase(input=[[10, 9, 2, 5, 3, 7, 101, 18]], expected=4, description="Standard LIS example"),
     TestCase(input=[[0, 1, 0, 3, 2, 3]], expected=4, description="LIS: [0,1,2,3]"),
     TestCase(input=[[7, 7, 7, 7, 7, 7, 7]], expected=1, description="All equal elements"),
-    TestCase(input=[[1, 3, 6, 7, 9, 4, 10, 5, 6]], expected=6, description="LIS: [1,3,4,5,6] or similar"),
+    TestCase(
+        input=[[1, 3, 6, 7, 9, 4, 10, 5, 6]], expected=6, description="LIS: [1,3,4,5,6] or similar"
+    ),
     TestCase(input=[[10, 2, 3]], expected=2, description="Simple case: [2,3]"),
     TestCase(input=[[1, 2, 3, 4, 5]], expected=5, description="Already sorted increasing"),
     TestCase(input=[[5, 4, 3, 2, 1]], expected=1, description="Decreasing sequence"),

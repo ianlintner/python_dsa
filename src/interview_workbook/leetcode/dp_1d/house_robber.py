@@ -10,6 +10,7 @@ Space Complexity: O(1)
 """
 
 from typing import List
+
 from .._registry import register_problem
 from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
@@ -44,7 +45,7 @@ class Solution:
         for i in range(2, len(nums)):
             current = max(
                 nums[i] + prev2,  # Rob current house
-                prev1             # Skip current house
+                prev1,  # Skip current house
             )
             prev2 = prev1
             prev1 = current
@@ -73,7 +74,7 @@ class Solution:
         for i in range(2, n):
             dp[i] = max(
                 nums[i] + dp[i - 2],  # Rob current house
-                dp[i - 1]             # Skip current house
+                dp[i - 1],  # Skip current house
             )
 
         return dp[n - 1]
@@ -101,7 +102,7 @@ class Solution:
 
             # Choice 1: Rob current house and move to index+2
             rob_current = nums[index] + rob_from(index + 2)
-            
+
             # Choice 2: Skip current house and move to index+1
             skip_current = rob_from(index + 1)
 
@@ -130,7 +131,7 @@ class Solution:
 
             # Choice 1: Rob current house
             rob_current = nums[index] + rob_from(index + 2)
-            
+
             # Choice 2: Skip current house
             skip_current = rob_from(index + 1)
 
@@ -174,15 +175,19 @@ def create_demo_output() -> str:
             if n >= 2:
                 dp[1] = max(nums[0], nums[1])
                 action = "rob" if nums[1] > nums[0] else "skip"
-                demos.append(f"  House 1: {action} (max of {nums[0]} vs {nums[1]}) → total = {dp[1]}")
+                demos.append(
+                    f"  House 1: {action} (max of {nums[0]} vs {nums[1]}) → total = {dp[1]}"
+                )
 
             for i in range(2, n):
                 rob_current = nums[i] + dp[i - 2]
                 skip_current = dp[i - 1]
                 dp[i] = max(rob_current, skip_current)
                 action = "rob" if rob_current > skip_current else "skip"
-                demos.append(f"  House {i}: {action} (max of {rob_current} vs {skip_current}) → total = {dp[i]}")
-        
+                demos.append(
+                    f"  House {i}: {action} (max of {rob_current} vs {skip_current}) → total = {dp[i]}"
+                )
+
         demos.append("")
 
     # Pattern analysis
@@ -200,7 +205,7 @@ def create_demo_output() -> str:
 
     # Show different patterns
     demos.append("=== Pattern Examples ===")
-    
+
     # Increasing sequence
     increasing = [1, 2, 3, 4, 5]
     result_inc = solution.rob(increasing)
@@ -208,7 +213,7 @@ def create_demo_output() -> str:
     demos.append("  Optimal: rob houses 0, 2, 4 (1+3+5=9)")
     demos.append("")
 
-    # Decreasing sequence  
+    # Decreasing sequence
     decreasing = [5, 4, 3, 2, 1]
     result_dec = solution.rob(decreasing)
     demos.append(f"Decreasing: {decreasing} → {result_dec}")
@@ -302,8 +307,12 @@ TEST_CASES = [
     TestCase(input=[[1, 2]], expected=2, description="Two houses - rob the richer one"),
     TestCase(input=[[2, 1]], expected=2, description="Two houses - rob the first one"),
     TestCase(input=[[]], expected=0, description="Empty array - no houses to rob"),
-    TestCase(input=[[1, 3, 1, 3, 100]], expected=103, description="Large final house changes strategy"),
-    TestCase(input=[[10, 5, 2, 7, 8]], expected=19, description="Rob houses 0, 3 for optimal result"),
+    TestCase(
+        input=[[1, 3, 1, 3, 100]], expected=103, description="Large final house changes strategy"
+    ),
+    TestCase(
+        input=[[10, 5, 2, 7, 8]], expected=19, description="Rob houses 0, 3 for optimal result"
+    ),
     TestCase(input=[[1, 1, 1, 1, 1]], expected=3, description="All equal - rob every other house"),
 ]
 

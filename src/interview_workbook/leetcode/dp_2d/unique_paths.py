@@ -33,7 +33,7 @@ class Solution:
 
         # For each row starting from row 1
         for i in range(1, m):
-            # For each column starting from column 1  
+            # For each column starting from column 1
             for j in range(1, n):
                 # Current cell = paths from above + paths from left
                 dp[j] += dp[j - 1]
@@ -78,7 +78,7 @@ class Solution:
         - (n-1) right moves
         Total moves: (m-1) + (n-1) = m + n - 2
 
-        This is equivalent to choosing (m-1) positions out of (m+n-2) 
+        This is equivalent to choosing (m-1) positions out of (m+n-2)
         total positions for down moves: C(m+n-2, m-1)
 
         Time: O(min(m, n)) - Computing combination
@@ -250,7 +250,7 @@ def create_demo_output() -> str:
         solution.uniquePaths(large_m, large_n)
     dp1d_time = time.time() - start_time
 
-    # Time 2D DP approach  
+    # Time 2D DP approach
     start_time = time.time()
     for _ in range(100):
         solution.uniquePathsDP2D(large_m, large_n)

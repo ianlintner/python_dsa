@@ -8,6 +8,7 @@ Space Complexity: O(sum)
 """
 
 from typing import List
+
 from .._registry import register_problem
 from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
@@ -31,22 +32,22 @@ class Solution:
         Space: O(sum) - Boolean array for possible sums
         """
         total = sum(nums)
-        
+
         # If total sum is odd, cannot partition into two equal subsets
         if total % 2 != 0:
             return False
-        
+
         target = total // 2
-        
+
         # dp[i] = True if sum i is achievable
         dp = [False] * (target + 1)
         dp[0] = True  # Base case: sum 0 is always achievable (empty subset)
-        
+
         for num in nums:
             # Traverse backwards to avoid using the same element multiple times
             for j in range(target, num - 1, -1):
                 dp[j] = dp[j] or dp[j - num]
-        
+
         return dp[target]
 
     def canPartitionDP2D(self, nums: List[int]) -> bool:
@@ -61,26 +62,26 @@ class Solution:
         total = sum(nums)
         if total % 2 != 0:
             return False
-        
+
         target = total // 2
         n = len(nums)
-        
+
         # dp[i][j] = can achieve sum j using nums[0...i-1]
         dp = [[False] * (target + 1) for _ in range(n + 1)]
-        
+
         # Base case: sum 0 is achievable with any number of elements
         for i in range(n + 1):
             dp[i][0] = True
-        
+
         for i in range(1, n + 1):
             for j in range(1, target + 1):
                 # Don't include current element
                 dp[i][j] = dp[i - 1][j]
-                
+
                 # Include current element if possible
                 if nums[i - 1] <= j:
                     dp[i][j] = dp[i][j] or dp[i - 1][j - nums[i - 1]]
-        
+
         return dp[n][target]
 
     def canPartitionRecursive(self, nums: List[int]) -> bool:
@@ -96,29 +97,29 @@ class Solution:
         total = sum(nums)
         if total % 2 != 0:
             return False
-        
+
         target = total // 2
         memo = {}
-        
+
         def can_achieve_sum(index, remaining_sum):
             if remaining_sum == 0:
                 return True
             if index >= len(nums) or remaining_sum < 0:
                 return False
-            
+
             if (index, remaining_sum) in memo:
                 return memo[(index, remaining_sum)]
-            
+
             # Choice 1: Include current element
             include = can_achieve_sum(index + 1, remaining_sum - nums[index])
-            
+
             # Choice 2: Exclude current element
             exclude = can_achieve_sum(index + 1, remaining_sum)
-            
+
             result = include or exclude
             memo[(index, remaining_sum)] = result
             return result
-        
+
         return can_achieve_sum(0, target)
 
     def canPartitionBitset(self, nums: List[int]) -> bool:
@@ -134,16 +135,16 @@ class Solution:
         total = sum(nums)
         if total % 2 != 0:
             return False
-        
+
         target = total // 2
-        
+
         # Use integer as bitset (Python supports arbitrary precision)
         possible = 1  # Bit 0 set (sum 0 is possible)
-        
+
         for num in nums:
             # For each existing possible sum, we can also achieve sum + num
             possible |= possible << num
-        
+
         # Check if bit at position 'target' is set
         return (possible >> target) & 1
 
@@ -159,7 +160,7 @@ def create_demo_output() -> str:
     # Test cases with detailed analysis
     test_cases = [
         ([1, 5, 11, 5], True),
-        ([1, 2, 3, 5], False), 
+        ([1, 2, 3, 5], False),
         ([1, 2, 5], False),
         ([1, 1], True),
         ([1, 1, 1, 1], True),
@@ -171,15 +172,15 @@ def create_demo_output() -> str:
     for nums, expected in test_cases:
         result = solution.canPartition(nums)
         total = sum(nums)
-        
+
         demos.append(f"Array: {nums}")
         demos.append(f"Total sum: {total}")
         demos.append(f"Can partition: {result}")
-        
+
         if total % 2 == 0:
             target = total // 2
             demos.append(f"Target sum per subset: {target}")
-            
+
             if result:
                 # Try to find one possible partition
                 demos.append("Analysis: Partition is possible")
@@ -189,7 +190,7 @@ def create_demo_output() -> str:
                 demos.append("Analysis: No valid partition exists")
         else:
             demos.append("Analysis: Odd total sum → impossible to partition")
-        
+
         demos.append("")
 
     # Show DP table construction for small example
@@ -197,30 +198,30 @@ def create_demo_output() -> str:
     example_nums = [1, 5, 11, 5]
     example_total = sum(example_nums)
     example_target = example_total // 2
-    
+
     demos.append(f"Array: {example_nums}")
     demos.append(f"Target sum: {example_target}")
     demos.append("")
-    
+
     # Build DP table step by step
     dp = [False] * (example_target + 1)
     dp[0] = True
-    
+
     demos.append("Initial DP state: dp[0] = True")
     demos.append(f"DP array: {dp}")
     demos.append("")
-    
+
     for i, num in enumerate(example_nums):
         old_dp = dp.copy()
-        
+
         # Update DP array
         for j in range(example_target, num - 1, -1):
             dp[j] = dp[j] or dp[j - num]
-        
+
         demos.append(f"After processing num = {num}:")
         demos.append(f"  Old DP: {old_dp}")
         demos.append(f"  New DP: {dp}")
-        
+
         # Show which new sums became possible
         new_possible = [j for j in range(len(dp)) if dp[j] and not old_dp[j]]
         if new_possible:
@@ -332,16 +333,131 @@ def create_demo_output() -> str:
 
 # Test cases
 TEST_CASES = [
-    TestCase(input=[[1, 5, 11, 5]], expected=True, description="Can partition into [1,5,5] and [11]"),
+    TestCase(
+        input=[[1, 5, 11, 5]], expected=True, description="Can partition into [1,5,5] and [11]"
+    ),
     TestCase(input=[[1, 2, 3, 5]], expected=False, description="Cannot partition evenly"),
     TestCase(input=[[1, 2, 5]], expected=False, description="Odd sum cannot be partitioned"),
     TestCase(input=[[1, 1]], expected=True, description="Simple equal elements"),
     TestCase(input=[[1, 1, 1, 1]], expected=True, description="Four equal elements"),
     TestCase(input=[[2, 2, 1, 1]], expected=True, description="Can partition into [2,1] and [2,1]"),
-    TestCase(input=[[1, 2, 3, 4, 5, 6, 7]], expected=True, description="Sum=28, can partition into sum=14 each"),
+    TestCase(
+        input=[[1, 2, 3, 4, 5, 6, 7]],
+        expected=True,
+        description="Sum=28, can partition into sum=14 each",
+    ),
     TestCase(input=[[100]], expected=False, description="Single element cannot be partitioned"),
-    TestCase(input=[[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], expected=True, description="100 ones - even count"),
-    TestCase(input=[[3, 3, 3, 4, 5]], expected=True, description="Can partition into [3,3,4] and [3,5]"),
+    TestCase(
+        input=[
+            [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+            ]
+        ],
+        expected=True,
+        description="100 ones - even count",
+    ),
+    TestCase(
+        input=[[3, 3, 3, 4, 5]], expected=True, description="Can partition into [3,3,4] and [3,5]"
+    ),
 ]
 
 

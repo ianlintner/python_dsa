@@ -220,7 +220,7 @@ def create_demo_output() -> str:
 
         if i == partition_end:
             demos.append(
-                f"  i={i}: partition complete [{partition_start}:{i}] = '{example_str[partition_start:i+1]}'"
+                f"  i={i}: partition complete [{partition_start}:{i}] = '{example_str[partition_start : i + 1]}'"
             )
             partition_start = i + 1
 
