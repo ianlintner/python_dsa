@@ -24,7 +24,5 @@ class TestSolution:
 
     def test_large_input(self):
         """Test with larger inputs."""
-        solution = Solution()
-
         # TODO: Add performance tests if needed
         pass

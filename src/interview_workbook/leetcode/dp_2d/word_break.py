@@ -454,9 +454,9 @@ def test_solution():
         result3 = solution.wordBreakRecursive(s, word_dict)
         result4 = solution.wordBreakBFS(s, word_dict)
 
-        assert result1 == result2 == result3 == result4, (
-            f"Inconsistent results: {result1}, {result2}, {result3}, {result4}"
-        )
+        assert (
+            result1 == result2 == result3 == result4
+        ), f"Inconsistent results: {result1}, {result2}, {result3}, {result4}"
         return result1
 
     run_test_cases(test_function, TEST_CASES)

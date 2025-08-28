@@ -488,13 +488,13 @@ def test_solution():
         # Only test brute force on small matrices (to avoid timeout)
         if len(matrix) <= 10 and len(matrix[0]) <= 10:
             result4 = solution.maximalSquareBruteForce(matrix)
-            assert result1 == result2 == result3 == result4, (
-                f"Inconsistent results: {result1}, {result2}, {result3}, {result4}"
-            )
+            assert (
+                result1 == result2 == result3 == result4
+            ), f"Inconsistent results: {result1}, {result2}, {result3}, {result4}"
         else:
-            assert result1 == result2 == result3, (
-                f"Inconsistent results: {result1}, {result2}, {result3}"
-            )
+            assert (
+                result1 == result2 == result3
+            ), f"Inconsistent results: {result1}, {result2}, {result3}"
 
         return result1
 
