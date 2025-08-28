@@ -116,7 +116,6 @@ class Solution:
             if intervals[mid][0] <= newInterval[0]:
                 left = mid + 1
             else:
-                insert_pos = mid
                 right = mid - 1
 
         # Now merge from the insertion position
