@@ -242,7 +242,6 @@ def demo():
         solution.reorderListStack(head2)
         result_values2 = linked_list_to_list(head2)
         print(f"Result (Stack): {result_values2}")
-        status2 = "✓ PASS" if result_values2 == expected else "✗ FAIL"
 
         # Test deque solution
         head3 = create_linked_list(values)
