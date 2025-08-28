@@ -11,26 +11,86 @@ PROBLEMS: list[ProblemMeta] = []
 
 
 def register_problem(
-    id: int | None,
-    slug: str,
-    title: str,
-    category: Category,
-    difficulty: Difficulty,
-    tags: list[str],
+    id: int | str | None = None,
+    slug: str | None = None,
+    title: str = "",
+    category: Category | str | None = None,
+    difficulty: Difficulty | str = "Medium",
+    tags: list[str] | None = None,
     url: str | None = None,
     notes: str | None = None,
+    # Support legacy parameter names
+    module_path: str | None = None,
+    has_solution: bool | None = None,
+    **kwargs,
 ) -> ProblemMeta:
     """Register a new problem in the registry."""
-    module_path = f"interview_workbook.leetcode.{category.value}.{slug}"
+    # Handle legacy/inconsistent parameter formats
+    if slug is None:
+        # Extract slug from title or module_path if not provided
+        if title:
+            slug = title.lower().replace(" ", "_").replace("-", "_")
+            slug = "".join(c for c in slug if c.isalnum() or c == "_")
+        elif module_path:
+            slug = module_path.split(".")[-1]
+        else:
+            raise ValueError("Must provide either slug, title, or module_path")
+
+    # Convert string category to enum
+    if isinstance(category, str):
+        # Handle different string formats
+        category_map = {
+            "Binary Search": Category.BINARY_SEARCH,
+            "binary_search": Category.BINARY_SEARCH,
+            "Trees": Category.TREES,
+            "trees": Category.TREES,
+            "Linked List": Category.LINKED_LIST,
+            "linked_list": Category.LINKED_LIST,
+            "Stack": Category.STACK,
+            "stack": Category.STACK,
+            "Arrays & Hashing": Category.ARRAYS_HASHING,
+            "arrays_hashing": Category.ARRAYS_HASHING,
+            "Two Pointers": Category.TWO_POINTERS,
+            "two_pointers": Category.TWO_POINTERS,
+            "Sliding Window": Category.SLIDING_WINDOW,
+            "sliding_window": Category.SLIDING_WINDOW,
+        }
+        category = category_map.get(category, Category.ARRAYS_HASHING)
+
+    # Convert string difficulty to enum
+    if isinstance(difficulty, str):
+        difficulty_map = {
+            "Easy": Difficulty.EASY,
+            "Medium": Difficulty.MEDIUM,
+            "Hard": Difficulty.HARD,
+        }
+        difficulty = difficulty_map.get(difficulty, Difficulty.MEDIUM)
+
+    # Convert string id to int
+    if isinstance(id, str):
+        try:
+            id = int(id)
+        except ValueError:
+            id = None
+
+    # Default tags if not provided
+    if tags is None:
+        tags = []
+
+    # Generate module path if not provided
+    if category:
+        auto_module_path = f"interview_workbook.leetcode.{category.value}.{slug}"
+    else:
+        auto_module_path = module_path or f"interview_workbook.leetcode.unknown.{slug}"
 
     problem: ProblemMeta = {
         "id": id,
         "slug": slug,
         "title": title,
-        "category": category,
+        "category": category or Category.ARRAYS_HASHING,
         "difficulty": difficulty,
         "tags": tags,
-        "module": module_path,
+        "module": auto_module_path,
         "url": url,
         "notes": notes,
     }
