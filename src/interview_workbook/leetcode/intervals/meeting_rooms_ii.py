@@ -89,7 +89,7 @@ class Solution:
         concurrent_meetings = 0
         max_rooms = 0
 
-        for time, event_type in events:
+        for _time, event_type in events:
             concurrent_meetings += event_type
             max_rooms = max(max_rooms, concurrent_meetings)
 
