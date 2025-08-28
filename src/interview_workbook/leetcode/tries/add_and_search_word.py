@@ -260,7 +260,8 @@ def create_demo_output() -> str:
 
     # Create test datasets
     test_words = [f"word{i:04d}" for i in range(1000)]
-    test_patterns = [
+    # Test patterns for performance testing
+    patterns = [
         "word0001",  # exact match
         "word..01",  # pattern with wildcards
         ".ord0001",  # wildcard at start

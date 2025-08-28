@@ -181,7 +181,6 @@ def demo():
         result2 = solution.reverseListRecursive(head2)
         result_values2 = linked_list_to_list(result2)
         print(f"Result (Recursive): {result_values2}")
-        status2 = "✓ PASS" if result_values2 == expected else "✗ FAIL"
 
         # Test three-pointer solution
         head3 = create_linked_list(values)
