@@ -37,6 +37,8 @@ class Solution:
         Approach 1: Recursive traversal with same tree check.
         For each node in root, check if subtree starting from that node equals subRoot.
         """
+        if not subRoot:
+            return True  # Empty tree is subtree of any tree
         if not root:
             return False
 
@@ -64,6 +66,8 @@ class Solution:
         Approach 2: String serialization and substring search.
         Convert both trees to strings and check if subRoot string is substring of root string.
         """
+        if not subRoot:
+            return True  # Empty tree is subtree of any tree
 
         def serialize(node):
             if not node:
@@ -114,7 +118,7 @@ class Solution:
         Only check subtrees that have matching root values.
         """
         if not subRoot:
-            return True
+            return True  # Empty tree is subtree of any tree
         if not root:
             return False
 
