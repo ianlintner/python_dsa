@@ -13,7 +13,7 @@ Space Complexity: O(1)
 from typing import List
 
 from .._registry import register_problem
-from .._runner import TestCase, create_demo_output
+from .._runner import TestCase
 from .._types import Category, Difficulty
 
 
@@ -205,11 +205,24 @@ def create_demo_output():
         print("Extra space result:")
         print(matrix_to_string(matrix3))
 
-    return create_demo_output(
-        title="Rotate Image",
-        description="Rotate n x n matrix 90 degrees clockwise in-place",
-        input_data={"matrix": matrix},
-        expected_output=matrix_copy,
+    return "\n".join(
+        [
+            "=== LeetCode 48: Rotate Image ===",
+            "",
+            "Original matrix:",
+            matrix_to_string(matrix),
+            "",
+            "Step 1: Transpose the matrix",
+            "After transpose:",
+            matrix_to_string([[1, 4, 7], [2, 5, 8], [3, 6, 9]]),
+            "",
+            "Step 2: Reverse each row",
+            "After reversing rows (final result):",
+            matrix_to_string(matrix_copy),
+            "",
+            "=== Comparison of approaches ===",
+            f"All approaches produce the same result: {matrix_copy}",
+        ]
     )
 
 

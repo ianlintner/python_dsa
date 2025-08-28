@@ -37,7 +37,7 @@ Constraints:
 from typing import List
 
 from .._registry import register_problem
-from .._runner import TestCase, run_test_cases
+from .._runner import TestCase
 from .._types import Category, Difficulty
 
 
@@ -340,13 +340,13 @@ def test_solution():
         return sorted([sorted(combo) for combo in combinations])
 
     solution = Solution()
-    
+
     for test_case in TEST_CASES:
         candidates, target = test_case.input_args
         result = solution.combinationSum(candidates, target)
         normalized_result = normalize_output(result)
         normalized_expected = normalize_output(test_case.expected)
-        
+
         if normalized_result == normalized_expected:
             print(f"✓ {test_case.name}: PASS")
         else:

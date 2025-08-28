@@ -25,7 +25,7 @@ Constraints:
 from typing import List
 
 from .._registry import register_problem
-from .._runner import TestCase, run_test_cases
+from .._runner import TestCase
 from .._types import Category, Difficulty
 
 
@@ -280,38 +280,45 @@ def create_demo_output() -> str:
 # Comprehensive test cases
 TEST_CASES = [
     TestCase(
-        input_data={"candidates": [10, 1, 2, 7, 6, 1, 5], "target": 8},
-        expected_output=[[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]],
+        name="Classic example with duplicates",
+        input_args=([10, 1, 2, 7, 6, 1, 5], 8),
+        expected=[[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]],
         description="Classic example with duplicates",
     ),
     TestCase(
-        input_data={"candidates": [2, 5, 2, 1, 2], "target": 5},
-        expected_output=[[1, 2, 2], [5]],
+        name="Multiple duplicates of same element",
+        input_args=([2, 5, 2, 1, 2], 5),
+        expected=[[1, 2, 2], [5]],
         description="Multiple duplicates of same element",
     ),
     TestCase(
-        input_data={"candidates": [1], "target": 1},
-        expected_output=[[1]],
+        name="Single element exact match",
+        input_args=([1], 1),
+        expected=[[1]],
         description="Single element exact match",
     ),
     TestCase(
-        input_data={"candidates": [1], "target": 2},
-        expected_output=[],
+        name="Single element impossible target",
+        input_args=([1], 2),
+        expected=[],
         description="Single element, impossible target",
     ),
     TestCase(
-        input_data={"candidates": [3, 1, 3, 5, 1, 1], "target": 8},
-        expected_output=[[1, 1, 1, 5], [1, 1, 3, 3], [3, 5]],
+        name="Mixed duplicates",
+        input_args=([3, 1, 3, 5, 1, 1], 8),
+        expected=[[1, 1, 1, 5], [1, 1, 3, 3], [3, 5]],
         description="Mixed duplicates",
     ),
     TestCase(
-        input_data={"candidates": [1, 1, 1, 1, 1], "target": 3},
-        expected_output=[[1, 1, 1]],
+        name="Many duplicates achievable target",
+        input_args=([1, 1, 1, 1, 1], 3),
+        expected=[[1, 1, 1]],
         description="Many duplicates, achievable target",
     ),
     TestCase(
-        input_data={"candidates": [4, 4, 2, 1, 4, 2, 2, 1, 3], "target": 6},
-        expected_output=[[1, 1, 4], [1, 2, 3], [2, 4]],
+        name="Complex duplicate pattern",
+        input_args=([4, 4, 2, 1, 4, 2, 2, 1, 3], 6),
+        expected=[[1, 1, 4], [1, 2, 3], [2, 4]],
         description="Complex duplicate pattern",
     ),
 ]
@@ -324,22 +331,20 @@ def test_solution():
         """Normalize output by sorting each combination and the list of combinations."""
         return sorted([sorted(combo) for combo in combinations])
 
-    def test_function(candidates, target):
-        solution = Solution()
+    solution = Solution()
+
+    for test_case in TEST_CASES:
+        candidates, target = test_case.input_args
         result = solution.combinationSum2(candidates, target)
-        return normalize_output(result)
+        normalized_result = normalize_output(result)
+        normalized_expected = normalize_output(test_case.expected)
 
-    # Normalize expected outputs
-    normalized_test_cases = []
-    for case in TEST_CASES:
-        normalized_case = TestCase(
-            input_data=case.input_data,
-            expected_output=normalize_output(case.expected_output),
-            description=case.description,
-        )
-        normalized_test_cases.append(normalized_case)
-
-    run_test_cases(test_function, normalized_test_cases)
+        if normalized_result == normalized_expected:
+            print(f"✓ {test_case.name}: PASS")
+        else:
+            print(f"✗ {test_case.name}: FAIL")
+            print(f"  Expected: {normalized_expected}")
+            print(f"  Got: {normalized_result}")
 
 
 # Register the problem
@@ -349,7 +354,9 @@ register_problem(
     title="Combination Sum II",
     difficulty=Difficulty.MEDIUM,
     category=Category.BACKTRACKING,
-    solution_func=Solution().combinationSum2,
+    solution_func=lambda args: Solution().combinationSum2(args[0], args[1]),
     test_func=test_solution,
     demo_func=create_demo_output,
+    tags=["backtracking", "array", "recursion"],
+    notes="Find all unique combinations that sum to target using each element at most once",
 )
