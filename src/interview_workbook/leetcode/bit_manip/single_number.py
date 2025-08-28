@@ -12,9 +12,9 @@ Space Complexity: O(1)
 
 from typing import List
 
-from ..._registry import register_problem
-from ..._runner import TestCase, create_demo_output, run_test_cases
-from ..._types import Category, Difficulty
+from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
+from .._types import Category, Difficulty
 
 
 class Solution:
@@ -68,107 +68,126 @@ class Solution:
 
 
 # Test cases
-test_cases = [
+TEST_CASES = [
     TestCase(
-        name="Example 1",
-        input={"nums": [2, 2, 1]},
+        input_args=([2, 2, 1],),
         expected=1,
         description="Single number at the end",
     ),
     TestCase(
-        name="Example 2",
-        input={"nums": [4, 1, 2, 1, 2]},
+        input_args=([4, 1, 2, 1, 2],),
         expected=4,
         description="Single number at the beginning",
     ),
-    TestCase(name="Example 3", input={"nums": [1]}, expected=1, description="Single element array"),
     TestCase(
-        name="Negative numbers",
-        input={"nums": [-1, -1, -2, -2, -3]},
+        input_args=([1],),
+        expected=1,
+        description="Single element array",
+    ),
+    TestCase(
+        input_args=([-1, -1, -2, -2, -3],),
         expected=-3,
         description="Array with negative numbers",
     ),
     TestCase(
-        name="Large numbers",
-        input={"nums": [30000, 500, 100, 30000, 100]},
+        input_args=([30000, 500, 100, 30000, 100],),
         expected=500,
         description="Array with large positive numbers",
     ),
     TestCase(
-        name="Mixed positive/negative",
-        input={"nums": [-4, -4, 8, -5, -5]},
+        input_args=([-4, -4, 8, -5, -5],),
         expected=8,
         description="Mixed positive and negative numbers",
     ),
     TestCase(
-        name="Zero included",
-        input={"nums": [0, 1, 0]},
+        input_args=([0, 1, 0],),
         expected=1,
         description="Array including zero",
     ),
 ]
 
 
-def demo():
-    """Demonstrate the XOR-based bit manipulation approach."""
+def create_demo_output() -> str:
+    """Create comprehensive demo showing different approaches and analysis."""
     solution = Solution()
 
-    print("=== LeetCode 136: Single Number ===\n")
+    output = []
+    output.append("=== LeetCode 136: Single Number ===\n")
 
     # Example with detailed explanation
     nums = [4, 1, 2, 1, 2]
-    print(f"Input: {nums}")
-    print(f"Output: {solution.singleNumber(nums)}")
-    print()
+    output.append(f"Input: {nums}")
+    output.append(f"Output: {solution.singleNumber(nums)}")
+    output.append("")
 
     # Show XOR step by step
-    print("XOR Step-by-step:")
+    output.append("XOR Step-by-step:")
     result = 0
     for i, num in enumerate(nums):
         old_result = result
         result ^= num
-        print(f"  Step {i + 1}: {old_result} ^ {num} = {result}")
-    print(f"Final result: {result}")
-    print()
+        output.append(f"  Step {i + 1}: {old_result} ^ {num} = {result}")
+    output.append(f"Final result: {result}")
+    output.append("")
 
     # Show binary representation for better understanding
-    print("Binary representation example:")
+    output.append("Binary representation example:")
     test_nums = [2, 2, 1]
-    print(f"Input: {test_nums}")
+    output.append(f"Input: {test_nums}")
 
     result = 0
     for num in test_nums:
-        print(f"  {result:04b} ^ {num:04b} = {result ^ num:04b}")
+        output.append(f"  {result:04b} ^ {num:04b} = {result ^ num:04b}")
         result ^= num
-    print(f"Result: {result} (binary: {result:04b})")
-    print()
+    output.append(f"Result: {result} (binary: {result:04b})")
+    output.append("")
 
     # Compare approaches
-    print("Comparison of approaches:")
+    output.append("Comparison of approaches:")
     test_array = [4, 1, 2, 1, 2]
-    print(f"Input: {test_array}")
-    print(f"XOR approach: {solution.singleNumber(test_array)}")
-    print(f"HashSet approach: {solution.singleNumber_hashset(test_array)}")
-    print(f"Sum approach: {solution.singleNumber_sum(test_array)}")
+    output.append(f"Input: {test_array}")
+    output.append(f"XOR approach: {solution.singleNumber(test_array)}")
+    output.append(f"HashSet approach: {solution.singleNumber_hashset(test_array)}")
+    output.append(f"Sum approach: {solution.singleNumber_sum(test_array)}")
 
-    return create_demo_output(
-        title="Single Number",
-        description="Find the number that appears once while others appear twice",
-        input_data={"nums": nums},
-        expected_output=solution.singleNumber(nums),
+    return "\n".join(output)
+
+
+def test_solution():
+    """Test the single number solution."""
+    solution = Solution()
+    
+    def run_tests(func_name: str, func):
+        print(f"\nTesting {func_name}:")
+        for i, test_case in enumerate(TEST_CASES):
+            result = func(test_case.input_args[0])
+            status = "✓" if result == test_case.expected else "✗"
+            print(f"  Test {i + 1}: {status} - {test_case.description}")
+            if result != test_case.expected:
+                print(f"    Expected: {test_case.expected}, Got: {result}")
+
+    run_tests("XOR Approach", solution.singleNumber)
+    run_tests("HashSet Approach", solution.singleNumber_hashset)
+    run_tests("Sum Approach", solution.singleNumber_sum)
+
+    # Run standard test framework
+    run_test_cases(
+        solution.singleNumber,
+        TEST_CASES,
+        "Single Number",
     )
-
-
-if __name__ == "__main__":
-    run_test_cases(Solution().singleNumber, test_cases)
 
 
 # Register the problem
 register_problem(
-    slug="single-number",
+    slug="single_number",
     leetcode_num=136,
     title="Single Number",
     difficulty=Difficulty.EASY,
     category=Category.BIT_MANIP,
-    solution_file=__file__,
+    solution_func=lambda nums: Solution().singleNumber(nums),
+    test_func=test_solution,
+    demo_func=create_demo_output,
+    tags=["bit-manipulation", "xor"],
+    notes="XOR all numbers - duplicates cancel out, single number remains",
 )

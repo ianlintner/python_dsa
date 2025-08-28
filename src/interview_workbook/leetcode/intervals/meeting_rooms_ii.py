@@ -203,47 +203,47 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data={"intervals": [[0, 30], [5, 10], [15, 20]]},
+        input_args=([[0, 30], [5, 10], [15, 20]],),
         expected=2,
         description="Basic overlapping meetings - need 2 rooms",
     ),
     TestCase(
-        input_data={"intervals": [[7, 10], [2, 4]]},
+        input_args=([[7, 10], [2, 4]],),
         expected=1,
         description="Non-overlapping meetings - need 1 room",
     ),
     TestCase(
-        input_data={"intervals": [[1, 2], [2, 3], [3, 4]]},
+        input_args=([[1, 2], [2, 3], [3, 4]],),
         expected=1,
         description="Adjacent meetings (end time = start time) - need 1 room",
     ),
     TestCase(
-        input_data={"intervals": [[9, 10], [4, 9], [4, 17]]},
+        input_args=([[9, 10], [4, 9], [4, 17]],),
         expected=2,
         description="Multiple overlapping patterns",
     ),
     TestCase(
-        input_data={"intervals": [[1, 5], [8, 9], [8, 9]]},
+        input_args=([[1, 5], [8, 9], [8, 9]],),
         expected=2,
         description="Same time meetings - need 2 rooms",
     ),
     TestCase(
-        input_data={"intervals": [[0, 30]]},
+        input_args=([[0, 30]],),
         expected=1,
         description="Single meeting - need 1 room",
     ),
     TestCase(
-        input_data={"intervals": []},
+        input_args=([],),
         expected=0,
         description="No meetings - need 0 rooms",
     ),
     TestCase(
-        input_data={"intervals": [[1, 3], [2, 4], [3, 5], [4, 6]]},
+        input_args=([[1, 3], [2, 4], [3, 5], [4, 6]],),
         expected=2,
         description="Overlapping chain of meetings",
     ),
     TestCase(
-        input_data={"intervals": [[1, 10], [2, 3], [4, 5], [6, 7], [8, 9]]},
+        input_args=([[1, 10], [2, 3], [4, 5], [6, 7], [8, 9]],),
         expected=2,
         description="One long meeting with multiple short ones inside",
     ),
@@ -257,7 +257,7 @@ def test_solution():
     def run_tests(func_name: str, func):
         print(f"\nTesting {func_name}:")
         for i, test_case in enumerate(TEST_CASES):
-            intervals_copy = test_case.input_data["intervals"].copy()
+            intervals_copy = test_case.input_args[0].copy()
             result = func(intervals_copy)
             status = "✓" if result == test_case.expected else "✗"
             print(f"  Test {i + 1}: {status} - {test_case.description}")
@@ -270,8 +270,9 @@ def test_solution():
 
     # Run standard test framework
     run_test_cases(
+        solution.minMeetingRooms,
         TEST_CASES,
-        lambda tc: solution.minMeetingRooms(tc.input_data["intervals"].copy()),
+        "Meeting Rooms II",
     )
 
 
