@@ -2,13 +2,12 @@
 Tests for Generate Parentheses
 """
 
-from src.interview_workbook.leetcode.stack.generate_parentheses import Solution
 
 
 class TestSolution:
     def test_example_cases(self):
         """Test with provided examples."""
-        solution = Solution()
+        # solution = Solution()
 
         # TODO: Add test cases
         # Example:
@@ -17,7 +16,7 @@ class TestSolution:
 
     def test_edge_cases(self):
         """Test edge cases."""
-        solution = Solution()
+        # solution = Solution()
 
         # TODO: Add edge case tests
         pass
