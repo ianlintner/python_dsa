@@ -157,7 +157,7 @@ def create_demo_output() -> str:
         ([2, 5, 10, 1], 27, 4),
     ]
 
-    for coins, amount, expected in test_cases:
+    for coins, amount, _expected in test_cases:
         result = solution.coinChange(coins, amount)
         demos.append(f"Coins: {coins}, Amount: {amount}")
         demos.append(f"Minimum coins: {result}")
@@ -307,18 +307,18 @@ def create_demo_output() -> str:
 
 # Test cases
 TEST_CASES = [
-    TestCase(input=[[1, 3, 4], 6], expected=2, description="Use coins 3+3 for optimal solution"),
+    TestCase(input_args=([1, 3, 4], 6), expected=2, description="Use coins 3+3 for optimal solution"),
     TestCase(
-        input=[[2], 3], expected=-1, description="Impossible to make odd amount with even coin"
+        input_args=([2], 3), expected=-1, description="Impossible to make odd amount with even coin"
     ),
-    TestCase(input=[[1], 0], expected=0, description="Zero amount needs zero coins"),
-    TestCase(input=[[1, 2, 5], 11], expected=3, description="Standard coin change example"),
-    TestCase(input=[[1, 4, 5], 8], expected=2, description="Use coins 4+4 instead of 5+1+1+1"),
-    TestCase(input=[[2, 5, 10, 1], 27], expected=4, description="Optimal: 10+10+5+2"),
-    TestCase(input=[[1], 1], expected=1, description="Single coin, single amount"),
-    TestCase(input=[[1, 3, 4], 0], expected=0, description="Zero amount with multiple coin types"),
-    TestCase(input=[[5, 10, 25], 30], expected=2, description="Use coins 25+5"),
-    TestCase(input=[[1, 5, 10, 25], 67], expected=6, description="Greedy optimal case"),
+    TestCase(input_args=([1], 0), expected=0, description="Zero amount needs zero coins"),
+    TestCase(input_args=([1, 2, 5], 11), expected=3, description="Standard coin change example"),
+    TestCase(input_args=([1, 4, 5], 8), expected=2, description="Use coins 4+4 instead of 5+1+1+1"),
+    TestCase(input_args=([2, 5, 10, 1], 27), expected=4, description="Optimal: 10+10+5+2"),
+    TestCase(input_args=([1], 1), expected=1, description="Single coin, single amount"),
+    TestCase(input_args=([1, 3, 4], 0), expected=0, description="Zero amount with multiple coin types"),
+    TestCase(input_args=([5, 10, 25], 30), expected=2, description="Use coins 25+5"),
+    TestCase(input_args=([1, 5, 10, 25], 67), expected=6, description="Greedy optimal case"),
 ]
 
 
