@@ -12,9 +12,9 @@ Space Complexity: O(1)
 
 from typing import List
 
-from ..._registry import register_problem
-from ..._runner import TestCase, create_demo_output, run_test_cases
-from ..._types import Category, Difficulty
+from .._registry import register_problem
+from .._runner import TestCase, create_demo_output, run_test_cases
+from .._types import Category, Difficulty
 
 
 class Solution:
@@ -95,42 +95,40 @@ def matrix_to_string(matrix: List[List[int]]) -> str:
 
 
 # Test cases
-test_cases = [
+TEST_CASES = [
     TestCase(
         name="Example 1 - 3x3 matrix",
-        input={"matrix": [[1, 2, 3], [4, 5, 6], [7, 8, 9]]},
+        input_args=([[1, 2, 3], [4, 5, 6], [7, 8, 9]],),
         expected=[[7, 4, 1], [8, 5, 2], [9, 6, 3]],
         description="3x3 matrix rotation",
     ),
     TestCase(
         name="Example 2 - 4x4 matrix",
-        input={"matrix": [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]]},
+        input_args=([[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]],),
         expected=[[15, 13, 2, 5], [14, 3, 4, 1], [12, 6, 8, 9], [16, 7, 10, 11]],
         description="4x4 matrix rotation",
     ),
     TestCase(
         name="Single element",
-        input={"matrix": [[1]]},
+        input_args=([[1]],),
         expected=[[1]],
         description="1x1 matrix (no change)",
     ),
     TestCase(
         name="2x2 matrix",
-        input={"matrix": [[1, 2], [3, 4]]},
+        input_args=([[1, 2], [3, 4]],),
         expected=[[3, 1], [4, 2]],
         description="2x2 matrix rotation",
     ),
     TestCase(
         name="5x5 matrix",
-        input={
-            "matrix": [
-                [1, 2, 3, 4, 5],
-                [6, 7, 8, 9, 10],
-                [11, 12, 13, 14, 15],
-                [16, 17, 18, 19, 20],
-                [21, 22, 23, 24, 25],
-            ]
-        },
+        input_args=([
+            [1, 2, 3, 4, 5],
+            [6, 7, 8, 9, 10],
+            [11, 12, 13, 14, 15],
+            [16, 17, 18, 19, 20],
+            [21, 22, 23, 24, 25],
+        ],),
         expected=[
             [21, 16, 11, 6, 1],
             [22, 17, 12, 7, 2],
@@ -143,7 +141,7 @@ test_cases = [
 ]
 
 
-def demo():
+def create_demo_output():
     """Demonstrate different approaches to rotate matrix."""
     solution = Solution()
 
@@ -213,15 +211,25 @@ def demo():
     )
 
 
-def test_wrapper(matrix):
-    """Wrapper function for testing since original function modifies in-place."""
-    matrix_copy = [row[:] for row in matrix]
-    Solution().rotate(matrix_copy)
-    return matrix_copy
+def test_solution():
+    """Test function for the rotate image problem."""
+    solution = Solution()
+    
+    for test_case in TEST_CASES:
+        matrix = test_case.input_args[0]
+        matrix_copy = [row[:] for row in matrix]
+        solution.rotate(matrix_copy)
+        
+        if matrix_copy == test_case.expected:
+            print(f"✓ {test_case.name}: PASS")
+        else:
+            print(f"✗ {test_case.name}: FAIL")
+            print(f"  Expected: {test_case.expected}")
+            print(f"  Got: {matrix_copy}")
 
 
 if __name__ == "__main__":
-    run_test_cases(test_wrapper, test_cases)
+    test_solution()
 
 
 # Register the problem
@@ -231,5 +239,9 @@ register_problem(
     title="Rotate Image",
     difficulty=Difficulty.MEDIUM,
     category=Category.MATH_GEOMETRY,
-    solution_file=__file__,
+    solution_func=lambda args: Solution().rotate(args),
+    test_func=test_solution,
+    demo_func=create_demo_output,
+    tags=["matrix", "simulation", "array"],
+    notes="Rotate n x n matrix 90 degrees clockwise in-place using transpose + reverse rows approach",
 )

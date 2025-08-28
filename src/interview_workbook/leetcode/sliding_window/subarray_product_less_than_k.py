@@ -10,9 +10,9 @@ Space Complexity: O(1)
 
 from typing import List
 
-from ..._registry import register_problem
-from ..._runner import TestCase, create_demo_output, run_test_cases
-from ..._types import Category, Difficulty
+from .._registry import register_problem
+from .._runner import TestCase, create_demo_output, run_test_cases
+from .._types import Category, Difficulty
 
 
 class Solution:
@@ -77,53 +77,53 @@ class Solution:
 
 
 # Test cases
-test_cases = [
+TEST_CASES = [
     TestCase(
         name="Example 1",
-        input={"nums": [10, 5, 2, 6], "k": 100},
+        input_args=([10, 5, 2, 6], 100),
         expected=8,
         description="Multiple valid subarrays",
     ),
     TestCase(
         name="Example 2",
-        input={"nums": [1, 2, 3], "k": 0},
+        input_args=([1, 2, 3], 0),
         expected=0,
         description="k is 0, no valid subarrays",
     ),
     TestCase(
         name="Single element",
-        input={"nums": [1], "k": 2},
+        input_args=([1], 2),
         expected=1,
         description="Single element less than k",
     ),
     TestCase(
         name="No valid subarrays",
-        input={"nums": [10, 20, 30], "k": 5},
+        input_args=([10, 20, 30], 5),
         expected=0,
         description="All elements >= k",
     ),
     TestCase(
         name="All elements valid",
-        input={"nums": [1, 1, 1], "k": 10},
+        input_args=([1, 1, 1], 10),
         expected=6,
         description="All subarrays have product < k",
     ),
     TestCase(
         name="Large numbers",
-        input={"nums": [1, 2, 3, 4, 5], "k": 10},
+        input_args=([1, 2, 3, 4, 5], 10),
         expected=11,
         description="Mixed valid and invalid subarrays",
     ),
     TestCase(
         name="k is 1",
-        input={"nums": [1, 2, 3], "k": 1},
+        input_args=([1, 2, 3], 1),
         expected=0,
         description="Edge case: k = 1, no positive products < 1",
     ),
 ]
 
 
-def demo():
+def create_demo_output():
     """Demonstrate the sliding window approach for subarray product."""
     solution = Solution()
 
@@ -166,8 +166,24 @@ def demo():
     )
 
 
+def test_solution():
+    """Test function for the subarray product less than k problem."""
+    solution = Solution()
+    
+    for test_case in TEST_CASES:
+        nums, k = test_case.input_args
+        result = solution.numSubarraysWithProduct(nums, k)
+        
+        if result == test_case.expected:
+            print(f"✓ {test_case.name}: PASS")
+        else:
+            print(f"✗ {test_case.name}: FAIL")
+            print(f"  Expected: {test_case.expected}")
+            print(f"  Got: {result}")
+
+
 if __name__ == "__main__":
-    run_test_cases(Solution().numSubarraysWithProduct, test_cases)
+    test_solution()
 
 
 # Register the problem
@@ -177,5 +193,9 @@ register_problem(
     title="Subarray Product Less Than K",
     difficulty=Difficulty.MEDIUM,
     category=Category.SLIDING_WINDOW,
-    solution_file=__file__,
+    solution_func=lambda args: Solution().numSubarraysWithProduct(args[0], args[1]),
+    test_func=test_solution,
+    demo_func=create_demo_output,
+    tags=["sliding-window", "two-pointers", "array"],
+    notes="Count subarrays with product less than k using sliding window technique",
 )

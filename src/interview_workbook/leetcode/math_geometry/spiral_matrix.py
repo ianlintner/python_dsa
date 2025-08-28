@@ -9,9 +9,9 @@ Space Complexity: O(1) - excluding the output array
 
 from typing import List
 
-from ..._registry import register_problem
-from ..._runner import TestCase, create_demo_output, run_test_cases
-from ..._types import Category, Difficulty
+from .._registry import register_problem
+from .._runner import TestCase, create_demo_output, run_test_cases
+from .._types import Category, Difficulty
 
 
 class Solution:
@@ -104,59 +104,59 @@ class Solution:
 
 
 # Test cases
-test_cases = [
+TEST_CASES = [
     TestCase(
         name="Example 1 - 3x4 matrix",
-        input={"matrix": [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]},
+        input_args=([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]],),
         expected=[1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7],
         description="3x4 rectangular matrix",
     ),
     TestCase(
         name="Example 2 - 3x3 matrix",
-        input={"matrix": [[1, 2, 3], [4, 5, 6], [7, 8, 9]]},
+        input_args=([[1, 2, 3], [4, 5, 6], [7, 8, 9]],),
         expected=[1, 2, 3, 6, 9, 8, 7, 4, 5],
         description="3x3 square matrix",
     ),
     TestCase(
         name="Single row",
-        input={"matrix": [[1, 2, 3, 4]]},
+        input_args=([[1, 2, 3, 4]],),
         expected=[1, 2, 3, 4],
         description="Single row matrix",
     ),
     TestCase(
         name="Single column",
-        input={"matrix": [[1], [2], [3], [4]]},
+        input_args=([[1], [2], [3], [4]],),
         expected=[1, 2, 3, 4],
         description="Single column matrix",
     ),
     TestCase(
         name="Single element",
-        input={"matrix": [[5]]},
+        input_args=([[5]],),
         expected=[5],
         description="Single element matrix",
     ),
     TestCase(
         name="2x2 matrix",
-        input={"matrix": [[1, 2], [3, 4]]},
+        input_args=([[1, 2], [3, 4]],),
         expected=[1, 2, 4, 3],
         description="2x2 square matrix",
     ),
     TestCase(
         name="Tall matrix",
-        input={"matrix": [[1, 2], [3, 4], [5, 6], [7, 8]]},
+        input_args=([[1, 2], [3, 4], [5, 6], [7, 8]],),
         expected=[1, 2, 4, 6, 8, 7, 5, 3],
         description="4x2 tall matrix",
     ),
     TestCase(
         name="Wide matrix",
-        input={"matrix": [[1, 2, 3, 4, 5]]},
+        input_args=([[1, 2, 3, 4, 5]],),
         expected=[1, 2, 3, 4, 5],
         description="1x5 wide matrix",
     ),
 ]
 
 
-def demo():
+def create_demo_output():
     """Demonstrate spiral matrix traversal."""
     solution = Solution()
 
@@ -256,8 +256,24 @@ def demo():
     )
 
 
+def test_solution():
+    """Test function for the spiral matrix problem."""
+    solution = Solution()
+    
+    for test_case in TEST_CASES:
+        matrix = test_case.input_args[0]
+        result = solution.spiralOrder(matrix)
+        
+        if result == test_case.expected:
+            print(f"✓ {test_case.name}: PASS")
+        else:
+            print(f"✗ {test_case.name}: FAIL")
+            print(f"  Expected: {test_case.expected}")
+            print(f"  Got: {result}")
+
+
 if __name__ == "__main__":
-    run_test_cases(Solution().spiralOrder, test_cases)
+    test_solution()
 
 
 # Register the problem
@@ -267,5 +283,9 @@ register_problem(
     title="Spiral Matrix",
     difficulty=Difficulty.MEDIUM,
     category=Category.MATH_GEOMETRY,
-    solution_file=__file__,
+    solution_func=lambda args: Solution().spiralOrder(args),
+    test_func=test_solution,
+    demo_func=create_demo_output,
+    tags=["matrix", "simulation", "array"],
+    notes="Traverse matrix in spiral order using boundary tracking approach",
 )
