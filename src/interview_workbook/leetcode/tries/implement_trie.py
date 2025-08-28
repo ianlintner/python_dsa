@@ -307,7 +307,8 @@ def create_demo_output() -> str:
 # Test cases for validation
 TEST_CASES = [
     TestCase(
-        input_data=(
+        name="Basic trie operations example",
+        input_args=(
             ["Trie", "insert", "search", "search", "startsWith", "insert", "search"],
             [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]],
         ),
@@ -315,7 +316,8 @@ TEST_CASES = [
         description="Basic trie operations example",
     ),
     TestCase(
-        input_data=(
+        name="Multiple inserts and prefix checks",
+        input_args=(
             ["Trie", "insert", "insert", "search", "search", "startsWith", "startsWith"],
             [[], ["hello"], ["help"], ["hello"], ["help"], ["hel"], ["hem"]],
         ),
@@ -323,7 +325,8 @@ TEST_CASES = [
         description="Multiple inserts and prefix checks",
     ),
     TestCase(
-        input_data=(
+        name="Single character and extension",
+        input_args=(
             ["Trie", "insert", "search", "search", "insert", "search"],
             [[], ["a"], ["a"], ["aa"], ["aa"], ["aa"]],
         ),
@@ -331,7 +334,8 @@ TEST_CASES = [
         description="Single character and extension",
     ),
     TestCase(
-        input_data=(["Trie", "startsWith", "insert", "startsWith"], [[], ["a"], ["a"], ["a"]]),
+        name="Prefix check before and after insert",
+        input_args=(["Trie", "startsWith", "insert", "startsWith"], [[], ["a"], ["a"], ["a"]]),
         expected=[None, False, None, True],
         description="Prefix check before and after insert",
     ),
@@ -346,7 +350,7 @@ def test_solution():
         trie = None
         results = []
 
-        for i, (op, args) in enumerate(zip(operations, inputs)):
+        for _i, (op, args) in enumerate(zip(operations, inputs)):
             if op == "Trie":
                 trie = Trie()
                 results.append(None)
@@ -362,19 +366,12 @@ def test_solution():
 
         return results
 
-    def run_test(test_input, expected, description):
-        operations, inputs = test_input
-        result = run_operations(operations, inputs)
+    def run_operations_test(test_case):
+        """Run operations for a test case with the new format."""
+        operations, inputs = test_case.input_args
+        return run_operations(operations, inputs)
 
-        if result == expected:
-            return True, ""
-        else:
-            return (
-                False,
-                f"Operations: {operations}, Inputs: {inputs}, Expected: {expected}, Got: {result}",
-            )
-
-    return run_test_cases(TEST_CASES, run_test)
+    run_test_cases(TEST_CASES, run_operations_test)
 
 
 # Register the problem
