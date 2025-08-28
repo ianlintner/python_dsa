@@ -11,7 +11,7 @@ Space Complexity: O(1)
 from typing import List
 
 from .._registry import register_problem
-from .._runner import TestCase, create_demo_output
+from .._runner import TestCase
 from .._types import Category, Difficulty
 
 
@@ -158,11 +158,20 @@ def create_demo_output():
     print(f"Sliding window: {solution.numSubarraysWithProduct(nums, k)}")
     print(f"Brute force: {solution.numSubarraysWithProduct_bruteforce(nums, k)}")
 
-    return create_demo_output(
-        title="Subarray Product Less Than K",
-        description="Find count of contiguous subarrays with product < k",
-        input_data={"nums": nums, "k": k},
-        expected_output=solution.numSubarraysWithProduct(nums, k),
+    return "\n".join(
+        [
+            "=== LeetCode 713: Subarray Product Less Than K ===",
+            "",
+            f"Input: nums = {nums}, k = {k}",
+            f"Output: {solution.numSubarraysWithProduct(nums, k)}",
+            "",
+            "Valid subarrays with sliding window technique:",
+            f"Total count: {valid_count}",
+            "",
+            "Comparison of approaches:",
+            f"Sliding window: {solution.numSubarraysWithProduct(nums, k)}",
+            f"Brute force: {solution.numSubarraysWithProduct_bruteforce(nums, k)}",
+        ]
     )
 
 
