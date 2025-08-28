@@ -10,7 +10,7 @@ Space Complexity: O(1) - excluding the output array
 from typing import List
 
 from .._registry import register_problem
-from .._runner import TestCase, create_demo_output
+from .._runner import TestCase
 from .._types import Category, Difficulty
 
 
@@ -248,11 +248,18 @@ def create_demo_output():
     result_3x3 = solution.spiralOrder(matrix_3x3)
     print(f"Result: {result_3x3}")
 
-    return create_demo_output(
-        title="Spiral Matrix",
-        description="Traverse matrix in spiral order",
-        input_data={"matrix": matrix},
-        expected_output=result,
+    return "\n".join(
+        [
+            "=== LeetCode 54: Spiral Matrix ===",
+            "",
+            f"Input matrix: {matrix}",
+            f"Spiral order: {result}",
+            "",
+            "=== Spiral Path Visualization ===",
+            "Matrix: [[1, 2, 3], [4, 5, 6], [7, 8, 9]]",
+            "Spiral path: 1 → 2 → 3 ↓ 6 ↓ 9 ← 8 ← 7 ↑ 4 → 5",
+            f"Result: {result_3x3}",
+        ]
     )
 
 
