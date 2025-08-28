@@ -222,7 +222,6 @@ def demo():
         head2 = create_linked_list_with_cycle(values, pos)
         result2 = solution.hasCycleHashSet(head2)
         print(f"Result (HashSet): {result2}")
-        status2 = "✓ PASS" if result2 == expected else "✗ FAIL"
 
         # Note: Skip modification test as it destroys the list
         print()

@@ -285,7 +285,6 @@ def demo():
                 actual_pos2 += 1
 
         print(f"Result (HashSet): position {actual_pos2}")
-        status2 = "✓ PASS" if actual_pos2 == expected_pos else "✗ FAIL"
 
         # Test alternative Floyd's solution
         head3 = create_linked_list_with_cycle(values, pos)
