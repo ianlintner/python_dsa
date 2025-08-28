@@ -135,30 +135,30 @@ class TestSearch2DMatrix:
 
         # Example 1
         matrix1 = [[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16]]
-        assert solution.searchMatrix(matrix1, 5) == True
+        assert solution.searchMatrix(matrix1, 5)
 
         # Example 2
-        assert solution.searchMatrix(matrix1, 13) == False
+        assert not solution.searchMatrix(matrix1, 13)
 
     def test_search_2d_matrix_comprehensive(self):
         """Test comprehensive cases for search 2D matrix."""
         solution = Search2DMatrixSolution()
 
         # Single element matrix
-        assert solution.searchMatrix([[1]], 1) == True
-        assert solution.searchMatrix([[1]], 2) == False
+        assert solution.searchMatrix([[1]], 1)
+        assert not solution.searchMatrix([[1]], 2)
 
         # Single row
-        assert solution.searchMatrix([[1, 3, 5, 7]], 3) == True
-        assert solution.searchMatrix([[1, 3, 5, 7]], 6) == False
+        assert solution.searchMatrix([[1, 3, 5, 7]], 3)
+        assert not solution.searchMatrix([[1, 3, 5, 7]], 6)
 
         # Single column
-        assert solution.searchMatrix([[1], [3], [5]], 3) == True
-        assert solution.searchMatrix([[1], [3], [5]], 2) == False
+        assert solution.searchMatrix([[1], [3], [5]], 3)
+        assert not solution.searchMatrix([[1], [3], [5]], 2)
 
         # Empty matrix
-        assert solution.searchMatrix([], 1) == False
-        assert solution.searchMatrix([[]], 1) == False
+        assert not solution.searchMatrix([], 1)
+        assert not solution.searchMatrix([[]], 1)
 
 
 class TestFindKthSmallestInSortedMatrix:
