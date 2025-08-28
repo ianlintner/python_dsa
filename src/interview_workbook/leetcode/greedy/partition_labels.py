@@ -265,26 +265,42 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input=["ababcbacadefegdehijhklij"],
+        input_args=["ababcbacadefegdehijhklij"],
         expected=[9, 7, 8],
         description="Standard case with three partitions",
     ),
     TestCase(
-        input=["eccbbbbdec"], expected=[10], description="All characters overlap - single partition"
+        input_args=["eccbbbbdec"],
+        expected=[10],
+        description="All characters overlap - single partition",
     ),
     TestCase(
-        input=["abcdef"],
+        input_args=["abcdef"],
         expected=[1, 1, 1, 1, 1, 1],
         description="All unique characters - each is own partition",
     ),
-    TestCase(input=["a"], expected=[1], description="Single character"),
-    TestCase(input=["aa"], expected=[2], description="Repeated single character"),
-    TestCase(input=["aabbcc"], expected=[2, 2, 2], description="Sequential character pairs"),
     TestCase(
-        input=["abccba"], expected=[6], description="Interleaved characters - single partition"
+        input_args=["a"],
+        expected=[1],
+        description="Single character",
     ),
     TestCase(
-        input=["eaaaabaaec"],
+        input_args=["aa"],
+        expected=[2],
+        description="Repeated single character",
+    ),
+    TestCase(
+        input_args=["aabbcc"],
+        expected=[2, 2, 2],
+        description="Sequential character pairs",
+    ),
+    TestCase(
+        input_args=["abccba"],
+        expected=[6],
+        description="Interleaved characters - single partition",
+    ),
+    TestCase(
+        input_args=["eaaaabaaec"],
         expected=[9, 1],
         description="Overlapping with isolated character at end",
     ),

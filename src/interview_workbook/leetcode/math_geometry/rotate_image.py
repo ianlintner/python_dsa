@@ -97,40 +97,44 @@ def matrix_to_string(matrix: List[List[int]]) -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        name="Example 1 - 3x3 matrix",
-        input_args=([[1, 2, 3], [4, 5, 6], [7, 8, 9]],),
+        description="Example 1 - 3x3 matrix",
+        input_args=input_args=([[1, 2, 3], [4, 5, 6], [7, 8, 9]],,
+    ),
         expected=[[7, 4, 1], [8, 5, 2], [9, 6, 3]],
         description="3x3 matrix rotation",
     ),
     TestCase(
-        name="Example 2 - 4x4 matrix",
-        input_args=([[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]],),
+        description="Example 2 - 4x4 matrix",
+        input_args=input_args=([[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]],,
+    ),
         expected=[[15, 13, 2, 5], [14, 3, 4, 1], [12, 6, 8, 9], [16, 7, 10, 11]],
         description="4x4 matrix rotation",
     ),
     TestCase(
-        name="Single element",
-        input_args=([[1]],),
+        description="Single element",
+        input_args=input_args=([[1]],,
+    ),
         expected=[[1]],
         description="1x1 matrix (no change)",
     ),
     TestCase(
-        name="2x2 matrix",
-        input_args=([[1, 2], [3, 4]],),
+        description="2x2 matrix",
+        input_args=input_args=([[1, 2], [3, 4]],,
+    ),
         expected=[[3, 1], [4, 2]],
         description="2x2 matrix rotation",
     ),
     TestCase(
-        name="5x5 matrix",
-        input_args=(
+        description="5x5 matrix",
+        input_args=input_args=(
             [
                 [1, 2, 3, 4, 5],
                 [6, 7, 8, 9, 10],
                 [11, 12, 13, 14, 15],
                 [16, 17, 18, 19, 20],
                 [21, 22, 23, 24, 25],
-            ],
-        ),
+            ],,
+    ),
         expected=[
             [21, 16, 11, 6, 1],
             [22, 17, 12, 7, 2],

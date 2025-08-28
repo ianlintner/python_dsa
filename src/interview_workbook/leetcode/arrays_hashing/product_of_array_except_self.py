@@ -115,22 +115,34 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=([1, 2, 3, 4],),
+        input_args=input_args=([1, 2, 3, 4],,
+    ),
             expected=[24, 12, 8, 6],
             description="Basic case with positive integers",
         ),
         TestCase(
-            input_args=([-1, 1, 0, -3, 3],), expected=[0, 0, 9, 0, 0], description="Array with zero"
+        input_args=input_args=([-1, 1, 0, -3, 3],,
+    ), expected=[0, 0, 9, 0, 0], description="Array with zero"
         ),
-        TestCase(input_args=([2, 3],), expected=[3, 2], description="Two elements"),
-        TestCase(input_args=([1, 0],), expected=[0, 1], description="One and zero"),
         TestCase(
-            input_args=([-1, -2, -3],), expected=[6, 3, 2], description="All negative numbers"
+        input_args=input_args=([2, 3],,
+    ), expected=[3, 2], description="Two elements"),
+        TestCase(
+        input_args=input_args=([1, 0],,
+    ), expected=[0, 1], description="One and zero"),
+        TestCase(
+        input_args=input_args=([-1, -2, -3],,
+    ), expected=[6, 3, 2], description="All negative numbers"
         ),
-        TestCase(input_args=([2, 2, 2, 2],), expected=[8, 8, 8, 8], description="All same numbers"),
-        TestCase(input_args=([0, 0],), expected=[0, 0], description="Multiple zeros"),
         TestCase(
-            input_args=([5, 0, 3, 0, 7],),
+        input_args=input_args=([2, 2, 2, 2],,
+    ), expected=[8, 8, 8, 8], description="All same numbers"),
+        TestCase(
+        input_args=input_args=([0, 0],,
+    ), expected=[0, 0], description="Multiple zeros"),
+        TestCase(
+        input_args=input_args=([5, 0, 3, 0, 7],,
+    ),
             expected=[0, 0, 0, 0, 0],
             description="Multiple zeros in array",
         ),

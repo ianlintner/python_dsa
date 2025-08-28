@@ -263,7 +263,7 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data=[
+        input_args=[
             ["X", "X", "X", "X"],
             ["X", "O", "O", "X"],
             ["X", "X", "O", "X"],
@@ -277,20 +277,28 @@ TEST_CASES = [
         ],
         description="Standard case with surrounded region",
     ),
-    TestCase(input_data=[["X"]], expected=[["X"]], description="Single cell X"),
-    TestCase(input_data=[["O"]], expected=[["O"]], description="Single cell O on border"),
     TestCase(
-        input_data=[["O", "O", "O"], ["O", "O", "O"], ["O", "O", "O"]],
+        input_args=[["X"]],
+        expected=[["X"]],
+        description="Single cell X",
+    ),
+    TestCase(
+        input_args=[["O"]],
+        expected=[["O"]],
+        description="Single cell O on border",
+    ),
+    TestCase(
+        input_args=[["O", "O", "O"], ["O", "O", "O"], ["O", "O", "O"]],
         expected=[["O", "O", "O"], ["O", "O", "O"], ["O", "O", "O"]],
         description="All O's connected to border",
     ),
     TestCase(
-        input_data=[["X", "O", "X"], ["O", "X", "O"], ["X", "O", "X"]],
+        input_args=[["X", "O", "X"], ["O", "X", "O"], ["X", "O", "X"]],
         expected=[["X", "O", "X"], ["O", "X", "O"], ["X", "O", "X"]],
         description="Cross pattern - all O's on border",
     ),
     TestCase(
-        input_data=[
+        input_args=[
             ["X", "X", "X", "X"],
             ["X", "O", "O", "X"],
             ["X", "O", "O", "X"],
@@ -318,7 +326,11 @@ def test_solution():
         return board == expected
 
     test_cases_formatted = [
-        TestCase(input_data=tc.input_data, expected=tc.expected, description=tc.description)
+        TestCase(
+        input_args=tc.input_data,
+        expected=tc.expected,
+        description=tc.description,
+    )
         for tc in TEST_CASES
     ]
 

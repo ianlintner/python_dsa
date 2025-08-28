@@ -301,28 +301,43 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_args=([1, 2, 3, 1],), expected=4, description="Standard case: rob houses 0 and 2"
+        input_args=input_args=([1, 2, 3, 1],,
+    ), expected=4, description="Standard case: rob houses 0 and 2"
     ),
     TestCase(
-        input_args=([2, 7, 9, 3, 1],), expected=12, description="Rob houses 0, 2, 4 for max money"
+        input_args=input_args=([2, 7, 9, 3, 1],,
+    ), expected=12, description="Rob houses 0, 2, 4 for max money"
     ),
-    TestCase(input_args=([2, 1, 1, 2],), expected=4, description="Rob houses 0 and 3"),
-    TestCase(input_args=([5],), expected=5, description="Single house - rob it"),
-    TestCase(input_args=([1, 2],), expected=2, description="Two houses - rob the richer one"),
-    TestCase(input_args=([2, 1],), expected=2, description="Two houses - rob the first one"),
-    TestCase(input_args=([],), expected=0, description="Empty array - no houses to rob"),
     TestCase(
-        input_args=([1, 3, 1, 3, 100],),
+        input_args=input_args=([2, 1, 1, 2],,
+    ), expected=4, description="Rob houses 0 and 3"),
+    TestCase(
+        input_args=input_args=([5],,
+    ), expected=5, description="Single house - rob it"),
+    TestCase(
+        input_args=input_args=([1, 2],,
+    ), expected=2, description="Two houses - rob the richer one"),
+    TestCase(
+        input_args=input_args=([2, 1],,
+    ), expected=2, description="Two houses - rob the first one"),
+    TestCase(
+        input_args=input_args=([],,
+    ), expected=0, description="Empty array - no houses to rob"),
+    TestCase(
+        input_args=input_args=([1, 3, 1, 3, 100],,
+    ),
         expected=103,
         description="Large final house changes strategy",
     ),
     TestCase(
-        input_args=([10, 5, 2, 7, 8],),
+        input_args=input_args=([10, 5, 2, 7, 8],,
+    ),
         expected=19,
         description="Rob houses 0, 3 for optimal result",
     ),
     TestCase(
-        input_args=([1, 1, 1, 1, 1],), expected=3, description="All equal - rob every other house"
+        input_args=input_args=([1, 1, 1, 1, 1],,
+    ), expected=3, description="All equal - rob every other house"
     ),
 ]
 

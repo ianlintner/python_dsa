@@ -103,16 +103,36 @@ def demo():
     solution = Solution()
 
     test_cases = [
-        TestCase(input_args=("abcabcbb",), expected=3, description="Basic case - 'abc' is longest"),
-        TestCase(input_args=("bbbbb",), expected=1, description="All same characters - 'b'"),
-        TestCase(input_args=("pwwkew",), expected=3, description="Mixed case - 'wke' is longest"),
-        TestCase(input_args=("",), expected=0, description="Empty string"),
-        TestCase(input_args=(" ",), expected=1, description="Single space character"),
-        TestCase(input_args=("au",), expected=2, description="Two unique characters"),
-        TestCase(input_args=("dvdf",), expected=3, description="'vdf' is longest"),
-        TestCase(input_args=("anviaj",), expected=5, description="'nviaj' is longest"),
-        TestCase(input_args=("abcdef",), expected=6, description="All unique characters"),
-        TestCase(input_args=("tmmzuxt",), expected=5, description="'mzuxt' is longest"),
+        TestCase(
+        input_args=input_args=("abcabcbb",,
+    ), expected=3, description="Basic case - 'abc' is longest"),
+        TestCase(
+        input_args=input_args=("bbbbb",,
+    ), expected=1, description="All same characters - 'b'"),
+        TestCase(
+        input_args=input_args=("pwwkew",,
+    ), expected=3, description="Mixed case - 'wke' is longest"),
+        TestCase(
+        input_args=input_args=("",,
+    ), expected=0, description="Empty string"),
+        TestCase(
+        input_args=input_args=(" ",,
+    ), expected=1, description="Single space character"),
+        TestCase(
+        input_args=input_args=("au",,
+    ), expected=2, description="Two unique characters"),
+        TestCase(
+        input_args=input_args=("dvdf",,
+    ), expected=3, description="'vdf' is longest"),
+        TestCase(
+        input_args=input_args=("anviaj",,
+    ), expected=5, description="'nviaj' is longest"),
+        TestCase(
+        input_args=input_args=("abcdef",,
+    ), expected=6, description="All unique characters"),
+        TestCase(
+        input_args=input_args=("tmmzuxt",,
+    ), expected=5, description="'mzuxt' is longest"),
     ]
 
     results = run_test_cases(solution.lengthOfLongestSubstring, test_cases)

@@ -79,25 +79,37 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=([1, 8, 6, 2, 5, 4, 8, 3, 7],),
+        input_args=input_args=([1, 8, 6, 2, 5, 4, 8, 3, 7],,
+    ),
             expected=49,
             description="Classic example - area between indices 1 and 8",
         ),
-        TestCase(input_args=([1, 1],), expected=1, description="Two equal heights"),
         TestCase(
-            input_args=([1, 2, 1],), expected=2, description="Mountain shape - use outer lines"
+        input_args=input_args=([1, 1],,
+    ), expected=1, description="Two equal heights"),
+        TestCase(
+        input_args=input_args=([1, 2, 1],,
+    ), expected=2, description="Mountain shape - use outer lines"
         ),
         TestCase(
-            input_args=([2, 3, 4, 5, 18, 17, 6],), expected=17, description="High peak in middle"
+        input_args=input_args=([2, 3, 4, 5, 18, 17, 6],,
+    ), expected=17, description="High peak in middle"
         ),
-        TestCase(input_args=([1, 2, 3, 4, 5],), expected=6, description="Ascending heights"),
-        TestCase(input_args=([5, 4, 3, 2, 1],), expected=6, description="Descending heights"),
         TestCase(
-            input_args=([1, 8, 100, 2, 100, 4, 8, 3, 7],),
+        input_args=input_args=([1, 2, 3, 4, 5],,
+    ), expected=6, description="Ascending heights"),
+        TestCase(
+        input_args=input_args=([5, 4, 3, 2, 1],,
+    ), expected=6, description="Descending heights"),
+        TestCase(
+        input_args=input_args=([1, 8, 100, 2, 100, 4, 8, 3, 7],,
+    ),
             expected=200,
             description="High walls at positions 2 and 4",
         ),
-        TestCase(input_args=([2, 1],), expected=1, description="Two elements, different heights"),
+        TestCase(
+        input_args=input_args=([2, 1],,
+    ), expected=1, description="Two elements, different heights"),
     ]
 
     results = run_test_cases(solution.maxArea, test_cases)

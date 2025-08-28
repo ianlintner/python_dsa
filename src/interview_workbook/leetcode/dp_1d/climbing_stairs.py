@@ -224,14 +224,30 @@ def create_demo_output() -> str:
 
 # Test cases
 TEST_CASES = [
-    TestCase(input_args=(1,), expected=1, description="Single step"),
-    TestCase(input_args=(2,), expected=2, description="Two steps: [1+1] or [2]"),
-    TestCase(input_args=(3,), expected=3, description="Three ways to reach step 3"),
-    TestCase(input_args=(4,), expected=5, description="Five ways to reach step 4"),
-    TestCase(input_args=(5,), expected=8, description="Fibonacci sequence continues"),
-    TestCase(input_args=(10,), expected=89, description="Larger example"),
-    TestCase(input_args=(20,), expected=10946, description="Even larger example"),
-    TestCase(input_args=(35,), expected=14930352, description="Large n to test efficiency"),
+    TestCase(
+        input_args=input_args=(1,,
+    ), expected=1, description="Single step"),
+    TestCase(
+        input_args=input_args=(2,,
+    ), expected=2, description="Two steps: [1+1] or [2]"),
+    TestCase(
+        input_args=input_args=(3,,
+    ), expected=3, description="Three ways to reach step 3"),
+    TestCase(
+        input_args=input_args=(4,,
+    ), expected=5, description="Five ways to reach step 4"),
+    TestCase(
+        input_args=input_args=(5,,
+    ), expected=8, description="Fibonacci sequence continues"),
+    TestCase(
+        input_args=input_args=(10,,
+    ), expected=89, description="Larger example"),
+    TestCase(
+        input_args=input_args=(20,,
+    ), expected=10946, description="Even larger example"),
+    TestCase(
+        input_args=input_args=(35,,
+    ), expected=14930352, description="Large n to test efficiency"),
 ]
 
 

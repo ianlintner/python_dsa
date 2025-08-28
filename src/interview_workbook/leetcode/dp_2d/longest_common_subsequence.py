@@ -271,38 +271,63 @@ def create_demo_output() -> str:
 
 # Test cases covering various scenarios
 TEST_CASES = [
-    TestCase(input_data=("abcde", "ace"), expected=3, description="Basic LCS example - 'ace'"),
-    TestCase(input_data=("abc", "abc"), expected=3, description="Identical strings"),
-    TestCase(input_data=("abc", "def"), expected=0, description="No common characters"),
-    TestCase(input_data=("", "abc"), expected=0, description="Empty first string"),
-    TestCase(input_data=("abc", ""), expected=0, description="Empty second string"),
-    TestCase(input_data=("", ""), expected=0, description="Both strings empty"),
-    TestCase(input_data=("a", "a"), expected=1, description="Single character match"),
-    TestCase(input_data=("a", "b"), expected=0, description="Single character no match"),
-    TestCase(input_data=("ABCDGH", "AEDFHR"), expected=3, description="Mixed case LCS - 'ADH'"),
     TestCase(
-        input_data=("programming", "contest"),
+        input_args=("abcde", "ace",
+    ), expected=3, description="Basic LCS example - 'ace'"),
+    TestCase(
+        input_args=("abc", "abc",
+    ), expected=3, description="Identical strings"),
+    TestCase(
+        input_args=("abc", "def",
+    ), expected=0, description="No common characters"),
+    TestCase(
+        input_args=("", "abc",
+    ), expected=0, description="Empty first string"),
+    TestCase(
+        input_args=("abc", "",
+    ), expected=0, description="Empty second string"),
+    TestCase(
+        input_args=("", "",
+    ), expected=0, description="Both strings empty"),
+    TestCase(
+        input_args=("a", "a",
+    ), expected=1, description="Single character match"),
+    TestCase(
+        input_args=("a", "b",
+    ), expected=0, description="Single character no match"),
+    TestCase(
+        input_args=("ABCDGH", "AEDFHR",
+    ), expected=3, description="Mixed case LCS - 'ADH'"),
+    TestCase(
+        input_args=("programming", "contest",
+    ),
         expected=4,
         description="Real-world example - 'ogrt' or similar",
     ),
     TestCase(
-        input_data=("AGGTAB", "GXTXAYB"),
+        input_args=("AGGTAB", "GXTXAYB",
+    ),
         expected=4,
         description="Classic textbook example - 'GTAB'",
     ),
     TestCase(
-        input_data=("abcdefghijklmnop", "acegikmoqsuwy"),
+        input_args=("abcdefghijklmnop", "acegikmoqsuwy",
+    ),
         expected=7,
         description="Longer string with pattern",
     ),
-    TestCase(input_data=("longest", "stone"), expected=3, description="LCS 'one' or similar"),
     TestCase(
-        input_data=("intention", "execution"),
+        input_args=("longest", "stone",
+    ), expected=3, description="LCS 'one' or similar"),
+    TestCase(
+        input_args=("intention", "execution",
+    ),
         expected=5,
         description="Edit distance related - 'ntion'",
     ),
     TestCase(
-        input_data=("abcdef" * 100, "ace" * 100), expected=300, description="Performance test case"
+        input_args=("abcdef" * 100, "ace" * 100,
+    ), expected=300, description="Performance test case"
     ),
 ]
 

@@ -217,36 +217,49 @@ def create_demo_output() -> str:
 # Test cases for validation
 TEST_CASES = [
     TestCase(
-        input_data=([[1, 1, 1], [1, 0, 1], [1, 1, 1]],),
+        input_args=([[1, 1, 1], [1, 0, 1], [1, 1, 1]],,
+    ),
         expected=[[1, 0, 1], [0, 0, 0], [1, 0, 1]],
         description="3x3 matrix with center zero",
     ),
     TestCase(
-        input_data=([[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]],),
+        input_args=([[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]],,
+    ),
         expected=[[0, 0, 0, 0], [0, 4, 5, 0], [0, 3, 1, 0]],
         description="3x4 matrix with multiple zeros",
     ),
-    TestCase(input_data=([[0]],), expected=[[0]], description="Single zero element"),
-    TestCase(input_data=([[1]],), expected=[[1]], description="Single non-zero element"),
-    TestCase(input_data=([[1, 0, 3]],), expected=[[0, 0, 0]], description="Single row with zero"),
     TestCase(
-        input_data=([[1], [0], [3]],),
+        input_args=([[0]],,
+    ), expected=[[0]], description="Single zero element"),
+    TestCase(
+        input_args=([[1]],,
+    ), expected=[[1]], description="Single non-zero element"),
+    TestCase(
+        input_args=([[1, 0, 3]],,
+    ), expected=[[0, 0, 0]], description="Single row with zero"),
+    TestCase(
+        input_args=([[1], [0], [3]],,
+    ),
         expected=[[0], [0], [0]],
         description="Single column with zero",
     ),
     TestCase(
-        input_data=([[0, 0], [0, 0]],), expected=[[0, 0], [0, 0]], description="All zeros matrix"
+        input_args=([[0, 0], [0, 0]],,
+    ), expected=[[0, 0], [0, 0]], description="All zeros matrix"
     ),
     TestCase(
-        input_data=([[1, 2], [3, 4]],), expected=[[1, 2], [3, 4]], description="No zeros matrix"
+        input_args=([[1, 2], [3, 4]],,
+    ), expected=[[1, 2], [3, 4]], description="No zeros matrix"
     ),
     TestCase(
-        input_data=([[1, 2, 3], [4, 0, 6], [7, 8, 9]],),
+        input_args=([[1, 2, 3], [4, 0, 6], [7, 8, 9]],,
+    ),
         expected=[[1, 0, 3], [0, 0, 0], [7, 0, 9]],
         description="Center zero creates cross pattern",
     ),
     TestCase(
-        input_data=([[0, 2, 3], [4, 5, 6], [7, 8, 0]],),
+        input_args=([[0, 2, 3], [4, 5, 6], [7, 8, 0]],,
+    ),
         expected=[[0, 0, 0], [0, 5, 0], [0, 0, 0]],
         description="Corner zeros affect entire matrix",
     ),

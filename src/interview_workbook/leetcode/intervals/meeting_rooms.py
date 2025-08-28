@@ -182,25 +182,48 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data=[[0, 30], [5, 10], [15, 20]], expected=False, description="Overlapping meetings"
+        input_args=[[0, 30], [5, 10], [15, 20]],
+        expected=False,
+        description="Overlapping meetings",
     ),
-    TestCase(input_data=[[7, 10], [2, 4]], expected=True, description="Non-overlapping meetings"),
-    TestCase(input_data=[], expected=True, description="No meetings"),
-    TestCase(input_data=[[1, 5]], expected=True, description="Single meeting"),
     TestCase(
-        input_data=[[1, 4], [4, 5]],
+        input_args=[[7, 10], [2, 4]],
         expected=True,
-        description="Adjacent meetings (touching endpoints)",
+        description="Non-overlapping meetings",
     ),
     TestCase(
-        input_data=[[1, 5], [2, 3], [4, 6]],
+        input_args=[],
+        expected=True,
+        description="No meetings",
+    ),
+    TestCase(
+        input_args=[[1, 5]],
+        expected=True,
+        description="Single meeting",
+    ),
+    TestCase(
+        input_args=[[1, 4], [4, 5]],
+        expected=True,
+        description="Adjacent meetings (touching endpoints,
+    )",
+    ),
+    TestCase(
+        input_args=[[1, 5], [2, 3], [4, 6]],
         expected=False,
         description="Multiple overlapping meetings",
     ),
-    TestCase(input_data=[[1, 2], [3, 4], [5, 6]], expected=True, description="All non-overlapping"),
-    TestCase(input_data=[[1, 3], [2, 4]], expected=False, description="Simple overlap case"),
     TestCase(
-        input_data=[[0, 1], [1, 2], [2, 3], [3, 4]],
+        input_args=[[1, 2], [3, 4], [5, 6]],
+        expected=True,
+        description="All non-overlapping",
+    ),
+    TestCase(
+        input_args=[[1, 3], [2, 4]],
+        expected=False,
+        description="Simple overlap case",
+    ),
+    TestCase(
+        input_args=[[0, 1], [1, 2], [2, 3], [3, 4]],
         expected=True,
         description="Chain of adjacent meetings",
     ),
@@ -218,7 +241,11 @@ def test_solution():
         return result == expected
 
     test_cases_formatted = [
-        TestCase(input_data=tc.input_data, expected=tc.expected, description=tc.description)
+        TestCase(
+        input_args=tc.input_data,
+        expected=tc.expected,
+        description=tc.description,
+    )
         for tc in TEST_CASES
     ]
 

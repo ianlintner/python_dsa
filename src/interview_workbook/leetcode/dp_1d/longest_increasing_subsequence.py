@@ -333,22 +333,42 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_args=([10, 9, 2, 5, 3, 7, 101, 18],), expected=4, description="Standard LIS example"
+        input_args=input_args=([10, 9, 2, 5, 3, 7, 101, 18],,
+    ), expected=4, description="Standard LIS example"
     ),
-    TestCase(input_args=([0, 1, 0, 3, 2, 3],), expected=4, description="LIS: [0,1,2,3]"),
-    TestCase(input_args=([7, 7, 7, 7, 7, 7, 7],), expected=1, description="All equal elements"),
     TestCase(
-        input_args=([1, 3, 6, 7, 9, 4, 10, 5, 6],),
+        input_args=input_args=([0, 1, 0, 3, 2, 3],,
+    ), expected=4, description="LIS: [0,1,2,3]"),
+    TestCase(
+        input_args=input_args=([7, 7, 7, 7, 7, 7, 7],,
+    ), expected=1, description="All equal elements"),
+    TestCase(
+        input_args=input_args=([1, 3, 6, 7, 9, 4, 10, 5, 6],,
+    ),
         expected=6,
         description="LIS: [1,3,4,5,6] or similar",
     ),
-    TestCase(input_args=([10, 2, 3],), expected=2, description="Simple case: [2,3]"),
-    TestCase(input_args=([1, 2, 3, 4, 5],), expected=5, description="Already sorted increasing"),
-    TestCase(input_args=([5, 4, 3, 2, 1],), expected=1, description="Decreasing sequence"),
-    TestCase(input_args=([1],), expected=1, description="Single element"),
-    TestCase(input_args=([],), expected=0, description="Empty array"),
-    TestCase(input_args=([2, 2],), expected=1, description="Duplicate elements"),
-    TestCase(input_args=([1, 3, 2, 4],), expected=3, description="LIS: [1,2,4] or [1,3,4]"),
+    TestCase(
+        input_args=input_args=([10, 2, 3],,
+    ), expected=2, description="Simple case: [2,3]"),
+    TestCase(
+        input_args=input_args=([1, 2, 3, 4, 5],,
+    ), expected=5, description="Already sorted increasing"),
+    TestCase(
+        input_args=input_args=([5, 4, 3, 2, 1],,
+    ), expected=1, description="Decreasing sequence"),
+    TestCase(
+        input_args=input_args=([1],,
+    ), expected=1, description="Single element"),
+    TestCase(
+        input_args=input_args=([],,
+    ), expected=0, description="Empty array"),
+    TestCase(
+        input_args=input_args=([2, 2],,
+    ), expected=1, description="Duplicate elements"),
+    TestCase(
+        input_args=input_args=([1, 3, 2, 4],,
+    ), expected=3, description="LIS: [1,2,4] or [1,3,4]"),
 ]
 
 

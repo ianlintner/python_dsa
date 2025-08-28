@@ -80,23 +80,45 @@ class Solution:
 
 # Test cases
 test_cases = [
-    TestCase((["2", "1", "+", "3", "*"],), 9, "Basic arithmetic: ((2 + 1) * 3) = 9"),
-    TestCase((["4", "13", "5", "/", "+"],), 6, "Division and addition: (4 + (13 / 5)) = 6"),
     TestCase(
-        (["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"],),
+        input_args=(["2", "1", "+", "3", "*"],,
+    ), 9, "Basic arithmetic: ((2 + 1) * 3) = 9"),
+    TestCase(
+        input_args=(["4", "13", "5", "/", "+"],,
+    ), 6, "Division and addition: (4 + (13 / 5)) = 6"),
+    TestCase(
+        input_args=(["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"],,
+    ),
         22,
         "Complex expression with negative numbers",
     ),
-    TestCase((["3", "11", "+", "5", "-"],), 9, "Addition then subtraction: ((3 + 11) - 5) = 9"),
-    TestCase((["3", "11", "5", "+", "-"],), -13, "Subtraction with addition: (3 - (11 + 5)) = -13"),
-    TestCase((["18"],), 18, "Single number"),
-    TestCase((["4", "3", "-"],), 1, "Simple subtraction: (4 - 3) = 1"),
-    TestCase((["4", "3", "/"],), 1, "Division truncating towards zero: (4 / 3) = 1"),
-    TestCase((["-3", "4", "/"],), 0, "Negative division truncating towards zero: (-3 / 4) = 0"),
-    TestCase((["3", "-4", "/"],), 0, "Division with negative divisor: (3 / -4) = 0"),
-    TestCase((["-78", "-33", "+"],), -111, "Addition of negative numbers: (-78 + -33) = -111"),
     TestCase(
-        (["1", "2", "+", "3", "*", "4", "-"],), 5, "Multiple operations: (((1 + 2) * 3) - 4) = 5"
+        input_args=(["3", "11", "+", "5", "-"],,
+    ), 9, "Addition then subtraction: ((3 + 11) - 5) = 9"),
+    TestCase(
+        input_args=(["3", "11", "5", "+", "-"],,
+    ), -13, "Subtraction with addition: (3 - (11 + 5)) = -13"),
+    TestCase(
+        input_args=(["18"],,
+    ), 18, "Single number"),
+    TestCase(
+        input_args=(["4", "3", "-"],,
+    ), 1, "Simple subtraction: (4 - 3) = 1"),
+    TestCase(
+        input_args=(["4", "3", "/"],,
+    ), 1, "Division truncating towards zero: (4 / 3) = 1"),
+    TestCase(
+        input_args=(["-3", "4", "/"],,
+    ), 0, "Negative division truncating towards zero: (-3 / 4) = 0"),
+    TestCase(
+        input_args=(["3", "-4", "/"],,
+    ), 0, "Division with negative divisor: (3 / -4) = 0"),
+    TestCase(
+        input_args=(["-78", "-33", "+"],,
+    ), -111, "Addition of negative numbers: (-78 + -33) = -111"),
+    TestCase(
+        input_args=(["1", "2", "+", "3", "*", "4", "-"],,
+    ), 5, "Multiple operations: (((1 + 2) * 3) - 4) = 5"
     ),
 ]
 

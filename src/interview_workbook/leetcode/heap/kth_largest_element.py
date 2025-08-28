@@ -201,38 +201,52 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data={"nums": [3, 2, 1, 5, 6, 4], "k": 2},
+        input_args={"nums": [3, 2, 1, 5, 6, 4],
+        expected="k": 2},
         expected=5,
         description="Basic example - 2nd largest element",
     ),
     TestCase(
-        input_data={"nums": [3, 2, 3, 1, 2, 4, 5, 5, 6], "k": 4},
+        input_args={"nums": [3, 2, 3, 1, 2, 4, 5, 5, 6],
+        expected="k": 4},
         expected=4,
         description="Array with duplicates - 4th largest",
     ),
-    TestCase(input_data={"nums": [1], "k": 1}, expected=1, description="Single element array"),
     TestCase(
-        input_data={"nums": [7, 10, 4, 3, 20, 15], "k": 3},
+        input_args={"nums": [1],
+        expected="k": 1},
+        expected=1,
+        description="Single element array",
+    ),
+    TestCase(
+        input_args={"nums": [7, 10, 4, 3, 20, 15],
+        expected="k": 3},
         expected=10,
         description="Medium array - 3rd largest",
     ),
     TestCase(
-        input_data={"nums": [-1, 2, 0], "k": 1},
+        input_args={"nums": [-1, 2, 0],
+        expected="k": 1},
         expected=2,
         description="Array with negative numbers",
     ),
     TestCase(
-        input_data={"nums": [1, 2, 3, 4, 5], "k": 5},
+        input_args={"nums": [1, 2, 3, 4, 5],
+        expected="k": 5},
         expected=1,
         description="Kth largest is minimum element",
     ),
     TestCase(
-        input_data={"nums": [5, 4, 3, 2, 1], "k": 1},
+        input_args={"nums": [5, 4, 3, 2, 1],
+        expected="k": 1},
         expected=5,
         description="Already sorted descending - 1st largest",
     ),
     TestCase(
-        input_data={"nums": [3, 3, 3, 3, 3], "k": 2}, expected=3, description="All elements same"
+        input_args={"nums": [3, 3, 3, 3, 3],
+        expected="k": 2},
+        expected=3,
+        description="All elements same",
     ),
 ]
 

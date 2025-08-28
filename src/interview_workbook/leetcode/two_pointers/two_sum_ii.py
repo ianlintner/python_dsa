@@ -96,27 +96,39 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=([2, 7, 11, 15], 9),
+        input_args=input_args=([2, 7, 11, 15], 9,
+    ),
             expected=[1, 2],
             description="Basic case - first two elements",
         ),
-        TestCase(input_args=([2, 3, 4], 6), expected=[1, 3], description="First and last elements"),
-        TestCase(input_args=([-1, 0], -1), expected=[1, 2], description="Negative numbers"),
         TestCase(
-            input_args=([1, 2, 3, 4, 4, 9, 56, 90], 8),
+        input_args=input_args=([2, 3, 4], 6,
+    ), expected=[1, 3], description="First and last elements"),
+        TestCase(
+        input_args=input_args=([-1, 0], -1,
+    ), expected=[1, 2], description="Negative numbers"),
+        TestCase(
+        input_args=input_args=([1, 2, 3, 4, 4, 9, 56, 90], 8,
+    ),
             expected=[4, 5],
             description="Duplicate numbers",
         ),
         TestCase(
-            input_args=([1, 3, 4, 5, 7, 11], 9), expected=[3, 4], description="Middle elements"
+        input_args=input_args=([1, 3, 4, 5, 7, 11], 9,
+    ), expected=[3, 4], description="Middle elements"
         ),
-        TestCase(input_args=([-3, 3, 4, 90], 0), expected=[1, 2], description="Sum to zero"),
         TestCase(
-            input_args=([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 19),
+        input_args=input_args=([-3, 3, 4, 90], 0,
+    ), expected=[1, 2], description="Sum to zero"),
+        TestCase(
+        input_args=input_args=([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 19,
+    ),
             expected=[9, 10],
             description="Last two elements",
         ),
-        TestCase(input_args=([5, 25, 75], 100), expected=[2, 3], description="Large numbers"),
+        TestCase(
+        input_args=input_args=([5, 25, 75], 100,
+    ), expected=[2, 3], description="Large numbers"),
     ]
 
     results = run_test_cases(solution.twoSum, test_cases)

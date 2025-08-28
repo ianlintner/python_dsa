@@ -165,28 +165,43 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=("ab", "eidbaooo"), expected=True, description="'ba' is permutation of 'ab'"
+        input_args=input_args=("ab", "eidbaooo",
+    ), expected=True, description="'ba' is permutation of 'ab'"
         ),
         TestCase(
-            input_args=("ab", "eidboaoo"),
+        input_args=input_args=("ab", "eidboaoo",
+    ),
             expected=False,
             description="No permutation of 'ab' exists",
         ),
-        TestCase(input_args=("a", "ab"), expected=True, description="Single character match"),
-        TestCase(input_args=("ab", "a"), expected=False, description="s1 longer than s2"),
-        TestCase(input_args=("abc", "baxyzabc"), expected=True, description="Exact match at end"),
-        TestCase(input_args=("abc", "bca"), expected=True, description="Entire s2 is permutation"),
-        TestCase(input_args=("aaa", "aaaa"), expected=True, description="Repeated characters"),
         TestCase(
-            input_args=("abc", "def"), expected=False, description="Completely different characters"
+        input_args=input_args=("a", "ab",
+    ), expected=True, description="Single character match"),
+        TestCase(
+        input_args=input_args=("ab", "a",
+    ), expected=False, description="s1 longer than s2"),
+        TestCase(
+        input_args=input_args=("abc", "baxyzabc",
+    ), expected=True, description="Exact match at end"),
+        TestCase(
+        input_args=input_args=("abc", "bca",
+    ), expected=True, description="Entire s2 is permutation"),
+        TestCase(
+        input_args=input_args=("aaa", "aaaa",
+    ), expected=True, description="Repeated characters"),
+        TestCase(
+        input_args=input_args=("abc", "def",
+    ), expected=False, description="Completely different characters"
         ),
         TestCase(
-            input_args=("abcdxabcde", "abcdeabcdx"),
+        input_args=input_args=("abcdxabcde", "abcdeabcdx",
+    ),
             expected=True,
             description="Long strings with permutation",
         ),
         TestCase(
-            input_args=("hello", "ooolleoooleh"),
+        input_args=input_args=("hello", "ooolleoooleh",
+    ),
             expected=False,
             description="All characters present but no valid permutation",
         ),

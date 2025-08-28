@@ -110,27 +110,42 @@ def demo():
     solution = Solution()
 
     test_cases = [
-        TestCase(input_args=("ABAB", 2), expected=4, description="Replace B's to get 'AAAA'"),
         TestCase(
-            input_args=("AABABBA", 1),
+        input_args=input_args=("ABAB", 2,
+    ), expected=4, description="Replace B's to get 'AAAA'"),
+        TestCase(
+        input_args=input_args=("AABABBA", 1,
+    ),
             expected=4,
             description="Replace one character to get 'AAAA' or 'BBBB'",
         ),
-        TestCase(input_args=("AAAA", 2), expected=4, description="Already all same characters"),
         TestCase(
-            input_args=("ABCDEF", 1),
+        input_args=input_args=("AAAA", 2,
+    ), expected=4, description="Already all same characters"),
+        TestCase(
+        input_args=input_args=("ABCDEF", 1,
+    ),
             expected=2,
             description="All different characters - can get length 2",
         ),
-        TestCase(input_args=("A", 1), expected=1, description="Single character"),
         TestCase(
-            input_args=("AABCABCBB", 2),
+        input_args=input_args=("A", 1,
+    ), expected=1, description="Single character"),
+        TestCase(
+        input_args=input_args=("AABCABCBB", 2,
+    ),
             expected=5,
             description="Complex case with multiple options",
         ),
-        TestCase(input_args=("ABABACB", 3), expected=7, description="Can replace entire string"),
-        TestCase(input_args=("AAABBBCCC", 2), expected=5, description="Groups of same characters"),
-        TestCase(input_args=("ABCABC", 2), expected=4, description="Repeating pattern"),
+        TestCase(
+        input_args=input_args=("ABABACB", 3,
+    ), expected=7, description="Can replace entire string"),
+        TestCase(
+        input_args=input_args=("AAABBBCCC", 2,
+    ), expected=5, description="Groups of same characters"),
+        TestCase(
+        input_args=input_args=("ABCABC", 2,
+    ), expected=4, description="Repeating pattern"),
     ]
 
     # Execute test cases manually

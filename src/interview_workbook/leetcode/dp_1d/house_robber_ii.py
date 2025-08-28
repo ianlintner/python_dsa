@@ -297,33 +297,48 @@ def create_demo_output() -> str:
 
 # Test cases
 TEST_CASES = [
-    TestCase(input_args=([2, 3, 2],), expected=3, description="Cannot rob first and last together"),
-    TestCase(input_args=([1, 2, 3, 1],), expected=4, description="Rob houses 1 and 3 (0-indexed)"),
     TestCase(
-        input_args=([1, 2, 3],),
+        input_args=input_args=([2, 3, 2],,
+    ), expected=3, description="Cannot rob first and last together"),
+    TestCase(
+        input_args=input_args=([1, 2, 3, 1],,
+    ), expected=4, description="Rob houses 1 and 3 (0-indexed)"),
+    TestCase(
+        input_args=input_args=([1, 2, 3],,
+    ),
         expected=3,
         description="Three houses - rob the maximum single house",
     ),
-    TestCase(input_args=([5],), expected=5, description="Single house - no circular constraint"),
-    TestCase(input_args=([1, 2],), expected=2, description="Two houses - rob the larger one"),
-    TestCase(input_args=([2, 1],), expected=2, description="Two houses - rob the first one"),
     TestCase(
-        input_args=([2, 7, 9, 3, 1],),
+        input_args=input_args=([5],,
+    ), expected=5, description="Single house - no circular constraint"),
+    TestCase(
+        input_args=input_args=([1, 2],,
+    ), expected=2, description="Two houses - rob the larger one"),
+    TestCase(
+        input_args=input_args=([2, 1],,
+    ), expected=2, description="Two houses - rob the first one"),
+    TestCase(
+        input_args=input_args=([2, 7, 9, 3, 1],,
+    ),
         expected=11,
         description="Circular constraint reduces max from 12 to 11",
     ),
     TestCase(
-        input_args=([1, 1, 1, 2],),
+        input_args=input_args=([1, 1, 1, 2],,
+    ),
         expected=3,
         description="Rob house with value 2 and one house with value 1",
     ),
     TestCase(
-        input_args=([4, 1, 2, 7, 5, 3, 1],),
+        input_args=input_args=([4, 1, 2, 7, 5, 3, 1],,
+    ),
         expected=14,
         description="Larger example with circular constraint",
     ),
     TestCase(
-        input_args=([1, 1, 1, 1, 1],),
+        input_args=input_args=([1, 1, 1, 1, 1],,
+    ),
         expected=2,
         description="All equal - can rob at most 2 houses",
     ),

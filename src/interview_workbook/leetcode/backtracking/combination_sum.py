@@ -269,43 +269,36 @@ def create_demo_output() -> str:
 # Comprehensive test cases
 TEST_CASES = [
     TestCase(
-        name="Classic example with multiple solutions",
         input_args=([2, 3, 6, 7], 7),
         expected=[[2, 2, 3], [7]],
         description="Classic example with multiple solutions",
     ),
     TestCase(
-        name="Multiple ways to reach target",
         input_args=([2, 3, 5], 8),
         expected=[[2, 2, 2, 2], [2, 3, 3], [3, 5]],
         description="Multiple ways to reach target",
     ),
     TestCase(
-        name="Impossible case",
         input_args=([2], 1),
         expected=[],
         description="Impossible case - target smaller than minimum candidate",
     ),
     TestCase(
-        name="Single element exact match",
         input_args=([1], 1),
         expected=[[1]],
         description="Single element exact match",
     ),
     TestCase(
-        name="Reusing single element",
         input_args=([1], 2),
         expected=[[1, 1]],
         description="Reusing single element multiple times",
     ),
     TestCase(
-        name="Simple case requiring multiple uses",
         input_args=([3, 5, 4], 8),
         expected=[[3, 5], [4, 4]],
         description="Simple case requiring multiple uses",
     ),
     TestCase(
-        name="Many candidates with medium target",
         input_args=([2, 7, 6, 3, 5, 1], 9),
         expected=[
             [1, 1, 1, 1, 1, 1, 1, 1, 1],

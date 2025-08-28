@@ -203,20 +203,43 @@ def create_demo_output() -> str:
 
 # Test cases for validation
 TEST_CASES = [
-    TestCase(input_data=(19,), expected=True, description="Classic happy number example"),
-    TestCase(input_data=(2,), expected=False, description="Classic unhappy number example"),
-    TestCase(input_data=(1,), expected=True, description="Trivial case: 1 is happy"),
-    TestCase(input_data=(7,), expected=True, description="Single digit happy number"),
-    TestCase(input_data=(10,), expected=True, description="Happy number: 10"),
-    TestCase(input_data=(13,), expected=True, description="Happy number: 13"),
-    TestCase(input_data=(23,), expected=True, description="Happy number: 23"),
-    TestCase(input_data=(3,), expected=False, description="Unhappy number: 3"),
     TestCase(
-        input_data=(4,), expected=False, description="Unhappy number that enters cycle quickly"
+        input_args=(19,,
+    ), expected=True, description="Classic happy number example"),
+    TestCase(
+        input_args=(2,,
+    ), expected=False, description="Classic unhappy number example"),
+    TestCase(
+        input_args=(1,,
+    ), expected=True, description="Trivial case: 1 is happy"),
+    TestCase(
+        input_args=(7,,
+    ), expected=True, description="Single digit happy number"),
+    TestCase(
+        input_args=(10,,
+    ), expected=True, description="Happy number: 10"),
+    TestCase(
+        input_args=(13,,
+    ), expected=True, description="Happy number: 13"),
+    TestCase(
+        input_args=(23,,
+    ), expected=True, description="Happy number: 23"),
+    TestCase(
+        input_args=(3,,
+    ), expected=False, description="Unhappy number: 3"),
+    TestCase(
+        input_args=(4,,
+    ), expected=False, description="Unhappy number that enters cycle quickly"
     ),
-    TestCase(input_data=(5,), expected=False, description="Unhappy number: 5"),
-    TestCase(input_data=(82,), expected=True, description="Part of 19's sequence, should be happy"),
-    TestCase(input_data=(999999999,), expected=False, description="Large number with many 9s"),
+    TestCase(
+        input_args=(5,,
+    ), expected=False, description="Unhappy number: 5"),
+    TestCase(
+        input_args=(82,,
+    ), expected=True, description="Part of 19's sequence, should be happy"),
+    TestCase(
+        input_args=(999999999,,
+    ), expected=False, description="Large number with many 9s"),
 ]
 
 

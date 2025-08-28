@@ -188,17 +188,27 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data={"nums": [1, 2, 3]},
+        input_args={"nums": [1, 2, 3]},
         expected=[[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]],
         description="Classic example with 3 elements",
     ),
-    TestCase(input_data={"nums": [0]}, expected=[[], [0]], description="Single element array"),
     TestCase(
-        input_data={"nums": [1, 2]}, expected=[[], [1], [2], [1, 2]], description="Two elements"
+        input_args={"nums": [0]},
+        expected=[[], [0]],
+        description="Single element array",
     ),
-    TestCase(input_data={"nums": []}, expected=[[]], description="Empty array - only empty subset"),
     TestCase(
-        input_data={"nums": [4, 5, 6]},
+        input_args={"nums": [1, 2]},
+        expected=[[], [1], [2], [1, 2]],
+        description="Two elements",
+    ),
+    TestCase(
+        input_args={"nums": []},
+        expected=[[]],
+        description="Empty array - only empty subset",
+    ),
+    TestCase(
+        input_args={"nums": [4, 5, 6]},
         expected=[[], [4], [5], [4, 5], [6], [4, 6], [5, 6], [4, 5, 6]],
         description="Different numbers",
     ),

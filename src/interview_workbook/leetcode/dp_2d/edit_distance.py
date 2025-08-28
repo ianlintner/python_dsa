@@ -357,29 +357,56 @@ def create_demo_output() -> str:
 
 # Test cases covering various scenarios
 TEST_CASES = [
-    TestCase(input_data=("horse", "ros"), expected=3, description="Classic example: horse -> ros"),
     TestCase(
-        input_data=("intention", "execution"), expected=5, description="Longer transformation"
-    ),
-    TestCase(input_data=("", "abc"), expected=3, description="Empty to non-empty string"),
-    TestCase(input_data=("abc", ""), expected=3, description="Non-empty to empty string"),
-    TestCase(input_data=("", ""), expected=0, description="Both strings empty"),
-    TestCase(input_data=("abc", "abc"), expected=0, description="Identical strings"),
-    TestCase(input_data=("a", "b"), expected=1, description="Single character replacement"),
-    TestCase(input_data=("a", "ab"), expected=1, description="Single character insertion"),
-    TestCase(input_data=("ab", "a"), expected=1, description="Single character deletion"),
-    TestCase(input_data=("cat", "cut"), expected=1, description="Single replacement: a->u"),
+        input_args=("horse", "ros",
+    ), expected=3, description="Classic example: horse -> ros"),
     TestCase(
-        input_data=("sunday", "saturday"), expected=3, description="Common prefix/suffix case"
+        input_args=("intention", "execution",
+    ), expected=5, description="Longer transformation"
     ),
     TestCase(
-        input_data=("kitten", "sitting"),
+        input_args=("", "abc",
+    ), expected=3, description="Empty to non-empty string"),
+    TestCase(
+        input_args=("abc", "",
+    ), expected=3, description="Non-empty to empty string"),
+    TestCase(
+        input_args=("", "",
+    ), expected=0, description="Both strings empty"),
+    TestCase(
+        input_args=("abc", "abc",
+    ), expected=0, description="Identical strings"),
+    TestCase(
+        input_args=("a", "b",
+    ), expected=1, description="Single character replacement"),
+    TestCase(
+        input_args=("a", "ab",
+    ), expected=1, description="Single character insertion"),
+    TestCase(
+        input_args=("ab", "a",
+    ), expected=1, description="Single character deletion"),
+    TestCase(
+        input_args=("cat", "cut",
+    ), expected=1, description="Single replacement: a->u"),
+    TestCase(
+        input_args=("sunday", "saturday",
+    ), expected=3, description="Common prefix/suffix case"
+    ),
+    TestCase(
+        input_args=("kitten", "sitting",
+    ),
         expected=3,
         description="Classic example: kitten -> sitting",
     ),
-    TestCase(input_data=("flaw", "lawn"), expected=2, description="Multiple operations"),
-    TestCase(input_data=("abc", "def"), expected=3, description="No common characters"),
-    TestCase(input_data=("programming", "contest"), expected=9, description="Real-world example"),
+    TestCase(
+        input_args=("flaw", "lawn",
+    ), expected=2, description="Multiple operations"),
+    TestCase(
+        input_args=("abc", "def",
+    ), expected=3, description="No common characters"),
+    TestCase(
+        input_args=("programming", "contest",
+    ), expected=9, description="Real-world example"),
 ]
 
 

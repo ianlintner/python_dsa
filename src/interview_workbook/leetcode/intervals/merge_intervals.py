@@ -181,28 +181,42 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data=[[1, 3], [2, 6], [8, 10], [15, 18]],
+        input_args=[[1, 3], [2, 6], [8, 10], [15, 18]],
         expected=[[1, 6], [8, 10], [15, 18]],
         description="Standard overlapping intervals",
     ),
     TestCase(
-        input_data=[[1, 4], [4, 5]], expected=[[1, 5]], description="Adjacent intervals that touch"
-    ),
-    TestCase(input_data=[], expected=[], description="Empty input"),
-    TestCase(input_data=[[1, 4]], expected=[[1, 4]], description="Single interval"),
-    TestCase(
-        input_data=[[1, 4], [0, 4]], expected=[[0, 4]], description="Overlapping with same end"
+        input_args=[[1, 4], [4, 5]],
+        expected=[[1, 5]],
+        description="Adjacent intervals that touch",
     ),
     TestCase(
-        input_data=[[1, 4], [2, 3]], expected=[[1, 4]], description="One interval inside another"
+        input_args=[],
+        expected=[],
+        description="Empty input",
     ),
     TestCase(
-        input_data=[[1, 4], [0, 0]],
+        input_args=[[1, 4]],
+        expected=[[1, 4]],
+        description="Single interval",
+    ),
+    TestCase(
+        input_args=[[1, 4], [0, 4]],
+        expected=[[0, 4]],
+        description="Overlapping with same end",
+    ),
+    TestCase(
+        input_args=[[1, 4], [2, 3]],
+        expected=[[1, 4]],
+        description="One interval inside another",
+    ),
+    TestCase(
+        input_args=[[1, 4], [0, 0]],
         expected=[[0, 0], [1, 4]],
         description="Point interval separate from range",
     ),
     TestCase(
-        input_data=[[2, 3], [4, 5], [6, 7], [8, 9], [1, 10]],
+        input_args=[[2, 3], [4, 5], [6, 7], [8, 9], [1, 10]],
         expected=[[1, 10]],
         description="One large interval contains all others",
     ),
@@ -220,7 +234,11 @@ def test_solution():
         return result == expected
 
     test_cases_formatted = [
-        TestCase(input_data=tc.input_data, expected=tc.expected, description=tc.description)
+        TestCase(
+        input_args=tc.input_data,
+        expected=tc.expected,
+        description=tc.description,
+    )
         for tc in TEST_CASES
     ]
 

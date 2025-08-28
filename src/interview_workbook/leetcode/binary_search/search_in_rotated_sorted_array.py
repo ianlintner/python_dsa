@@ -99,18 +99,42 @@ class Solution:
 
 # Test cases
 test_cases = [
-    TestCase(([4, 5, 6, 7, 0, 1, 2], 0), 4, "Example 1: target in rotated part"),
-    TestCase(([4, 5, 6, 7, 0, 1, 2], 3), -1, "Example 2: target not found"),
-    TestCase(([1], 0), -1, "Example 3: single element, target not found"),
-    TestCase(([1], 1), 0, "Single element, target found"),
-    TestCase(([4, 5, 6, 7, 0, 1, 2], 4), 0, "Target at beginning"),
-    TestCase(([4, 5, 6, 7, 0, 1, 2], 2), 6, "Target at end"),
-    TestCase(([4, 5, 6, 7, 0, 1, 2], 5), 1, "Target in sorted left part"),
-    TestCase(([4, 5, 6, 7, 0, 1, 2], 1), 5, "Target in sorted right part"),
-    TestCase(([1, 2, 3, 4, 5], 3), 2, "No rotation, target found"),
-    TestCase(([5, 1, 2, 3, 4], 1), 1, "Rotation at index 1"),
-    TestCase(([2, 3, 4, 5, 1], 1), 4, "Rotation at last position"),
-    TestCase(([3, 1], 1), 1, "Two elements with rotation"),
+    TestCase(
+        input_args=([4, 5, 6, 7, 0, 1, 2], 0,
+    ), 4, "Example 1: target in rotated part"),
+    TestCase(
+        input_args=([4, 5, 6, 7, 0, 1, 2], 3,
+    ), -1, "Example 2: target not found"),
+    TestCase(
+        input_args=([1], 0,
+    ), -1, "Example 3: single element, target not found"),
+    TestCase(
+        input_args=([1], 1,
+    ), 0, "Single element, target found"),
+    TestCase(
+        input_args=([4, 5, 6, 7, 0, 1, 2], 4,
+    ), 0, "Target at beginning"),
+    TestCase(
+        input_args=([4, 5, 6, 7, 0, 1, 2], 2,
+    ), 6, "Target at end"),
+    TestCase(
+        input_args=([4, 5, 6, 7, 0, 1, 2], 5,
+    ), 1, "Target in sorted left part"),
+    TestCase(
+        input_args=([4, 5, 6, 7, 0, 1, 2], 1,
+    ), 5, "Target in sorted right part"),
+    TestCase(
+        input_args=([1, 2, 3, 4, 5], 3,
+    ), 2, "No rotation, target found"),
+    TestCase(
+        input_args=([5, 1, 2, 3, 4], 1,
+    ), 1, "Rotation at index 1"),
+    TestCase(
+        input_args=([2, 3, 4, 5, 1], 1,
+    ), 4, "Rotation at last position"),
+    TestCase(
+        input_args=([3, 1], 1,
+    ), 1, "Two elements with rotation"),
 ]
 
 

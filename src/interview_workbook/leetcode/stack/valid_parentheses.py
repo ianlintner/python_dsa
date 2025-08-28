@@ -67,16 +67,36 @@ class Solution:
 
 # Test cases
 test_cases = [
-    TestCase(("()",), True, "Simple valid parentheses"),
-    TestCase(("()[]{}",), True, "Multiple valid bracket types"),
-    TestCase(("(]",), False, "Wrong bracket type"),
-    TestCase(("([)]",), False, "Wrong bracket order"),
-    TestCase(("{[]}",), True, "Nested brackets"),
-    TestCase(("",), True, "Empty string"),
-    TestCase(("(",), False, "Unmatched opening"),
-    TestCase((")",), False, "Unmatched closing"),
-    TestCase(("(((",), False, "Multiple unmatched opening"),
-    TestCase((")))",), False, "Multiple unmatched closing"),
+    TestCase(
+        input_args=("(,
+    )",), True, "Simple valid parentheses"),
+    TestCase(
+        input_args=("(,
+    )[]{}",), True, "Multiple valid bracket types"),
+    TestCase(
+        input_args=("(]",,
+    ), False, "Wrong bracket type"),
+    TestCase(
+        input_args=("([,
+    )]",), False, "Wrong bracket order"),
+    TestCase(
+        input_args=("{[]}",,
+    ), True, "Nested brackets"),
+    TestCase(
+        input_args=("",,
+    ), True, "Empty string"),
+    TestCase(
+        input_args=("(",,
+    ), False, "Unmatched opening"),
+    TestCase(
+        input_args=(",
+    )",), False, "Unmatched closing"),
+    TestCase(
+        input_args=("(((",,
+    ), False, "Multiple unmatched opening"),
+    TestCase(
+        input_args=(",
+    )))",), False, "Multiple unmatched closing"),
 ]
 
 

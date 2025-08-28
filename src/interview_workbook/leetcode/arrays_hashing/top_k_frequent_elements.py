@@ -133,26 +133,33 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=([1, 1, 1, 2, 2, 3], 2), expected=[1, 2], description="Basic case with k=2"
+        input_args=input_args=([1, 1, 1, 2, 2, 3], 2,
+    ), expected=[1, 2], description="Basic case with k=2"
         ),
-        TestCase(input_args=([1], 1), expected=[1], description="Single element"),
         TestCase(
-            input_args=([1, 2, 3, 4, 5], 3),
+        input_args=input_args=([1], 1,
+    ), expected=[1], description="Single element"),
+        TestCase(
+        input_args=input_args=([1, 2, 3, 4, 5], 3,
+    ),
             expected=[1, 2, 3],
             description="All elements same frequency",
         ),
         TestCase(
-            input_args=([4, 1, -1, 2, -1, 2, 3], 2),
+        input_args=input_args=([4, 1, -1, 2, -1, 2, 3], 2,
+    ),
             expected=[-1, 2],
             description="Negative numbers included",
         ),
         TestCase(
-            input_args=([1, 1, 1, 2, 2, 2, 3, 3, 3], 3),
+        input_args=input_args=([1, 1, 1, 2, 2, 2, 3, 3, 3], 3,
+    ),
             expected=[1, 2, 3],
             description="All elements same frequency",
         ),
         TestCase(
-            input_args=([5, 5, 5, 5, 1, 1, 2, 2, 3], 2),
+        input_args=input_args=([5, 5, 5, 5, 1, 1, 2, 2, 3], 2,
+    ),
             expected=[5, 1],
             description="Clear frequency differences",
         ),

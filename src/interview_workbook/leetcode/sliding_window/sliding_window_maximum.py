@@ -104,16 +104,31 @@ class Solution:
 
 # Test cases
 test_cases = [
-    TestCase(([1, 3, -1, -3, 5, 3, 6, 7], 3), [3, 3, 5, 5, 6, 7], "Basic sliding window"),
-    TestCase(([1], 1), [1], "Single element"),
-    TestCase(([1, -1], 1), [1, -1], "Window size 1"),
-    TestCase(([9, 11], 2), [11], "Two elements, window size 2"),
     TestCase(
-        ([4, -2, -3, 4, -1, 2, 1, -5, 4], 3), [4, 4, 4, 4, 2, 2, 1, 4], "Mixed positive/negative"
+        input_args=([1, 3, -1, -3, 5, 3, 6, 7], 3,
+    ), [3, 3, 5, 5, 6, 7], "Basic sliding window"),
+    TestCase(
+        input_args=([1], 1,
+    ), [1], "Single element"),
+    TestCase(
+        input_args=([1, -1], 1,
+    ), [1, -1], "Window size 1"),
+    TestCase(
+        input_args=([9, 11], 2,
+    ), [11], "Two elements, window size 2"),
+    TestCase(
+        input_args=([4, -2, -3, 4, -1, 2, 1, -5, 4], 3,
+    ), [4, 4, 4, 4, 2, 2, 1, 4], "Mixed positive/negative"
     ),
-    TestCase(([1, 2, 3, 4, 5], 3), [3, 4, 5], "Increasing sequence"),
-    TestCase(([5, 4, 3, 2, 1], 3), [5, 4, 3], "Decreasing sequence"),
-    TestCase(([7, 2, 4], 2), [7, 4], "Simple case"),
+    TestCase(
+        input_args=([1, 2, 3, 4, 5], 3,
+    ), [3, 4, 5], "Increasing sequence"),
+    TestCase(
+        input_args=([5, 4, 3, 2, 1], 3,
+    ), [5, 4, 3], "Decreasing sequence"),
+    TestCase(
+        input_args=([7, 2, 4], 2,
+    ), [7, 4], "Simple case"),
 ]
 
 

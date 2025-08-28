@@ -129,28 +129,39 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=([100, 4, 200, 1, 3, 2],),
+        input_args=input_args=([100, 4, 200, 1, 3, 2],,
+    ),
             expected=4,
             description="Basic case - sequence [1,2,3,4]",
         ),
         TestCase(
-            input_args=([0, 3, 7, 2, 5, 8, 4, 6, 0, 1],),
+        input_args=input_args=([0, 3, 7, 2, 5, 8, 4, 6, 0, 1],,
+    ),
             expected=9,
             description="Long sequence [0,1,2,3,4,5,6,7,8]",
         ),
         TestCase(
-            input_args=([1, 2, 0, 1],), expected=3, description="With duplicates - sequence [0,1,2]"
+        input_args=input_args=([1, 2, 0, 1],,
+    ), expected=3, description="With duplicates - sequence [0,1,2]"
         ),
         TestCase(
-            input_args=([9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6],),
+        input_args=input_args=([9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6],,
+    ),
             expected=7,
             description="Negative numbers - sequence [-1,0,1,3,4,5,6]",
         ),
-        TestCase(input_args=([],), expected=0, description="Empty array"),
-        TestCase(input_args=([1],), expected=1, description="Single element"),
-        TestCase(input_args=([1, 3, 5, 7],), expected=1, description="No consecutive numbers"),
         TestCase(
-            input_args=([2, 20, 4, 10, 3, 4, 5]),
+        input_args=input_args=([],,
+    ), expected=0, description="Empty array"),
+        TestCase(
+        input_args=input_args=([1],,
+    ), expected=1, description="Single element"),
+        TestCase(
+        input_args=input_args=([1, 3, 5, 7],,
+    ), expected=1, description="No consecutive numbers"),
+        TestCase(
+        input_args=input_args=([2, 20, 4, 10, 3, 4, 5],
+    ),
             expected=4,
             description="Sequence [2,3,4,5] with duplicates",
         ),

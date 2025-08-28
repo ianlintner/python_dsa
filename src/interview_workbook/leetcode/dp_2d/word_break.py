@@ -325,45 +325,58 @@ def create_demo_output() -> str:
 # Test cases covering various scenarios
 TEST_CASES = [
     TestCase(
-        input_data=("leetcode", ["leet", "code"]),
+        input_args=("leetcode", ["leet", "code"],
+    ),
         expected=True,
         description="Basic word break example",
     ),
     TestCase(
-        input_data=("applepenapple", ["apple", "pen"]),
+        input_args=("applepenapple", ["apple", "pen"],
+    ),
         expected=True,
         description="Word reuse allowed",
     ),
     TestCase(
-        input_data=("catsandog", ["cats", "dog", "sand", "and", "cat"]),
+        input_args=("catsandog", ["cats", "dog", "sand", "and", "cat"],
+    ),
         expected=False,
         description="Impossible to segment",
     ),
-    TestCase(input_data=("", ["word"]), expected=True, description="Empty string - always true"),
-    TestCase(input_data=("a", ["a"]), expected=True, description="Single character match"),
-    TestCase(input_data=("a", ["b"]), expected=False, description="Single character no match"),
     TestCase(
-        input_data=("cars", ["car", "ca", "rs"]),
+        input_args=("", ["word"],
+    ), expected=True, description="Empty string - always true"),
+    TestCase(
+        input_args=("a", ["a"],
+    ), expected=True, description="Single character match"),
+    TestCase(
+        input_args=("a", ["b"],
+    ), expected=False, description="Single character no match"),
+    TestCase(
+        input_args=("cars", ["car", "ca", "rs"],
+    ),
         expected=True,
         description="Multiple valid segmentations",
     ),
     TestCase(
-        input_data=("aaaaaaa", ["aaaa", "aaa"]),
+        input_args=("aaaaaaa", ["aaaa", "aaa"],
+    ),
         expected=True,
         description="Overlapping word patterns",
     ),
     TestCase(
-        input_data=("abcd", ["a", "abc", "b", "cd"]),
+        input_args=("abcd", ["a", "abc", "b", "cd"],
+    ),
         expected=True,
         description="Greedy might fail, DP works",
     ),
     TestCase(
-        input_data=("bb", ["a", "b", "bbb", "bbbb"]),
+        input_args=("bb", ["a", "b", "bbb", "bbbb"],
+    ),
         expected=True,
         description="Multiple b's can be segmented as b + b",
     ),
     TestCase(
-        input_data=(
+        input_args=(
             "fohhemkkaecojceoaejkkoedkofhmohkcjmkggcmnami",
             [
                 "kfomka",
@@ -417,26 +430,30 @@ TEST_CASES = [
                 "ckb",
                 "hamijoiggj",
                 "cgd",
-            ],
-        ),
+            ],,
+    ),
         expected=False,
         description="Complex LeetCode test case",
     ),
     TestCase(
-        input_data=("goalspecial", ["go", "goal", "goals", "special"]),
+        input_args=("goalspecial", ["go", "goal", "goals", "special"],
+    ),
         expected=True,
         description="Prefix overlap case",
     ),
     TestCase(
-        input_data=("abcdef", ["abc", "def"]), expected=True, description="Perfect two-word split"
+        input_args=("abcdef", ["abc", "def"],
+    ), expected=True, description="Perfect two-word split"
     ),
     TestCase(
-        input_data=("programming", ["program", "ming"]),
+        input_args=("programming", ["program", "ming"],
+    ),
         expected=True,
         description="Simple two-word case",
     ),
     TestCase(
-        input_data=("dddddd", ["dd", "ddd"]),
+        input_args=("dddddd", ["dd", "ddd"],
+    ),
         expected=True,
         description="Repeated pattern segmentation",
     ),

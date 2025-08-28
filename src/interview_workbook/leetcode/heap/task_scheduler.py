@@ -287,38 +287,50 @@ def simulate_schedule(tasks: List[str], n: int) -> List[str]:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data={"tasks": ["A", "A", "A", "B", "B", "B"], "n": 2},
+        input_args={"tasks": ["A", "A", "A", "B", "B", "B"],
+        expected="n": 2},
         expected=8,
         description="Basic example with alternating pattern",
     ),
     TestCase(
-        input_data={"tasks": ["A", "A", "A", "B", "B", "B"], "n": 0},
+        input_args={"tasks": ["A", "A", "A", "B", "B", "B"],
+        expected="n": 0},
         expected=6,
         description="No cooling time - execute immediately",
     ),
     TestCase(
-        input_data={"tasks": ["A", "A", "A", "A", "A", "A", "B", "C", "D", "E", "F", "G"], "n": 2},
+        input_args={"tasks": ["A", "A", "A", "A", "A", "A", "B", "C", "D", "E", "F", "G"],
+        expected="n": 2},
         expected=16,
         description="One task dominates frequency",
     ),
     TestCase(
-        input_data={"tasks": ["A", "B", "C", "D", "E", "F"], "n": 2},
+        input_args={"tasks": ["A", "B", "C", "D", "E", "F"],
+        expected="n": 2},
         expected=6,
         description="All different tasks",
     ),
     TestCase(
-        input_data={"tasks": ["A", "A", "B", "B"], "n": 1},
+        input_args={"tasks": ["A", "A", "B", "B"],
+        expected="n": 1},
         expected=4,
         description="Two pairs with minimal cooling",
     ),
-    TestCase(input_data={"tasks": ["A"], "n": 1}, expected=1, description="Single task"),
     TestCase(
-        input_data={"tasks": ["A", "A"], "n": 3},
+        input_args={"tasks": ["A"],
+        expected="n": 1},
+        expected=1,
+        description="Single task",
+    ),
+    TestCase(
+        input_args={"tasks": ["A", "A"],
+        expected="n": 3},
         expected=5,
         description="Same task with large cooling time",
     ),
     TestCase(
-        input_data={"tasks": ["A", "B", "A", "B", "A", "B"], "n": 0},
+        input_args={"tasks": ["A", "B", "A", "B", "A", "B"],
+        expected="n": 0},
         expected=6,
         description="Alternating tasks with no cooling",
     ),

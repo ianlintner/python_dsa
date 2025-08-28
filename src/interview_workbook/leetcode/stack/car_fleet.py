@@ -88,22 +88,40 @@ class Solution:
 
 # Test cases
 test_cases = [
-    TestCase((12, [10, 8, 0, 5, 3], [2, 4, 1, 1, 3]), 3, "Example 1: Multiple fleets"),
-    TestCase((10, [3], [3]), 1, "Example 2: Single car"),
-    TestCase((100, [0, 2, 4], [4, 2, 1]), 1, "Example 3: All cars form one fleet"),
-    TestCase((10, [0, 4, 2], [2, 1, 3]), 2, "Cars at different positions with different speeds"),
     TestCase(
-        (10, [8, 3, 7, 4, 6, 5], [4, 4, 4, 4, 4, 4]),
+        input_args=(12, [10, 8, 0, 5, 3], [2, 4, 1, 1, 3],
+    ), 3, "Example 1: Multiple fleets"),
+    TestCase(
+        input_args=(10, [3], [3],
+    ), 1, "Example 2: Single car"),
+    TestCase(
+        input_args=(100, [0, 2, 4], [4, 2, 1],
+    ), 1, "Example 3: All cars form one fleet"),
+    TestCase(
+        input_args=(10, [0, 4, 2], [2, 1, 3],
+    ), 2, "Cars at different positions with different speeds"),
+    TestCase(
+        input_args=(10, [8, 3, 7, 4, 6, 5], [4, 4, 4, 4, 4, 4],
+    ),
         6,
         "All cars have same speed - no fleet formation",
     ),
-    TestCase((10, [6, 8], [3, 2]), 2, "Slower car ahead, faster car behind - separate fleets"),
-    TestCase((10, [3, 6], [2, 3]), 1, "Faster car behind catches up - one fleet"),
     TestCase(
-        (12, [10, 8, 0, 5, 3], [2, 4, 1, 1, 3]), 3, "Complex case with multiple fleet formations"
+        input_args=(10, [6, 8], [3, 2],
+    ), 2, "Slower car ahead, faster car behind - separate fleets"),
+    TestCase(
+        input_args=(10, [3, 6], [2, 3],
+    ), 1, "Faster car behind catches up - one fleet"),
+    TestCase(
+        input_args=(12, [10, 8, 0, 5, 3], [2, 4, 1, 1, 3],
+    ), 3, "Complex case with multiple fleet formations"
     ),
-    TestCase((13, [10, 2, 5, 7, 8], [3, 2, 4, 1, 1]), 4, "Mixed speeds and positions"),
-    TestCase((10, [0, 9], [1, 1]), 2, "Same speed, different positions - no catching up"),
+    TestCase(
+        input_args=(13, [10, 2, 5, 7, 8], [3, 2, 4, 1, 1],
+    ), 4, "Mixed speeds and positions"),
+    TestCase(
+        input_args=(10, [0, 9], [1, 1],
+    ), 2, "Same speed, different positions - no catching up"),
 ]
 
 

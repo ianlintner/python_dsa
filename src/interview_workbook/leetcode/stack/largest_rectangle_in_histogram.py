@@ -88,19 +88,38 @@ class Solution:
 # Test cases
 test_cases = [
     TestCase(
-        ([2, 1, 5, 6, 2, 3],),
+        input_args=([2, 1, 5, 6, 2, 3],,
+    ),
         10,
         "Example 1: Heights [2,1,5,6,2,3] -> Rectangle of height 5, width 2 = 10",
     ),
-    TestCase(([2, 4],), 4, "Example 2: Heights [2,4] -> Rectangle of height 4, width 1 = 4"),
-    TestCase(([1],), 1, "Single bar"),
-    TestCase(([2, 2, 2, 2],), 8, "All bars same height -> full width"),
-    TestCase(([1, 2, 3, 4, 5],), 9, "Increasing heights -> height 3, width 3 = 9"),
-    TestCase(([5, 4, 3, 2, 1],), 9, "Decreasing heights -> height 3, width 3 = 9"),
-    TestCase(([0, 2, 0],), 2, "Zero heights in between"),
-    TestCase(([4, 2, 0, 3, 2, 5],), 6, "Complex case with zero -> height 3, width 2 = 6"),
-    TestCase(([6, 7, 5, 2, 4, 5, 9, 3],), 16, "Complex histogram -> height 4, width 4 = 16"),
-    TestCase(([],), 0, "Empty array"),
+    TestCase(
+        input_args=([2, 4],,
+    ), 4, "Example 2: Heights [2,4] -> Rectangle of height 4, width 1 = 4"),
+    TestCase(
+        input_args=([1],,
+    ), 1, "Single bar"),
+    TestCase(
+        input_args=([2, 2, 2, 2],,
+    ), 8, "All bars same height -> full width"),
+    TestCase(
+        input_args=([1, 2, 3, 4, 5],,
+    ), 9, "Increasing heights -> height 3, width 3 = 9"),
+    TestCase(
+        input_args=([5, 4, 3, 2, 1],,
+    ), 9, "Decreasing heights -> height 3, width 3 = 9"),
+    TestCase(
+        input_args=([0, 2, 0],,
+    ), 2, "Zero heights in between"),
+    TestCase(
+        input_args=([4, 2, 0, 3, 2, 5],,
+    ), 6, "Complex case with zero -> height 3, width 2 = 6"),
+    TestCase(
+        input_args=([6, 7, 5, 2, 4, 5, 9, 3],,
+    ), 16, "Complex histogram -> height 4, width 4 = 16"),
+    TestCase(
+        input_args=([],,
+    ), 0, "Empty array"),
 ]
 
 

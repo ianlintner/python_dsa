@@ -252,25 +252,37 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data=[[2, 1, 1], [1, 1, 0], [0, 1, 1]],
+        input_args=[[2, 1, 1], [1, 1, 0], [0, 1, 1]],
         expected=4,
         description="Standard case - all oranges rot in 4 minutes",
     ),
     TestCase(
-        input_data=[[2, 1, 1], [0, 1, 1], [1, 0, 1]],
+        input_args=[[2, 1, 1], [0, 1, 1], [1, 0, 1]],
         expected=-1,
         description="Blocked path - bottom-left orange can't be reached",
     ),
-    TestCase(input_data=[[0, 2]], expected=0, description="Only rotten orange, no fresh ones"),
     TestCase(
-        input_data=[[2, 2], [1, 1], [0, 0]],
+        input_args=[[0, 2]],
+        expected=0,
+        description="Only rotten orange, no fresh ones",
+    ),
+    TestCase(
+        input_args=[[2, 2], [1, 1], [0, 0]],
         expected=1,
         description="Multiple rotten sources rot all in 1 minute",
     ),
-    TestCase(input_data=[[1]], expected=-1, description="Only fresh orange, no rotten ones"),
-    TestCase(input_data=[[0]], expected=0, description="Only empty cell"),
     TestCase(
-        input_data=[
+        input_args=[[1]],
+        expected=-1,
+        description="Only fresh orange, no rotten ones",
+    ),
+    TestCase(
+        input_args=[[0]],
+        expected=0,
+        description="Only empty cell",
+    ),
+    TestCase(
+        input_args=[
             [2, 1, 0, 1, 1],
             [1, 1, 0, 1, 1],
             [0, 0, 0, 0, 0],
@@ -293,7 +305,11 @@ def test_solution():
         return result == expected
 
     test_cases_formatted = [
-        TestCase(input_data=tc.input_data, expected=tc.expected, description=tc.description)
+        TestCase(
+        input_args=tc.input_data,
+        expected=tc.expected,
+        description=tc.description,
+    )
         for tc in TEST_CASES
     ]
 

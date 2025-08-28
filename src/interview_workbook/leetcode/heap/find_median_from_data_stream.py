@@ -286,17 +286,17 @@ def test_median_finder():
 
 TEST_CASES = [
     TestCase(
-        name="Basic two-element median finding",
-        input_args=(
+        description="Basic two-element median finding",
+        input_args=input_args=(
             ["MedianFinder", "addNum", "findMedian", "addNum", "findMedian"],
-            [[], [1], [], [2], []],
-        ),
+            [[], [1], [], [2], []],,
+    ),
         expected=[None, None, 1.0, None, 1.5],
         description="Basic two-element median finding",
     ),
     TestCase(
-        name="Three-element progression",
-        input_args=(
+        description="Three-element progression",
+        input_args=input_args=(
             [
                 "MedianFinder",
                 "addNum",
@@ -305,8 +305,8 @@ TEST_CASES = [
                 "addNum",
                 "findMedian",
             ],
-            [[], [1], [2], [], [3], []],
-        ),
+            [[], [1], [2], [], [3], []],,
+    ),
         expected=[None, None, None, 1.5, None, 2.0],
         description="Three-element progression",
     ),

@@ -109,25 +109,30 @@ def demo():
         Solution().minWindow,
         [
             TestCase(
-                input_args=("ADOBECODEBANC", "ABC"),
+        input_args=input_args=("ADOBECODEBANC", "ABC",
+    ),
                 expected="BANC",
                 description="Sample case 1",
             ),
-            TestCase(input_args=("a", "a"), expected="a", description="Sample case 2"),
-            TestCase(input_args=("a", "aa"), expected="", description="Sample case 3"),
             TestCase(
-                input_args=(
+        input_args=input_args=("a", "a",
+    ), expected="a", description="Sample case 2"),
+            TestCase(
+        input_args=input_args=("a", "aa",
+    ), expected="", description="Sample case 3"),
+            TestCase(
+        input_args=input_args=(
                     "cabwefgewcwaefgcf",
-                    "cae",
-                ),
+                    "cae",,
+    ),
                 expected="cwae",
                 description="Complex case",
             ),
             TestCase(
-                input_args=(
+        input_args=input_args=(
                     "wegdtzwabazduwwdysdetrrctotpcepalvzaasccoagwagzsyzgruutxnhvyzrnckdqyucdfnmiauaomhprrxydtjjzqykywajqwpgzsrsgttgvjhpaprgvdzwlqsrsdhcejhsfxcpnfseggdsdkdoffrxgqowlshlnlcbkqtsydlvdaytwcttjpqnyukdbmdgeiipslzckvoyyqwdltmzowdybytezcvlnvwsidodbdbhfxggctbhcbkchgrwamdgyxggmaaacvgfkbktjtpxyhpzapzxxjngeeepzmtwnazxjcnyrczayjtocsrcamzvkfimzezgdtdufhcrssmlzgrsnxvspyyyatvhspvejuhcglaoefkjgkzwqvdyqdxtrdkqyvfnggkobwpswjagzmhwbxcakfcqhyexjlbapxdbyehfvkqltcmidkdddctkehscrxzckpyiltoqnimgkhprbrcdfzaayzmqsgtbjccyzepbktrjfzsxvqfwzwepawgqhqnmjpckdmvqyizgmphxhqgsgwtqnfclayhtqmbdipwlpdwfskxhfqgrqrrcrvmepkxtzwcwzncevqpkdvdzbfqhbvrzjhybkkmkxgvzrohvibfzehklmkivolaafvfshowkxhvowkehwgsxjqecxdlqtpyqqvnvlhkgtutdlcndjltvbwzmtdlzddrmvazjpdpmvgpnpbahyqhcsdgzjfslhzkpjdntkgmhtyzhsyecqrfzpnhylqbmgwuaaxtedwczdshikxgwaxmftlmryamdqrpfkhmdsaxtfklwvuwdkfzkzjhxikbvhfvlumfazhqozlddsmmjqnuwjxkshqtpopfnyqnzwvjtjzrcbqoykdqpgkcenzcpuwefowlszdqhvtwafmhiwxbywjjcqhbhfpvpnwshscoyblcqfbsrxhyoibdqvgppnzakzgqyowgpvzkppktwlxyxpdatvmcavqfqsrgnbqvmjyxfozprsrlqxqxjtrlzmfqfygqkhgdaxlxzryrfkdwdqxnhbsnfqsqlfvlolnpttgrpsaqtmvscwtwppkgdvnzcbydysbjkxyksltkmgbtdrvdnruwqvdtdbbmcnowfmejdrgdwgdzkxdojnyrhkozqhqwdsqbdjbvohvobbtuxqgxrjhsbfylrplrqgbczxlgtejdlitpbgmjzjplbvhycnazawczutnkozjtgxzqgxbxwvyvqjvxfddoouiicvuvbrcykqjpawhhzcegzlqflpsdjnvggscibcbdssefgvcsadxqjowmttmcxkyvmyidgvgqklvvdvxcqkwqihdbqjbizmlkdoohxcwdxdjvgbwznkqvpffpqjltzjkwlwnbjbbfhfbtctqdehyvnbwklpumqwwsxhklprxjqfggbjylfkqbibdvrlnhvfjcycdgxbmsbfbykepivnfkspdxfhqwqtyjhyqvlmjvycpgxkuprpqoujydfrntqsjvdmgwcqjgecimjcpnstlgcngqxkvdoldfzqwsgcjzacekxnimfqcrrzlqefkpxyzgdrfnsfokzztksjkdxfvtmkzccnxkcjhkzwqvtinpgpspovknhkvzvcrvpcnjqzjjfafvnlqdvxjqovxdsmyczcttubmbgzygsjwkfqwftfavdkmdvxpjpcttphwegdqwsqzjzbrfavqhcfvzljqtsgxwsyzaqdphcntnlzqkcytfbumolmgdkqzuagzjfghllkqhvsqchmzjtzukzmlsrksatktpjrqcbjcquvgwmttbhgngxdvwmstbfqucqkktmhgpskpddbdpqljgfkxkxlhxgbhhfqhzdhocxvyfkxqlzfzwtxjdqxrhgfhkskzqsbnpvfqfkuhslfpxpfngjhjzxjwdybcnhghxqjhfyepqpfnpgrwbdcjtgkxelgsxndwlhdzgagvnvhjphzqgvpqcrtnxvlvxhqvgzfhscvhfjdgncjgjvdgrplxibuqzxqvemhkzcsvqxhpxqpgppcvhdftlbhxgjzqdxfyccrctnplzgmgfblxqkqjcrvxljhzngfvymkrhmjwhspvcgtavqfmumhtfyqfdhwehqgbvdxhgvlwcwdnjmkcgqlfmdlzjqxbwmpgtctjyuhjhqhsnswmgmjlmrjflxlnkplbxgyhcrsntlzpxizkplxjxkqlgxfchddfxjdqygbtcwejxvzxksbjhgymbagvqzecuuprnbdcswvzsyvytnxdxwvmcskgtjbddzfkgsgpqtntdd",
-                    "f",
-                ),
+                    "f",,
+    ),
                 expected="f",
                 description="Extremely long string case",
             ),

@@ -250,17 +250,51 @@ def create_demo_output() -> str:
 
 # Test cases
 TEST_CASES = [
-    TestCase(input=[[2, 3, 1, 1, 4]], expected=2, description="Standard case with multiple paths"),
-    TestCase(input=[[2, 3, 0, 1, 4]], expected=2, description="Large jump bypasses zero"),
-    TestCase(input=[[0]], expected=0, description="Single element - no jumps needed"),
     TestCase(
-        input=[[1, 1, 1, 1]], expected=3, description="All ones - need 3 jumps for 4 elements"
+        input_args=[[2, 3, 1, 1, 4]],
+        expected=2,
+        description="Standard case with multiple paths",
     ),
-    TestCase(input=[[2, 1]], expected=1, description="Two elements - one jump"),
-    TestCase(input=[[1, 2, 3]], expected=2, description="Increasing sequence"),
-    TestCase(input=[[3, 2, 1]], expected=1, description="Can jump directly to end"),
-    TestCase(input=[[1, 1, 1, 1, 1, 1]], expected=5, description="Long sequence of ones"),
-    TestCase(input=[[4, 1, 1, 3, 1, 1, 1]], expected=2, description="Large initial jump"),
+    TestCase(
+        input_args=[[2, 3, 0, 1, 4]],
+        expected=2,
+        description="Large jump bypasses zero",
+    ),
+    TestCase(
+        input_args=[[0]],
+        expected=0,
+        description="Single element - no jumps needed",
+    ),
+    TestCase(
+        input_args=[[1, 1, 1, 1]],
+        expected=3,
+        description="All ones - need 3 jumps for 4 elements",
+    ),
+    TestCase(
+        input_args=[[2, 1]],
+        expected=1,
+        description="Two elements - one jump",
+    ),
+    TestCase(
+        input_args=[[1, 2, 3]],
+        expected=2,
+        description="Increasing sequence",
+    ),
+    TestCase(
+        input_args=[[3, 2, 1]],
+        expected=1,
+        description="Can jump directly to end",
+    ),
+    TestCase(
+        input_args=[[1, 1, 1, 1, 1, 1]],
+        expected=5,
+        description="Long sequence of ones",
+    ),
+    TestCase(
+        input_args=[[4, 1, 1, 3, 1, 1, 1]],
+        expected=2,
+        description="Large initial jump",
+    ),
 ]
 
 

@@ -325,7 +325,7 @@ def create_demo_output() -> str:
 # Comprehensive test cases
 TEST_CASES = [
     TestCase(
-        input_data={
+        input_args={
             "grid": [
                 ["1", "1", "1", "1", "0"],
                 ["1", "1", "0", "1", "0"],
@@ -333,11 +333,11 @@ TEST_CASES = [
                 ["0", "0", "0", "0", "0"],
             ]
         },
-        expected_output=1,
+        expected=expected_output=1,
         description="Single large connected island",
     ),
     TestCase(
-        input_data={
+        input_args={
             "grid": [
                 ["1", "1", "0", "0", "0"],
                 ["1", "1", "0", "0", "0"],
@@ -345,26 +345,35 @@ TEST_CASES = [
                 ["0", "0", "0", "1", "1"],
             ]
         },
-        expected_output=3,
+        expected=expected_output=3,
         description="Three separate islands",
     ),
     TestCase(
-        input_data={"grid": [["1", "0", "1"], ["0", "1", "0"], ["1", "0", "1"]]},
-        expected_output=5,
-        description="Five single-cell islands (diagonal not connected)",
+        input_args={"grid": [["1", "0", "1"], ["0", "1", "0"], ["1", "0", "1"]]},
+        expected=expected_output=5,
+        description="Five single-cell islands (diagonal not connected,
+    )",
     ),
     TestCase(
-        input_data={"grid": [["1", "1", "1"], ["1", "1", "1"], ["1", "1", "1"]]},
-        expected_output=1,
+        input_args={"grid": [["1", "1", "1"], ["1", "1", "1"], ["1", "1", "1"]]},
+        expected=expected_output=1,
         description="All land forms single island",
     ),
     TestCase(
-        input_data={"grid": [["0", "0", "0"], ["0", "0", "0"], ["0", "0", "0"]]},
-        expected_output=0,
+        input_args={"grid": [["0", "0", "0"], ["0", "0", "0"], ["0", "0", "0"]]},
+        expected=expected_output=0,
         description="All water - no islands",
     ),
-    TestCase(input_data={"grid": [["1"]]}, expected_output=1, description="Single cell island"),
-    TestCase(input_data={"grid": [["0"]]}, expected_output=0, description="Single cell water"),
+    TestCase(
+        input_args={"grid": [["1"]]},
+        expected=expected_output=1,
+        description="Single cell island",
+    ),
+    TestCase(
+        input_args={"grid": [["0"]]},
+        expected=expected_output=0,
+        description="Single cell water",
+    ),
 ]
 
 

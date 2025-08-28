@@ -81,16 +81,36 @@ class Solution:
 
 # Test cases
 test_cases = [
-    TestCase(([-1, 0, 3, 5, 9, 12], 9), 4, "Example 1: target exists"),
-    TestCase(([-1, 0, 3, 5, 9, 12], 2), -1, "Example 2: target doesn't exist"),
-    TestCase(([5], 5), 0, "Single element - found"),
-    TestCase(([5], -5), -1, "Single element - not found"),
-    TestCase(([-1, 0, 3, 5, 9, 12], -1), 0, "Target at beginning"),
-    TestCase(([-1, 0, 3, 5, 9, 12], 12), 5, "Target at end"),
-    TestCase(([-1, 0, 3, 5, 9, 12], 0), 1, "Target in middle-left"),
-    TestCase(([-1, 0, 3, 5, 9, 12], 5), 3, "Target in middle-right"),
-    TestCase(([], 1), -1, "Empty array"),
-    TestCase(([1, 2, 3, 4, 5], 6), -1, "Target larger than all elements"),
+    TestCase(
+        input_args=([-1, 0, 3, 5, 9, 12], 9,
+    ), 4, "Example 1: target exists"),
+    TestCase(
+        input_args=([-1, 0, 3, 5, 9, 12], 2,
+    ), -1, "Example 2: target doesn't exist"),
+    TestCase(
+        input_args=([5], 5,
+    ), 0, "Single element - found"),
+    TestCase(
+        input_args=([5], -5,
+    ), -1, "Single element - not found"),
+    TestCase(
+        input_args=([-1, 0, 3, 5, 9, 12], -1,
+    ), 0, "Target at beginning"),
+    TestCase(
+        input_args=([-1, 0, 3, 5, 9, 12], 12,
+    ), 5, "Target at end"),
+    TestCase(
+        input_args=([-1, 0, 3, 5, 9, 12], 0,
+    ), 1, "Target in middle-left"),
+    TestCase(
+        input_args=([-1, 0, 3, 5, 9, 12], 5,
+    ), 3, "Target in middle-right"),
+    TestCase(
+        input_args=([], 1,
+    ), -1, "Empty array"),
+    TestCase(
+        input_args=([1, 2, 3, 4, 5], 6,
+    ), -1, "Target larger than all elements"),
 ]
 
 

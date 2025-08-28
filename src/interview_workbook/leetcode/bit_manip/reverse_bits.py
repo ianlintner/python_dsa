@@ -101,37 +101,44 @@ class Solution:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_args=(0b00000010100101000001111010011100,),  # 43261596
+        input_args=input_args=(0b00000010100101000001111010011100,,
+    ),  # 43261596
         expected=0b00111001011110000010100101000000,  # 964176192
         description="Standard bit reversal example",
     ),
     TestCase(
-        input_args=(0b11111111111111111111111111111101,),  # 4294967293
+        input_args=input_args=(0b11111111111111111111111111111101,,
+    ),  # 4294967293
         expected=0b10111111111111111111111111111111,  # 3221225471
         description="Nearly all bits set",
     ),
     TestCase(
-        input_args=(0b00000000000000000000000000000000,),  # 0
+        input_args=input_args=(0b00000000000000000000000000000000,,
+    ),  # 0
         expected=0b00000000000000000000000000000000,  # 0
         description="All bits are zero",
     ),
     TestCase(
-        input_args=(0b11111111111111111111111111111111,),  # 4294967295
+        input_args=input_args=(0b11111111111111111111111111111111,,
+    ),  # 4294967295
         expected=0b11111111111111111111111111111111,  # 4294967295
         description="All bits are one",
     ),
     TestCase(
-        input_args=(0b10000000000000000000000000000000,),  # 2147483648
+        input_args=input_args=(0b10000000000000000000000000000000,,
+    ),  # 2147483648
         expected=0b00000000000000000000000000000001,  # 1
         description="Single bit at leftmost position",
     ),
     TestCase(
-        input_args=(0b00000000000000000000000000000001,),  # 1
+        input_args=input_args=(0b00000000000000000000000000000001,,
+    ),  # 1
         expected=0b10000000000000000000000000000000,  # 2147483648
         description="Single bit at rightmost position",
     ),
     TestCase(
-        input_args=(0b10101010101010101010101010101010,),  # 2863311530
+        input_args=input_args=(0b10101010101010101010101010101010,,
+    ),  # 2863311530
         expected=0b01010101010101010101010101010101,  # 1431655765
         description="Alternating bit pattern",
     ),

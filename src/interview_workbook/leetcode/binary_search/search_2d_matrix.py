@@ -87,45 +87,62 @@ class Solution:
 # Test cases
 test_cases = [
     TestCase(
-        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 5),
+        input_args=([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 5,
+    ),
         True,
         "Example 1: target exists",
     ),
     TestCase(
-        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 13),
+        input_args=([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 13,
+    ),
         True,
         "Example 2: target at end",
     ),
     TestCase(
-        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 20),
+        input_args=([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 20,
+    ),
         False,
         "Example 3: target not found",
     ),
-    TestCase(([[1]], 1), True, "Single element matrix - found"),
-    TestCase(([[1]], 2), False, "Single element matrix - not found"),
-    TestCase(([[1, 3]], 3), True, "Single row - target at end"),
-    TestCase(([[1], [3]], 1), True, "Single column - target at start"),
     TestCase(
-        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 1),
+        input_args=([[1]], 1,
+    ), True, "Single element matrix - found"),
+    TestCase(
+        input_args=([[1]], 2,
+    ), False, "Single element matrix - not found"),
+    TestCase(
+        input_args=([[1, 3]], 3,
+    ), True, "Single row - target at end"),
+    TestCase(
+        input_args=([[1], [3]], 1,
+    ), True, "Single column - target at start"),
+    TestCase(
+        input_args=([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 1,
+    ),
         True,
         "Target at beginning",
     ),
     TestCase(
-        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 17),
+        input_args=([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 17,
+    ),
         True,
         "Target at very end",
     ),
     TestCase(
-        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 0),
+        input_args=([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 0,
+    ),
         False,
         "Target smaller than all",
     ),
     TestCase(
-        ([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 15),
+        input_args=([[1, 4, 7, 11], [2, 5, 8, 12], [3, 6, 9, 16], [10, 13, 14, 17]], 15,
+    ),
         False,
         "Target between existing values",
     ),
-    TestCase(([[-5, -2], [0, 3]], -2), True, "Negative numbers"),
+    TestCase(
+        input_args=([[-5, -2], [0, 3]], -2,
+    ), True, "Negative numbers"),
 ]
 
 

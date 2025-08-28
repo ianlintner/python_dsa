@@ -393,24 +393,28 @@ def graph_to_adj_list(node: Optional[Node]) -> List[List[int]]:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data={"adj_list": [[2, 4], [1, 3], [2, 4], [1, 3]]},
-        expected_output=[[2, 4], [1, 3], [2, 4], [1, 3]],
+        input_args={"adj_list": [[2, 4], [1, 3], [2, 4], [1, 3]]},
+        expected=expected_output=[[2, 4], [1, 3], [2, 4], [1, 3]],
         description="4-node cycle graph",
     ),
     TestCase(
-        input_data={"adj_list": [[]]},
-        expected_output=[[]],
+        input_args={"adj_list": [[]]},
+        expected=expected_output=[[]],
         description="Single node with no neighbors",
     ),
-    TestCase(input_data={"adj_list": []}, expected_output=[], description="Empty graph"),
     TestCase(
-        input_data={"adj_list": [[2], [1]]},
-        expected_output=[[2], [1]],
+        input_args={"adj_list": []},
+        expected=expected_output=[],
+        description="Empty graph",
+    ),
+    TestCase(
+        input_args={"adj_list": [[2], [1]]},
+        expected=expected_output=[[2], [1]],
         description="Two connected nodes",
     ),
     TestCase(
-        input_data={"adj_list": [[2, 3], [1, 3], [1, 2]]},
-        expected_output=[[2, 3], [1, 3], [1, 2]],
+        input_args={"adj_list": [[2, 3], [1, 3], [1, 2]]},
+        expected=expected_output=[[2, 3], [1, 3], [1, 2]],
         description="Triangle graph",
     ),
 ]

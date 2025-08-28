@@ -148,29 +148,41 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=(["flower", "flow", "flight"],),
+        input_args=input_args=(["flower", "flow", "flight"],,
+    ),
             expected="fl",
             description="Common prefix 'fl'",
         ),
         TestCase(
-            input_args=(["dog", "racecar", "car"],), expected="", description="No common prefix"
+        input_args=input_args=(["dog", "racecar", "car"],,
+    ), expected="", description="No common prefix"
         ),
         TestCase(
-            input_args=(["interspecies", "interstellar", "interstate"],),
+        input_args=input_args=(["interspecies", "interstellar", "interstate"],,
+    ),
             expected="inters",
             description="Longer common prefix",
         ),
-        TestCase(input_args=([""],), expected="", description="Single empty string"),
-        TestCase(input_args=(["a"],), expected="a", description="Single character string"),
         TestCase(
-            input_args=(["abc", "abc", "abc"],), expected="abc", description="All strings identical"
+        input_args=input_args=([""],,
+    ), expected="", description="Single empty string"),
+        TestCase(
+        input_args=input_args=(["a"],,
+    ), expected="a", description="Single character string"),
+        TestCase(
+        input_args=input_args=(["abc", "abc", "abc"],,
+    ), expected="abc", description="All strings identical"
         ),
-        TestCase(input_args=(["", "b"],), expected="", description="Empty string in array"),
         TestCase(
-            input_args=(["ab", "a"],), expected="a", description="One string is prefix of another"
+        input_args=input_args=(["", "b"],,
+    ), expected="", description="Empty string in array"),
+        TestCase(
+        input_args=input_args=(["ab", "a"],,
+    ), expected="a", description="One string is prefix of another"
         ),
         TestCase(
-            input_args=(["c", "acc", "ccc"],), expected="", description="First character differs"
+        input_args=input_args=(["c", "acc", "ccc"],,
+    ), expected="", description="First character differs"
         ),
     ]
 

@@ -89,14 +89,30 @@ def test_move_zeroes(nums: List[int]) -> List[int]:
 
 # Test cases
 test_cases = [
-    TestCase(([0, 1, 0, 3, 12],), [1, 3, 12, 0, 0], "Basic case with mixed zeros"),
-    TestCase(([0],), [0], "Single zero"),
-    TestCase(([1],), [1], "Single non-zero"),
-    TestCase(([0, 0, 1],), [1, 0, 0], "Multiple leading zeros"),
-    TestCase(([1, 2, 3],), [1, 2, 3], "No zeros"),
-    TestCase(([0, 0, 0],), [0, 0, 0], "All zeros"),
-    TestCase(([1, 0, 2, 0, 3, 0],), [1, 2, 3, 0, 0, 0], "Alternating pattern"),
-    TestCase(([-1, 0, -2, 0],), [-1, -2, 0, 0], "Negative numbers"),
+    TestCase(
+        input_args=([0, 1, 0, 3, 12],,
+    ), [1, 3, 12, 0, 0], "Basic case with mixed zeros"),
+    TestCase(
+        input_args=([0],,
+    ), [0], "Single zero"),
+    TestCase(
+        input_args=([1],,
+    ), [1], "Single non-zero"),
+    TestCase(
+        input_args=([0, 0, 1],,
+    ), [1, 0, 0], "Multiple leading zeros"),
+    TestCase(
+        input_args=([1, 2, 3],,
+    ), [1, 2, 3], "No zeros"),
+    TestCase(
+        input_args=([0, 0, 0],,
+    ), [0, 0, 0], "All zeros"),
+    TestCase(
+        input_args=([1, 0, 2, 0, 3, 0],,
+    ), [1, 2, 3, 0, 0, 0], "Alternating pattern"),
+    TestCase(
+        input_args=([-1, 0, -2, 0],,
+    ), [-1, -2, 0, 0], "Negative numbers"),
 ]
 
 

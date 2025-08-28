@@ -410,65 +410,76 @@ def create_demo_output() -> str:
 # Test cases covering various scenarios
 TEST_CASES = [
     TestCase(
-        input_data=(
+        input_args=(
             [
                 ["1", "0", "1", "0", "0"],
                 ["1", "0", "1", "1", "1"],
                 ["1", "1", "1", "1", "1"],
                 ["1", "0", "0", "1", "0"],
-            ]
-        ),
+            ],
+    ),
         expected=4,
         description="Basic example - 2x2 square",
     ),
     TestCase(
-        input_data=([["0", "1"], ["1", "0"]]), expected=1, description="No square larger than 1x1"
+        input_args=([["0", "1"], ["1", "0"]],
+    ), expected=1, description="No square larger than 1x1"
     ),
-    TestCase(input_data=([["0"]]), expected=0, description="Single 0"),
-    TestCase(input_data=([["1"]]), expected=1, description="Single 1"),
     TestCase(
-        input_data=([["1", "1", "1", "1"], ["1", "1", "1", "1"], ["1", "1", "1", "1"]]),
+        input_args=([["0"]],
+    ), expected=0, description="Single 0"),
+    TestCase(
+        input_args=([["1"]],
+    ), expected=1, description="Single 1"),
+    TestCase(
+        input_args=([["1", "1", "1", "1"], ["1", "1", "1", "1"], ["1", "1", "1", "1"]],
+    ),
         expected=9,
         description="3x3 square in 3x4 matrix",
     ),
-    TestCase(input_data=([["1", "1"], ["1", "1"]]), expected=4, description="Perfect 2x2 square"),
     TestCase(
-        input_data=([["0", "0", "0"], ["0", "0", "0"], ["0", "0", "0"]]),
+        input_args=([["1", "1"], ["1", "1"]],
+    ), expected=4, description="Perfect 2x2 square"),
+    TestCase(
+        input_args=([["0", "0", "0"], ["0", "0", "0"], ["0", "0", "0"]],
+    ),
         expected=0,
         description="All zeros",
     ),
     TestCase(
-        input_data=([["1", "1", "1"], ["1", "0", "1"], ["1", "1", "1"]]),
+        input_args=([["1", "1", "1"], ["1", "0", "1"], ["1", "1", "1"]],
+    ),
         expected=1,
         description="Hollow pattern - no large square",
     ),
     TestCase(
-        input_data=([["1", "1", "0", "1"], ["1", "1", "0", "1"], ["1", "1", "1", "1"]]),
+        input_args=([["1", "1", "0", "1"], ["1", "1", "0", "1"], ["1", "1", "1", "1"]],
+    ),
         expected=4,
         description="2x2 square with obstacles",
     ),
     TestCase(
-        input_data=(
+        input_args=(
             [
                 ["1", "0", "1", "1", "1"],
                 ["1", "0", "1", "1", "1"],
                 ["1", "1", "1", "1", "1"],
                 ["1", "0", "1", "1", "0"],
-            ]
-        ),
+            ],
+    ),
         expected=9,
         description="3x3 square possible",
     ),
     TestCase(
-        input_data=(
+        input_args=(
             [
                 ["1", "1", "1", "1", "1", "1", "1", "1"],
                 ["1", "1", "1", "1", "1", "1", "1", "0"],
                 ["1", "1", "1", "1", "1", "1", "1", "0"],
                 ["1", "1", "1", "1", "1", "0", "0", "0"],
                 ["0", "1", "1", "1", "1", "0", "0", "0"],
-            ]
-        ),
+            ],
+    ),
         expected=16,
         description="4x4 square in larger matrix",
     ),

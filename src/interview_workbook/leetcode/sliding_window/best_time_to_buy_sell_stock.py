@@ -95,16 +95,36 @@ class Solution:
 
 # Test cases
 test_cases = [
-    TestCase(([7, 1, 5, 3, 6, 4],), 5, "Buy at 1, sell at 6"),
-    TestCase(([7, 6, 4, 3, 1],), 0, "Prices only decrease"),
-    TestCase(([1, 2],), 1, "Simple profit case"),
-    TestCase(([2, 1, 2, 1, 0, 1, 2],), 2, "Multiple opportunities, best is 0->2"),
-    TestCase(([1],), 0, "Single price"),
-    TestCase(([],), 0, "Empty array"),
-    TestCase(([5, 5, 5, 5],), 0, "All prices same"),
-    TestCase(([1, 2, 3, 4, 5],), 4, "Steadily increasing"),
-    TestCase(([2, 4, 1],), 2, "Peak in middle"),
-    TestCase(([3, 2, 6, 5, 0, 3],), 4, "Buy at 2, sell at 6"),
+    TestCase(
+        input_args=([7, 1, 5, 3, 6, 4],,
+    ), 5, "Buy at 1, sell at 6"),
+    TestCase(
+        input_args=([7, 6, 4, 3, 1],,
+    ), 0, "Prices only decrease"),
+    TestCase(
+        input_args=([1, 2],,
+    ), 1, "Simple profit case"),
+    TestCase(
+        input_args=([2, 1, 2, 1, 0, 1, 2],,
+    ), 2, "Multiple opportunities, best is 0->2"),
+    TestCase(
+        input_args=([1],,
+    ), 0, "Single price"),
+    TestCase(
+        input_args=([],,
+    ), 0, "Empty array"),
+    TestCase(
+        input_args=([5, 5, 5, 5],,
+    ), 0, "All prices same"),
+    TestCase(
+        input_args=([1, 2, 3, 4, 5],,
+    ), 4, "Steadily increasing"),
+    TestCase(
+        input_args=([2, 4, 1],,
+    ), 2, "Peak in middle"),
+    TestCase(
+        input_args=([3, 2, 6, 5, 0, 3],,
+    ), 4, "Buy at 2, sell at 6"),
 ]
 
 

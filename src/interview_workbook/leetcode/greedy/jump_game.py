@@ -149,22 +149,44 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input=[[2, 3, 1, 1, 4]], expected=True, description="Can reach end with multiple paths"
-    ),
-    TestCase(input=[[3, 2, 1, 0, 4]], expected=False, description="Cannot pass zero barrier"),
-    TestCase(input=[[0]], expected=True, description="Single element array - already at end"),
-    TestCase(input=[[2, 0, 0]], expected=True, description="Can jump over zeros"),
-    TestCase(
-        input=[[1, 0, 1, 0]], expected=False, description="Cannot reach end due to zero barrier"
+        input_args=[[2, 3, 1, 1, 4]],
+        expected=True,
+        description="Can reach end with multiple paths",
     ),
     TestCase(
-        input=[[5, 9, 3, 2, 1, 0, 2, 3, 3, 1, 0, 0]],
+        input_args=[[3, 2, 1, 0, 4]],
+        expected=False,
+        description="Cannot pass zero barrier",
+    ),
+    TestCase(
+        input_args=[[0]],
+        expected=True,
+        description="Single element array - already at end",
+    ),
+    TestCase(
+        input_args=[[2, 0, 0]],
+        expected=True,
+        description="Can jump over zeros",
+    ),
+    TestCase(
+        input_args=[[1, 0, 1, 0]],
+        expected=False,
+        description="Cannot reach end due to zero barrier",
+    ),
+    TestCase(
+        input_args=[[5, 9, 3, 2, 1, 0, 2, 3, 3, 1, 0, 0]],
         expected=True,
         description="Large jumps can skip obstacles",
     ),
-    TestCase(input=[[1, 1, 1, 1, 1]], expected=True, description="All ones - can always advance"),
     TestCase(
-        input=[[4, 3, 2, 1, 0]], expected=True, description="Decreasing sequence that still works"
+        input_args=[[1, 1, 1, 1, 1]],
+        expected=True,
+        description="All ones - can always advance",
+    ),
+    TestCase(
+        input_args=[[4, 3, 2, 1, 0]],
+        expected=True,
+        description="Decreasing sequence that still works",
     ),
 ]
 

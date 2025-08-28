@@ -72,16 +72,30 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=("anagram", "nagaram"), expected=True, description="Basic anagram case"
+        input_args=input_args=("anagram", "nagaram",
+    ), expected=True, description="Basic anagram case"
         ),
-        TestCase(input_args=("rat", "car"), expected=False, description="Different characters"),
-        TestCase(input_args=("listen", "silent"), expected=True, description="Common anagram pair"),
-        TestCase(input_args=("", ""), expected=True, description="Empty strings"),
-        TestCase(input_args=("a", "ab"), expected=False, description="Different lengths"),
-        TestCase(input_args=("aab", "baa"), expected=True, description="Repeated characters"),
-        TestCase(input_args=("abc", "def"), expected=False, description="Completely different"),
         TestCase(
-            input_args=("aabbcc", "abcabc"), expected=True, description="Multiple repeated chars"
+        input_args=input_args=("rat", "car",
+    ), expected=False, description="Different characters"),
+        TestCase(
+        input_args=input_args=("listen", "silent",
+    ), expected=True, description="Common anagram pair"),
+        TestCase(
+        input_args=input_args=("", "",
+    ), expected=True, description="Empty strings"),
+        TestCase(
+        input_args=input_args=("a", "ab",
+    ), expected=False, description="Different lengths"),
+        TestCase(
+        input_args=input_args=("aab", "baa",
+    ), expected=True, description="Repeated characters"),
+        TestCase(
+        input_args=input_args=("abc", "def",
+    ), expected=False, description="Completely different"),
+        TestCase(
+        input_args=input_args=("aabbcc", "abcabc",
+    ), expected=True, description="Multiple repeated chars"
         ),
     ]
 

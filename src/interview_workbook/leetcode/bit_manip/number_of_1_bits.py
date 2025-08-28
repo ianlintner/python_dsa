@@ -75,42 +75,50 @@ class Solution:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_args=(0b00000000000000000000000000001011,),  # 11
+        input_args=input_args=(0b00000000000000000000000000001011,,
+    ),  # 11
         expected=3,
         description="Binary: 1011 has three 1 bits",
     ),
     TestCase(
-        input_args=(0b00000000000000000000000010000000,),  # 128
+        input_args=input_args=(0b00000000000000000000000010000000,,
+    ),  # 128
         expected=1,
         description="Binary: 10000000 has one 1 bit",
     ),
     TestCase(
-        input_args=(0b11111111111111111111111111111101,),  # 4294967293
+        input_args=input_args=(0b11111111111111111111111111111101,,
+    ),  # 4294967293
         expected=31,
         description="Binary with 31 ones (one zero)",
     ),
     TestCase(
-        input_args=(1,),
+        input_args=input_args=(1,,
+    ),
         expected=1,
         description="Single 1 bit",
     ),
     TestCase(
-        input_args=(0,),
+        input_args=input_args=(0,,
+    ),
         expected=0,
         description="No 1 bits",
     ),
     TestCase(
-        input_args=(255,),  # 0b11111111
+        input_args=input_args=(255,,
+    ),  # 0b11111111
         expected=8,
         description="All 8 bits set",
     ),
     TestCase(
-        input_args=(16,),  # 0b10000
+        input_args=input_args=(16,,
+    ),  # 0b10000
         expected=1,
         description="Power of 2 has exactly one bit",
     ),
     TestCase(
-        input_args=(1023,),  # 0b1111111111 (10 bits set)
+        input_args=input_args=(1023,,
+    ),  # 0b1111111111 (10 bits set)
         expected=10,
         description="Large number with multiple bits",
     ),

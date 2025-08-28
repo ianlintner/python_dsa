@@ -132,21 +132,32 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=([-1, 0, 1, 2, -1, -4],),
+        input_args=input_args=([-1, 0, 1, 2, -1, -4],,
+    ),
             expected=sorted([sorted(triplet) for triplet in [[-1, -1, 2], [-1, 0, 1]]]),
             description="Basic case with two triplets",
         ),
-        TestCase(input_args=([0, 1, 1],), expected=[], description="No valid triplets"),
-        TestCase(input_args=([0, 0, 0],), expected=[[0, 0, 0]], description="All zeros"),
         TestCase(
-            input_args=([-2, 0, 0, 2, 2],),
+        input_args=input_args=([0, 1, 1],,
+    ), expected=[], description="No valid triplets"),
+        TestCase(
+        input_args=input_args=([0, 0, 0],,
+    ), expected=[[0, 0, 0]], description="All zeros"),
+        TestCase(
+        input_args=input_args=([-2, 0, 0, 2, 2],,
+    ),
             expected=[[-2, 0, 2]],
             description="Duplicates with one solution",
         ),
-        TestCase(input_args=([-1, 0, 1, 0],), expected=[[-1, 0, 1]], description="Simple case"),
-        TestCase(input_args=([1, -1, -1, 0],), expected=[[-1, 0, 1]], description="Needs sorting"),
         TestCase(
-            input_args=([-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6],),
+        input_args=input_args=([-1, 0, 1, 0],,
+    ), expected=[[-1, 0, 1]], description="Simple case"),
+        TestCase(
+        input_args=input_args=([1, -1, -1, 0],,
+    ), expected=[[-1, 0, 1]], description="Needs sorting"),
+        TestCase(
+        input_args=input_args=([-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6],,
+    ),
             expected=sorted(
                 [
                     sorted(triplet)
@@ -162,8 +173,12 @@ def demo():
             ),
             description="Many duplicates",
         ),
-        TestCase(input_args=([],), expected=[], description="Empty array"),
-        TestCase(input_args=([1, 2],), expected=[], description="Less than 3 elements"),
+        TestCase(
+        input_args=input_args=([],,
+    ), expected=[], description="Empty array"),
+        TestCase(
+        input_args=input_args=([1, 2],,
+    ), expected=[], description="Less than 3 elements"),
     ]
 
     test_results = run_test_cases(test_three_sum_with_sorting, test_cases, "LeetCode 15: 3Sum")

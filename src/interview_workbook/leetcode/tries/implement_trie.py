@@ -307,35 +307,36 @@ def create_demo_output() -> str:
 # Test cases for validation
 TEST_CASES = [
     TestCase(
-        name="Basic trie operations example",
-        input_args=(
+        description="Basic trie operations example",
+        input_args=input_args=(
             ["Trie", "insert", "search", "search", "startsWith", "insert", "search"],
-            [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]],
-        ),
+            [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]],,
+    ),
         expected=[None, None, True, False, True, None, True],
         description="Basic trie operations example",
     ),
     TestCase(
-        name="Multiple inserts and prefix checks",
-        input_args=(
+        description="Multiple inserts and prefix checks",
+        input_args=input_args=(
             ["Trie", "insert", "insert", "search", "search", "startsWith", "startsWith"],
-            [[], ["hello"], ["help"], ["hello"], ["help"], ["hel"], ["hem"]],
-        ),
+            [[], ["hello"], ["help"], ["hello"], ["help"], ["hel"], ["hem"]],,
+    ),
         expected=[None, None, None, True, True, True, False],
         description="Multiple inserts and prefix checks",
     ),
     TestCase(
-        name="Single character and extension",
-        input_args=(
+        description="Single character and extension",
+        input_args=input_args=(
             ["Trie", "insert", "search", "search", "insert", "search"],
-            [[], ["a"], ["a"], ["aa"], ["aa"], ["aa"]],
-        ),
+            [[], ["a"], ["a"], ["aa"], ["aa"], ["aa"]],,
+    ),
         expected=[None, None, True, False, None, True],
         description="Single character and extension",
     ),
     TestCase(
-        name="Prefix check before and after insert",
-        input_args=(["Trie", "startsWith", "insert", "startsWith"], [[], ["a"], ["a"], ["a"]]),
+        description="Prefix check before and after insert",
+        input_args=input_args=(["Trie", "startsWith", "insert", "startsWith"], [[], ["a"], ["a"], ["a"]],
+    ),
         expected=[None, False, None, True],
         description="Prefix check before and after insert",
     ),

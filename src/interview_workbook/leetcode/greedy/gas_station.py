@@ -235,25 +235,39 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input=[[1, 2, 3, 4, 5], [3, 4, 5, 1, 2]],
+        input_args=[[1, 2, 3, 4, 5], [3, 4, 5, 1, 2]],
         expected=3,
         description="Standard case - start at station 3",
     ),
     TestCase(
-        input=[[2, 3, 4], [3, 4, 3]],
+        input_args=[[2, 3, 4], [3, 4, 3]],
         expected=-1,
         description="Impossible case - insufficient total gas",
     ),
     TestCase(
-        input=[[5, 1, 2, 3, 4], [4, 4, 1, 5, 1]], expected=4, description="Start at last station"
-    ),
-    TestCase(input=[[2], [2]], expected=0, description="Single station - exactly enough gas"),
-    TestCase(input=[[1], [2]], expected=-1, description="Single station - insufficient gas"),
-    TestCase(
-        input=[[3, 1, 1], [1, 2, 2]], expected=0, description="Start at station with large surplus"
+        input_args=[[5, 1, 2, 3, 4], [4, 4, 1, 5, 1]],
+        expected=4,
+        description="Start at last station",
     ),
     TestCase(
-        input=[[5, 8, 2, 8], [6, 5, 6, 6]], expected=3, description="Multiple deficit regions"
+        input_args=[[2], [2]],
+        expected=0,
+        description="Single station - exactly enough gas",
+    ),
+    TestCase(
+        input_args=[[1], [2]],
+        expected=-1,
+        description="Single station - insufficient gas",
+    ),
+    TestCase(
+        input_args=[[3, 1, 1], [1, 2, 2]],
+        expected=0,
+        description="Start at station with large surplus",
+    ),
+    TestCase(
+        input_args=[[5, 8, 2, 8], [6, 5, 6, 6]],
+        expected=3,
+        description="Multiple deficit regions",
     ),
 ]
 

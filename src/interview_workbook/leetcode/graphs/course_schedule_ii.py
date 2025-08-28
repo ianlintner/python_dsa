@@ -301,28 +301,36 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data={"numCourses": 2, "prerequisites": [[1, 0]]},
+        input_args={"numCourses": 2,
+        expected="prerequisites": [[1, 0]]},
         expected_output=[0, 1],
         description="Simple linear dependency",
     ),
     TestCase(
-        input_data={"numCourses": 4, "prerequisites": [[1, 0], [2, 0], [3, 1], [3, 2]]},
-        expected_output=[0, 1, 2, 3],  # One possible valid ordering
+        input_args={"numCourses": 4,
+        expected="prerequisites": [[1, 0], [2, 0], [3, 1], [3, 2]]},
+        expected_output=[0, 1, 2, 3],
+        # One possible valid ordering
         description="DAG with multiple valid orderings",
     ),
     TestCase(
-        input_data={"numCourses": 1, "prerequisites": []},
+        input_args={"numCourses": 1,
+        expected="prerequisites": []},
         expected_output=[0],
         description="Single course with no prerequisites",
     ),
     TestCase(
-        input_data={"numCourses": 2, "prerequisites": [[1, 0], [0, 1]]},
+        input_args={"numCourses": 2,
+        expected="prerequisites": [[1, 0], [0, 1]]},
         expected_output=[],
-        description="Circular dependency (impossible)",
+        description="Circular dependency (impossible,
+    )",
     ),
     TestCase(
-        input_data={"numCourses": 3, "prerequisites": []},
-        expected_output=[0, 1, 2],  # Any permutation is valid
+        input_args={"numCourses": 3,
+        expected="prerequisites": []},
+        expected_output=[0, 1, 2],
+        # Any permutation is valid
         description="Multiple courses with no prerequisites",
     ),
 ]
@@ -359,10 +367,11 @@ def test_solution():
         expected = case.expected_output
         # For valid cases, we just need to verify the structure
         modified_case = TestCase(
-            input_data=case.input_data,
-            expected_output=expected if expected else [],  # Keep empty for impossible cases
+        input_args=case.input_data,
+        expected=expected_output=expected if expected else [],
+        # Keep empty for impossible cases
             description=case.description,
-        )
+    )
         modified_cases.append(modified_case)
 
     def validate_test_function(numCourses, prerequisites):

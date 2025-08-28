@@ -69,25 +69,35 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=(["eat", "tea", "tan", "ate", "nat", "bat"],),
+        input_args=input_args=(["eat", "tea", "tan", "ate", "nat", "bat"],,
+    ),
             expected=[["bat"], ["nat", "tan"], ["ate", "eat", "tea"]],
             description="Basic anagram grouping",
         ),
-        TestCase(input_args=([""],), expected=[[""]], description="Single empty string"),
-        TestCase(input_args=(["a"],), expected=[["a"]], description="Single character"),
         TestCase(
-            input_args=(["abc", "bca", "cab", "xyz", "zyx", "yxz"],),
+        input_args=input_args=([""],,
+    ), expected=[[""]], description="Single empty string"),
+        TestCase(
+        input_args=input_args=(["a"],,
+    ), expected=[["a"]], description="Single character"),
+        TestCase(
+        input_args=input_args=(["abc", "bca", "cab", "xyz", "zyx", "yxz"],,
+    ),
             expected=[["abc", "bca", "cab"], ["xyz", "zyx", "yxz"]],
             description="Two anagram groups",
         ),
         TestCase(
-            input_args=(["ab", "ba", "abc", "bca", "cab"],),
+        input_args=input_args=(["ab", "ba", "abc", "bca", "cab"],,
+    ),
             expected=[["ab", "ba"], ["abc", "bca", "cab"]],
             description="Different length anagrams",
         ),
-        TestCase(input_args=([""],), expected=[[""]], description="Empty string only"),
         TestCase(
-            input_args=(["a", "b", "c"],), expected=[["a"], ["b"], ["c"]], description="No anagrams"
+        input_args=input_args=([""],,
+    ), expected=[[""]], description="Empty string only"),
+        TestCase(
+        input_args=input_args=(["a", "b", "c"],,
+    ), expected=[["a"], ["b"], ["c"]], description="No anagrams"
         ),
     ]
 

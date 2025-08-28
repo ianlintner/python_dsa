@@ -70,37 +70,44 @@ class Solution:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_args=([2, 2, 1],),
+        input_args=input_args=([2, 2, 1],,
+    ),
         expected=1,
         description="Single number at the end",
     ),
     TestCase(
-        input_args=([4, 1, 2, 1, 2],),
+        input_args=input_args=([4, 1, 2, 1, 2],,
+    ),
         expected=4,
         description="Single number at the beginning",
     ),
     TestCase(
-        input_args=([1],),
+        input_args=input_args=([1],,
+    ),
         expected=1,
         description="Single element array",
     ),
     TestCase(
-        input_args=([-1, -1, -2, -2, -3],),
+        input_args=input_args=([-1, -1, -2, -2, -3],,
+    ),
         expected=-3,
         description="Array with negative numbers",
     ),
     TestCase(
-        input_args=([30000, 500, 100, 30000, 100],),
+        input_args=input_args=([30000, 500, 100, 30000, 100],,
+    ),
         expected=500,
         description="Array with large positive numbers",
     ),
     TestCase(
-        input_args=([-4, -4, 8, -5, -5],),
+        input_args=input_args=([-4, -4, 8, -5, -5],,
+    ),
         expected=8,
         description="Mixed positive and negative numbers",
     ),
     TestCase(
-        input_args=([0, 1, 0],),
+        input_args=input_args=([0, 1, 0],,
+    ),
         expected=1,
         description="Array including zero",
     ),

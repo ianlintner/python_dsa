@@ -228,43 +228,52 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data={"words": ["i", "love", "leetcode", "i", "love", "coding"], "k": 2},
+        input_args={"words": ["i", "love", "leetcode", "i", "love", "coding"],
+        expected="k": 2},
         expected=["i", "love"],
         description="Basic example with clear frequency differences",
     ),
     TestCase(
-        input_data={
+        input_args={
             "words": ["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"],
-            "k": 4,
+        expected="k": 4,
         },
         expected=["the", "is", "sunny", "day"],
         description="Multiple frequency levels with lexicographical ties",
     ),
     TestCase(
-        input_data={"words": ["a", "aa", "aaa"], "k": 3},
+        input_args={"words": ["a", "aa", "aaa"],
+        expected="k": 3},
         expected=["a", "aa", "aaa"],
         description="All same frequency - pure lexicographical order",
     ),
     TestCase(
-        input_data={"words": ["apple", "banana", "apple", "orange", "banana", "apple"], "k": 2},
+        input_args={"words": ["apple", "banana", "apple", "orange", "banana", "apple"],
+        expected="k": 2},
         expected=["apple", "banana"],
         description="Simple frequency ranking",
     ),
     TestCase(
-        input_data={"words": ["word"], "k": 1}, expected=["word"], description="Single word input"
+        input_args={"words": ["word"],
+        expected="k": 1},
+        expected=["word"],
+        description="Single word input",
     ),
     TestCase(
-        input_data={"words": ["a", "b", "a", "c", "b", "a"], "k": 3},
+        input_args={"words": ["a", "b", "a", "c", "b", "a"],
+        expected="k": 3},
         expected=["a", "b", "c"],
         description="Mixed frequencies with lexicographical ordering",
     ),
     TestCase(
-        input_data={"words": ["love", "coding", "love"], "k": 2},
+        input_args={"words": ["love", "coding", "love"],
+        expected="k": 2},
         expected=["love", "coding"],
         description="Two different frequencies",
     ),
     TestCase(
-        input_data={"words": ["aaa", "aa", "a"], "k": 1},
+        input_args={"words": ["aaa", "aa", "a"],
+        expected="k": 1},
         expected=["a"],
         description="Lexicographical ordering - shortest first",
     ),

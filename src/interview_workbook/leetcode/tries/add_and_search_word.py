@@ -325,8 +325,8 @@ def create_demo_output() -> str:
 # Test cases for validation
 TEST_CASES = [
     TestCase(
-        name="Basic word dictionary operations",
-        input_args=(
+        description="Basic word dictionary operations",
+        input_args=input_args=(
             [
                 "WordDictionary",
                 "addWord",
@@ -337,35 +337,35 @@ TEST_CASES = [
                 "search",
                 "search",
             ],
-            [[], ["bad"], ["dad"], ["mad"], ["pad"], ["bad"], [".ad"], ["b.."]],
-        ),
+            [[], ["bad"], ["dad"], ["mad"], ["pad"], ["bad"], [".ad"], ["b.."]],,
+    ),
         expected=[None, None, None, None, False, True, True, True],
         description="Basic word dictionary operations",
     ),
     TestCase(
-        name="Single character and wildcard",
-        input_args=(
+        description="Single character and wildcard",
+        input_args=input_args=(
             ["WordDictionary", "addWord", "search", "search", "search"],
-            [[], ["a"], ["a"], ["."], ["aa"]],
-        ),
+            [[], ["a"], ["a"], ["."], ["aa"]],,
+    ),
         expected=[None, None, True, True, False],
         description="Single character and wildcard",
     ),
     TestCase(
-        name="Multiple words with patterns",
-        input_args=(
+        description="Multiple words with patterns",
+        input_args=input_args=(
             ["WordDictionary", "addWord", "addWord", "search", "search", "search"],
-            [[], ["at"], ["and"], ["an"], [".at"], [".nd"]],
-        ),
+            [[], ["at"], ["and"], ["an"], [".at"], [".nd"]],,
+    ),
         expected=[None, None, None, False, False, True],
         description="Multiple words with patterns",
     ),
     TestCase(
-        name="Prefix vs exact word",
-        input_args=(
+        description="Prefix vs exact word",
+        input_args=input_args=(
             ["WordDictionary", "addWord", "addWord", "search", "search"],
-            [[], ["word"], ["wor"], ["word"], ["wor."]],
-        ),
+            [[], ["word"], ["wor"], ["word"], ["wor."]],,
+    ),
         expected=[None, None, None, True, False],
         description="Prefix vs exact word",
     ),

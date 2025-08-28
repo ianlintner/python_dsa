@@ -151,27 +151,44 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1],),
+        input_args=input_args=([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1],,
+    ),
             expected=6,
             description="Classic example with multiple valleys",
         ),
-        TestCase(input_args=([4, 2, 0, 3, 2, 5],), expected=9, description="Deep valley in middle"),
-        TestCase(input_args=([3, 0, 2, 0, 4],), expected=10, description="Multiple valleys"),
         TestCase(
-            input_args=([1, 2, 3, 4, 5],),
+        input_args=input_args=([4, 2, 0, 3, 2, 5],,
+    ), expected=9, description="Deep valley in middle"),
+        TestCase(
+        input_args=input_args=([3, 0, 2, 0, 4],,
+    ), expected=10, description="Multiple valleys"),
+        TestCase(
+        input_args=input_args=([1, 2, 3, 4, 5],,
+    ),
             expected=0,
             description="Ascending heights - no water trapped",
         ),
         TestCase(
-            input_args=([5, 4, 3, 2, 1],),
+        input_args=input_args=([5, 4, 3, 2, 1],,
+    ),
             expected=0,
             description="Descending heights - no water trapped",
         ),
-        TestCase(input_args=([2, 0, 2],), expected=2, description="Simple valley"),
-        TestCase(input_args=([3, 2, 0, 4],), expected=7, description="Wide valley"),
-        TestCase(input_args=([1, 1, 1]), expected=0, description="Flat surface"),
-        TestCase(input_args=([]), expected=0, description="Empty array"),
-        TestCase(input_args=([1]), expected=0, description="Single element"),
+        TestCase(
+        input_args=input_args=([2, 0, 2],,
+    ), expected=2, description="Simple valley"),
+        TestCase(
+        input_args=input_args=([3, 2, 0, 4],,
+    ), expected=7, description="Wide valley"),
+        TestCase(
+        input_args=input_args=([1, 1, 1],
+    ), expected=0, description="Flat surface"),
+        TestCase(
+        input_args=input_args=([],
+    ), expected=0, description="Empty array"),
+        TestCase(
+        input_args=input_args=([1],
+    ), expected=0, description="Single element"),
     ]
 
     results = run_test_cases(solution.trap, test_cases)

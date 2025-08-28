@@ -52,16 +52,27 @@ def demo():
     solution = Solution()
 
     test_cases = [
-        TestCase(input_args=([1, 2, 3, 1],), expected=True, description="Basic duplicate case"),
-        TestCase(input_args=([1, 2, 3, 4],), expected=False, description="No duplicates"),
         TestCase(
-            input_args=([1, 1, 1, 3, 3, 4, 3, 2, 4, 2],),
+        input_args=input_args=([1, 2, 3, 1],,
+    ), expected=True, description="Basic duplicate case"),
+        TestCase(
+        input_args=input_args=([1, 2, 3, 4],,
+    ), expected=False, description="No duplicates"),
+        TestCase(
+        input_args=input_args=([1, 1, 1, 3, 3, 4, 3, 2, 4, 2],,
+    ),
             expected=True,
             description="Multiple duplicates",
         ),
-        TestCase(input_args=([],), expected=False, description="Empty array"),
-        TestCase(input_args=([1],), expected=False, description="Single element"),
-        TestCase(input_args=([0, 0],), expected=True, description="Two zeros"),
+        TestCase(
+        input_args=input_args=([],,
+    ), expected=False, description="Empty array"),
+        TestCase(
+        input_args=input_args=([1],,
+    ), expected=False, description="Single element"),
+        TestCase(
+        input_args=input_args=([0, 0],,
+    ), expected=True, description="Two zeros"),
     ]
 
     test_results = run_test_cases(

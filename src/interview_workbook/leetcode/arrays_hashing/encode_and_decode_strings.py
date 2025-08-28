@@ -144,29 +144,43 @@ def demo():
         return decoded == strs
 
     test_cases = [
-        TestCase(input_args=(["hello", "world"],), expected=True, description="Basic string list"),
-        TestCase(input_args=([""],), expected=True, description="Single empty string"),
-        TestCase(input_args=([],), expected=True, description="Empty list"),
-        TestCase(input_args=(["", "", ""],), expected=True, description="Multiple empty strings"),
         TestCase(
-            input_args=(["a", "bb", "ccc"],), expected=True, description="Different length strings"
+        input_args=input_args=(["hello", "world"],,
+    ), expected=True, description="Basic string list"),
+        TestCase(
+        input_args=input_args=([""],,
+    ), expected=True, description="Single empty string"),
+        TestCase(
+        input_args=input_args=([],,
+    ), expected=True, description="Empty list"),
+        TestCase(
+        input_args=input_args=(["", "", ""],,
+    ), expected=True, description="Multiple empty strings"),
+        TestCase(
+        input_args=input_args=(["a", "bb", "ccc"],,
+    ), expected=True, description="Different length strings"
         ),
         TestCase(
-            input_args=(["#", "##", "###"],),
+        input_args=input_args=(["#", "##", "###"],,
+    ),
             expected=True,
             description="Strings with delimiter characters",
         ),
         TestCase(
-            input_args=(["123", "45#67", "8#9#0"],),
+        input_args=input_args=(["123", "45#67", "8#9#0"],,
+    ),
             expected=True,
             description="Strings with numbers and delimiters",
         ),
         TestCase(
-            input_args=(["hello#world", "test:case", "escape//slash"],),
+        input_args=input_args=(["hello#world", "test:case", "escape//slash"],,
+    ),
             expected=True,
             description="Strings with special characters",
         ),
-        TestCase(input_args=(["ä", "中文", "🚀"],), expected=True, description="Unicode strings"),
+        TestCase(
+        input_args=input_args=(["ä", "中文", "🚀"],,
+    ), expected=True, description="Unicode strings"),
     ]
 
     results = run_test_cases(test_encode_decode, test_cases)

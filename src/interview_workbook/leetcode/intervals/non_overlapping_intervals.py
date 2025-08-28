@@ -208,32 +208,42 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data=[[1, 2], [2, 3], [3, 4], [1, 3]],
+        input_args=[[1, 2], [2, 3], [3, 4], [1, 3]],
         expected=1,
         description="Remove [1,3] to make non-overlapping",
     ),
     TestCase(
-        input_data=[[1, 2], [1, 2], [1, 2]],
+        input_args=[[1, 2], [1, 2], [1, 2]],
         expected=2,
         description="Keep only one of three identical intervals",
     ),
     TestCase(
-        input_data=[[1, 2], [2, 3]], expected=0, description="Adjacent intervals don't overlap"
+        input_args=[[1, 2], [2, 3]],
+        expected=0,
+        description="Adjacent intervals don't overlap",
     ),
-    TestCase(input_data=[[1, 2]], expected=0, description="Single interval"),
-    TestCase(input_data=[], expected=0, description="Empty input"),
     TestCase(
-        input_data=[[1, 100], [11, 22], [1, 11], [2, 12]],
+        input_args=[[1, 2]],
+        expected=0,
+        description="Single interval",
+    ),
+    TestCase(
+        input_args=[],
+        expected=0,
+        description="Empty input",
+    ),
+    TestCase(
+        input_args=[[1, 100], [11, 22], [1, 11], [2, 12]],
         expected=2,
         description="Complex overlapping scenario",
     ),
     TestCase(
-        input_data=[[0, 2], [1, 3], [2, 4], [3, 5], [4, 6]],
+        input_args=[[0, 2], [1, 3], [2, 4], [3, 5], [4, 6]],
         expected=2,
         description="Chain of overlapping intervals",
     ),
     TestCase(
-        input_data=[[-1, 0], [0, 1], [1, 2]],
+        input_args=[[-1, 0], [0, 1], [1, 2]],
         expected=0,
         description="Adjacent intervals with negative start",
     ),
@@ -251,7 +261,11 @@ def test_solution():
         return result == expected
 
     test_cases_formatted = [
-        TestCase(input_data=tc.input_data, expected=tc.expected, description=tc.description)
+        TestCase(
+        input_args=tc.input_data,
+        expected=tc.expected,
+        description=tc.description,
+    )
         for tc in TEST_CASES
     ]
 

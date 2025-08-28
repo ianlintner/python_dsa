@@ -72,20 +72,38 @@ class Solution:
 # Test cases
 test_cases = [
     TestCase(
-        ([73, 74, 75, 71, 69, 72, 76, 73],),
+        input_args=([73, 74, 75, 71, 69, 72, 76, 73],,
+    ),
         [1, 1, 4, 2, 1, 1, 0, 0],
         "Example 1: Mixed temperatures with warmer days",
     ),
-    TestCase(([30, 40, 50, 60],), [1, 1, 1, 0], "Example 2: Strictly increasing temperatures"),
-    TestCase(([30, 60, 90],), [1, 1, 0], "Example 3: Each day warmer than previous"),
-    TestCase(([90, 60, 30],), [0, 0, 0], "Decreasing temperatures - no warmer days"),
-    TestCase(([75],), [0], "Single temperature - no future day"),
-    TestCase(([75, 75],), [0, 0], "Equal temperatures - neither is warmer"),
-    TestCase(([70, 70, 70, 75],), [3, 2, 1, 0], "Equal temps then warmer"),
-    TestCase(([80, 70, 60, 70, 90],), [4, 3, 1, 1, 0], "Complex pattern with dips and peaks"),
-    TestCase(([60, 70, 65, 75],), [1, 2, 1, 0], "Up-down-up pattern"),
     TestCase(
-        ([100, 99, 98, 97, 96, 95],), [0, 0, 0, 0, 0, 0], "Strictly decreasing - no warmer days"
+        input_args=([30, 40, 50, 60],,
+    ), [1, 1, 1, 0], "Example 2: Strictly increasing temperatures"),
+    TestCase(
+        input_args=([30, 60, 90],,
+    ), [1, 1, 0], "Example 3: Each day warmer than previous"),
+    TestCase(
+        input_args=([90, 60, 30],,
+    ), [0, 0, 0], "Decreasing temperatures - no warmer days"),
+    TestCase(
+        input_args=([75],,
+    ), [0], "Single temperature - no future day"),
+    TestCase(
+        input_args=([75, 75],,
+    ), [0, 0], "Equal temperatures - neither is warmer"),
+    TestCase(
+        input_args=([70, 70, 70, 75],,
+    ), [3, 2, 1, 0], "Equal temps then warmer"),
+    TestCase(
+        input_args=([80, 70, 60, 70, 90],,
+    ), [4, 3, 1, 1, 0], "Complex pattern with dips and peaks"),
+    TestCase(
+        input_args=([60, 70, 65, 75],,
+    ), [1, 2, 1, 0], "Up-down-up pattern"),
+    TestCase(
+        input_args=([100, 99, 98, 97, 96, 95],,
+    ), [0, 0, 0, 0, 0, 0], "Strictly decreasing - no warmer days"
     ),
 ]
 

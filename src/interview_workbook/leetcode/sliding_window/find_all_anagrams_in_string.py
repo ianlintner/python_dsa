@@ -133,15 +133,33 @@ class Solution:
 
 # Test cases
 test_cases = [
-    TestCase(("abab", "ab"), [0, 2], "Basic case with overlapping anagrams"),
-    TestCase(("abcdefghijklmnopqrstuvwxyz", "abc"), [0], "Single anagram at start"),
-    TestCase(("aab", "ab"), [1], "Anagram in middle"),
-    TestCase(("abab", "abab"), [0], "Pattern matches entire substring"),
-    TestCase(("abaacbabc", "abc"), [3, 4, 6], "Multiple anagrams"),
-    TestCase(("aa", "bb"), [], "No anagrams possible"),
-    TestCase(("a", "a"), [0], "Single character match"),
-    TestCase(("ab", "ba"), [0], "Simple anagram pair"),
-    TestCase(("aaaaaaaaaa", "aaaaaaaaaaaaa"), [], "Pattern longer than string"),
+    TestCase(
+        input_args=("abab", "ab",
+    ), [0, 2], "Basic case with overlapping anagrams"),
+    TestCase(
+        input_args=("abcdefghijklmnopqrstuvwxyz", "abc",
+    ), [0], "Single anagram at start"),
+    TestCase(
+        input_args=("aab", "ab",
+    ), [1], "Anagram in middle"),
+    TestCase(
+        input_args=("abab", "abab",
+    ), [0], "Pattern matches entire substring"),
+    TestCase(
+        input_args=("abaacbabc", "abc",
+    ), [3, 4, 6], "Multiple anagrams"),
+    TestCase(
+        input_args=("aa", "bb",
+    ), [], "No anagrams possible"),
+    TestCase(
+        input_args=("a", "a",
+    ), [0], "Single character match"),
+    TestCase(
+        input_args=("ab", "ba",
+    ), [0], "Simple anagram pair"),
+    TestCase(
+        input_args=("aaaaaaaaaa", "aaaaaaaaaaaaa",
+    ), [], "Pattern longer than string"),
 ]
 
 

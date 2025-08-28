@@ -73,16 +73,36 @@ class Solution:
 
 # Test cases
 test_cases = [
-    TestCase(("A man, a plan, a canal: Panama",), True, "Classic palindrome with punctuation"),
-    TestCase(("race a car",), False, "Not a palindrome"),
-    TestCase(("",), True, "Empty string is palindrome"),
-    TestCase(("a",), True, "Single character is palindrome"),
-    TestCase(("Madam",), True, "Case insensitive palindrome"),
-    TestCase(("No 'x' in Nixon",), True, "Complex punctuation"),
-    TestCase(("Was it a car or a cat I saw?",), True, "Question marks and mixed case"),
-    TestCase(("12321",), True, "Numeric palindrome"),
-    TestCase(("A Santa at NASA",), True, "Palindrome with multiple words"),
-    TestCase(("Not a palindrome",), False, "Definitely not a palindrome"),
+    TestCase(
+        input_args=("A man, a plan, a canal: Panama",,
+    ), True, "Classic palindrome with punctuation"),
+    TestCase(
+        input_args=("race a car",,
+    ), False, "Not a palindrome"),
+    TestCase(
+        input_args=("",,
+    ), True, "Empty string is palindrome"),
+    TestCase(
+        input_args=("a",,
+    ), True, "Single character is palindrome"),
+    TestCase(
+        input_args=("Madam",,
+    ), True, "Case insensitive palindrome"),
+    TestCase(
+        input_args=("No 'x' in Nixon",,
+    ), True, "Complex punctuation"),
+    TestCase(
+        input_args=("Was it a car or a cat I saw?",,
+    ), True, "Question marks and mixed case"),
+    TestCase(
+        input_args=("12321",,
+    ), True, "Numeric palindrome"),
+    TestCase(
+        input_args=("A Santa at NASA",,
+    ), True, "Palindrome with multiple words"),
+    TestCase(
+        input_args=("Not a palindrome",,
+    ), False, "Definitely not a palindrome"),
 ]
 
 

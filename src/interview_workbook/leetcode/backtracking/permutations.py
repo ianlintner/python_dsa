@@ -298,23 +298,23 @@ def create_demo_output() -> str:
 # Comprehensive test cases
 TEST_CASES = [
     TestCase(
-        input_data={"nums": [1, 2, 3]},
-        expected_output=[[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]],
+        input_args={"nums": [1, 2, 3]},
+        expected=expected_output=[[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]],
         description="Classic 3-element example",
     ),
     TestCase(
-        input_data={"nums": [0, 1]},
-        expected_output=[[0, 1], [1, 0]],
+        input_args={"nums": [0, 1]},
+        expected=expected_output=[[0, 1], [1, 0]],
         description="Simple 2-element case",
     ),
     TestCase(
-        input_data={"nums": [1]},
-        expected_output=[[1]],
+        input_args={"nums": [1]},
+        expected=expected_output=[[1]],
         description="Single element - only one permutation",
     ),
     TestCase(
-        input_data={"nums": [4, 3, 2, 1]},
-        expected_output=[
+        input_args={"nums": [4, 3, 2, 1]},
+        expected=expected_output=[
             [1, 2, 3, 4],
             [1, 2, 4, 3],
             [1, 3, 2, 4],
@@ -343,8 +343,8 @@ TEST_CASES = [
         description="4 elements - 24 permutations",
     ),
     TestCase(
-        input_data={"nums": [-1, 0, 1]},
-        expected_output=[[-1, 0, 1], [-1, 1, 0], [0, -1, 1], [0, 1, -1], [1, -1, 0], [1, 0, -1]],
+        input_args={"nums": [-1, 0, 1]},
+        expected=expected_output=[[-1, 0, 1], [-1, 1, 0], [0, -1, 1], [0, 1, -1], [1, -1, 0], [1, 0, -1]],
         description="Mix of negative, zero, positive",
     ),
 ]
@@ -366,8 +366,9 @@ def test_solution():
     normalized_test_cases = []
     for case in TEST_CASES:
         normalized_case = TestCase(
-            input_data=case.input_data,
-            expected_output=normalize_output(case.expected_output),
+        input_args=case.input_data,
+        expected=expected_output=normalize_output(case.expected_output,
+    ),
             description=case.description,
         )
         normalized_test_cases.append(normalized_case)

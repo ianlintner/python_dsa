@@ -314,42 +314,50 @@ def create_demo_output() -> str:
 # Comprehensive test cases
 TEST_CASES = [
     TestCase(
-        input_data={"numCourses": 2, "prerequisites": [[1, 0]]},
+        input_args={"numCourses": 2,
+        expected="prerequisites": [[1, 0]]},
         expected_output=True,
         description="Simple linear dependency",
     ),
     TestCase(
-        input_data={"numCourses": 2, "prerequisites": [[1, 0], [0, 1]]},
+        input_args={"numCourses": 2,
+        expected="prerequisites": [[1, 0], [0, 1]]},
         expected_output=False,
         description="Circular dependency",
     ),
     TestCase(
-        input_data={"numCourses": 4, "prerequisites": [[1, 0], [2, 1], [3, 2]]},
+        input_args={"numCourses": 4,
+        expected="prerequisites": [[1, 0], [2, 1], [3, 2]]},
         expected_output=True,
         description="Linear chain of dependencies",
     ),
     TestCase(
-        input_data={"numCourses": 4, "prerequisites": [[1, 0], [2, 0], [3, 1], [3, 2]]},
+        input_args={"numCourses": 4,
+        expected="prerequisites": [[1, 0], [2, 0], [3, 1], [3, 2]]},
         expected_output=True,
         description="DAG with multiple paths",
     ),
     TestCase(
-        input_data={"numCourses": 1, "prerequisites": []},
+        input_args={"numCourses": 1,
+        expected="prerequisites": []},
         expected_output=True,
         description="Single course with no prerequisites",
     ),
     TestCase(
-        input_data={"numCourses": 3, "prerequisites": []},
+        input_args={"numCourses": 3,
+        expected="prerequisites": []},
         expected_output=True,
         description="Multiple courses with no prerequisites",
     ),
     TestCase(
-        input_data={"numCourses": 3, "prerequisites": [[1, 0], [1, 2], [0, 1]]},
+        input_args={"numCourses": 3,
+        expected="prerequisites": [[1, 0], [1, 2], [0, 1]]},
         expected_output=False,
         description="Cycle with additional dependency",
     ),
     TestCase(
-        input_data={"numCourses": 3, "prerequisites": [[0, 1], [0, 2], [1, 2]]},
+        input_args={"numCourses": 3,
+        expected="prerequisites": [[0, 1], [0, 2], [1, 2]]},
         expected_output=True,
         description="Multiple prerequisites for same course",
     ),

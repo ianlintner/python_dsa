@@ -214,19 +214,23 @@ def create_demo_output() -> str:
 # Comprehensive test cases
 TEST_CASES = [
     TestCase(
-        input_data={"nums": [1, 2, 2]},
-        expected_output=[[], [1], [1, 2], [1, 2, 2], [2], [2, 2]],
+        input_args={"nums": [1, 2, 2]},
+        expected=expected_output=[[], [1], [1, 2], [1, 2, 2], [2], [2, 2]],
         description="Basic case with duplicates",
     ),
-    TestCase(input_data={"nums": [0]}, expected_output=[[], [0]], description="Single element"),
     TestCase(
-        input_data={"nums": [1, 2, 3]},
-        expected_output=[[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]],
+        input_args={"nums": [0]},
+        expected=expected_output=[[], [0]],
+        description="Single element",
+    ),
+    TestCase(
+        input_args={"nums": [1, 2, 3]},
+        expected=expected_output=[[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]],
         description="No duplicates - should work like regular subsets",
     ),
     TestCase(
-        input_data={"nums": [4, 4, 4, 1, 4]},
-        expected_output=[
+        input_args={"nums": [4, 4, 4, 1, 4]},
+        expected=expected_output=[
             [],
             [1],
             [4],
@@ -241,8 +245,8 @@ TEST_CASES = [
         description="Many duplicates",
     ),
     TestCase(
-        input_data={"nums": [1, 1, 2, 2]},
-        expected_output=[[], [1], [2], [1, 1], [1, 2], [2, 2], [1, 1, 2], [1, 2, 2], [1, 1, 2, 2]],
+        input_args={"nums": [1, 1, 2, 2]},
+        expected=expected_output=[[], [1], [2], [1, 1], [1, 2], [2, 2], [1, 1, 2], [1, 2, 2], [1, 1, 2, 2]],
         description="Two pairs of duplicates",
     ),
 ]
@@ -264,8 +268,9 @@ def test_solution():
     normalized_test_cases = []
     for case in TEST_CASES:
         normalized_case = TestCase(
-            input_data=case.input_data,
-            expected_output=normalize_output(case.expected_output),
+        input_args=case.input_data,
+        expected=expected_output=normalize_output(case.expected_output,
+    ),
             description=case.description,
         )
         normalized_test_cases.append(normalized_case)

@@ -79,13 +79,27 @@ class Solution:
 
 # Test cases
 test_cases = [
-    TestCase(([-1, 2, 1, -4], 1), 2, "Basic case: closest sum is 2"),
-    TestCase(([0, 0, 0], 1), 0, "All zeros"),
-    TestCase(([-1, 0, 1, 2, -1, -4], 0), 0, "Target is 0, exact match exists"),
-    TestCase(([1, 1, 1, 0], -100), 2, "Target far from possible sums"),
-    TestCase(([-3, -2, -5, 3, -4], -1), -2, "Mix of negative and positive"),
-    TestCase(([1, 1, -1], 0), 1, "Two equal elements"),
-    TestCase(([0, 1, 2], 3), 3, "Exact match possible"),
+    TestCase(
+        input_args=([-1, 2, 1, -4], 1,
+    ), 2, "Basic case: closest sum is 2"),
+    TestCase(
+        input_args=([0, 0, 0], 1,
+    ), 0, "All zeros"),
+    TestCase(
+        input_args=([-1, 0, 1, 2, -1, -4], 0,
+    ), 0, "Target is 0, exact match exists"),
+    TestCase(
+        input_args=([1, 1, 1, 0], -100,
+    ), 2, "Target far from possible sums"),
+    TestCase(
+        input_args=([-3, -2, -5, 3, -4], -1,
+    ), -2, "Mix of negative and positive"),
+    TestCase(
+        input_args=([1, 1, -1], 0,
+    ), 1, "Two equal elements"),
+    TestCase(
+        input_args=([0, 1, 2], 3,
+    ), 3, "Exact match possible"),
 ]
 
 

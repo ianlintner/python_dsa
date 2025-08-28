@@ -127,15 +127,15 @@ class Solution:
 # Test cases
 test_cases = [
     TestCase(
-        (
+        input_args=(
             ["MinStack", "push", "push", "push", "getMin", "pop", "top", "getMin"],
-            [None, -2, 0, -3, None, None, None, None],
-        ),
+            [None, -2, 0, -3, None, None, None, None],,
+    ),
         [None, None, None, None, -3, None, 0, -2],
         "Basic operations example",
     ),
     TestCase(
-        (
+        input_args=(
             [
                 "MinStack",
                 "push",
@@ -150,13 +150,13 @@ test_cases = [
                 "pop",
                 "getMin",
             ],
-            [None, 2, 0, None, None, 3, None, None, None, None, None, None],
-        ),
+            [None, 2, 0, None, None, 3, None, None, None, None, None, None],,
+    ),
         [None, None, None, 0, 0, None, 0, 0, 3, 0, None, 0],
         "Multiple getMin calls",
     ),
     TestCase(
-        (
+        input_args=(
             [
                 "MinStack",
                 "push",
@@ -196,55 +196,58 @@ test_cases = [
                 None,
                 None,
                 None,
-            ],
-        ),
+            ],,
+    ),
         [None, None, None, None, 1, None, 1, None, 1, None, None, 1, 1, None, -1, -1, None, 1],
         "Complex sequence with duplicates",
     ),
     TestCase(
-        (
+        input_args=(
             ["MinStack", "push", "getMin", "push", "getMin", "push", "getMin"],
-            [None, 5, None, 3, None, 1, None],
-        ),
+            [None, 5, None, 3, None, 1, None],,
+    ),
         [None, None, 5, None, 3, None, 1],
         "Decreasing sequence",
     ),
     TestCase(
-        (
+        input_args=(
             ["MinStack", "push", "getMin", "push", "getMin", "push", "getMin"],
-            [None, 1, None, 3, None, 5, None],
-        ),
+            [None, 1, None, 3, None, 5, None],,
+    ),
         [None, None, 1, None, 1, None, 1],
         "Increasing sequence - minimum stays same",
     ),
     TestCase(
-        (
+        input_args=(
             ["MinStack", "push", "push", "push", "getMin", "pop", "pop", "pop"],
-            [None, 1, 1, 1, None, None, None, None],
-        ),
+            [None, 1, 1, 1, None, None, None, None],,
+    ),
         [None, None, None, None, 1, None, None, None],
         "All elements are the same",
     ),
     TestCase(
-        (["MinStack", "push", "top", "getMin"], [None, -1, None, None]),
+        input_args=(["MinStack", "push", "top", "getMin"], [None, -1, None, None],
+    ),
         [None, None, -1, -1],
         "Single element",
     ),
     TestCase(
-        (["MinStack", "push", "push", "getMin", "pop", "getMin"], [None, 0, 1, None, None, None]),
+        input_args=(["MinStack", "push", "push", "getMin", "pop", "getMin"], [None, 0, 1, None, None, None],
+    ),
         [None, None, None, 0, None, 0],
         "Minimum not affected by pop",
     ),
     TestCase(
-        (["MinStack", "push", "push", "getMin", "pop", "getMin"], [None, 1, 0, None, None, None]),
+        input_args=(["MinStack", "push", "push", "getMin", "pop", "getMin"], [None, 1, 0, None, None, None],
+    ),
         [None, None, None, 0, None, 1],
         "Minimum changes after pop",
     ),
     TestCase(
-        (
+        input_args=(
             ["MinStack", "push", "push", "push", "push", "pop", "pop", "pop", "pop"],
-            [None, 2147483646, 2147483646, 2147483647, 2147483647, None, None, None, None],
-        ),
+            [None, 2147483646, 2147483646, 2147483647, 2147483647, None, None, None, None],,
+    ),
         [None, None, None, None, None, None, None, None, None],
         "Large numbers edge case",
     ),

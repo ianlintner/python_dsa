@@ -333,27 +333,39 @@ def create_demo_output() -> str:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_args=([1, 5, 11, 5],),
+        input_args=input_args=([1, 5, 11, 5],,
+    ),
         expected=True,
         description="Can partition into [1,5,5] and [11]",
     ),
-    TestCase(input_args=([1, 2, 3, 5],), expected=False, description="Cannot partition evenly"),
-    TestCase(input_args=([1, 2, 5],), expected=False, description="Odd sum cannot be partitioned"),
-    TestCase(input_args=([1, 1],), expected=True, description="Simple equal elements"),
-    TestCase(input_args=([1, 1, 1, 1],), expected=True, description="Four equal elements"),
     TestCase(
-        input_args=([2, 2, 1, 1],), expected=True, description="Can partition into [2,1] and [2,1]"
+        input_args=input_args=([1, 2, 3, 5],,
+    ), expected=False, description="Cannot partition evenly"),
+    TestCase(
+        input_args=input_args=([1, 2, 5],,
+    ), expected=False, description="Odd sum cannot be partitioned"),
+    TestCase(
+        input_args=input_args=([1, 1],,
+    ), expected=True, description="Simple equal elements"),
+    TestCase(
+        input_args=input_args=([1, 1, 1, 1],,
+    ), expected=True, description="Four equal elements"),
+    TestCase(
+        input_args=input_args=([2, 2, 1, 1],,
+    ), expected=True, description="Can partition into [2,1] and [2,1]"
     ),
     TestCase(
-        input_args=([1, 2, 3, 4, 5, 6, 7],),
+        input_args=input_args=([1, 2, 3, 4, 5, 6, 7],,
+    ),
         expected=True,
         description="Sum=28, can partition into sum=14 each",
     ),
     TestCase(
-        input_args=([100],), expected=False, description="Single element cannot be partitioned"
+        input_args=input_args=([100],,
+    ), expected=False, description="Single element cannot be partitioned"
     ),
     TestCase(
-        input_args=(
+        input_args=input_args=(
             [
                 1,
                 1,
@@ -455,13 +467,14 @@ TEST_CASES = [
                 1,
                 1,
                 1,
-            ],
-        ),
+            ],,
+    ),
         expected=True,
         description="100 ones - even count",
     ),
     TestCase(
-        input_args=([3, 3, 3, 4, 5],),
+        input_args=input_args=([3, 3, 3, 4, 5],,
+    ),
         expected=True,
         description="Can partition into [3,3,4] and [3,5]",
     ),

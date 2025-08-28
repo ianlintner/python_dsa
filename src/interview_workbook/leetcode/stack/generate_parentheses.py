@@ -77,12 +77,21 @@ class Solution:
 
 # Test cases
 test_cases = [
-    TestCase((1,), ["()"], "Example: n=1"),
-    TestCase((2,), ["(())", "()()"], "Example: n=2"),
-    TestCase((3,), ["((()))", "(()())", "(())()", "()(())", "()()()"], "Example: n=3"),
-    TestCase((0,), [""], "Edge case: n=0"),
     TestCase(
-        (4,),
+        input_args=(1,,
+    ), ["()"], "Example: n=1"),
+    TestCase(
+        input_args=(2,,
+    ), ["(())", "()()"], "Example: n=2"),
+    TestCase(
+        input_args=(3,,
+    ), ["((()))", "(()())", "(())()", "()(())", "()()()"], "Example: n=3"),
+    TestCase(
+        input_args=(0,,
+    ), [""], "Edge case: n=0"),
+    TestCase(
+        input_args=(4,,
+    ),
         [
             "(((())))",
             "((()()))",

@@ -140,7 +140,7 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=(
+        input_args=input_args=(
                 create_board(
                     [
                         "53..7....",
@@ -152,14 +152,14 @@ def demo():
                         ".6....28.",
                         "...419..5",
                         "....8..79",
-                    ]
-                ),
+                    ],
+    ),
             ),
             expected=True,
             description="Valid sudoku board",
         ),
         TestCase(
-            input_args=(
+        input_args=input_args=(
                 create_board(
                     [
                         "83..7....",
@@ -171,14 +171,14 @@ def demo():
                         ".6....28.",
                         "...419..5",
                         "....8..79",
-                    ]
-                ),
+                    ],
+    ),
             ),
             expected=False,
             description="Invalid - duplicate 8 in first row",
         ),
         TestCase(
-            input_args=(
+        input_args=input_args=(
                 create_board(
                     [
                         ".........",
@@ -190,14 +190,14 @@ def demo():
                         ".........",
                         ".........",
                         ".........",
-                    ]
-                ),
+                    ],
+    ),
             ),
             expected=True,
             description="Empty board",
         ),
         TestCase(
-            input_args=(
+        input_args=input_args=(
                 create_board(
                     [
                         "1........",
@@ -209,14 +209,14 @@ def demo():
                         ".........",
                         ".........",
                         ".........",
-                    ]
-                ),
+                    ],
+    ),
             ),
             expected=False,
             description="Invalid - duplicate 1 in first column",
         ),
         TestCase(
-            input_args=(
+        input_args=input_args=(
                 create_board(
                     [
                         "12.......",
@@ -228,14 +228,14 @@ def demo():
                         ".........",
                         ".........",
                         ".........",
-                    ]
-                ),
+                    ],
+    ),
             ),
             expected=False,
             description="Invalid - duplicate in 3x3 box (1,2,3,4 all in top-left)",
         ),
         TestCase(
-            input_args=(
+        input_args=input_args=(
                 create_board(
                     [
                         "123456789",
@@ -247,8 +247,8 @@ def demo():
                         ".........",
                         ".........",
                         ".........",
-                    ]
-                ),
+                    ],
+    ),
             ),
             expected=True,
             description="Valid single row filled",

@@ -280,28 +280,42 @@ def simulate_stone_smashing(stones: List[int]) -> List[str]:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_data={"stones": [2, 7, 4, 1, 8, 1]},
+        input_args={"stones": [2, 7, 4, 1, 8, 1]},
         expected=1,
         description="Classic example from problem statement",
     ),
-    TestCase(input_data={"stones": [1]}, expected=1, description="Single stone remains"),
     TestCase(
-        input_data={"stones": [3, 7, 2]},
+        input_args={"stones": [1]},
+        expected=1,
+        description="Single stone remains",
+    ),
+    TestCase(
+        input_args={"stones": [3, 7, 2]},
         expected=2,
         description="Three stones with specific outcome",
     ),
     TestCase(
-        input_data={"stones": [2, 2]}, expected=0, description="Two equal stones destroy each other"
+        input_args={"stones": [2, 2]},
+        expected=0,
+        description="Two equal stones destroy each other",
     ),
     TestCase(
-        input_data={"stones": [10, 4, 2, 10]}, expected=2, description="Duplicate heaviest stones"
-    ),
-    TestCase(input_data={"stones": [1, 2, 3, 4, 5]}, expected=1, description="Sequential weights"),
-    TestCase(
-        input_data={"stones": [20, 3, 1, 1]}, expected=17, description="One dominant heavy stone"
+        input_args={"stones": [10, 4, 2, 10]},
+        expected=2,
+        description="Duplicate heaviest stones",
     ),
     TestCase(
-        input_data={"stones": [4, 3, 2, 1]},
+        input_args={"stones": [1, 2, 3, 4, 5]},
+        expected=1,
+        description="Sequential weights",
+    ),
+    TestCase(
+        input_args={"stones": [20, 3, 1, 1]},
+        expected=17,
+        description="One dominant heavy stone",
+    ),
+    TestCase(
+        input_args={"stones": [4, 3, 2, 1]},
         expected=0,
         description="Descending weights that cancel out",
     ),

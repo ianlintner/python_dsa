@@ -139,29 +139,38 @@ def demo():
 
     test_cases = [
         TestCase(
-            input_args=([1, 2, 3, 4, 5], 2),
+        input_args=input_args=([1, 2, 3, 4, 5], 2,
+    ),
             expected=[1, 2, 3, 5],
             description="Remove 2nd node from end",
         ),
-        TestCase(input_args=([1], 1), expected=[], description="Remove only node"),
-        TestCase(input_args=([1, 2], 1), expected=[1], description="Remove last node"),
         TestCase(
-            input_args=([1, 2], 2),
+        input_args=input_args=([1], 1,
+    ), expected=[], description="Remove only node"),
+        TestCase(
+        input_args=input_args=([1, 2], 1,
+    ), expected=[1], description="Remove last node"),
+        TestCase(
+        input_args=input_args=([1, 2], 2,
+    ),
             expected=[2],
             description="Remove first node",
         ),
         TestCase(
-            input_args=([1, 2, 3, 4, 5, 6], 6),
+        input_args=input_args=([1, 2, 3, 4, 5, 6], 6,
+    ),
             expected=[2, 3, 4, 5, 6],
             description="Remove head node",
         ),
         TestCase(
-            input_args=([1, 2, 3, 4, 5, 6], 1),
+        input_args=input_args=([1, 2, 3, 4, 5, 6], 1,
+    ),
             expected=[1, 2, 3, 4, 5],
             description="Remove tail node",
         ),
         TestCase(
-            input_args=([1, 2, 3, 4, 5, 6], 3),
+        input_args=input_args=([1, 2, 3, 4, 5, 6], 3,
+    ),
             expected=[1, 2, 3, 5, 6],
             description="Remove middle node",
         ),

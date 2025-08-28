@@ -90,32 +90,38 @@ class Solution:
 # Test cases
 TEST_CASES = [
     TestCase(
-        input_args=(2,),
+        input_args=input_args=(2,,
+    ),
         expected=[0, 1, 1],
         description="n=2: [0,1,2] -> [0,1,1]",
     ),
     TestCase(
-        input_args=(5,),
+        input_args=input_args=(5,,
+    ),
         expected=[0, 1, 1, 2, 1, 2],
         description="n=5: [0,1,2,3,4,5] -> [0,1,1,2,1,2]",
     ),
     TestCase(
-        input_args=(0,),
+        input_args=input_args=(0,,
+    ),
         expected=[0],
         description="n=0: only number 0",
     ),
     TestCase(
-        input_args=(1,),
+        input_args=input_args=(1,,
+    ),
         expected=[0, 1],
         description="n=1: numbers 0 and 1",
     ),
     TestCase(
-        input_args=(8,),
+        input_args=input_args=(8,,
+    ),
         expected=[0, 1, 1, 2, 1, 2, 2, 3, 1],
         description="n=8: includes powers of 2",
     ),
     TestCase(
-        input_args=(15,),
+        input_args=input_args=(15,,
+    ),
         expected=[0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4],
         description="n=15: full 4-bit range",
     ),
