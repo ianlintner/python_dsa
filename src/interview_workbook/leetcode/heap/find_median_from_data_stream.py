@@ -310,6 +310,8 @@ TEST_CASES = [
         expected=[None, None, None, 1.5, None, 2.0],
         description="Three-element progression",
     ),
+]
+
 
 def test_solution():
     """Test the MedianFinder implementation."""
@@ -320,7 +322,8 @@ def test_solution():
         median_finder = MedianFinder()
         results = []
 
-        for op, inp in zip(test_case.input_data["operations"], test_case.input_data["inputs"]):
+        operations, inputs = test_case.input_args
+        for op, inp in zip(operations, inputs):
             if op == "MedianFinder":
                 results.append(None)
             elif op == "addNum":
