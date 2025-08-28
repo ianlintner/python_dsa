@@ -32,7 +32,7 @@ class Solution:
         dp = [1] * n  # First row: all cells reachable by moving right only
 
         # For each row starting from row 1
-        for i in range(1, m):
+        for _i in range(1, m):
             # For each column starting from column 1
             for j in range(1, n):
                 # Current cell = paths from above + paths from left
@@ -149,7 +149,7 @@ def create_demo_output() -> str:
         (4, 4, 20),
     ]
 
-    for m, n, expected in test_cases:
+    for m, n, _expected in test_cases:
         result_dp = solution.uniquePaths(m, n)
         result_math = solution.uniquePathsMath(m, n)
 
@@ -315,16 +315,16 @@ def create_demo_output() -> str:
 
 # Test cases
 TEST_CASES = [
-    TestCase(input=[3, 7], expected=28, description="Standard rectangular grid"),
-    TestCase(input=[3, 2], expected=3, description="Small grid example"),
-    TestCase(input=[7, 3], expected=28, description="Symmetric to 3x7 case"),
-    TestCase(input=[3, 3], expected=6, description="Square grid"),
-    TestCase(input=[1, 1], expected=1, description="Single cell - already at destination"),
-    TestCase(input=[1, 10], expected=1, description="Single row - only move right"),
-    TestCase(input=[10, 1], expected=1, description="Single column - only move down"),
-    TestCase(input=[2, 2], expected=2, description="Minimum non-trivial case"),
-    TestCase(input=[4, 4], expected=20, description="4x4 square grid"),
-    TestCase(input=[23, 12], expected=193536720, description="Larger grid for performance test"),
+    TestCase(input_args=(3, 7), expected=28, description="Standard rectangular grid"),
+    TestCase(input_args=(3, 2), expected=3, description="Small grid example"),
+    TestCase(input_args=(7, 3), expected=28, description="Symmetric to 3x7 case"),
+    TestCase(input_args=(3, 3), expected=6, description="Square grid"),
+    TestCase(input_args=(1, 1), expected=1, description="Single cell - already at destination"),
+    TestCase(input_args=(1, 10), expected=1, description="Single row - only move right"),
+    TestCase(input_args=(10, 1), expected=1, description="Single column - only move down"),
+    TestCase(input_args=(2, 2), expected=2, description="Minimum non-trivial case"),
+    TestCase(input_args=(4, 4), expected=20, description="4x4 square grid"),
+    TestCase(input_args=(23, 12), expected=193536720, description="Larger grid for performance test"),
 ]
 
 
