@@ -325,7 +325,8 @@ def create_demo_output() -> str:
 # Test cases for validation
 TEST_CASES = [
     TestCase(
-        input_data=(
+        name="Basic word dictionary operations",
+        input_args=(
             [
                 "WordDictionary",
                 "addWord",
@@ -342,7 +343,8 @@ TEST_CASES = [
         description="Basic word dictionary operations",
     ),
     TestCase(
-        input_data=(
+        name="Single character and wildcard",
+        input_args=(
             ["WordDictionary", "addWord", "search", "search", "search"],
             [[], ["a"], ["a"], ["."], ["aa"]],
         ),
@@ -350,7 +352,8 @@ TEST_CASES = [
         description="Single character and wildcard",
     ),
     TestCase(
-        input_data=(
+        name="Multiple words with patterns",
+        input_args=(
             ["WordDictionary", "addWord", "addWord", "search", "search", "search"],
             [[], ["at"], ["and"], ["an"], [".at"], [".nd"]],
         ),
@@ -358,7 +361,8 @@ TEST_CASES = [
         description="Multiple words with patterns",
     ),
     TestCase(
-        input_data=(
+        name="Prefix vs exact word",
+        input_args=(
             ["WordDictionary", "addWord", "addWord", "search", "search"],
             [[], ["word"], ["wor"], ["word"], ["wor."]],
         ),
