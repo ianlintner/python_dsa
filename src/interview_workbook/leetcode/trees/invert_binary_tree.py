@@ -235,15 +235,13 @@ def demo():
 
 # Register the problem
 register_problem(
-    id="invert_binary_tree",
+    id=226,
+    slug="invert_binary_tree",
     title="Invert Binary Tree",
-    url="https://leetcode.com/problems/invert-binary-tree/",
     category=Category.TREES,
     difficulty="Easy",
     tags=["tree", "dfs", "bfs", "binary-tree"],
-    has_solution=True,
-    python_class_name="Solution",
-    python_method_name="invertTree"
+    url="https://leetcode.com/problems/invert-binary-tree/"
 )
 
 
