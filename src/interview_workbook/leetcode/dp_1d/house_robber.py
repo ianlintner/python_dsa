@@ -10,6 +10,9 @@ Space Complexity: O(1)
 """
 
 from typing import List
+from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
+from .._types import Category, Difficulty
 
 
 class Solution:
@@ -41,7 +44,7 @@ class Solution:
         for i in range(2, len(nums)):
             current = max(
                 nums[i] + prev2,  # Rob current house
-                prev1,  # Skip current house
+                prev1             # Skip current house
             )
             prev2 = prev1
             prev1 = current
@@ -70,7 +73,7 @@ class Solution:
         for i in range(2, n):
             dp[i] = max(
                 nums[i] + dp[i - 2],  # Rob current house
-                dp[i - 1],  # Skip current house
+                dp[i - 1]             # Skip current house
             )
 
         return dp[n - 1]
@@ -98,7 +101,7 @@ class Solution:
 
             # Choice 1: Rob current house and move to index+2
             rob_current = nums[index] + rob_from(index + 2)
-
+            
             # Choice 2: Skip current house and move to index+1
             skip_current = rob_from(index + 1)
 
@@ -127,7 +130,7 @@ class Solution:
 
             # Choice 1: Rob current house
             rob_current = nums[index] + rob_from(index + 2)
-
+            
             # Choice 2: Skip current house
             skip_current = rob_from(index + 1)
 
@@ -171,19 +174,15 @@ def create_demo_output() -> str:
             if n >= 2:
                 dp[1] = max(nums[0], nums[1])
                 action = "rob" if nums[1] > nums[0] else "skip"
-                demos.append(
-                    f"  House 1: {action} (max of {nums[0]} vs {nums[1]}) → total = {dp[1]}"
-                )
+                demos.append(f"  House 1: {action} (max of {nums[0]} vs {nums[1]}) → total = {dp[1]}")
 
             for i in range(2, n):
                 rob_current = nums[i] + dp[i - 2]
                 skip_current = dp[i - 1]
                 dp[i] = max(rob_current, skip_current)
                 action = "rob" if rob_current > skip_current else "skip"
-                demos.append(
-                    f"  House {i}: {action} (max of {rob_current} vs {skip_current}) → total = {dp[i]}"
-                )
-
+                demos.append(f"  House {i}: {action} (max of {rob_current} vs {skip_current}) → total = {dp[i]}")
+        
         demos.append("")
 
     # Pattern analysis
@@ -201,7 +200,7 @@ def create_demo_output() -> str:
 
     # Show different patterns
     demos.append("=== Pattern Examples ===")
-
+    
     # Increasing sequence
     increasing = [1, 2, 3, 4, 5]
     result_inc = solution.rob(increasing)
@@ -209,7 +208,7 @@ def create_demo_output() -> str:
     demos.append("  Optimal: rob houses 0, 2, 4 (1+3+5=9)")
     demos.append("")
 
-    # Decreasing sequence
+    # Decreasing sequence  
     decreasing = [5, 4, 3, 2, 1]
     result_dec = solution.rob(decreasing)
     demos.append(f"Decreasing: {decreasing} → {result_dec}")
@@ -225,3 +224,104 @@ def create_demo_output() -> str:
 
     # Mixed pattern
     mixed = [2, 1, 4, 9]
+    result_mix = solution.rob(mixed)
+    demos.append(f"Mixed: {mixed} → {result_mix}")
+    demos.append("  Optimal: rob houses 0, 3 (2+9=11) vs 1,3 (1+9=10)")
+    demos.append("")
+
+    # Performance comparison
+    import time
+
+    large_array = [i % 100 + 1 for i in range(1000)]
+
+    # Time space-optimized approach
+    start_time = time.time()
+    for _ in range(1000):
+        solution.rob(large_array)
+    optimized_time = time.time() - start_time
+
+    # Time standard DP approach
+    start_time = time.time()
+    for _ in range(1000):
+        solution.robDP(large_array)
+    dp_time = time.time() - start_time
+
+    # Time recursive approach (smaller array)
+    small_array = [i % 10 + 1 for i in range(20)]
+    start_time = time.time()
+    for _ in range(100):
+        solution.robRecursive(small_array)
+    recursive_time = time.time() - start_time
+
+    demos.append("=== Performance Comparison ===")
+    demos.append(f"Space-optimized DP (1000 runs, 1000 houses): {optimized_time:.6f}s")
+    demos.append(f"Standard DP (1000 runs, 1000 houses): {dp_time:.6f}s")
+    demos.append(f"Recursive with memo (100 runs, 20 houses): {recursive_time:.6f}s")
+    demos.append("")
+    demos.append("Space-optimized: O(n) time, O(1) space")
+    demos.append("Standard DP: O(n) time, O(n) space")
+    demos.append("Recursive: O(n) time, O(n) space + call overhead")
+    demos.append("")
+
+    # Edge cases
+    demos.append("=== Edge Cases ===")
+    demos.append("- Empty array: 0 (no houses to rob)")
+    demos.append("- Single house: rob it")
+    demos.append("- Two houses: rob the one with more money")
+    demos.append("- All same values: rob every other house")
+    demos.append("- Large single value: changes optimal strategy")
+    demos.append("")
+
+    # Problem variations
+    demos.append("=== Problem Variations ===")
+    demos.append("- House Robber II: houses arranged in circle")
+    demos.append("- House Robber III: houses arranged as binary tree")
+    demos.append("- Paint House: minimize cost with adjacent color constraint")
+    demos.append("- Stock trading: cooldown period between transactions")
+    demos.append("- Jump Game: minimum jumps with constraints")
+    demos.append("")
+
+    # Real-world applications
+    demos.append("=== Applications ===")
+    demos.append("- Resource scheduling with conflict constraints")
+    demos.append("- Investment planning with mutually exclusive options")
+    demos.append("- Task scheduling with dependencies")
+    demos.append("- Network security: maximize coverage without interference")
+    demos.append("- Facility location: optimal placement with distance constraints")
+    demos.append("- Game theory: optimal strategy selection")
+
+    return "\n".join(demos)
+
+
+# Test cases
+TEST_CASES = [
+    TestCase(input=[[1, 2, 3, 1]], expected=4, description="Standard case: rob houses 0 and 2"),
+    TestCase(input=[[2, 7, 9, 3, 1]], expected=12, description="Rob houses 0, 2, 4 for max money"),
+    TestCase(input=[[2, 1, 1, 2]], expected=4, description="Rob houses 0 and 3"),
+    TestCase(input=[[5]], expected=5, description="Single house - rob it"),
+    TestCase(input=[[1, 2]], expected=2, description="Two houses - rob the richer one"),
+    TestCase(input=[[2, 1]], expected=2, description="Two houses - rob the first one"),
+    TestCase(input=[[]], expected=0, description="Empty array - no houses to rob"),
+    TestCase(input=[[1, 3, 1, 3, 100]], expected=103, description="Large final house changes strategy"),
+    TestCase(input=[[10, 5, 2, 7, 8]], expected=19, description="Rob houses 0, 3 for optimal result"),
+    TestCase(input=[[1, 1, 1, 1, 1]], expected=3, description="All equal - rob every other house"),
+]
+
+
+def test_solution():
+    """Test the house robber solution with comprehensive test cases."""
+    solution = Solution()
+    run_test_cases(solution.rob, TEST_CASES)
+
+
+# Register the problem
+register_problem(
+    slug="house_robber",
+    leetcode_num=198,
+    title="House Robber",
+    difficulty=Difficulty.MEDIUM,
+    category=Category.DP_1D,
+    solution_func=Solution().rob,
+    test_func=test_solution,
+    demo_func=create_demo_output,
+)
