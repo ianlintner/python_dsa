@@ -41,4 +41,4 @@ CATEGORY_INFO = {
     ],
 }
 
-__all__ = ["CATEGORY_INFO"]
+__all__ = ["CATEGORY_INFO", "Category"]

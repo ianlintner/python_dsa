@@ -155,11 +155,8 @@ def demo():
         print(f"Result (Optimized): {result_opt}")
 
         # Verify the solution works
-        def verify_speed(speed: int) -> bool:
-            total_hours = sum(math.ceil(pile / speed) for pile in piles)
-            return total_hours <= h
-
-        is_valid = verify_speed(result)
+        total_hours = sum(math.ceil(pile / speed) for pile in piles for speed in [result])
+        is_valid = total_hours <= h
         print(f"Verification: {'✓ Valid' if is_valid else '✗ Invalid'}")
         print()
 
