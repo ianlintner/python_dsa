@@ -2,7 +2,6 @@
 Tests for Evaluate Reverse Polish Notation
 """
 
-import pytest
 from src.interview_workbook.leetcode.stack.evaluate_reverse_polish_notation import Solution
 
 

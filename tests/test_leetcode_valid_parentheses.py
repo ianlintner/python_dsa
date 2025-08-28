@@ -2,7 +2,6 @@
 Tests for Valid Parentheses
 """
 
-import pytest
 from src.interview_workbook.leetcode.stack.valid_parentheses import Solution
 
 

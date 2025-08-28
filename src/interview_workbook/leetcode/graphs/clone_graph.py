@@ -51,9 +51,10 @@ Constraints:
 - The Graph is connected and all nodes can be visited starting from the given node.
 """
 
-from typing import Dict, List, Optional
-from .._runner import TestCase, run_test_cases
+from typing import List, Optional
+
 from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
 
 

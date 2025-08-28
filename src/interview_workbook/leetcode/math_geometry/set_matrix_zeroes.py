@@ -27,8 +27,8 @@ Follow up:
 
 from typing import List
 
-from .._runner import TestCase, run_test_cases
 from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
 
 
@@ -176,8 +176,8 @@ def create_demo_output() -> str:
     results.append("ALGORITHM COMPARISON")
     results.append("=" * 50)
 
-    import time
     import copy
+    import time
 
     # Large test case for performance comparison
     large_matrix = [[i * j if (i * j) % 17 != 0 else 0 for j in range(50)] for i in range(50)]

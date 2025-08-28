@@ -22,8 +22,9 @@ Time Complexity: O(n) where n is the number of nodes
 Space Complexity: O(w) where w is the maximum width of the tree
 """
 
-from typing import Optional, List
 from collections import deque
+from typing import List, Optional
+
 from .._nodes import TreeNode
 from .._registry import register_problem
 from .._types import Category
@@ -210,7 +211,7 @@ def demo():
 
         # Verify all approaches give same result
         assert result1 == result2 == result3 == result4 == expected, f"Mismatch in test case {i}"
-        print(f"✅ All approaches passed")
+        print("✅ All approaches passed")
         print()
 
     print("Algorithm Analysis:")

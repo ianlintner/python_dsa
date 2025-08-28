@@ -25,6 +25,7 @@ Space Complexity: O(h) where h is the height of the tree (recursion stack)
 """
 
 from typing import Optional
+
 from .._nodes import TreeNode
 from .._registry import register_problem
 from .._types import Category
@@ -215,10 +216,10 @@ def demo():
         print(f"Bounds iterative result: {result5}")
 
         # Verify all approaches give same result
-        assert result1 == result2 == result3 == result4 == result5 == expected, (
-            f"Mismatch in test case {i}"
-        )
-        print(f"✅ All approaches passed")
+        assert (
+            result1 == result2 == result3 == result4 == result5 == expected
+        ), f"Mismatch in test case {i}"
+        print("✅ All approaches passed")
         print()
 
     print("Algorithm Analysis:")

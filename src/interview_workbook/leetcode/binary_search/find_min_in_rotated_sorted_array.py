@@ -46,6 +46,7 @@ Space Complexity: O(1) - constant extra space
 """
 
 from typing import List
+
 from interview_workbook.leetcode._registry import register_problem
 from interview_workbook.leetcode._types import Category, Difficulty
 
@@ -126,27 +127,27 @@ def demo():
         print(f"Got:      {result}")
 
         if result != expected:
-            print(f"❌ MISMATCH!")
+            print("❌ MISMATCH!")
 
-    print(f"\n📊 Algorithm Analysis:")
-    print(f"⏰ Time Complexity:  O(log n) - binary search")
-    print(f"💾 Space Complexity: O(1) - constant extra space")
+    print("\n📊 Algorithm Analysis:")
+    print("⏰ Time Complexity:  O(log n) - binary search")
+    print("💾 Space Complexity: O(1) - constant extra space")
 
-    print(f"\n🔍 Key Insights:")
-    print(f"• In rotated sorted array, minimum is at the rotation point")
-    print(f"• Compare mid with rightmost element to determine search direction")
-    print(f"• If nums[mid] > nums[right], minimum is in right half")
-    print(f"• If nums[mid] ≤ nums[right], minimum is in left half (including mid)")
+    print("\n🔍 Key Insights:")
+    print("• In rotated sorted array, minimum is at the rotation point")
+    print("• Compare mid with rightmost element to determine search direction")
+    print("• If nums[mid] > nums[right], minimum is in right half")
+    print("• If nums[mid] ≤ nums[right], minimum is in left half (including mid)")
 
-    print(f"\n⚠️  Common Pitfalls:")
-    print(f"• Comparing mid with left element instead of right")
-    print(f"• Not handling the case where array is not rotated")
-    print(f"• Off-by-one errors in binary search bounds")
+    print("\n⚠️  Common Pitfalls:")
+    print("• Comparing mid with left element instead of right")
+    print("• Not handling the case where array is not rotated")
+    print("• Off-by-one errors in binary search bounds")
 
-    print(f"\n🔄 Follow-up Questions:")
-    print(f"• What if duplicates are allowed? (LeetCode 154)")
-    print(f"• How to find the rotation count?")
-    print(f"• Can you solve without knowing the array is rotated?")
+    print("\n🔄 Follow-up Questions:")
+    print("• What if duplicates are allowed? (LeetCode 154)")
+    print("• How to find the rotation count?")
+    print("• Can you solve without knowing the array is rotated?")
 
 
 # Register the problem

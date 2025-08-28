@@ -7,8 +7,8 @@ merge all overlapping intervals, and return an array of the non-overlapping inte
 that cover all the intervals in the input.
 """
 
-from .._runner import TestCase, run_test_cases
 from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
 
 

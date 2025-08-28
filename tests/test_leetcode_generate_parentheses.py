@@ -2,7 +2,6 @@
 Tests for Generate Parentheses
 """
 
-import pytest
 from src.interview_workbook.leetcode.stack.generate_parentheses import Solution
 
 

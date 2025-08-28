@@ -1,10 +1,10 @@
 """
 LeetCode 763: Partition Labels
 
-You are given a string s. We want to partition the string into as many parts as possible 
+You are given a string s. We want to partition the string into as many parts as possible
 so that each letter appears in at most one part.
 
-Note that the partition is done so that after concatenating all the parts in order, 
+Note that the partition is done so that after concatenating all the parts in order,
 the resultant string should be the original string.
 
 Return a list of integers representing the size of these parts.
@@ -14,6 +14,7 @@ Space Complexity: O(1) - at most 26 characters
 """
 
 from typing import List
+
 from .._registry import register_problem
 from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
@@ -22,7 +23,7 @@ from .._types import Category, Difficulty
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
         """
-        Greedy approach: Find the rightmost occurrence of each character, 
+        Greedy approach: Find the rightmost occurrence of each character,
         then use two pointers to determine partition boundaries.
 
         Strategy:
@@ -31,7 +32,7 @@ class Solution:
         3. Extend partition end to include all occurrences of characters in current partition
         4. When we reach the end of current partition, record its size and start new partition
 
-        Key insight: A partition is complete when we've seen all occurrences 
+        Key insight: A partition is complete when we've seen all occurrences
         of every character that appears in the partition.
 
         Time: O(n) - Two passes through the string
@@ -57,7 +58,7 @@ class Solution:
 
     def partitionLabelsBruteForce(self, s: str) -> List[int]:
         """
-        Brute force approach: For each possible starting position, find the minimum 
+        Brute force approach: For each possible starting position, find the minimum
         partition that contains all occurrences of characters in that range.
 
         This is less efficient but demonstrates the problem-solving process.
@@ -99,7 +100,7 @@ class Solution:
 
         Uses the same greedy strategy but with more explicit boundary tracking.
 
-        Time: O(n) - Two passes through the string  
+        Time: O(n) - Two passes through the string
         Space: O(1) - Dictionary with at most 26 entries
         """
         # Build last occurrence map
@@ -198,7 +199,7 @@ def create_demo_output() -> str:
     demos.append("=== Visual Example ===")
     example_str = "ababcbacadefegdehijhklij"
     last_occurrence = {char: i for i, char in enumerate(example_str)}
-    
+
     demos.append(f"String: {example_str}")
     demos.append(f"Indices: {''.join(str(i % 10) for i in range(len(example_str)))}")
     demos.append("")
@@ -216,15 +217,17 @@ def create_demo_output() -> str:
         partition_end = max(partition_end, last_occurrence[char])
         if partition_end != old_end:
             demos.append(f"  i={i}, char='{char}' → extend partition end to {partition_end}")
-        
+
         if i == partition_end:
-            demos.append(f"  i={i}: partition complete [{partition_start}:{i}] = '{example_str[partition_start:i+1]}'")
+            demos.append(
+                f"  i={i}: partition complete [{partition_start}:{i}] = '{example_str[partition_start:i+1]}'"
+            )
             partition_start = i + 1
 
     # Performance comparison
     import time
 
-    large_string = "".join(chr(ord('a') + (i % 26)) for i in range(10000))
+    large_string = "".join(chr(ord("a") + (i % 26)) for i in range(10000))
 
     # Time optimized approach
     start_time = time.time()
@@ -233,7 +236,7 @@ def create_demo_output() -> str:
     optimized_time = time.time() - start_time
 
     # Time brute force approach (smaller string for reasonable runtime)
-    small_string = "".join(chr(ord('a') + (i % 26)) for i in range(100))
+    small_string = "".join(chr(ord("a") + (i % 26)) for i in range(100))
     start_time = time.time()
     for _ in range(100):
         solution.partitionLabelsBruteForce(small_string)
@@ -264,42 +267,26 @@ TEST_CASES = [
     TestCase(
         input=["ababcbacadefegdehijhklij"],
         expected=[9, 7, 8],
-        description="Standard case with three partitions"
+        description="Standard case with three partitions",
     ),
     TestCase(
-        input=["eccbbbbdec"],
-        expected=[10],
-        description="All characters overlap - single partition"
+        input=["eccbbbbdec"], expected=[10], description="All characters overlap - single partition"
     ),
     TestCase(
         input=["abcdef"],
         expected=[1, 1, 1, 1, 1, 1],
-        description="All unique characters - each is own partition"
+        description="All unique characters - each is own partition",
     ),
+    TestCase(input=["a"], expected=[1], description="Single character"),
+    TestCase(input=["aa"], expected=[2], description="Repeated single character"),
+    TestCase(input=["aabbcc"], expected=[2, 2, 2], description="Sequential character pairs"),
     TestCase(
-        input=["a"],
-        expected=[1],
-        description="Single character"
-    ),
-    TestCase(
-        input=["aa"],
-        expected=[2],
-        description="Repeated single character"
-    ),
-    TestCase(
-        input=["aabbcc"],
-        expected=[2, 2, 2],
-        description="Sequential character pairs"
-    ),
-    TestCase(
-        input=["abccba"],
-        expected=[6],
-        description="Interleaved characters - single partition"
+        input=["abccba"], expected=[6], description="Interleaved characters - single partition"
     ),
     TestCase(
         input=["eaaaabaaec"],
         expected=[9, 1],
-        description="Overlapping with isolated character at end"
+        description="Overlapping with isolated character at end",
     ),
 ]
 

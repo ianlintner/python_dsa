@@ -11,6 +11,7 @@ Space Complexity: O(1)
 """
 
 from typing import List
+
 from .._registry import register_problem
 from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty

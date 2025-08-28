@@ -11,9 +11,9 @@ Time Complexity: O(1) - fixed 32 iterations
 Space Complexity: O(1)
 """
 
-from ..._types import Category, Difficulty
-from ..._runner import TestCase, run_test_cases, create_demo_output
 from ..._registry import register_problem
+from ..._runner import TestCase, create_demo_output, run_test_cases
+from ..._types import Category, Difficulty
 
 
 class Solution:
@@ -193,7 +193,7 @@ def demo():
         print(f"  Lookup table:    {solution.reverseBits_lookup(num)}")
 
     # Show divide and conquer steps
-    print(f"\n=== Divide and Conquer Approach ===")
+    print("\n=== Divide and Conquer Approach ===")
     print("Example with n = 43261596:")
 
     demo_n = 43261596

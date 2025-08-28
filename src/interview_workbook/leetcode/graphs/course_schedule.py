@@ -31,8 +31,9 @@ Constraints:
 """
 
 from typing import List
-from .._runner import TestCase, run_test_cases
+
 from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
 
 
@@ -57,7 +58,7 @@ class Solution:
         Returns:
             True if all courses can be completed, False if there's a cycle
         """
-        from collections import deque, defaultdict
+        from collections import defaultdict, deque
 
         # Build adjacency list and calculate in-degrees
         graph = defaultdict(list)  # prerequisite -> [courses that depend on it]

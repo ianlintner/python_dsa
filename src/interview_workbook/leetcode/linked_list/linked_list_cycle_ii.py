@@ -35,6 +35,7 @@ Follow up: Can you solve it using O(1) (i.e. constant) memory?
 """
 
 from typing import Optional
+
 from interview_workbook.leetcode._registry import register_problem
 
 

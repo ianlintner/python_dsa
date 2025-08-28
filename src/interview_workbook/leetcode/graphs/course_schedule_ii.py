@@ -37,8 +37,9 @@ Constraints:
 """
 
 from typing import List
-from .._runner import TestCase, run_test_cases
+
 from .._registry import register_problem
+from .._runner import TestCase
 from .._types import Category, Difficulty
 
 
@@ -60,7 +61,7 @@ class Solution:
         Returns:
             Valid course ordering, or empty list if impossible
         """
-        from collections import deque, defaultdict
+        from collections import defaultdict, deque
 
         # Build adjacency list and calculate in-degrees
         graph = defaultdict(list)  # prerequisite -> [courses that depend on it]

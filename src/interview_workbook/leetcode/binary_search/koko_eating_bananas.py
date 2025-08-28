@@ -30,9 +30,10 @@ Constraints:
 - 1 <= piles[i] <= 10^9
 """
 
-from typing import List
-from interview_workbook.leetcode._registry import register_problem
 import math
+from typing import List
+
+from interview_workbook.leetcode._registry import register_problem
 
 
 class Solution:

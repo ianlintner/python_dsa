@@ -29,6 +29,7 @@ Constraints:
 """
 
 from typing import List
+
 from interview_workbook.leetcode._registry import register_problem
 
 

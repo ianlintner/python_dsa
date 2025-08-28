@@ -29,11 +29,12 @@ Constraints:
     1 <= stones[i] <= 1000
 """
 
+import heapq
+from typing import List
+
 from .._registry import register_problem
 from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
-from typing import List
-import heapq
 
 
 class Solution:

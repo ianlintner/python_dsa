@@ -6,8 +6,8 @@ Given an array of meeting time intervals where intervals[i] = [start_i, end_i],
 determine if a person could attend all meetings.
 """
 
-from .._runner import TestCase, run_test_cases
 from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
 
 

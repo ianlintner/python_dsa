@@ -26,9 +26,10 @@ Constraints:
 - 1 <= k <= n^2
 """
 
-from typing import List
-from interview_workbook.leetcode._registry import register_problem
 import heapq
+from typing import List
+
+from interview_workbook.leetcode._registry import register_problem
 
 
 class Solution:

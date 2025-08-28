@@ -27,8 +27,8 @@ Constraints:
     * 1 <= n <= 2^31 - 1
 """
 
-from .._runner import TestCase, run_test_cases
 from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
 
 

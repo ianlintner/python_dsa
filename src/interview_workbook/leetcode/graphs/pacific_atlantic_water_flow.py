@@ -17,9 +17,6 @@ Return a 2D list of grid coordinates result where result[i] = [ri, ci] denotes t
 water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans.
 """
 
-from .._runner import TestCase, run_test_cases
-from .._registry import register_problem
-from .._types import Category, Difficulty
 from collections import deque
 
 

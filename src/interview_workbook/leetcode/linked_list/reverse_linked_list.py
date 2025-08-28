@@ -23,6 +23,7 @@ Follow up: A linked list can be reversed either iteratively or recursively. Coul
 """
 
 from typing import Optional
+
 from interview_workbook.leetcode._registry import register_problem
 
 

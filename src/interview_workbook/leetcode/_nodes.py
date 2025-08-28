@@ -6,7 +6,8 @@ with convenience methods for converting between Python data structures.
 """
 
 from __future__ import annotations
-from typing import Any, List, Optional
+
+from typing import List, Optional
 
 
 class ListNode:

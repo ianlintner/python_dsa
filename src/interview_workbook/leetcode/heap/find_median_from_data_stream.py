@@ -20,11 +20,11 @@ Constraints:
     At most 5 * 10^4 calls will be made to addNum and findMedian.
 """
 
+import heapq
+
 from .._registry import register_problem
 from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
-from typing import List
-import heapq
 
 
 class MedianFinder:
@@ -194,7 +194,7 @@ def create_demo_output() -> str:
         mf.addNum(num)
     end_time = time.time()
 
-    output.append(f"Added 100 numbers in reverse order")
+    output.append("Added 100 numbers in reverse order")
     output.append(f"Time taken: {(end_time - start_time) * 1000:.2f} ms")
     output.append(f"Final median: {mf.findMedian()}")
     output.append("")

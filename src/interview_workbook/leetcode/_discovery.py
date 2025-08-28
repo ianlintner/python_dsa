@@ -6,11 +6,10 @@ to trigger their register_problem() calls, populating the registry.
 """
 
 import importlib
-import os
 from pathlib import Path
 from typing import Set
 
-from ._registry import get_all, PROBLEMS
+from ._registry import PROBLEMS, get_all
 from ._types import Category
 
 

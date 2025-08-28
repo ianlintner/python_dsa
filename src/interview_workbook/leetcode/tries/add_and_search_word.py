@@ -39,8 +39,8 @@ Constraints:
     * At most 10^4 calls will be made to addWord and search.
 """
 
-from .._runner import TestCase, run_test_cases
 from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
 
 

@@ -20,12 +20,13 @@ Constraints:
     k is in the range [1, the number of unique words]
 """
 
+import heapq
+from collections import Counter
+from typing import List
+
 from .._registry import register_problem
 from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
-from typing import List
-from collections import Counter
-import heapq
 
 
 class Solution:

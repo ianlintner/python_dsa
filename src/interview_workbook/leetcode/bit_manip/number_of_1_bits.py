@@ -8,9 +8,9 @@ Time Complexity: O(1) - at most 32 iterations for 32-bit integer
 Space Complexity: O(1)
 """
 
-from ..._types import Category, Difficulty
-from ..._runner import TestCase, run_test_cases, create_demo_output
 from ..._registry import register_problem
+from ..._runner import TestCase, create_demo_output, run_test_cases
+from ..._types import Category, Difficulty
 
 
 class Solution:
@@ -161,8 +161,8 @@ def demo():
     dense_num = 0b11111111111111111111111111111111  # All 32 bits set
 
     print(f"Sparse number ({sparse_num}): {bin(sparse_num)}")
-    print(f"  - Brian Kernighan only needs 2 iterations")
-    print(f"  - Right shift needs 32 iterations")
+    print("  - Brian Kernighan only needs 2 iterations")
+    print("  - Right shift needs 32 iterations")
     print(f"  Result: {solution.hammingWeight(sparse_num)}")
 
     return create_demo_output(

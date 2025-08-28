@@ -9,11 +9,12 @@ Constraints:
 - -100 <= Node.val <= 100
 """
 
-from typing import Optional
 from collections import deque
-from .._types import Category
-from .._registry import register_problem
+from typing import Optional
+
 from .._nodes import TreeNode
+from .._registry import register_problem
+from .._types import Category
 
 
 class Solution:
@@ -179,7 +180,7 @@ def demo():
         print(f"  Got: {result}")
 
         if result != test["expected"]:
-            print(f"  ❌ Mismatch!")
+            print("  ❌ Mismatch!")
         print()
 
     # Test all approaches on a sample case
@@ -200,17 +201,17 @@ def demo():
         status = "✓" if result == expected else "✗"
         print(f"  {name}: {status}")
 
-    print(f"\nComplexity Analysis:")
-    print(f"  Time: O(n) - must visit every node")
-    print(f"  Space: O(h) - recursion depth or explicit stack")
-    print(f"    Best case (balanced): O(log n)")
-    print(f"    Worst case (skewed): O(n)")
+    print("\nComplexity Analysis:")
+    print("  Time: O(n) - must visit every node")
+    print("  Space: O(h) - recursion depth or explicit stack")
+    print("    Best case (balanced): O(log n)")
+    print("    Worst case (skewed): O(n)")
 
-    print(f"\nKey Insights:")
-    print(f"  • Simple recursive solution: swap children then recurse")
-    print(f"  • Iterative approaches use BFS (queue) or DFS (stack)")
-    print(f"  • All approaches have same time complexity")
-    print(f"  • Space complexity depends on tree height")
+    print("\nKey Insights:")
+    print("  • Simple recursive solution: swap children then recurse")
+    print("  • Iterative approaches use BFS (queue) or DFS (stack)")
+    print("  • All approaches have same time complexity")
+    print("  • Space complexity depends on tree height")
 
 
 # Register the problem

@@ -25,12 +25,13 @@ Constraints:
     0 <= n <= 100
 """
 
+import heapq
+from collections import Counter, deque
+from typing import List
+
 from .._registry import register_problem
 from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
-from typing import List
-from collections import Counter, deque
-import heapq
 
 
 class Solution:

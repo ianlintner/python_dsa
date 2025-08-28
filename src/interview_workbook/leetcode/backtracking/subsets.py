@@ -18,10 +18,11 @@ Constraints:
     All the numbers of nums are unique.
 """
 
-from .._registry import register_problem
-from .._runner import TestCase, run_test_cases
-from .._types import Category, Difficulty
 from typing import List
+
+from .._registry import register_problem
+from .._runner import TestCase
+from .._types import Category, Difficulty
 
 
 class Solution:

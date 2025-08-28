@@ -2,7 +2,6 @@
 Tests for Car Fleet
 """
 
-import pytest
 from src.interview_workbook.leetcode.stack.car_fleet import Solution
 
 

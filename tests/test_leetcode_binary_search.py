@@ -2,27 +2,26 @@
 Tests for Binary Search Problems
 """
 
-import pytest
 from src.interview_workbook.leetcode.binary_search.binary_search import (
     Solution as BinarySearchSolution,
-)
-from src.interview_workbook.leetcode.binary_search.search_in_rotated_sorted_array import (
-    Solution as SearchRotatedSolution,
-)
-from src.interview_workbook.leetcode.binary_search.find_min_in_rotated_sorted_array import (
-    Solution as FindMinSolution,
-)
-from src.interview_workbook.leetcode.binary_search.search_2d_matrix import (
-    Solution as Search2DMatrixSolution,
 )
 from src.interview_workbook.leetcode.binary_search.find_kth_smallest_in_sorted_matrix import (
     Solution as FindKthSmallestSolution,
 )
-from src.interview_workbook.leetcode.binary_search.koko_eating_bananas import (
-    Solution as KokoSolution,
+from src.interview_workbook.leetcode.binary_search.find_min_in_rotated_sorted_array import (
+    Solution as FindMinSolution,
 )
 from src.interview_workbook.leetcode.binary_search.find_peak_element import (
     Solution as FindPeakSolution,
+)
+from src.interview_workbook.leetcode.binary_search.koko_eating_bananas import (
+    Solution as KokoSolution,
+)
+from src.interview_workbook.leetcode.binary_search.search_2d_matrix import (
+    Solution as Search2DMatrixSolution,
+)
+from src.interview_workbook.leetcode.binary_search.search_in_rotated_sorted_array import (
+    Solution as SearchRotatedSolution,
 )
 
 

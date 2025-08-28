@@ -18,12 +18,13 @@ Constraints:
     -10^4 <= nums[i] <= 10^4
 """
 
+import heapq
+import random
+from typing import List
+
 from .._registry import register_problem
 from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
-from typing import List
-import heapq
-import random
 
 
 class Solution:

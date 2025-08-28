@@ -6,8 +6,8 @@ Given an array of intervals where intervals[i] = [start_i, end_i],
 return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
 """
 
-from .._runner import TestCase, run_test_cases
 from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
 
 

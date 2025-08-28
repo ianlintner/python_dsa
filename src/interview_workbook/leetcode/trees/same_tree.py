@@ -25,8 +25,9 @@ Time Complexity: O(min(m,n)) where m,n are the number of nodes in each tree
 Space Complexity: O(min(m,n)) for recursion stack in worst case
 """
 
-from typing import Optional
 from collections import deque
+from typing import Optional
+
 from .._nodes import TreeNode
 from .._registry import register_problem
 from .._types import Category
@@ -182,7 +183,7 @@ def demo():
 
         # Verify all approaches give same result
         assert result1 == result2 == result3 == result4 == expected, f"Mismatch in test case {i}"
-        print(f"✅ All approaches passed")
+        print("✅ All approaches passed")
         print()
 
     print("Algorithm Analysis:")

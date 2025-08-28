@@ -12,8 +12,8 @@ and intervals still does not have any overlapping intervals (merge overlapping i
 Return intervals after the insertion.
 """
 
-from .._runner import TestCase, run_test_cases
 from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
 
 

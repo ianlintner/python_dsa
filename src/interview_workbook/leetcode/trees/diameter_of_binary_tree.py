@@ -13,11 +13,12 @@ Constraints:
 - -100 <= Node.val <= 100
 """
 
-from typing import Optional
 from collections import deque
-from .._types import Category
-from .._registry import register_problem
+from typing import Optional
+
 from .._nodes import TreeNode
+from .._registry import register_problem
+from .._types import Category
 
 
 class Solution:
@@ -225,7 +226,7 @@ def demo():
         print(f"  Explanation: {test['explanation']}")
 
         if result != test["expected"]:
-            print(f"  ❌ Mismatch!")
+            print("  ❌ Mismatch!")
         print()
 
     # Test all approaches on a sample case
@@ -245,19 +246,19 @@ def demo():
         status = "✓" if result == expected else "✗"
         print(f"  {name}: {status} (diameter = {result})")
 
-    print(f"\nComplexity Analysis:")
-    print(f"  Time: O(n) - visit every node exactly once")
-    print(f"  Space: O(h) - recursion/stack depth")
-    print(f"    Best case (balanced): O(log n)")
-    print(f"    Worst case (skewed): O(n)")
+    print("\nComplexity Analysis:")
+    print("  Time: O(n) - visit every node exactly once")
+    print("  Space: O(h) - recursion/stack depth")
+    print("    Best case (balanced): O(log n)")
+    print("    Worst case (skewed): O(n)")
 
-    print(f"\nKey Insights:")
-    print(f"  • Diameter = longest path between any two nodes")
-    print(f"  • Path may or may not pass through root")
-    print(f"  • At each node, consider diameter through that node")
-    print(f"  • Diameter through node = left_height + right_height")
-    print(f"  • Global diameter = max over all nodes")
-    print(f"  • Can combine height calculation with diameter tracking")
+    print("\nKey Insights:")
+    print("  • Diameter = longest path between any two nodes")
+    print("  • Path may or may not pass through root")
+    print("  • At each node, consider diameter through that node")
+    print("  • Diameter through node = left_height + right_height")
+    print("  • Global diameter = max over all nodes")
+    print("  • Can combine height calculation with diameter tracking")
 
 
 # Register the problem

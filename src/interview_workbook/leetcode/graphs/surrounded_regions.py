@@ -6,8 +6,8 @@ Given an m x n matrix board containing 'X' and 'O', capture all regions that are
 surrounded by 'X'. A region is captured by flipping all 'O's into 'X's in that surrounded region.
 """
 
-from .._runner import TestCase, run_test_cases
 from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
 
 
@@ -215,13 +215,13 @@ def create_demo_output() -> str:
         board_original = [row[:] for row in example["input"]]
 
         output.append(f"Example {i}: {example['description']}")
-        output.append(f"Original board:")
+        output.append("Original board:")
         output.append(board_to_string(board_original))
 
         # Test DFS approach
         board_dfs = [row[:] for row in board_original]
         solution.solve_dfs_border_escape(board_dfs)
-        output.append(f"After DFS solution:")
+        output.append("After DFS solution:")
         output.append(board_to_string(board_dfs))
 
         # Test BFS approach

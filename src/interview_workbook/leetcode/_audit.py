@@ -6,10 +6,10 @@ and generates updated documentation that reflects the actual implementation stat
 """
 
 from pathlib import Path
-from typing import Dict, List, Set, Tuple
+from typing import Dict
 
 from ._discovery import discover_problem_modules, ensure_problems_loaded, get_registered_slugs
-from ._registry import get_all, get_stats
+from ._registry import get_all
 from ._types import Category
 from .top100_manifest import TOP_100_MANIFEST, get_category_stats, get_problems_by_category
 
@@ -149,7 +149,7 @@ def generate_neetcode_docs(audit_data: Dict) -> str:
     total = audit_data["total_manifest"]
     implemented = audit_data["total_implemented"]
 
-    content = f"""# NeetCode Top 100 LeetCode Problems
+    content = """# NeetCode Top 100 LeetCode Problems
 
 This document provides an index of the curated NeetCode Top 100 problems implemented in this repository.
 
@@ -305,8 +305,8 @@ def print_audit_summary(audit_data: Dict = None) -> None:
     impl = audit_data["total_implemented"]
     missing = audit_data["total_missing"]
 
-    print(f"🎯 NeetCode Top 100 Implementation Status")
-    print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("🎯 NeetCode Top 100 Implementation Status")
+    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     print(f"📊 Progress: {impl}/{total} ({impl / total * 100:.1f}%)")
     print(f"✅ Implemented: {impl}")
     print(f"❌ Missing: {missing}")
@@ -317,7 +317,7 @@ def print_audit_summary(audit_data: Dict = None) -> None:
     print(f"\n📁 Discovered modules: {len(audit_data['discovered_modules'])}")
 
     if missing > 0:
-        print(f"\n🔍 Next to implement:")
+        print("\n🔍 Next to implement:")
         for i, slug in enumerate(sorted(audit_data["missing_slugs"])[:5]):
             prob = audit_data["manifest_by_slug"][slug]
             print(f"   {i + 1}. {slug} ({prob['difficulty'].value})")

@@ -12,8 +12,8 @@ Return the minimum number of minutes that must elapse until no cell has a fresh 
 If this is impossible, return -1.
 """
 
-from .._runner import TestCase, run_test_cases
 from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
 
 
@@ -205,14 +205,14 @@ def create_demo_output() -> str:
         original_grid = [row[:] for row in example["input"]]
 
         output.append(f"Example {i}: {example['description']}")
-        output.append(f"Original grid:")
+        output.append("Original grid:")
         output.append(grid_to_string(original_grid))
 
         # Test multi-source BFS approach
         grid_bfs = [row[:] for row in original_grid]
         result_bfs = solution.orangesRotting_bfs_multi_source(grid_bfs)
         output.append(f"Multi-source BFS result: {result_bfs} minutes")
-        output.append(f"Final grid:")
+        output.append("Final grid:")
         output.append(grid_to_string(grid_bfs))
 
         # Test level-order BFS approach

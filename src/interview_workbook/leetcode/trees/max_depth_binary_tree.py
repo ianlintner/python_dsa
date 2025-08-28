@@ -11,11 +11,12 @@ Constraints:
 - -100 <= Node.val <= 100
 """
 
-from typing import Optional
 from collections import deque
-from .._types import Category
-from .._registry import register_problem
+from typing import Optional
+
 from .._nodes import TreeNode
+from .._registry import register_problem
+from .._types import Category
 
 
 class Solution:
@@ -172,7 +173,7 @@ def demo():
         print(f"  Got: {result}")
 
         if result != test["expected"]:
-            print(f"  ❌ Mismatch!")
+            print("  ❌ Mismatch!")
         print()
 
     # Test all approaches on a sample case
@@ -193,21 +194,21 @@ def demo():
         status = "✓" if result == expected else "✗"
         print(f"  {name}: {status} (depth = {result})")
 
-    print(f"\nComplexity Analysis:")
-    print(f"  Time: O(n) - must visit every node")
-    print(f"  Space:")
-    print(f"    Recursive DFS: O(h) - recursion stack")
-    print(f"    Iterative BFS: O(w) - queue width")
-    print(f"    Iterative DFS: O(h) - explicit stack")
-    print(f"    Best case (balanced): O(log n)")
-    print(f"    Worst case (skewed): O(n)")
+    print("\nComplexity Analysis:")
+    print("  Time: O(n) - must visit every node")
+    print("  Space:")
+    print("    Recursive DFS: O(h) - recursion stack")
+    print("    Iterative BFS: O(w) - queue width")
+    print("    Iterative DFS: O(h) - explicit stack")
+    print("    Best case (balanced): O(log n)")
+    print("    Worst case (skewed): O(n)")
 
-    print(f"\nKey Insights:")
-    print(f"  • Base case: null node has depth 0")
-    print(f"  • Recursive: 1 + max(left_depth, right_depth)")
-    print(f"  • BFS naturally processes level-by-level")
-    print(f"  • DFS can use explicit stack with depth tracking")
-    print(f"  • All approaches have same time complexity")
+    print("\nKey Insights:")
+    print("  • Base case: null node has depth 0")
+    print("  • Recursive: 1 + max(left_depth, right_depth)")
+    print("  • BFS naturally processes level-by-level")
+    print("  • DFS can use explicit stack with depth tracking")
+    print("  • All approaches have same time complexity")
 
 
 # Register the problem

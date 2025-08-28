@@ -17,22 +17,15 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from interview_workbook.leetcode._audit import (
-    run_audit,
     print_audit_summary,
+    run_audit,
     update_docs_file,
-    generate_docs,
 )
+from interview_workbook.leetcode._types import Category
 from interview_workbook.leetcode.top100_manifest import (
     TOP_100_MANIFEST,
     get_problem_by_slug,
-    get_problems_by_category,
 )
-from interview_workbook.leetcode._discovery import (
-    discover_problem_modules,
-    get_registered_slugs,
-    ensure_problems_loaded,
-)
-from interview_workbook.leetcode._types import Category, Difficulty
 
 
 def cmd_audit(args):

@@ -38,8 +38,8 @@ Constraints:
     * At most 3 * 10^4 calls in total will be made to insert, search, and startsWith.
 """
 
-from .._runner import TestCase, run_test_cases
 from .._registry import register_problem
+from .._runner import TestCase, run_test_cases
 from .._types import Category, Difficulty
 
 
