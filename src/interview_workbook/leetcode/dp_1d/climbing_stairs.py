@@ -35,7 +35,7 @@ class Solution:
         prev2 = 1  # ways to reach step 1
         prev1 = 2  # ways to reach step 2
 
-        for i in range(3, n + 1):
+        for _i in range(3, n + 1):
             current = prev1 + prev2
             prev2 = prev1
             prev1 = current
@@ -121,7 +121,7 @@ def create_demo_output() -> str:
     # Test cases with step-by-step analysis
     test_cases = [(1, 1), (2, 2), (3, 3), (4, 5), (5, 8), (10, 89)]
 
-    for n, expected in test_cases:
+    for n, _expected in test_cases:
         result = solution.climbStairs(n)
         demos.append(f"n = {n}: {result} ways")
 
@@ -224,14 +224,14 @@ def create_demo_output() -> str:
 
 # Test cases
 TEST_CASES = [
-    TestCase(input=[1], expected=1, description="Single step"),
-    TestCase(input=[2], expected=2, description="Two steps: [1+1] or [2]"),
-    TestCase(input=[3], expected=3, description="Three ways to reach step 3"),
-    TestCase(input=[4], expected=5, description="Five ways to reach step 4"),
-    TestCase(input=[5], expected=8, description="Fibonacci sequence continues"),
-    TestCase(input=[10], expected=89, description="Larger example"),
-    TestCase(input=[20], expected=10946, description="Even larger example"),
-    TestCase(input=[35], expected=14930352, description="Large n to test efficiency"),
+    TestCase(input_args=(1,), expected=1, description="Single step"),
+    TestCase(input_args=(2,), expected=2, description="Two steps: [1+1] or [2]"),
+    TestCase(input_args=(3,), expected=3, description="Three ways to reach step 3"),
+    TestCase(input_args=(4,), expected=5, description="Five ways to reach step 4"),
+    TestCase(input_args=(5,), expected=8, description="Fibonacci sequence continues"),
+    TestCase(input_args=(10,), expected=89, description="Larger example"),
+    TestCase(input_args=(20,), expected=10946, description="Even larger example"),
+    TestCase(input_args=(35,), expected=14930352, description="Large n to test efficiency"),
 ]
 
 

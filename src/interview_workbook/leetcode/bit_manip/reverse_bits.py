@@ -33,7 +33,7 @@ class Solution:
         """
         result = 0
 
-        for i in range(32):
+        for _i in range(32):
             result = (result << 1) | (n & 1)
             n >>= 1
 
