@@ -1,7 +1,9 @@
 """
 Jump Game
 
-TODO: Add problem description
+Problem: Jump Game
+LeetCode link: https://leetcode.com/problems/jump-game/
+Description: Determine if it is possible to reach the last index of an array, given maximum jump lengths at each position.
 """
 
 

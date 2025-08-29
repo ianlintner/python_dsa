@@ -1,7 +1,9 @@
 """
 Add And Search Word
 
-TODO: Add problem description
+Problem: Add and Search Word (Data structure design)
+LeetCode link: https://leetcode.com/problems/add-and-search-word-data-structure-design/
+Description: Design a data structure that adds new words and finds if a string with optional '.' wildcards matches any previously added word.
 """
 
 

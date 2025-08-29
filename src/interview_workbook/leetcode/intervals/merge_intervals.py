@@ -1,7 +1,9 @@
 """
 Merge Intervals
 
-TODO: Add problem description
+Problem: Merge Intervals
+LeetCode link: https://leetcode.com/problems/merge-intervals/
+Description: Given an array of intervals where intervals[i] = [start, end], merge all overlapping intervals and return an array of non-overlapping intervals covering all the input intervals.
 """
 
 

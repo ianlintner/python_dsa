@@ -1,7 +1,9 @@
 """
 Number Of Islands
 
-TODO: Add problem description
+Problem: Number of Islands
+LeetCode link: https://leetcode.com/problems/number-of-islands/
+Description: Count the number of islands in a 2D grid where ‘1’ represents land and ‘0’ represents water. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.
 """
 
 

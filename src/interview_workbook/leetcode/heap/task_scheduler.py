@@ -1,7 +1,9 @@
 """
 Task Scheduler
 
-TODO: Add problem description
+Problem: Task Scheduler
+LeetCode link: https://leetcode.com/problems/task-scheduler/
+Description: Given a list of tasks represented by characters and a cooling interval n, return the least number of time units required to finish all tasks, where the same tasks must be separated by at least n time units.
 """
 
 

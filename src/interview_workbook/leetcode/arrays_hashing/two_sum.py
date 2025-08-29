@@ -1,7 +1,9 @@
 """
 Two Sum
 
-TODO: Add problem description
+Problem: Two Sum
+LeetCode link: https://leetcode.com/problems/two-sum/
+Description: Find two numbers in an array that add up to a given target and return their indices.
 """
 
 from src.interview_workbook.leetcode._runner import TestCase

@@ -1,7 +1,9 @@
 """
 Minimum Window Substring
 
-TODO: Add problem description
+Problem: Minimum Window Substring
+LeetCode link: https://leetcode.com/problems/minimum-window-substring/
+Description: Given two strings s and t, return the minimum window substring of s such that every character in t is included in the window. If no such substring exists, return an empty string.
 """
 
 

@@ -1,7 +1,9 @@
 """
 Reverse Linked List
 
-TODO: Add problem description
+Problem: Reverse Linked List
+LeetCode link: https://leetcode.com/problems/reverse-linked-list/
+Description: Reverse a singly linked list and return the reversed list.
 """
 
 

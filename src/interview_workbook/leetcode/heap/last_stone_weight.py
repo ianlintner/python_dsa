@@ -1,7 +1,9 @@
 """
 Last Stone Weight
 
-TODO: Add problem description
+Problem: Last Stone Weight
+LeetCode link: https://leetcode.com/problems/last-stone-weight/
+Description: Given an array of stones, repeatedly smash the two heaviest stones together. If they are equal, both are destroyed; otherwise the difference remains as a new stone. Return the last stone weight or 0 if none remain.
 """
 
 

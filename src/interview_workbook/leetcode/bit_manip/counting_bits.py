@@ -1,7 +1,8 @@
 """
-Counting Bits
-
-TODO: Add problem description
+Problem: Counting Bits
+LeetCode link: https://leetcode.com/problems/counting-bits/
+Description: Given an integer n, return an array ans of length n + 1 such that ans[i] is
+the number of 1's in the binary representation of i, for each i from 0 to n.
 """
 
 from src.interview_workbook.leetcode._registry import register_problem

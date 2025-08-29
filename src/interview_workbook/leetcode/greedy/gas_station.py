@@ -1,7 +1,9 @@
 """
 Gas Station
 
-TODO: Add problem description
+Problem: Gas Station
+LeetCode link: https://leetcode.com/problems/gas-station/
+Description: Given two integer arrays gas and cost, determine if there exists a starting gas station index from which you can travel around the circuit once in the clockwise direction. Return -1 if not possible.
 """
 
 
