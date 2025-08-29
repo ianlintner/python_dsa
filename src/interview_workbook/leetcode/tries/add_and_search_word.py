@@ -5,15 +5,65 @@ TODO: Add problem description
 """
 
 
+class WordDictionary:
+    """
+    Implements Add and Search Word using a Trie.
+    Supports '.' as a wildcard matching any character.
+    """
+
+    def __init__(self):
+        self.trie = {}
+
+    def addWord(self, word: str) -> None:
+        node = self.trie
+        for ch in word:
+            if ch not in node:
+                node[ch] = {}
+            node = node[ch]
+        node["$"] = True  # End of word marker
+
+    def search(self, word: str) -> bool:
+        def dfs(j, node):
+            for i in range(j, len(word)):
+                ch = word[i]
+                if ch == ".":
+                    for nxt in node:
+                        if nxt != "$" and dfs(i + 1, node[nxt]):
+                            return True
+                    return False
+                else:
+                    if ch not in node:
+                        return False
+                    node = node[ch]
+            return "$" in node
+
+        return dfs(0, self.trie)
+
+
 class Solution:
     def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+        """LeetCode driver-compatible entry (placeholder)."""
+        return None
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Demonstrate WordDictionary functionality."""
+    import random
+
+    random.seed(0)
+
+    wd = WordDictionary()
+    wd.addWord("bad")
+    wd.addWord("dad")
+    wd.addWord("mad")
+
+    outputs = []
+    outputs.append(wd.search("pad"))  # False
+    outputs.append(wd.search("bad"))  # True
+    outputs.append(wd.search(".ad"))  # True
+    outputs.append(wd.search("b.."))  # True
+
+    return str(outputs)
 
 
 # TODO: Register the problem with correct parameters
