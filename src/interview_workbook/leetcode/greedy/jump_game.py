@@ -8,9 +8,18 @@ Description: Determine if it is possible to reach the last index of an array, gi
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, *args) -> bool:
+        """
+        Greedy solution to Jump Game.
+        Returns True if last index is reachable, otherwise False.
+        """
+        nums = args[0]
+        max_reach = 0
+        for i, num in enumerate(nums):
+            if i > max_reach:
+                return False
+            max_reach = max(max_reach, i + num)
+        return True
 
 
 def demo():

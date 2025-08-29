@@ -6,9 +6,21 @@ TODO: Add problem description
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, *args) -> bool:
+        """Return True if s can be segmented into words from wordDict, else False."""
+        if len(args) != 2:
+            return ""
+        s, wordDict = args
+        word_set = set(wordDict)
+        n = len(s)
+        dp = [False] * (n + 1)
+        dp[0] = True
+        for i in range(1, n + 1):
+            for j in range(i):
+                if dp[j] and s[j:i] in word_set:
+                    dp[i] = True
+                    break
+        return dp[n]
 
 
 def demo():

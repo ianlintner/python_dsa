@@ -6,9 +6,20 @@ TODO: Add problem description
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, *args) -> int:
+        """Return the length of the longest increasing subsequence."""
+        if not args:
+            return 0
+        nums = args[0]
+        import bisect
+        sub = []
+        for x in nums:
+            i = bisect.bisect_left(sub, x)
+            if i == len(sub):
+                sub.append(x)
+            else:
+                sub[i] = x
+        return len(sub)
 
 
 def demo():

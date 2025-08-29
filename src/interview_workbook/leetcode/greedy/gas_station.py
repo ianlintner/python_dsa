@@ -8,9 +8,23 @@ Description: Given two integer arrays gas and cost, determine if there exists a 
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, *args) -> int:
+        """
+        Greedy solution to the Gas Station problem.
+        Returns the starting index if possible, otherwise -1.
+        """
+        gas, cost = args
+        if sum(gas) < sum(cost):
+            return -1
+
+        start = 0
+        tank = 0
+        for i in range(len(gas)):
+            tank += gas[i] - cost[i]
+            if tank < 0:
+                start = i + 1
+                tank = 0
+        return start
 
 
 def demo():
