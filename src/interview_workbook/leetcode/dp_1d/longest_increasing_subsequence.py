@@ -23,8 +23,11 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Longest Increasing Subsequence problem."""
+    solver = Solution()
+    nums = [10, 9, 2, 5, 3, 7, 101, 18]
+    result = solver.solve(nums)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters

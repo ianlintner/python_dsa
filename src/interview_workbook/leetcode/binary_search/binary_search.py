@@ -23,8 +23,12 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Binary Search problem."""
+    solver = Solution()
+    nums = [-1, 0, 3, 5, 9, 12]
+    target = 9
+    result = solver.search(nums, target)
+    return str(result)
 
 
 # Register the problem with correct parameters

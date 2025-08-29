@@ -20,8 +20,11 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Climbing Stairs problem."""
+    solver = Solution()
+    n = 5
+    result = solver.solve(n)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters

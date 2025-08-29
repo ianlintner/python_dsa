@@ -29,8 +29,12 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Search In Rotated Sorted Array problem."""
+    solver = Solution()
+    nums = [4, 5, 6, 7, 0, 1, 2]
+    target = 0
+    result = solver.search(nums, target)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters

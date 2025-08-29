@@ -21,8 +21,12 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Coin Change problem."""
+    solver = Solution()
+    coins = [1, 2, 5]
+    amount = 11
+    result = solver.solve(coins, amount)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters

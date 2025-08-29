@@ -33,8 +33,12 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Edit Distance problem."""
+    solver = Solution()
+    word1 = "horse"
+    word2 = "ros"
+    result = solver.solve(word1, word2)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters
