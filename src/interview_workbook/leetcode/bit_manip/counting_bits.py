@@ -4,6 +4,9 @@ Counting Bits
 TODO: Add problem description
 """
 
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
+
 
 class Solution:
     def solve(self, n: int) -> list[int]:
@@ -17,14 +20,12 @@ class Solution:
 def demo():
     """Demo for Counting Bits problem."""
     import random
+
     random.seed(0)
     n = 5
     result = Solution().solve(n)
     return f"Counting bits up to {n}: {result}"
 
-
-from src.interview_workbook.leetcode._types import Category, Difficulty
-from src.interview_workbook.leetcode._registry import register_problem
 
 register_problem(
     id=338,
@@ -34,5 +35,5 @@ register_problem(
     difficulty=Difficulty.MEDIUM,
     tags=["bit manipulation", "dp"],
     url="https://leetcode.com/problems/counting-bits/",
-    notes="Standard bit manipulation + DP trick"
+    notes="Standard bit manipulation + DP trick",
 )
