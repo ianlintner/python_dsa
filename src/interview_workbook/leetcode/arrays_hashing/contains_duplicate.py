@@ -6,16 +6,14 @@ at least twice in the array, and return False if every element
 is distinct.
 """
 
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
+
 
 class Solution:
     def solve(self, nums: list[int]) -> bool:
         """Check if the array contains any duplicates."""
-        seen = set()
-        for num in nums:
-            if num in seen:
-                return True
-            seen.add(num)
-        return False
+        return len(set(nums)) != len(nums)
 
 
 def demo():
@@ -26,9 +24,6 @@ def demo():
     return f"Input: {nums} -> Contains Duplicate: {result}"
 
 
-from src.interview_workbook.leetcode._types import Category, Difficulty
-from src.interview_workbook.leetcode._registry import register_problem
-
 register_problem(
     id=217,
     slug="contains_duplicate",
@@ -37,5 +32,5 @@ register_problem(
     difficulty=Difficulty.EASY,
     tags=["array", "hashmap", "sorting"],
     url="https://leetcode.com/problems/contains-duplicate/",
-    notes="Basic duplicate check using set."
+    notes="Basic duplicate check using set.",
 )
