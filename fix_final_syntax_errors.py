@@ -20,8 +20,8 @@ def fix_malformed_testcase_calls(content: str) -> str:
     # Pattern 1: Fix input_args with embedded expected=/description=
     # Example: TestCase(input_args=(12, expected=[10, description=8, 0, 5, 3], [2, 4, 1, 1, 3)), 3, "Example 1")
     pattern1 = re.compile(
-        r'TestCase\(\s*input_args=\(([^)]*expected=\s*[^,)]+[^)]*)\),\s*([^,]+),\s*([^)]+)\)',
-        re.MULTILINE | re.DOTALL
+        r"TestCase\(\s*input_args=\(([^)]*expected=\s*[^,)]+[^)]*)\),\s*([^,]+),\s*([^)]+)\)",
+        re.MULTILINE | re.DOTALL,
     )
 
     def fix_pattern1(match):
@@ -32,22 +32,21 @@ def fix_malformed_testcase_calls(content: str) -> str:
         # Extract the actual input_args before the embedded expected=
         # This is a complex pattern, let's try to extract the valid input args
         # Look for the pattern up to "expected="
-        pre_expected = re.split(r',\s*expected=', args_with_embedded)[0]
+        pre_expected = re.split(r",\s*expected=", args_with_embedded)[0]
 
         # Clean up the input args - remove any remaining malformed parts
-        clean_input_args = re.sub(r'\s*description=\s*[^,)]*', '', pre_expected)
-        clean_input_args = re.sub(r'\s*expected=\s*[^,)]*', '', clean_input_args)
-        clean_input_args = clean_input_args.strip().rstrip(',')
+        clean_input_args = re.sub(r"\s*description=\s*[^,)]*", "", pre_expected)
+        clean_input_args = re.sub(r"\s*expected=\s*[^,)]*", "", clean_input_args)
+        clean_input_args = clean_input_args.strip().rstrip(",")
 
-        return f'TestCase(input_args=({clean_input_args},), expected={second_part}, description={third_part})'
+        return f"TestCase(input_args=({clean_input_args},), expected={second_part}, description={third_part})"
 
     content = pattern1.sub(fix_pattern1, content)
 
     # Pattern 2: Fix simple positional arguments following keyword arguments
     # Example: TestCase(input_args=(1), ["()"], "Example: n=1")
     pattern2 = re.compile(
-        r'TestCase\(\s*input_args=\(([^)]+)\),\s*([^,\[\{][^,)]*),\s*("[^"]*")\)',
-        re.MULTILINE
+        r'TestCase\(\s*input_args=\(([^)]+)\),\s*([^,\[\{][^,)]*),\s*("[^"]*")\)', re.MULTILINE
     )
 
     def fix_pattern2(match):
@@ -56,10 +55,10 @@ def fix_malformed_testcase_calls(content: str) -> str:
         description = match.group(3).strip()
 
         # Ensure input_args is a proper tuple
-        if not input_args.endswith(',') and ',' not in input_args:
-            input_args = input_args + ','
+        if not input_args.endswith(",") and "," not in input_args:
+            input_args = input_args + ","
 
-        return f'TestCase(input_args=({input_args}), expected={expected_val}, description={description})'
+        return f"TestCase(input_args=({input_args}), expected={expected_val}, description={description})"
 
     content = pattern2.sub(fix_pattern2, content)
 
@@ -67,7 +66,7 @@ def fix_malformed_testcase_calls(content: str) -> str:
     # Example: TestCase(input_args=(1), ["()"], "Example: n=1")
     pattern3 = re.compile(
         r'TestCase\(\s*input_args=\(([^)]+)\),\s*(\[[^\]]*\]|\{[^}]*\}),\s*("[^"]*")\)',
-        re.MULTILINE | re.DOTALL
+        re.MULTILINE | re.DOTALL,
     )
 
     def fix_pattern3(match):
@@ -76,23 +75,22 @@ def fix_malformed_testcase_calls(content: str) -> str:
         description = match.group(3).strip()
 
         # Ensure input_args is a proper tuple
-        if not input_args.endswith(',') and ',' not in input_args:
-            input_args = input_args + ','
+        if not input_args.endswith(",") and "," not in input_args:
+            input_args = input_args + ","
 
-        return f'TestCase(input_args=({input_args}), expected={expected_val}, description={description})'
+        return f"TestCase(input_args=({input_args}), expected={expected_val}, description={description})"
 
     content = pattern3.sub(fix_pattern3, content)
 
     # Pattern 4: Fix mismatched parentheses - convert ] to ) in TestCase input_args
     pattern4 = re.compile(
-        r'TestCase\(\s*input_args=\(([^)\]]*)\]([^)]*)\)',
-        re.MULTILINE | re.DOTALL
+        r"TestCase\(\s*input_args=\(([^)\]]*)\]([^)]*)\)", re.MULTILINE | re.DOTALL
     )
 
     def fix_pattern4(match):
         args_before = match.group(1)
         args_after = match.group(2) if match.group(2) else ""
-        return f'TestCase(input_args=({args_before}){args_after})'
+        return f"TestCase(input_args=({args_before}){args_after})"
 
     content = pattern4.sub(fix_pattern4, content)
 
@@ -111,11 +109,11 @@ def fix_malformed_testcase_calls(content: str) -> str:
 
     # Pattern 6: Fix tuple syntax issues - ensure proper tuple format
     # Fix cases like input_args=([1, 2, 3]) to input_args=([1, 2, 3],)
-    pattern6 = re.compile(r'input_args=\((\[[^\]]+\])\)')
+    pattern6 = re.compile(r"input_args=\((\[[^\]]+\])\)")
 
     def fix_pattern6(match):
         list_content = match.group(1)
-        return f'input_args=({list_content},)'
+        return f"input_args=({list_content},)"
 
     content = pattern6.sub(fix_pattern6, content)
 
@@ -125,14 +123,14 @@ def fix_malformed_testcase_calls(content: str) -> str:
 def process_file(file_path: Path) -> bool:
     """Process a single Python file to fix TestCase syntax errors."""
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
 
         original_content = content
         fixed_content = fix_malformed_testcase_calls(content)
 
         if fixed_content != original_content:
-            with open(file_path, 'w', encoding='utf-8') as f:
+            with open(file_path, "w", encoding="utf-8") as f:
                 f.write(fixed_content)
             print(f"✅ Fixed syntax errors in: {file_path}")
             return True

@@ -21,47 +21,67 @@ def fix_colon_corruption(content: str) -> tuple[str, bool]:
     original_content = content
 
     # 1. Fix class definitions: "class ClassName=" -> "class ClassName:"
-    content = re.sub(r'^(\s*)class\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*', r'\1class \2:', content, flags=re.MULTILINE)
+    content = re.sub(
+        r"^(\s*)class\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*",
+        r"\1class \2:",
+        content,
+        flags=re.MULTILINE,
+    )
 
     # 2. Fix function definitions: "def func_name(args)=" -> "def func_name(args):"
-    content = re.sub(r'^(\s*)def\s+([A-Za-z_][A-Za-z0-9_]*)\s*\([^)]*\)\s*(->\s*[^=]+?)?\s*=\s*', r'\1def \2(\3):', content, flags=re.MULTILINE)
+    content = re.sub(
+        r"^(\s*)def\s+([A-Za-z_][A-Za-z0-9_]*)\s*\([^)]*\)\s*(->\s*[^=]+?)?\s*=\s*",
+        r"\1def \2(\3):",
+        content,
+        flags=re.MULTILINE,
+    )
 
     # 3. Fix type annotations: "param=Type" -> "param: Type" (but not in assignments)
     # Look for parameter type annotations
-    content = re.sub(r'(\w+)\s*=\s*([A-Z][A-Za-z0-9_\[\],\s]*)\s*(?=[\),])', r'\1: \2', content)
+    content = re.sub(r"(\w+)\s*=\s*([A-Z][A-Za-z0-9_\[\],\s]*)\s*(?=[\),])", r"\1: \2", content)
 
     # 4. Fix slice syntax: "s[start=end]" -> "s[start:end]"
-    content = re.sub(r'(\[[\w\s]*?)=([^=\]]+?\])', r'\1:\2', content)
+    content = re.sub(r"(\[[\w\s]*?)=([^=\]]+?\])", r"\1:\2", content)
 
     # 5. Fix for loop syntax: "for x in list=" -> "for x in list:"
-    content = re.sub(r'^(\s*)for\s+([^=]+?)\s+in\s+([^=]+?)=\s*$', r'\1for \2 in \3:', content, flags=re.MULTILINE)
-    content = re.sub(r'^(\s*)for\s+([^=]+?)\s+in\s+([^=]+?)=\s*#', r'\1for \2 in \3: #', content, flags=re.MULTILINE)
+    content = re.sub(
+        r"^(\s*)for\s+([^=]+?)\s+in\s+([^=]+?)=\s*$",
+        r"\1for \2 in \3:",
+        content,
+        flags=re.MULTILINE,
+    )
+    content = re.sub(
+        r"^(\s*)for\s+([^=]+?)\s+in\s+([^=]+?)=\s*#",
+        r"\1for \2 in \3: #",
+        content,
+        flags=re.MULTILINE,
+    )
 
     # 6. Fix if/elif/else statements: "if condition=" -> "if condition:"
-    content = re.sub(r'^(\s*)(if|elif)\s+([^=]+?)=\s*$', r'\1\2 \3:', content, flags=re.MULTILINE)
-    content = re.sub(r'^(\s*)(if|elif)\s+([^=]+?)=\s*#', r'\1\2 \3: #', content, flags=re.MULTILINE)
-    content = re.sub(r'^(\s*)else\s*=\s*$', r'\1else:', content, flags=re.MULTILINE)
+    content = re.sub(r"^(\s*)(if|elif)\s+([^=]+?)=\s*$", r"\1\2 \3:", content, flags=re.MULTILINE)
+    content = re.sub(r"^(\s*)(if|elif)\s+([^=]+?)=\s*#", r"\1\2 \3: #", content, flags=re.MULTILINE)
+    content = re.sub(r"^(\s*)else\s*=\s*$", r"\1else:", content, flags=re.MULTILINE)
 
     # 7. Fix while loops: "while condition=" -> "while condition:"
-    content = re.sub(r'^(\s*)while\s+([^=]+?)=\s*$', r'\1while \2:', content, flags=re.MULTILINE)
-    content = re.sub(r'^(\s*)while\s+([^=]+?)=\s*#', r'\1while \2: #', content, flags=re.MULTILINE)
+    content = re.sub(r"^(\s*)while\s+([^=]+?)=\s*$", r"\1while \2:", content, flags=re.MULTILINE)
+    content = re.sub(r"^(\s*)while\s+([^=]+?)=\s*#", r"\1while \2: #", content, flags=re.MULTILINE)
 
     # 8. Fix try/except/finally: "try=" -> "try:", "except Exception=" -> "except Exception:"
-    content = re.sub(r'^(\s*)try\s*=\s*$', r'\1try:', content, flags=re.MULTILINE)
-    content = re.sub(r'^(\s*)except(\s+\w+)?\s*=\s*$', r'\1except\2:', content, flags=re.MULTILINE)
-    content = re.sub(r'^(\s*)finally\s*=\s*$', r'\1finally:', content, flags=re.MULTILINE)
+    content = re.sub(r"^(\s*)try\s*=\s*$", r"\1try:", content, flags=re.MULTILINE)
+    content = re.sub(r"^(\s*)except(\s+\w+)?\s*=\s*$", r"\1except\2:", content, flags=re.MULTILINE)
+    content = re.sub(r"^(\s*)finally\s*=\s*$", r"\1finally:", content, flags=re.MULTILINE)
 
     # 9. Fix dictionary syntax: "key= value" -> "key: value"
     # Be careful to only match within dictionary contexts
-    content = re.sub(r'(\{[^}]*?)(\w+)\s*=\s*([^,}]+)([,}])', r'\1\2: \3\4', content)
-    content = re.sub(r'(,\s*)(\w+)\s*=\s*([^,}]+)([,}])', r'\1\2: \3\4', content)
+    content = re.sub(r"(\{[^}]*?)(\w+)\s*=\s*([^,}]+)([,}])", r"\1\2: \3\4", content)
+    content = re.sub(r"(,\s*)(\w+)\s*=\s*([^,}]+)([,}])", r"\1\2: \3\4", content)
 
     # 10. Fix function return type annotations: ") -> Type=" -> ") -> Type:"
     content = re.sub(r'(\)\s*->\s*[^=]+?)=\s*"""', r'\1:\n        """', content)
-    content = re.sub(r'(\)\s*->\s*[^=]+?)=\s*$', r'\1:', content, flags=re.MULTILINE)
+    content = re.sub(r"(\)\s*->\s*[^=]+?)=\s*$", r"\1:", content, flags=re.MULTILINE)
 
     # 11. Fix lambda expressions: "lambda x=" -> "lambda x:"
-    content = re.sub(r'lambda\s+([^=]+?)=\s*', r'lambda \1: ', content)
+    content = re.sub(r"lambda\s+([^=]+?)=\s*", r"lambda \1: ", content)
 
     # 12. Fix list/dict comprehensions: "[expr for x in list=condition]" -> "[expr for x in list if condition]"
     # This is tricky - need to identify comprehension contexts
@@ -87,7 +107,7 @@ def process_leetcode_files():
     for file_path in sorted(python_files):
         try:
             # Read file content
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, "r", encoding="utf-8") as f:
                 content = f.read()
 
             # Fix colon corruption
@@ -95,7 +115,7 @@ def process_leetcode_files():
 
             if was_modified:
                 # Write back the fixed content
-                with open(file_path, 'w', encoding='utf-8') as f:
+                with open(file_path, "w", encoding="utf-8") as f:
                     f.write(fixed_content)
                 print(f"✅ Fixed colon corruption in: {file_path}")
                 files_modified += 1

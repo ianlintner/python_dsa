@@ -4,6 +4,8 @@ Two Sum
 TODO: Add problem description
 """
 
+from src.interview_workbook.leetcode._runner import TestCase
+
 
 class Solution:
     def twoSum(self, nums: list[int], target: int) -> list[int]:
@@ -18,12 +20,11 @@ class Solution:
 
 
 # Example test cases
-from src.interview_workbook.leetcode._runner import TestCase
 
 test_cases = [
-    TestCase(([2,7,11,15], 9), [0,1], "Simple pair at start"),
-    TestCase(([3,2,4], 6), [1,2], "Pair in middle"),
-    TestCase(([3,3], 6), [0,1], "Duplicate numbers"),
+    TestCase(([2, 7, 11, 15], 9), [0, 1], "Simple pair at start"),
+    TestCase(([3, 2, 4], 6), [1, 2], "Pair in middle"),
+    TestCase(([3, 3], 6), [0, 1], "Duplicate numbers"),
 ]
 
 

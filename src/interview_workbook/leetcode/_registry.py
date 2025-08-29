@@ -4,28 +4,42 @@
 TODO: Add problem description
 """
 
+from typing import Optional
 
 from .top100_manifest import TOP_100_MANIFEST
 
-
 # Exported constant for tests
 # Augment each entry with a "module" key so metadata is consistent
-PROBLEMS: list[dict] = [
-    {**p, "module": f"interview_workbook.leetcode.{p['slug']}", "notes": p.get("notes", "")}
-    for p in TOP_100_MANIFEST
-]
+PROBLEMS: list[dict] = []
+for p in TOP_100_MANIFEST:
+    category = p["category"].value if hasattr(p["category"], "value") else str(p["category"])
+    module = f"interview_workbook.leetcode.{category}.{p['slug']}"
+    PROBLEMS.append({**p, "module": module, "notes": p.get("notes", "")})
+
 
 def register_problem(**kwargs) -> None:
     """Register an additional problem not in the TOP_100_MANIFEST (used by modules)."""
-    PROBLEMS.append(kwargs)
+    category = (
+        kwargs["category"].value
+        if hasattr(kwargs["category"], "value")
+        else str(kwargs["category"])
+    )
+    module = f"interview_workbook.leetcode.{category}.{kwargs['slug']}"
+    new_entry = {**kwargs, "module": module, "notes": kwargs.get("notes", "")}
+    # prevent duplicate slugs or ids
+    slugs = [p["slug"] for p in PROBLEMS]
+    ids = [p["id"] for p in PROBLEMS]
+    if new_entry["slug"] in slugs or new_entry["id"] in ids:
+        return
+    PROBLEMS.append(new_entry)
 
 
-def by_category(category: str) -> list[dict]:
-    """Return problems filtered by the given category."""
-    return [p for p in PROBLEMS if p["category"].value == category]
+def by_category(category) -> list[dict]:
+    """Return problems filtered by the given category.
+    Accepts either a Category enum or its string value."""
+    cat_value = category.value if hasattr(category, "value") else str(category)
+    return [p for p in PROBLEMS if p["category"].value == cat_value]
 
-
-from typing import Optional
 
 def by_slug(slug: str) -> Optional[dict]:
     """Return a problem by slug, or None if not found."""

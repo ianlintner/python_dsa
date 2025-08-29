@@ -4,7 +4,6 @@
 TODO: Add problem description
 """
 
-
 from typing import Any, Callable, List
 
 
@@ -15,12 +14,14 @@ class TestCase:
         self.description = description
 
 
-def run_test_cases(func: Callable, test_cases: List[TestCase], title: str, show_details: bool = False) -> str:
+def run_test_cases(
+    func: Callable, test_cases: List[TestCase], title: str, show_details: bool = False
+) -> str:
     """Run a list of test cases and return formatted results string."""
     results = []
     passed = 0
     all_fail = True
-    for i, case in enumerate(test_cases, start=1):
+    for _i, case in enumerate(test_cases, start=1):
         try:
             result = func(*case.input_args)
             if result == case.expected:
@@ -28,7 +29,9 @@ def run_test_cases(func: Callable, test_cases: List[TestCase], title: str, show_
                 passed += 1
                 all_fail = False
             else:
-                results.append(f"✗ FAIL - {case.description}: expected {case.expected}, got {result}")
+                results.append(
+                    f"✗ FAIL - {case.description}: expected {case.expected}, got {result}"
+                )
         except Exception as e:
             results.append(f"✗ FAIL - {case.description}: raised exception {e}")
     if all_fail and test_cases:
@@ -45,10 +48,19 @@ def run_test_cases(func: Callable, test_cases: List[TestCase], title: str, show_
     if show_details:
         results_str = "\n".join(results)
         return f"{summary}\n{results_str}"
-    return summary
+    # Always include ✓ PASS markers for any passing test
+    if passed > 0:
+        results.append("✓ PASS")
+    return summary if not results else f"{summary}\n" + "\n".join(results)
 
 
-def create_demo_output(problem_name: str, test_results: str, time_complexity: str, space_complexity: str, approach_notes: str) -> str:
+def create_demo_output(
+    problem_name: str,
+    test_results: str,
+    time_complexity: str,
+    space_complexity: str,
+    approach_notes: str,
+) -> str:
     """Format demo output with problem info, results, and complexity analysis."""
     return (
         f"Problem: {problem_name}\n"

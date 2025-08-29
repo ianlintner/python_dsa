@@ -4,6 +4,10 @@ Koko Eating Bananas
 TODO: Add problem description
 """
 
+import logging
+
+from src.interview_workbook.leetcode._runner import TestCase
+
 
 class Solution:
     def minEatingSpeed(self, piles: list[int], h: int) -> int:
@@ -21,6 +25,7 @@ class Solution:
     def minEatingSpeedOptimized(self, piles: list[int], h: int) -> int:
         """Alternative optimized version with binary search clearer bound updates."""
         import math
+
         low, high = 1, max(piles)
         ans = high
         while low <= high:
@@ -34,12 +39,13 @@ class Solution:
         return ans
 
 
-from src.interview_workbook.leetcode._runner import TestCase
+logging.basicConfig(level=logging.DEBUG)
 
 test_cases = [
-    TestCase(([3,6,7,11], 8), 4, "Standard example"),
-    TestCase(([30,11,23,4,20], 5), 30, "Tight hours limit"),
+    TestCase(([3, 6, 7, 11], 8), 4, "Standard example"),
+    TestCase(([30, 11, 23, 4, 20], 5), 30, "Tight hours limit"),
 ]
+
 
 def demo():
     """Run simple test cases for Koko Eating Bananas."""
@@ -47,8 +53,15 @@ def demo():
     outputs = []
     for case in test_cases:
         res = sol.minEatingSpeed(*case.input_args)
-        outputs.append(f"Koko Eating Bananas | Input: {case.input_args} -> Output: {res}, Expected: {case.expected}\n✓ PASS")
-    return "\n".join(outputs)
+        logging.debug(
+            "Test case input=%s, result=%s, expected=%s", case.input_args, res, case.expected
+        )
+        outputs.append(
+            f"Koko Eating Bananas | Input: {case.input_args} -> Output: {res}, Expected: {case.expected}\n✓ PASS"
+        )
+    result_str = "\n".join(outputs)
+    logging.debug("Final demo output (len=%d)", len(result_str))
+    return result_str
 
 
 # TODO: Register the problem with correct parameters

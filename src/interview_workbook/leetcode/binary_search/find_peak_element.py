@@ -4,6 +4,8 @@ Find Peak Element
 TODO: Add problem description
 """
 
+from src.interview_workbook.leetcode._runner import TestCase
+
 
 class Solution:
     def findPeakElement(self, nums: list[int]) -> int:
@@ -20,12 +22,13 @@ class Solution:
     def findPeakElementLinear(self, nums: list[int]) -> int:
         """Simpler O(n) scan to find a peak element index."""
         for i in range(len(nums)):
-            if (i == 0 or nums[i] > nums[i-1]) and (i == len(nums)-1 or nums[i] > nums[i+1]):
+            if (i == 0 or nums[i] > nums[i - 1]) and (i == len(nums) - 1 or nums[i] > nums[i + 1]):
                 return i
         return 0
 
     def findPeakElementRecursive(self, nums: list[int]) -> int:
         """Recursive binary search variant to find a peak element index."""
+
         def search(left: int, right: int) -> int:
             if left == right:
                 return left
@@ -34,12 +37,9 @@ class Solution:
                 return search(mid + 1, right)
             else:
                 return search(left, mid)
+
         return search(0, len(nums) - 1)
 
-
-from interview_workbook.leetcode._runner import TestCase, run_test_cases, create_demo_output
-from interview_workbook.leetcode._registry import register_problem
-from interview_workbook.leetcode._types import Category, Difficulty
 
 test_cases = [
     TestCase(([1, 2, 3, 1],), 2, "Peak in the middle"),
@@ -47,13 +47,16 @@ test_cases = [
     TestCase(([1],), 0, "Single element is peak"),
 ]
 
+
 def demo():
     """Run simple test cases for Find Peak Element."""
     sol = Solution()
     outputs = []
     for case in test_cases:
         res = sol.findPeakElement(*case.input_args)
-        outputs.append(f"Find Peak Element | Input: {case.input_args} -> Output: {res}, Expected: {case.expected}")
+        outputs.append(
+            f"Find Peak Element | Input: {case.input_args} -> Output: {res}, Expected: {case.expected}"
+        )
     return "\n".join(outputs)
 
 

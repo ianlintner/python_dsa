@@ -4,10 +4,9 @@
 TODO: Add problem description
 """
 
-
 import importlib
-import pkgutil
 import pathlib
+import pkgutil
 
 
 def ensure_problems_loaded():

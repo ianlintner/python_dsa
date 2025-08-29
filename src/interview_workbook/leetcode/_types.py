@@ -3,7 +3,7 @@ Type definitions for LeetCode problem metadata and categorization.
 """
 
 from enum import Enum
-from typing import TypedDict, Optional
+from typing import Optional, TypedDict
 
 
 class Difficulty(Enum):

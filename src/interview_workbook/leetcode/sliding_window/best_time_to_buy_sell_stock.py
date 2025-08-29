@@ -11,6 +11,10 @@ return 0.
 LeetCode: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 """
 
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._runner import TestCase
+from src.interview_workbook.leetcode._types import Category, Difficulty
+
 
 class Solution:
     def maxProfit(self, prices: list[int]) -> int:
@@ -30,11 +34,10 @@ class Solution:
 
 
 # Example test cases
-from src.interview_workbook.leetcode._runner import TestCase
 
 test_cases = [
-    TestCase(([7,1,5,3,6,4],), 5, "Max profit achievable"),
-    TestCase(([7,6,4,3,1],), 0, "No profit possible"),
+    TestCase(([7, 1, 5, 3, 6, 4],), 5, "Max profit achievable"),
+    TestCase(([7, 6, 4, 3, 1],), 0, "No profit possible"),
 ]
 
 
@@ -51,9 +54,6 @@ def demo():
         )
         return "\n".join(outputs)
 
-
-from src.interview_workbook.leetcode._types import Category, Difficulty
-from src.interview_workbook.leetcode._registry import register_problem
 
 register_problem(
     id=121,

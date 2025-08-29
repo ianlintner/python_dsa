@@ -10,6 +10,10 @@ non-alphanumeric characters.
 LeetCode: https://leetcode.com/problems/valid-palindrome/
 """
 
+from interview_workbook.leetcode._registry import register_problem
+from interview_workbook.leetcode._runner import TestCase
+from interview_workbook.leetcode._types import Category, Difficulty
+
 
 class Solution:
     def isPalindrome(self, s: str) -> bool:
@@ -27,7 +31,6 @@ class Solution:
 
 
 # Example test cases
-from src.interview_workbook.leetcode._runner import TestCase
 
 test_cases = [
     TestCase(("A man, a plan, a canal: Panama",), True, "Classic palindrome with punctuation"),
@@ -40,17 +43,19 @@ def demo():
     """Run simple test cases for Valid Palindrome."""
     sol = Solution()
     outputs = []
-    for case in test_cases:
+    outputs.append("Valid Palindrome")
+    outputs.append("Time: O(n)")
+    outputs.append("Space: O(1)")
+    outputs.append("Approach: two pointers")
+
+    for i, case in enumerate(test_cases, start=1):
         res = sol.isPalindrome(*case.input_args)
         outputs.append(
-            f"Valid Palindrome | Input: {case.input_args} -> Output: {res}, Expected: {case.expected}\n"
-            f"Complexity: O(n) | Technique: two pointers\n✓ PASS"
+            f"Test Case {i}: Input={case.input_args} -> Output={res}, Expected={case.expected}"
         )
+    outputs.append("✓ PASS")
     return "\n".join(outputs)
 
-
-from src.interview_workbook.leetcode._types import Category, Difficulty
-from src.interview_workbook.leetcode._registry import register_problem
 
 register_problem(
     id=125,

@@ -16,87 +16,74 @@ def fix_testcase_parameter_corruption(content):
 
     # Fix the basic expected: and description: syntax
     content = re.sub(
-        r'(TestCase\([^)]*?)expected:\s*([^,)]+?),\s*description:\s*([^)]+?)\)',
-        r'\1expected=\2, description=\3)',
+        r"(TestCase\([^)]*?)expected:\s*([^,)]+?),\s*description:\s*([^)]+?)\)",
+        r"\1expected=\2, description=\3)",
         content,
-        flags=re.MULTILINE | re.DOTALL
+        flags=re.MULTILINE | re.DOTALL,
     )
 
     # Fix missing closing quotes in test strings
     content = re.sub(
         r'TestCase\(input_args=\("([^"]*?)\),\s*expected([^,)]+?),\s*description([^)]+?)\)',
         r'TestCase(input_args=("\1",), expected\2, description\3)',
-        content
+        content,
     )
 
     # Fix incomplete TestCase calls that end abruptly
     content = re.sub(
-        r'TestCase\(input_args=\(\s*\n\s*\]',
+        r"TestCase\(input_args=\(\s*\n\s*\]",
         r'TestCase(input_args=("",), expected=True, description="Placeholder")\n]',
         content,
-        flags=re.MULTILINE
+        flags=re.MULTILINE,
     )
 
     return content
+
 
 def fix_function_definition_corruption(content):
     """Fix corrupted function definitions like 'def demo(-> str):'"""
 
     # Pattern: def demo(-> str): should be def demo() -> str:
-    content = re.sub(
-        r'def\s+(\w+)\(\s*->\s*([^)]+?)\)\s*:',
-        r'def \1() -> \2:',
-        content
-    )
+    content = re.sub(r"def\s+(\w+)\(\s*->\s*([^)]+?)\)\s*:", r"def \1() -> \2:", content)
 
     # Pattern: def demo(-> str):"""docstring"""
     content = re.sub(
-        r'def\s+(\w+)\(\s*->\s*([^)]+?)\)\s*:\s*"""',
-        r'def \1() -> \2:\n    """',
-        content
+        r'def\s+(\w+)\(\s*->\s*([^)]+?)\)\s*:\s*"""', r'def \1() -> \2:\n    """', content
     )
 
     return content
+
 
 def fix_register_problem_corruption(content):
     """Fix register_problem() calls with mixed positional/keyword arguments."""
 
     # Fix the colon syntax in register_problem calls
     # Pattern: slug: "value" should be slug="value"
-    content = re.sub(
-        r'(\s+)(\w+):\s*([^,\n]+?),',
-        r'\1\2=\3,',
-        content
-    )
+    content = re.sub(r"(\s+)(\w+):\s*([^,\n]+?),", r"\1\2=\3,", content)
 
     return content
+
 
 def fix_function_call_corruption(content):
     """Fix various function call corruptions."""
 
     # Fix time_complexity: "value" patterns in function calls
-    content = re.sub(
-        r'(\w+):\s*"([^"]+)"',
-        r'\1="\2"',
-        content
-    )
+    content = re.sub(r'(\w+):\s*"([^"]+)"', r'\1="\2"', content)
 
     # Fix approach_notes: """ patterns
-    content = re.sub(
-        r'approach_notes:\s*"""',
-        r'approach_notes="""',
-        content
-    )
+    content = re.sub(r'approach_notes:\s*"""', r'approach_notes="""', content)
 
     return content
+
 
 def fix_url_corruption(content):
     """Fix URL corruption where https:// becomes https=//"""
 
-    content = re.sub(r'https=//', r'https://', content)
-    content = re.sub(r'http=//', r'http://', content)
+    content = re.sub(r"https=//", r"https://", content)
+    content = re.sub(r"http=//", r"http://", content)
 
     return content
+
 
 def fix_dictionary_syntax_corruption(content):
     """Fix dictionary syntax where = appears instead of :"""
@@ -105,13 +92,10 @@ def fix_dictionary_syntax_corruption(content):
     # Be careful to only fix actual dictionary syntax, not assignment
 
     # Fix Key insights=value patterns in docstrings
-    content = re.sub(
-        r'(Key insights)=(\d+\.)',
-        r'\1:\n\2',
-        content
-    )
+    content = re.sub(r"(Key insights)=(\d+\.)", r"\1:\n\2", content)
 
     return content
+
 
 def apply_all_fixes(content):
     """Apply all fix patterns to the content."""
@@ -125,16 +109,17 @@ def apply_all_fixes(content):
 
     return content
 
+
 def process_file(file_path):
     """Process a single Python file to fix syntax errors."""
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             original_content = f.read()
 
         fixed_content = apply_all_fixes(original_content)
 
         if fixed_content != original_content:
-            with open(file_path, 'w', encoding='utf-8') as f:
+            with open(file_path, "w", encoding="utf-8") as f:
                 f.write(fixed_content)
             return True
         return False
@@ -142,6 +127,7 @@ def process_file(file_path):
     except Exception as e:
         print(f"Error processing {file_path}: {e}")
         return False
+
 
 def main():
     """Main function to process all LeetCode Python files."""
@@ -156,7 +142,7 @@ def main():
     python_files = []
     for root, dirs, files in os.walk(leetcode_dir):
         for file in files:
-            if file.endswith('.py'):
+            if file.endswith(".py"):
                 python_files.append(os.path.join(root, file))
 
     print(f"Found {len(python_files)} Python files to process...")
@@ -174,6 +160,7 @@ def main():
     if fixed_count > 0:
         print("\nNow run: python -m ruff format src/interview_workbook/leetcode/ --check")
         print("to verify the fixes")
+
 
 if __name__ == "__main__":
     main()

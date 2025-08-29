@@ -23,9 +23,9 @@ try:
     from src.interview_workbook.leetcode._types import Category
 except ImportError:
     # Fallback for linting/static analysis
-    from src.interview_workbook.leetcode._nodes import TreeNode
     from src.interview_workbook._registry import register_problem
     from src.interview_workbook._types import Category
+    from src.interview_workbook.leetcode._nodes import TreeNode
 
 
 class Solution:

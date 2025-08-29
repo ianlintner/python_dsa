@@ -8,6 +8,8 @@ This manifest is used to=1. Generate documentation (docs/NEETCODE_TOP100.md)
 4. Provide metadata for the registry system
 """
 
+from typing import Optional
+
 from ._types import Category, Difficulty
 
 # Complete NeetCode Top 100 manifest
@@ -932,9 +934,7 @@ TOP_100_MANIFEST = [
 ]
 
 
-from typing import Optional
-
-def get_problem_by_slug(self, slug: str) -> Optional[dict]:
+def get_problem_by_slug(slug: str) -> Optional[dict]:
     """Return the problem dictionary matching the given slug, or None if not found."""
     for problem in TOP_100_MANIFEST:
         if problem["slug"] == slug:
@@ -942,17 +942,17 @@ def get_problem_by_slug(self, slug: str) -> Optional[dict]:
     return None
 
 
-def get_all_problems(self) -> list[dict]:
+def get_all_problems() -> list[dict]:
     """Return a shallow copy of all problems in the manifest."""
     return TOP_100_MANIFEST.copy()
 
 
-def get_problems_by_category(self, category: str) -> list[dict]:
+def get_problems_by_category(category: str) -> list[dict]:
     """Return all problems in the manifest belonging to the given category."""
     return [p for p in TOP_100_MANIFEST if p["category"].value == category]
 
 
-def get_category_stats(self) -> dict[str, int]:
+def get_category_stats() -> dict[str, int]:
     """Return a dictionary mapping category names to problem counts."""
     stats: dict[str, int] = {}
     for problem in TOP_100_MANIFEST:

@@ -27,10 +27,45 @@ class Solution:
                 right = mid
         return left
 
+    def kthSmallestHeap(self, matrix: list[list[int]], k: int) -> int:
+        """Return the kth smallest element using a min-heap approach."""
+        import heapq
+
+        n = len(matrix)
+        min_heap = []
+        for r in range(min(n, k)):
+            heapq.heappush(min_heap, (matrix[r][0], r, 0))
+
+        count, num = 0, 0
+        while min_heap:
+            num, r, c = heapq.heappop(min_heap)
+            count += 1
+            if count == k:
+                return num
+            if c + 1 < n:
+                heapq.heappush(min_heap, (matrix[r][c + 1], r, c + 1))
+        return num
+
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run simple test cases for Find Kth Smallest In Sorted Matrix."""
+    solution = Solution()
+    output = []
+    matrix1 = [[1, 5, 9], [10, 11, 13], [12, 13, 15]]
+    k1 = 8
+    res1 = solution.kthSmallest(matrix1, k1)
+    res1_heap = solution.kthSmallestHeap(matrix1, k1)
+    output.append("Find Kth Smallest In Sorted Matrix")
+    output.append("Time: O(n log(max-min)) | Space: O(1)")
+    output.append(f"Test Case 1: matrix={matrix1}, k={k1} -> {res1} (heap: {res1_heap})")
+
+    matrix2 = [[1, 2], [1, 3]]
+    k2 = 3
+    res2 = solution.kthSmallest(matrix2, k2)
+    res2_heap = solution.kthSmallestHeap(matrix2, k2)
+    output.append(f"Test Case 2: matrix={matrix2}, k={k2} -> {res2} (heap: {res2_heap})")
+
+    return "\n".join(output)
 
 
 # TODO: Register the problem with correct parameters

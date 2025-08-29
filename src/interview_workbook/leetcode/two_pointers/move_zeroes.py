@@ -76,12 +76,17 @@ class Solution:
 
 # Define test cases for Move Zeroes
 test_cases = [
-    TestCase(input_args=([0, 1, 0, 3, 12],), expected=[1, 3, 12, 0, 0], description="Mixed zeros and non-zeros"),
+    TestCase(
+        input_args=([0, 1, 0, 3, 12],),
+        expected=[1, 3, 12, 0, 0],
+        description="Mixed zeros and non-zeros",
+    ),
     TestCase(input_args=([0],), expected=[0], description="Single zero"),
     TestCase(input_args=([1, 2, 3],), expected=[1, 2, 3], description="No zeros"),
     TestCase(input_args=([0, 0, 0, 1],), expected=[1, 0, 0, 0], description="Zeros then one"),
     TestCase(input_args=([],), expected=[], description="Empty array"),
 ]
+
 
 # Helper function for testing since function modifies input
 def test_move_zeroes(nums: List[int]) -> List[int]:
