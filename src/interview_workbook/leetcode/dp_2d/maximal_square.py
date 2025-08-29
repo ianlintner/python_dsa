@@ -26,8 +26,16 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Maximal Square problem."""
+    solver = Solution()
+    matrix = [
+        ["1","0","1","0","0"],
+        ["1","0","1","1","1"],
+        ["1","1","1","1","1"],
+        ["1","0","0","1","0"],
+    ]
+    result = solver.solve(matrix)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters

@@ -19,8 +19,11 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Unique Paths problem."""
+    solver = Solution()
+    m, n = 3, 7
+    result = solver.solve(m, n)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters

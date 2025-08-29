@@ -28,8 +28,25 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Clone Graph problem."""
+    class Node:
+        def __init__(self, val):
+            self.val = val
+            self.neighbors = []
+        def __repr__(self):
+            return f"Node({self.val})"
+
+    # Build a simple graph: 1 -- 2, 1 -- 3
+    n1 = Node(1)
+    n2 = Node(2)
+    n3 = Node(3)
+    n1.neighbors = [n2, n3]
+    n2.neighbors = [n1]
+    n3.neighbors = [n1]
+
+    solver = Solution()
+    clone = solver.solve(n1)
+    return f"Cloned node val: {clone.val}, neighbors: {[nei.val for nei in clone.neighbors]}"
 
 
 # TODO: Register the problem with correct parameters

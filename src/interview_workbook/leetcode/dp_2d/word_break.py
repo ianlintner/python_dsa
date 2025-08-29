@@ -24,8 +24,12 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Word Break problem."""
+    solver = Solution()
+    s = "leetcode"
+    wordDict = ["leet", "code"]
+    result = solver.solve(s, wordDict)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters

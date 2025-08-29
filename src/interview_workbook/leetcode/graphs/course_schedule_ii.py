@@ -32,8 +32,12 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Course Schedule II problem."""
+    solver = Solution()
+    numCourses = 4
+    prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+    result = solver.solve(numCourses, prerequisites)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters

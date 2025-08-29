@@ -24,8 +24,12 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Longest Common Subsequence problem."""
+    solver = Solution()
+    text1 = "abcde"
+    text2 = "ace"
+    result = solver.solve(text1, text2)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters
