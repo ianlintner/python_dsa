@@ -9,6 +9,7 @@ from typing import Any, Callable, List
 
 class TestCase:
     __test__ = False  # prevent pytest from collecting this as a test
+
     def __init__(self, input_args: tuple, expected: Any, description: str = ""):
         self.input_args = input_args
         self.expected = expected
