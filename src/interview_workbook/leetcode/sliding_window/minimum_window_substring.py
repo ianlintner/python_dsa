@@ -8,6 +8,8 @@ Description: Given two strings s and t, return the minimum window substring of s
 
 
 from collections import Counter
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 class Solution:
     def solve(self, *args):
@@ -37,17 +39,20 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Minimum Window Substring."""
+    s = "ADOBECODEBANC"
+    t = "ABC"
+    result = Solution().solve(s, t)
+    return f"Input: s={s}, t={t} -> Minimum window: {result}"
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="minimum_window_substring",
-#     title="Minimum Window Substring",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=76,
+    slug="minimum_window_substring",
+    title="Minimum Window Substring",
+    category=Category.SLIDING_WINDOW,
+    difficulty=Difficulty.HARD,
+    tags=["hash table", "string", "sliding window"],
+    url="https://leetcode.com/problems/minimum-window-substring/",
+    notes="Classic sliding window with two pointers tracking have/need counts."
+)

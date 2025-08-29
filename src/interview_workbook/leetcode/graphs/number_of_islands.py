@@ -41,17 +41,28 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run demo for Number of Islands problem."""
+    grid = [
+        ["1", "1", "0", "0", "0"],
+        ["1", "1", "0", "0", "0"],
+        ["0", "0", "1", "0", "0"],
+        ["0", "0", "0", "1", "1"],
+    ]
+    solution = Solution()
+    islands = solution.solve(grid)
+    return f"Number of islands: {islands}"
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="number_of_islands",
-#     title="Number Of Islands",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+from src.shared.problems import register_problem, Category, Difficulty
+
+# Register the problem with correct parameters
+register_problem(
+    id=200,
+    slug="number_of_islands",
+    title="Number Of Islands",
+    category=Category.GRAPHS,
+    difficulty=Difficulty.MEDIUM,
+    tags=["dfs", "matrix"],
+    url="https://leetcode.com/problems/number-of-islands/",
+    notes="Classic flood fill DFS over 2D grid."
+)

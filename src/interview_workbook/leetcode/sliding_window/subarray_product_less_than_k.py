@@ -4,6 +4,9 @@ Subarray Product Less Than K
 TODO: Add problem description
 """
 
+from src.interview_workbook.leetcode._registry import register_problem
+from src/interview_workbook.leetcode._types import Category, Difficulty
+
 
 class Solution:
     def solve(self, *args):
@@ -24,17 +27,20 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Subarray Product Less Than K."""
+    nums = [10, 5, 2, 6]
+    k = 100
+    result = Solution().solve(nums, k)
+    return f"Input: nums={nums}, k={k} -> Count of subarrays: {result}"
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="subarray_product_less_than_k",
-#     title="Subarray Product Less Than K",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=713,
+    slug="subarray_product_less_than_k",
+    title="Subarray Product Less Than K",
+    category=Category.SLIDING_WINDOW,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "sliding window"],
+    url="https://leetcode.com/problems/subarray-product-less-than-k/",
+    notes="Two-pointer sliding window. Expand right, shrink left until product < k."
+)

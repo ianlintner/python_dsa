@@ -6,6 +6,8 @@ TODO: Add problem description
 
 
 from collections import Counter
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 class Solution:
     def solve(self, *args):
@@ -29,17 +31,19 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Permutation In String."""
+    s1 = "ab"
+    s2 = "eidbaooo"
+    result = Solution().solve(s1, s2)
+    return f"Input: s1={s1}, s2={s2} -> Contains permutation? {result}"
 
-
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="permutation_in_string",
-#     title="Permutation In String",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=567,
+    slug="permutation_in_string",
+    title="Permutation In String",
+    category=Category.SLIDING_WINDOW,
+    difficulty=Difficulty.MEDIUM,
+    tags=["hash table", "two pointers", "string", "sliding window"],
+    url="https://leetcode.com/problems/permutation-in-string/",
+    notes="Sliding window with character counts compared to target counts."
+)
