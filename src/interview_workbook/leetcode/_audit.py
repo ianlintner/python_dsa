@@ -6,9 +6,9 @@ TODO: Add problem description
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, *args) -> str:
+        """Deterministic placeholder solution for audit module."""
+        return "audit placeholder"
 
 
 def demo():

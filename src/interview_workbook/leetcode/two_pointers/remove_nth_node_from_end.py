@@ -5,10 +5,24 @@ TODO: Add problem description
 """
 
 
+from src.interview_workbook.leetcode._nodes import ListNode
+
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, *args):
+        """Removes the nth node from end using two pointers and returns head."""
+        head, n = args
+        dummy = ListNode(0, head)
+        first = second = dummy
+        # Advance first by n+1 steps
+        for _ in range(n + 1):
+            first = first.next
+        # Move both until first reaches end
+        while first:
+            first = first.next
+            second = second.next
+        # Remove node
+        second.next = second.next.next
+        return dummy.next
 
 
 def demo():

@@ -6,9 +6,24 @@ TODO: Add problem description
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, *args) -> bool:
+        """Check if two binary trees are the same using DFS recursion."""
+        if len(args) < 2:
+            return False
+        p, q = args[0], args[1]
+
+        def is_same(t1, t2):
+            if not t1 and not t2:
+                return True
+            if not t1 or not t2:
+                return False
+            return (
+                t1.val == t2.val
+                and is_same(t1.left, t2.left)
+                and is_same(t1.right, t2.right)
+            )
+
+        return is_same(p, q)
 
 
 def demo():

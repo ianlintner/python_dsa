@@ -14,14 +14,23 @@ Constraints:
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, n: int) -> list[str]:
+        """Return all combinations of n pairs of valid parentheses."""
+        res = []
+        def backtrack(s, left, right):
+            if len(s) == 2*n:
+                res.append(s)
+                return
+            if left < n:
+                backtrack(s+'(', left+1, right)
+            if right < left:
+                backtrack(s+')', left, right+1)
+        backtrack("", 0, 0)
+        return res
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    return str(Solution().solve(3))
 
 
 # TODO: Register the problem with correct parameters
