@@ -1,5 +1,6 @@
 import random
 from enum import Enum
+from typing import Optional
 
 """
 Consensus Basics (Raft-style leader election simulation, simplified)
@@ -32,7 +33,7 @@ class Node:
 
         self.role = Role.FOLLOWER
         self.current_term = 0
-        self.voted_for: int | None = None
+        self.voted_for: Optional[int] = None
         self.last_heartbeat_tick = 0
 
         # Election timeout randomized range (ticks)
@@ -70,7 +71,7 @@ class Cluster:
             node.voted_for = None
             node.reset_election_timer(self.tick)
 
-    def leader(self) -> int | None:
+    def leader(self) -> Optional[int]:
         leaders = [nid for nid, n in self.nodes.items() if n.role == Role.LEADER]
         if len(leaders) == 1:
             return leaders[0]
@@ -161,7 +162,7 @@ class Cluster:
             print(f"  {node}")
         print()
 
-        last_leader: int | None = None
+        last_leader: Optional[int] = None
         stable_ticks = 0
         while self.tick < max_ticks:
             self.step()
