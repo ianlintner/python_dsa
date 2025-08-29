@@ -8,9 +8,20 @@ Description: Reverse a singly linked list and return the reversed list.
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, *args):
+        """
+        Reverse a linked list.
+        Args: head (ListNode)
+        Returns: ListNode head
+        """
+        head = args[0]
+        prev, curr = None, head
+        while curr:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+        return prev
 
 
 def demo():

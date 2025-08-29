@@ -7,15 +7,36 @@ Description: Given an array of stones, repeatedly smash the two heaviest stones 
 """
 
 
+import heapq
+import random
+
+
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    """Simulate smashing stones using a max-heap."""
+
+    def solve(self, stones: list[int]) -> int:
+        """Return the weight of the last remaining stone, or 0."""
+        if not stones:
+            return 0
+        # Use negative values for max-heap
+        heap = [-s for s in stones]
+        heapq.heapify(heap)
+
+        while len(heap) > 1:
+            y = -heapq.heappop(heap)
+            x = -heapq.heappop(heap)
+            if y != x:
+                heapq.heappush(heap, -(y - x))
+
+        return -heap[0] if heap else 0
 
 
-def demo():
-    """TODO: Implement demo function."""
-    pass
+def demo() -> str:
+    """Demo for Last Stone Weight."""
+    random.seed(0)
+    stones = [2,7,4,1,8,1]
+    s = Solution()
+    return f"Last stone weight from {stones} -> {s.solve(stones)}"
 
 
 # TODO: Register the problem with correct parameters

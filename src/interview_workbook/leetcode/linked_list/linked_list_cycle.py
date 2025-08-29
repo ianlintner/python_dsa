@@ -6,9 +6,20 @@ TODO: Add problem description
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, *args):
+        """
+        Detect if linked list has a cycle.
+        Args: head (ListNode)
+        Returns: bool
+        """
+        head = args[0]
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
 
 
 def demo():

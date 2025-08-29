@@ -5,15 +5,56 @@ TODO: Add problem description
 """
 
 
+import heapq
+
+
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    """Maintain two heaps to find streaming median in O(log n) time."""
+
+    def __init__(self) -> None:
+        self.small = []  # max-heap (store as negative values)
+        self.large = []  # min-heap
+
+    def add_num(self, num: int) -> None:
+        # Push onto max-heap
+        heapq.heappush(self.small, -num)
+
+        # Balance so that every num in small <= every num in large
+        if self.small and self.large and (-self.small[0] > self.large[0]):
+            val = -heapq.heappop(self.small)
+            heapq.heappush(self.large, val)
+
+        # Rebalance sizes
+        if len(self.small) > len(self.large) + 1:
+            val = -heapq.heappop(self.small)
+            heapq.heappush(self.large, val)
+        if len(self.large) > len(self.small):
+            val = heapq.heappop(self.large)
+            heapq.heappush(self.small, -val)
+
+    def find_median(self) -> float:
+        if len(self.small) > len(self.large):
+            return float(-self.small[0])
+        return (-self.small[0] + self.large[0]) / 2.0
+
+    def solve(self, nums: list[int]) -> float:
+        """Compute median by sequentially adding numbers from list."""
+        for n in nums:
+            self.add_num(n)
+        return self.find_median()
 
 
-def demo():
-    """TODO: Implement demo function."""
-    pass
+import random
+
+
+def demo() -> str:
+    """Demo for Find Median From Data Stream."""
+    random.seed(0)
+    nums = [5, 15, 1, 3]
+    s = Solution()
+    for n in nums:
+        s.add_num(n)
+    return f"Median after stream {nums}: {s.find_median()}"
 
 
 # TODO: Register the problem with correct parameters
