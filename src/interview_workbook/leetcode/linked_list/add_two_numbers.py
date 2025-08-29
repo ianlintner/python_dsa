@@ -1,8 +1,12 @@
 """
 Add Two Numbers
 
-TODO: Add problem description
+Problem: Add Two Numbers
+LeetCode link: https://leetcode.com/problems/add-two-numbers/
+Description: Add two numbers represented as linked lists and return head of result list.
 """
+
+from src.interview_workbook.leetcode._nodes import ListNode
 
 
 class Solution:

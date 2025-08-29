@@ -8,9 +8,18 @@ Description: Given a string, find the length of the longest substring without re
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, *args):
+        """Return length of longest substring without repeating characters."""
+        s, = args
+        seen = {}
+        l = 0
+        res = 0
+        for r, ch in enumerate(s):
+            if ch in seen and seen[ch] >= l:
+                l = seen[ch] + 1
+            seen[ch] = r
+            res = max(res, r - l + 1)
+        return res
 
 
 def demo():

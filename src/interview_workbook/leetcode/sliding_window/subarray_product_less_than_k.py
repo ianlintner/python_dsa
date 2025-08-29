@@ -6,9 +6,21 @@ TODO: Add problem description
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, *args):
+        """Return count of subarrays where product < k."""
+        nums, k = args
+        if k <= 1:
+            return 0
+        prod = 1
+        res = 0
+        l = 0
+        for r, n in enumerate(nums):
+            prod *= n
+            while prod >= k:
+                prod //= nums[l]
+                l += 1
+            res += r - l + 1
+        return res
 
 
 def demo():

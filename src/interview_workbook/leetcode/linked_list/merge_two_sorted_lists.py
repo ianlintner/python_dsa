@@ -1,8 +1,12 @@
 """
 Merge Two Sorted Lists
 
-TODO: Add problem description
+Problem: Merge Two Sorted Lists
+LeetCode link: https://leetcode.com/problems/merge-two-sorted-lists/
+Description: Merge two sorted linked lists and return the merged list.
 """
+
+from src.interview_workbook.leetcode._nodes import ListNode
 
 
 class Solution:
