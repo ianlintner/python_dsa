@@ -1,28 +1,45 @@
 """
-Permutations
+Permutations (LeetCode 46)
 
-TODO: Add problem description
+Given a collection of distinct numbers, return all possible permutations.
 """
+
+from typing import List
+
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
+
+        def backtrack(start=0):
+            if start == len(nums):
+                res.append(nums[:])
+                return
+            for i in range(start, len(nums)):
+                nums[start], nums[i] = nums[i], nums[start]
+                backtrack(start + 1)
+                nums[start], nums[i] = nums[i], nums[start]
+
+        backtrack()
+        return res
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    s = Solution()
+    result = s.permute([1, 2, 3])
+    return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="permutations",
-#     title="Permutations",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=46,
+    slug="permutations",
+    title="Permutations",
+    category=Category.BACKTRACKING,
+    difficulty=Difficulty.MEDIUM,
+    tags=["backtracking"],
+    url="https://leetcode.com/problems/permutations/",
+    notes="",
+)

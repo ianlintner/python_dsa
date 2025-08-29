@@ -26,6 +26,7 @@ This document captures **hidden rules and coding-specific conventions** for cont
 - All solutions are standalone Python scripts.
 - File and function names follow **snake_case**.
 - Imports must remain **relative-free** inside categories to ensure portability (`import` from stdlib or third-party only).
+- All imports must be placed at the very top of the file, immediately after any module docstring.
 
 ---
 

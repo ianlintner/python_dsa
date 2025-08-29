@@ -6,14 +6,47 @@ TODO: Add problem description
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, root) -> int:
+        """
+        Find the diameter of a binary tree.
+        The diameter is defined as the length of the longest path between any two nodes.
+        """
+        self.diameter = 0
+
+        def depth(node):
+            if not node:
+                return 0
+            left = depth(node.left)
+            right = depth(node.right)
+            self.diameter = max(self.diameter, left + right)
+            return max(left, right) + 1
+
+        depth(root)
+        return self.diameter
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration of diameter of binary tree."""
+
+    class TreeNode:
+        def __init__(self, val=0, left=None, right=None):
+            self.val = val
+            self.left = left
+            self.right = right
+
+    # Build a test tree:
+    #       1
+    #      / \
+    #     2   3
+    #    / \
+    #   4   5
+    root = TreeNode(1)
+    root.left = TreeNode(2, TreeNode(4), TreeNode(5))
+    root.right = TreeNode(3)
+
+    sol = Solution()
+    result = sol.solve(root)
+    return f"Diameter of binary tree: {result}"
 
 
 # TODO: Register the problem with correct parameters

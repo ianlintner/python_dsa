@@ -4,6 +4,8 @@ Binary Search
 TODO: Add problem description
 """
 
+from src.interview_workbook.leetcode._registry import register_problem
+
 
 class Solution:
     def search(self, nums: list[int], target: int) -> int:
@@ -25,13 +27,14 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="binary_search",
-#     title="Binary Search",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+# Register the problem with correct parameters
+register_problem(
+    id=704,
+    slug="binary_search",
+    title="Binary Search",
+    category="binary_search",
+    difficulty="Medium",
+    tags=["binary-search"],
+    url="https://leetcode.com/problems/binary-search/",
+    notes="Classic binary search implementation.",
+)

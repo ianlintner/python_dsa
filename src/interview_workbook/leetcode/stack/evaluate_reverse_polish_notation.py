@@ -1,7 +1,9 @@
+from src.interview_workbook.leetcode._registry import Category, Difficulty, register_problem
+
 """
 Evaluate Reverse Polish Notation
 
-TODO: Add problem description
+Evaluate arithmetic expressions in Reverse Polish Notation using a stack.
 """
 
 
@@ -16,13 +18,11 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="evaluate_reverse_polish_notation",
-#     title="Evaluate Reverse Polish Notation",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+# Register the problem with correct parameters
+register_problem(
+    pid=150,
+    title="Evaluate Reverse Polish Notation",
+    difficulty=Difficulty.MEDIUM,
+    categories=[Category.STACK],
+    function_signature="def evalRPN(tokens: list[str]) -> int:",
+)

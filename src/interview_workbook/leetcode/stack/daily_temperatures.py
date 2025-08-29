@@ -1,3 +1,6 @@
+from interview_workbook.leetcode._registry import register_problem
+from interview_workbook.leetcode._types import Category, Difficulty
+
 """
 Daily Temperatures
 
@@ -17,12 +20,13 @@ def demo():
 
 
 # TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="daily_temperatures",
-#     title="Daily Temperatures",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=0,
+    slug="daily_temperatures",
+    title="Daily Temperatures",
+    category=Category.STACK,
+    difficulty=Difficulty.MEDIUM,
+    tags=[],
+    url="",
+    notes="",
+)
