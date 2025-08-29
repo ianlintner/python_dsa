@@ -1,7 +1,11 @@
 """
 Car Fleet
 
-TODO: Add problem description
+There are `n` cars going to the same destination along a one-lane road.
+The destination is `target` miles away. Each car `i` has a position and speed.
+A car fleet forms when one catches up to another before the target.
+
+Return how many car fleets will arrive at the destination.
 """
 
 from interview_workbook.leetcode._registry import register_problem
@@ -24,13 +28,13 @@ def demo():
     return str(Solution().solve(12, [10, 8, 0, 5, 3], [2, 4, 1, 1, 3]))
 
 
-# TODO: Register the problem with correct parameters
 register_problem(
+    id=853,
     slug="car_fleet",
     title="Car Fleet",
     category=Category.STACK,
     difficulty=Difficulty.MEDIUM,
-    tags=["stack"],
+    tags=["stack", "greedy", "sorting"],
     url="https://leetcode.com/problems/car-fleet/",
-    notes="Greedy with sorting and stack",
+    notes="Sort cars by position and collapse fleets using a stack.",
 )

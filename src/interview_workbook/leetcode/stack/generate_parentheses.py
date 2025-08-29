@@ -12,6 +12,9 @@ Constraints:
     - 1 <= n <= 8
 """
 
+from interview_workbook.leetcode._registry import register_problem
+from interview_workbook.leetcode._types import Category, Difficulty
+
 
 class Solution:
     def solve(self, n: int) -> list[str]:
@@ -33,13 +36,13 @@ def demo():
     return str(Solution().solve(3))
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="generate_parentheses",
-#     title="Generate Parentheses",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=22,
+    slug="generate_parentheses",
+    title="Generate Parentheses",
+    category=Category.STACK,
+    difficulty=Difficulty.MEDIUM,
+    tags=["stack", "backtracking"],
+    url="https://leetcode.com/problems/generate-parentheses/",
+    notes="Backtracking with stack constraints. Ensure left>=right always.",
+)

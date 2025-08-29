@@ -1,7 +1,8 @@
 """
 Largest Rectangle In Histogram
 
-TODO: Add problem description
+Given a histogram represented by an array of bar heights,
+find the area of the largest rectangle in it.
 """
 
 
@@ -25,13 +26,16 @@ def demo():
     return str(Solution().solve([2,1,5,6,2,3]))
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="largest_rectangle_in_histogram",
-#     title="Largest Rectangle In Histogram",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+from interview_workbook.leetcode._registry import register_problem
+from interview_workbook.leetcode._types import Category, Difficulty
+
+register_problem(
+    id=84,
+    slug="largest_rectangle_in_histogram",
+    title="Largest Rectangle In Histogram",
+    category=Category.STACK,
+    difficulty=Difficulty.HARD,
+    tags=["stack", "monotonic stack"],
+    url="https://leetcode.com/problems/largest-rectangle-in-histogram/",
+    notes="Monotonic increasing stack to compute max rectangle area.",
+)

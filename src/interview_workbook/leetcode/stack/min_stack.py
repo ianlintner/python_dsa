@@ -55,13 +55,16 @@ def demo():
     return str(Solution().solve(ops, vals))
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="min_stack",
-#     title="Min Stack",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+from interview_workbook.leetcode._registry import register_problem
+from interview_workbook.leetcode._types import Category, Difficulty
+
+register_problem(
+    id=155,
+    slug="min_stack",
+    title="Min Stack",
+    category=Category.STACK,
+    difficulty=Difficulty.MEDIUM,
+    tags=["stack", "design"],
+    url="https://leetcode.com/problems/min-stack/",
+    notes="Maintain two stacks: values and running mins.",
+)
