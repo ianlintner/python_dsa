@@ -12,8 +12,10 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a deterministic demo for the audit module."""
+    solver = Solution()
+    result = solver.solve()
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters

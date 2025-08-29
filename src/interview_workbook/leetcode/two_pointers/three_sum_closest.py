@@ -1,45 +1,56 @@
+"""LeetCode Problem 16: 3Sum Closest
+
+Given an integer array nums of length n and an integer target, find three integers
+in nums such that the sum is closest to target. Return the sum of the three integers.
+You may assume that each input would have exactly one solution.
 """
-Three Sum Closest
 
-TODO: Add problem description
-"""
-
-
-class Solution:
-    def solve(self, *args):
-        """Finds the sum of three integers closest to target."""
-        nums, target = args
-        nums.sort()
-        closest = float("inf")
-        res = None
-        for i in range(len(nums) - 2):
-            l, r = i + 1, len(nums) - 1
-            while l < r:
-                s = nums[i] + nums[l] + nums[r]
-                if abs(s - target) < closest:
-                    closest = abs(s - target)
-                    res = s
-                if s < target:
-                    l += 1
-                elif s > target:
-                    r -= 1
-                else:
-                    return s
-        return res
+from typing import List
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
-def demo():
-    """TODO: Implement demo function."""
-    pass
+def threeSumClosest(nums: List[int], target: int) -> int:
+    """Find the sum of three integers in nums closest to target.
+
+    Uses sorting and the two-pointer technique.
+    Time complexity: O(n^2)
+    """
+    nums.sort()
+    n = len(nums)
+    closest_sum = nums[0] + nums[1] + nums[2]
+
+    for i in range(n - 2):
+        left, right = i + 1, n - 1
+        while left < right:
+            current_sum = nums[i] + nums[left] + nums[right]
+            if abs(current_sum - target) < abs(closest_sum - target):
+                closest_sum = current_sum
+            if current_sum < target:
+                left += 1
+            elif current_sum > target:
+                right -= 1
+            else:
+                # Exact match
+                return current_sum
+    return closest_sum
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="three_sum_closest",
-#     title="Three Sum Closest",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+def demo() -> str:
+    """Headless demonstration of the 3Sum Closest algorithm."""
+    nums = [-1, 2, 1, -4]
+    target = 1
+    result = threeSumClosest(nums, target)
+    return str(result)
+
+
+# Register this problem
+register_problem(
+    problem_id=16,
+    slug="3sum-closest",
+    difficulty=Difficulty.MEDIUM,
+    category=Category.TWO_POINTERS,
+    func=threeSumClosest,
+    url="https://leetcode.com/problems/3sum-closest/",
+    tags=["Array", "Two Pointers", "Sorting"],
+)

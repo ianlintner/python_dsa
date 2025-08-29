@@ -6,6 +6,8 @@ TODO: Add problem description
 
 
 from src.interview_workbook.leetcode._nodes import ListNode
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 class Solution:
     def solve(self, *args):
@@ -26,17 +28,33 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Builds a linked list [1,2,3,4,5], removes 2nd from end, returns list as str."""
+    # Build linked list
+    head = ListNode(1)
+    current = head
+    for i in range(2, 6):
+        current.next = ListNode(i)
+        current = current.next
+
+    # Remove nth node
+    solver = Solution()
+    new_head = solver.solve(head, 2)
+
+    # Convert to list string
+    result = []
+    while new_head:
+        result.append(str(new_head.val))
+        new_head = new_head.next
+
+    return "[" + ",".join(result) + "]"
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="remove_nth_node_from_end",
-#     title="Remove Nth Node From End",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=19,
+    slug="remove-nth-node-from-end-of-list",
+    title="Remove Nth Node From End of List",
+    category=Category.TWO_POINTERS,
+    difficulty=Difficulty.MEDIUM,
+    tags=["Linked List", "Two Pointers"],
+    url="https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+)

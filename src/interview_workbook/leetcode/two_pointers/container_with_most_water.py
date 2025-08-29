@@ -1,38 +1,44 @@
-"""
-Container With Most Water
-
-TODO: Add problem description
-"""
+"""LeetCode Problem 11: Container With Most Water."""
 
 
-class Solution:
-    def solve(self, *args):
-        """Finds the container with most water using two pointers."""
-        height = args[0]
-        left, right = 0, len(height) - 1
-        max_area = 0
-        while left < right:
-            area = min(height[left], height[right]) * (right - left)
-            max_area = max(max_area, area)
-            if height[left] < height[right]:
-                left += 1
-            else:
-                right -= 1
-        return max_area
+from typing import List
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
-def demo():
-    """TODO: Implement demo function."""
-    pass
+def maxArea(height: List[int]) -> int:
+    """Return the maximum amount of water a container can store.
+
+    Uses the two-pointer approach in O(n) time.
+    """
+    left, right = 0, len(height) - 1
+    max_area = 0
+
+    while left < right:
+        width = right - left
+        curr_area = min(height[left], height[right]) * width
+        max_area = max(max_area, curr_area)
+
+        if height[left] < height[right]:
+            left += 1
+        else:
+            right -= 1
+
+    return max_area
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="container_with_most_water",
-#     title="Container With Most Water",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+def demo() -> str:
+    """Demonstrate the Container With Most Water problem in headless mode."""
+    example = [1, 8, 6, 2, 5, 4, 8, 3, 7]
+    result = maxArea(example)
+    return str(result)
+
+
+register_problem(
+    problem_id=11,
+    slug="container-with-most-water",
+    category=Category.TWO_POINTERS,
+    difficulty=Difficulty.MEDIUM,
+    tags=["Array", "Two Pointers", "Greedy"],
+    url="https://leetcode.com/problems/container-with-most-water/",
+)

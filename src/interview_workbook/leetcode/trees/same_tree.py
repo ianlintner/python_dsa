@@ -1,4 +1,4 @@
-"""
+""" 
 Same Tree (LeetCode 100)
 
 Given two binary trees, write a function to check if they are the same or not.
@@ -6,6 +6,10 @@ Given two binary trees, write a function to check if they are the same or not.
 Two binary trees are considered the same if they are structurally identical
 and the nodes have the same value.
 """
+
+from src.interview_workbook.leetcode._nodes import TreeNode
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -30,17 +34,33 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run deterministic test cases for Same Tree."""
+    sol = Solution()
+
+    # Case 1: Two identical trees
+    t1 = TreeNode(1, TreeNode(2), TreeNode(3))
+    t2 = TreeNode(1, TreeNode(2), TreeNode(3))
+    result1 = sol.solve(t1, t2)
+
+    # Case 2: Different structure
+    t3 = TreeNode(1, TreeNode(2), None)
+    t4 = TreeNode(1, None, TreeNode(2))
+    result2 = sol.solve(t3, t4)
+
+    return (
+        f"Same Tree Test 1 (identical): {result1}\n"
+        f"Same Tree Test 2 (different): {result2}"
+    )
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="same_tree",
-#     title="Same Tree",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+# Register the problem with correct parameters
+register_problem(
+    id=100,
+    slug="same-tree",
+    title="Same Tree",
+    category=Category.TREES,
+    difficulty=Difficulty.EASY,
+    tags=[],
+    url="https://leetcode.com/problems/same-tree/",
+    notes=""
+)
