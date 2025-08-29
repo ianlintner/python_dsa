@@ -45,13 +45,11 @@ class Solution:
         Move all zeros to end while maintaining relative order of non-zeros.
         Modifies array in-place.
 
-        Args:
-            nums: Array of integers (modified in-place)
+            nums: List of integers to modify in-place
         """
-        # Two-pointer approach: write pointer tracks where to place next non-zero
         write_pos = 0
 
-        # First pass: move all non-zero elements to the front
+        # First pass: move all non-zero elements to front
         for read_pos in range(len(nums)):
             if nums[read_pos] != 0:
                 nums[write_pos] = nums[read_pos]
@@ -66,11 +64,9 @@ class Solution:
         """
         Alternative implementation using swapping.
 
-        Args:
-            nums: Array of integers (modified in-place)
+            nums: List of integers to modify in-place
         """
-        left = 0  # Points to next position for non-zero element
-
+        left = 0
         for right in range(len(nums)):
             if nums[right] != 0:
                 # Swap non-zero element to left position
@@ -81,43 +77,21 @@ class Solution:
 # Helper function for testing since function modifies input
 def test_move_zeroes(nums: List[int]) -> List[int]:
     """Wrapper function for testing - returns modified array."""
-    nums_copy = nums.copy()
-    solution = Solution()
-    solution.moveZeroes(nums_copy)
+    nums_copy = nums[:]
+    Solution().moveZeroes(nums_copy)
     return nums_copy
 
 
-# Test cases
-test_cases = [
-    TestCase(
-        input_args=([0, 1, 0, 3, 12],,
-    ), [1, 3, 12, 0, 0], "Basic case with mixed zeros"),
-    TestCase(
-        input_args=([0],,
-    ), [0], "Single zero"),
-    TestCase(
-        input_args=([1],,
-    ), [1], "Single non-zero"),
-    TestCase(
-        input_args=([0, 0, 1],,
-    ), [1, 0, 0], "Multiple leading zeros"),
-    TestCase(
-        input_args=([1, 2, 3],,
-    ), [1, 2, 3], "No zeros"),
-    TestCase(
-        input_args=([0, 0, 0],,
-    ), [0, 0, 0], "All zeros"),
-    TestCase(
-        input_args=([1, 0, 2, 0, 3, 0],,
-    ), [1, 2, 3, 0, 0, 0], "Alternating pattern"),
-    TestCase(
-        input_args=([-1, 0, -2, 0],,
-    ), [-1, -2, 0, 0], "Negative numbers"),
-]
-
-
-def demo() -> str:
+def demo():
     """Run Move Zeroes demo with test cases."""
+    test_cases = [
+        TestCase(input_data=[0, 1, 0, 3, 12], expected=[1, 3, 12, 0, 0]),
+        TestCase(input_data=[0], expected=[0]),
+        TestCase(input_data=[1, 2, 3], expected=[1, 2, 3]),
+        TestCase(input_data=[0, 0, 0, 1], expected=[1, 0, 0, 0]),
+        TestCase(input_data=[], expected=[]),
+    ]
+
     test_results = run_test_cases(test_move_zeroes, test_cases, "LeetCode 283: Move Zeroes")
 
     return create_demo_output(

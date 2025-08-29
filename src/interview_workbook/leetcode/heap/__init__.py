@@ -6,7 +6,7 @@ Heaps are specialized tree-based data structures that satisfy the heap property,
 making them ideal for efficiently maintaining ordered collections and finding extrema.
 
 Key concepts covered:
-- Min-heap and max-heap operations
+    - Min-heap and max-heap operations
 - Priority queue implementations
 - K-th largest/smallest element problems
 - Stream processing with dynamic ordering
@@ -14,7 +14,7 @@ Key concepts covered:
 - Two-heap technique for median finding
 
 Common patterns:
-- Using heapq module for efficient heap operations
+    - Using heapq module for efficient heap operations
 - Maintaining running medians with dual heaps
 - Priority-based scheduling and resource allocation
 - Top-K problems with heap-based selection

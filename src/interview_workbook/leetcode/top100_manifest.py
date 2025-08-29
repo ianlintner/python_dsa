@@ -2,8 +2,7 @@
 NeetCode Top 100 LeetCode Problems Manifest
 
 This is the canonical source of truth for all Top 100 problems.
-This manifest is used to:
-1. Generate documentation (docs/NEETCODE_TOP100.md)
+This manifest is used to=1. Generate documentation (docs/NEETCODE_TOP100.md)
 2. Validate that all problems are implemented
 3. Scaffold new problem modules
 4. Provide metadata for the registry system
@@ -13,7 +12,7 @@ from ._types import Category, Difficulty
 
 # Complete NeetCode Top 100 manifest
 TOP_100_MANIFEST = [
-    # Arrays & Hashing (10 problems)
+    # Arrays & Hashing (10 problems]
     {
         "id": 1,
         "slug": "two_sum",
@@ -21,7 +20,7 @@ TOP_100_MANIFEST = [
         "category": Category.ARRAYS_HASHING,
         "difficulty": Difficulty.EASY,
         "tags": ["array", "hashmap"],
-        "url": "https://leetcode.com/problems/two-sum/",
+        "url": "https = //leetcode.com/problems/two-sum/",
     },
     {
         "id": 217,
@@ -30,7 +29,7 @@ TOP_100_MANIFEST = [
         "category": Category.ARRAYS_HASHING,
         "difficulty": Difficulty.EASY,
         "tags": ["array", "hashmap"],
-        "url": "https://leetcode.com/problems/contains-duplicate/",
+        "url": "https = //leetcode.com/problems/contains-duplicate/",
     },
     {
         "id": 242,
@@ -39,7 +38,7 @@ TOP_100_MANIFEST = [
         "category": Category.ARRAYS_HASHING,
         "difficulty": Difficulty.EASY,
         "tags": ["string", "hashmap", "sorting"],
-        "url": "https://leetcode.com/problems/valid-anagram/",
+        "url": "https = //leetcode.com/problems/valid-anagram/",
     },
     {
         "id": 49,
@@ -48,7 +47,7 @@ TOP_100_MANIFEST = [
         "category": Category.ARRAYS_HASHING,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "hashmap", "string"],
-        "url": "https://leetcode.com/problems/group-anagrams/",
+        "url": "https = //leetcode.com/problems/group-anagrams/",
     },
     {
         "id": 347,
@@ -57,7 +56,7 @@ TOP_100_MANIFEST = [
         "category": Category.ARRAYS_HASHING,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "hashmap", "heap", "sorting"],
-        "url": "https://leetcode.com/problems/top-k-frequent-elements/",
+        "url": "https = //leetcode.com/problems/top-k-frequent-elements/",
     },
     {
         "id": 238,
@@ -66,7 +65,7 @@ TOP_100_MANIFEST = [
         "category": Category.ARRAYS_HASHING,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "prefix_sum"],
-        "url": "https://leetcode.com/problems/product-of-array-except-self/",
+        "url": "https = //leetcode.com/problems/product-of-array-except-self/",
     },
     {
         "id": 36,
@@ -75,7 +74,7 @@ TOP_100_MANIFEST = [
         "category": Category.ARRAYS_HASHING,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "hashmap"],
-        "url": "https://leetcode.com/problems/valid-sudoku/",
+        "url": "https = //leetcode.com/problems/valid-sudoku/",
     },
     {
         "id": 128,
@@ -84,7 +83,7 @@ TOP_100_MANIFEST = [
         "category": Category.ARRAYS_HASHING,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "hashmap", "union_find"],
-        "url": "https://leetcode.com/problems/longest-consecutive-sequence/",
+        "url": "https = //leetcode.com/problems/longest-consecutive-sequence/",
     },
     {
         "id": 271,
@@ -93,7 +92,7 @@ TOP_100_MANIFEST = [
         "category": Category.ARRAYS_HASHING,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "string", "design"],
-        "url": "https://leetcode.com/problems/encode-and-decode-strings/",
+        "url": "https = //leetcode.com/problems/encode-and-decode-strings/",
     },
     {
         "id": 14,
@@ -102,7 +101,7 @@ TOP_100_MANIFEST = [
         "category": Category.ARRAYS_HASHING,
         "difficulty": Difficulty.EASY,
         "tags": ["string"],
-        "url": "https://leetcode.com/problems/longest-common-prefix/",
+        "url": "https = //leetcode.com/problems/longest-common-prefix/",
     },
     # Two Pointers (6 problems)
     {
@@ -112,7 +111,7 @@ TOP_100_MANIFEST = [
         "category": Category.TWO_POINTERS,
         "difficulty": Difficulty.EASY,
         "tags": ["two_pointers", "string"],
-        "url": "https://leetcode.com/problems/valid-palindrome/",
+        "url": "https = //leetcode.com/problems/valid-palindrome/",
     },
     {
         "id": 167,
@@ -121,7 +120,7 @@ TOP_100_MANIFEST = [
         "category": Category.TWO_POINTERS,
         "difficulty": Difficulty.EASY,
         "tags": ["array", "two_pointers"],
-        "url": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
+        "url": "https = //leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
     },
     {
         "id": 15,
@@ -130,7 +129,7 @@ TOP_100_MANIFEST = [
         "category": Category.TWO_POINTERS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "two_pointers", "sorting"],
-        "url": "https://leetcode.com/problems/3sum/",
+        "url": "https = //leetcode.com/problems/3sum/",
     },
     {
         "id": 16,
@@ -139,7 +138,7 @@ TOP_100_MANIFEST = [
         "category": Category.TWO_POINTERS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "two_pointers", "sorting"],
-        "url": "https://leetcode.com/problems/3sum-closest/",
+        "url": "https = //leetcode.com/problems/3sum-closest/",
     },
     {
         "id": 11,
@@ -148,7 +147,7 @@ TOP_100_MANIFEST = [
         "category": Category.TWO_POINTERS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "two_pointers", "greedy"],
-        "url": "https://leetcode.com/problems/container-with-most-water/",
+        "url": "https = //leetcode.com/problems/container-with-most-water/",
     },
     {
         "id": 283,
@@ -157,7 +156,7 @@ TOP_100_MANIFEST = [
         "category": Category.TWO_POINTERS,
         "difficulty": Difficulty.EASY,
         "tags": ["array", "two_pointers"],
-        "url": "https://leetcode.com/problems/move-zeroes/",
+        "url": "https = //leetcode.com/problems/move-zeroes/",
     },
     # Sliding Window (8 problems)
     {
@@ -167,7 +166,7 @@ TOP_100_MANIFEST = [
         "category": Category.SLIDING_WINDOW,
         "difficulty": Difficulty.EASY,
         "tags": ["array", "dynamic_programming"],
-        "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+        "url": "https = //leetcode.com/problems/best-time-to-buy-and-sell-stock/",
     },
     {
         "id": 3,
@@ -176,7 +175,7 @@ TOP_100_MANIFEST = [
         "category": Category.SLIDING_WINDOW,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["string", "sliding_window", "hashmap"],
-        "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+        "url": "https = //leetcode.com/problems/longest-substring-without-repeating-characters/",
     },
     {
         "id": 76,
@@ -185,7 +184,7 @@ TOP_100_MANIFEST = [
         "category": Category.SLIDING_WINDOW,
         "difficulty": Difficulty.HARD,
         "tags": ["string", "sliding_window", "hashmap"],
-        "url": "https://leetcode.com/problems/minimum-window-substring/",
+        "url": "https = //leetcode.com/problems/minimum-window-substring/",
     },
     {
         "id": 424,
@@ -194,7 +193,7 @@ TOP_100_MANIFEST = [
         "category": Category.SLIDING_WINDOW,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["string", "sliding_window"],
-        "url": "https://leetcode.com/problems/longest-repeating-character-replacement/",
+        "url": "https = //leetcode.com/problems/longest-repeating-character-replacement/",
     },
     {
         "id": 567,
@@ -203,7 +202,7 @@ TOP_100_MANIFEST = [
         "category": Category.SLIDING_WINDOW,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["string", "sliding_window", "hashmap"],
-        "url": "https://leetcode.com/problems/permutation-in-string/",
+        "url": "https = //leetcode.com/problems/permutation-in-string/",
     },
     {
         "id": 438,
@@ -212,7 +211,7 @@ TOP_100_MANIFEST = [
         "category": Category.SLIDING_WINDOW,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["string", "sliding_window", "hashmap"],
-        "url": "https://leetcode.com/problems/find-all-anagrams-in-a-string/",
+        "url": "https = //leetcode.com/problems/find-all-anagrams-in-a-string/",
     },
     {
         "id": 239,
@@ -221,7 +220,7 @@ TOP_100_MANIFEST = [
         "category": Category.SLIDING_WINDOW,
         "difficulty": Difficulty.HARD,
         "tags": ["array", "sliding_window", "queue", "monotonic_stack"],
-        "url": "https://leetcode.com/problems/sliding-window-maximum/",
+        "url": "https = //leetcode.com/problems/sliding-window-maximum/",
     },
     {
         "id": 713,
@@ -230,7 +229,7 @@ TOP_100_MANIFEST = [
         "category": Category.SLIDING_WINDOW,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "sliding_window"],
-        "url": "https://leetcode.com/problems/subarray-product-less-than-k/",
+        "url": "https = //leetcode.com/problems/subarray-product-less-than-k/",
     },
     # Stack (7 problems)
     {
@@ -240,7 +239,7 @@ TOP_100_MANIFEST = [
         "category": Category.STACK,
         "difficulty": Difficulty.EASY,
         "tags": ["string", "stack"],
-        "url": "https://leetcode.com/problems/valid-parentheses/",
+        "url": "https = //leetcode.com/problems/valid-parentheses/",
     },
     {
         "id": 155,
@@ -249,7 +248,7 @@ TOP_100_MANIFEST = [
         "category": Category.STACK,
         "difficulty": Difficulty.EASY,
         "tags": ["stack", "design"],
-        "url": "https://leetcode.com/problems/min-stack/",
+        "url": "https = //leetcode.com/problems/min-stack/",
     },
     {
         "id": 150,
@@ -258,7 +257,7 @@ TOP_100_MANIFEST = [
         "category": Category.STACK,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "stack", "math"],
-        "url": "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
+        "url": "https = //leetcode.com/problems/evaluate-reverse-polish-notation/",
     },
     {
         "id": 22,
@@ -267,7 +266,7 @@ TOP_100_MANIFEST = [
         "category": Category.STACK,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["string", "dynamic_programming", "backtracking"],
-        "url": "https://leetcode.com/problems/generate-parentheses/",
+        "url": "https = //leetcode.com/problems/generate-parentheses/",
     },
     {
         "id": 739,
@@ -276,7 +275,7 @@ TOP_100_MANIFEST = [
         "category": Category.STACK,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "stack", "monotonic_stack"],
-        "url": "https://leetcode.com/problems/daily-temperatures/",
+        "url": "https = //leetcode.com/problems/daily-temperatures/",
     },
     {
         "id": 853,
@@ -285,7 +284,7 @@ TOP_100_MANIFEST = [
         "category": Category.STACK,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "stack", "sorting"],
-        "url": "https://leetcode.com/problems/car-fleet/",
+        "url": "https = //leetcode.com/problems/car-fleet/",
     },
     {
         "id": 84,
@@ -294,7 +293,7 @@ TOP_100_MANIFEST = [
         "category": Category.STACK,
         "difficulty": Difficulty.HARD,
         "tags": ["array", "stack", "monotonic_stack"],
-        "url": "https://leetcode.com/problems/largest-rectangle-in-histogram/",
+        "url": "https = //leetcode.com/problems/largest-rectangle-in-histogram/",
     },
     # Binary Search (7 problems)
     {
@@ -304,7 +303,7 @@ TOP_100_MANIFEST = [
         "category": Category.BINARY_SEARCH,
         "difficulty": Difficulty.EASY,
         "tags": ["array", "binary_search"],
-        "url": "https://leetcode.com/problems/binary-search/",
+        "url": "https = //leetcode.com/problems/binary-search/",
     },
     {
         "id": 33,
@@ -313,7 +312,7 @@ TOP_100_MANIFEST = [
         "category": Category.BINARY_SEARCH,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "binary_search"],
-        "url": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+        "url": "https = //leetcode.com/problems/search-in-rotated-sorted-array/",
     },
     {
         "id": 153,
@@ -322,7 +321,7 @@ TOP_100_MANIFEST = [
         "category": Category.BINARY_SEARCH,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "binary_search"],
-        "url": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+        "url": "https = //leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
     },
     {
         "id": 74,
@@ -331,7 +330,7 @@ TOP_100_MANIFEST = [
         "category": Category.BINARY_SEARCH,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "binary_search"],
-        "url": "https://leetcode.com/problems/search-a-2d-matrix/",
+        "url": "https = //leetcode.com/problems/search-a-2d-matrix/",
     },
     {
         "id": 378,
@@ -340,7 +339,7 @@ TOP_100_MANIFEST = [
         "category": Category.BINARY_SEARCH,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "binary_search", "heap"],
-        "url": "https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/",
+        "url": "https = //leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/",
     },
     {
         "id": 875,
@@ -349,7 +348,7 @@ TOP_100_MANIFEST = [
         "category": Category.BINARY_SEARCH,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "binary_search"],
-        "url": "https://leetcode.com/problems/koko-eating-bananas/",
+        "url": "https = //leetcode.com/problems/koko-eating-bananas/",
     },
     {
         "id": 162,
@@ -358,7 +357,7 @@ TOP_100_MANIFEST = [
         "category": Category.BINARY_SEARCH,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "binary_search"],
-        "url": "https://leetcode.com/problems/find-peak-element/",
+        "url": "https = //leetcode.com/problems/find-peak-element/",
     },
     # Linked List (7 problems)
     {
@@ -368,7 +367,7 @@ TOP_100_MANIFEST = [
         "category": Category.LINKED_LIST,
         "difficulty": Difficulty.EASY,
         "tags": ["linked_list"],
-        "url": "https://leetcode.com/problems/reverse-linked-list/",
+        "url": "https = //leetcode.com/problems/reverse-linked-list/",
     },
     {
         "id": 21,
@@ -377,7 +376,7 @@ TOP_100_MANIFEST = [
         "category": Category.LINKED_LIST,
         "difficulty": Difficulty.EASY,
         "tags": ["linked_list"],
-        "url": "https://leetcode.com/problems/merge-two-sorted-lists/",
+        "url": "https = //leetcode.com/problems/merge-two-sorted-lists/",
     },
     {
         "id": 143,
@@ -386,7 +385,7 @@ TOP_100_MANIFEST = [
         "category": Category.LINKED_LIST,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["linked_list", "two_pointers"],
-        "url": "https://leetcode.com/problems/reorder-list/",
+        "url": "https = //leetcode.com/problems/reorder-list/",
     },
     {
         "id": 19,
@@ -395,7 +394,7 @@ TOP_100_MANIFEST = [
         "category": Category.LINKED_LIST,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["linked_list", "two_pointers"],
-        "url": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+        "url": "https = //leetcode.com/problems/remove-nth-node-from-end-of-list/",
     },
     {
         "id": 141,
@@ -404,7 +403,7 @@ TOP_100_MANIFEST = [
         "category": Category.LINKED_LIST,
         "difficulty": Difficulty.EASY,
         "tags": ["linked_list", "two_pointers"],
-        "url": "https://leetcode.com/problems/linked-list-cycle/",
+        "url": "https = //leetcode.com/problems/linked-list-cycle/",
     },
     {
         "id": 142,
@@ -413,7 +412,7 @@ TOP_100_MANIFEST = [
         "category": Category.LINKED_LIST,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["linked_list", "two_pointers"],
-        "url": "https://leetcode.com/problems/linked-list-cycle-ii/",
+        "url": "https = //leetcode.com/problems/linked-list-cycle-ii/",
     },
     {
         "id": 2,
@@ -422,7 +421,7 @@ TOP_100_MANIFEST = [
         "category": Category.LINKED_LIST,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["linked_list", "math"],
-        "url": "https://leetcode.com/problems/add-two-numbers/",
+        "url": "https = //leetcode.com/problems/add-two-numbers/",
     },
     # Trees (8 problems)
     {
@@ -432,7 +431,7 @@ TOP_100_MANIFEST = [
         "category": Category.TREES,
         "difficulty": Difficulty.EASY,
         "tags": ["tree", "binary_tree", "dfs", "bfs"],
-        "url": "https://leetcode.com/problems/invert-binary-tree/",
+        "url": "https = //leetcode.com/problems/invert-binary-tree/",
     },
     {
         "id": 104,
@@ -441,7 +440,7 @@ TOP_100_MANIFEST = [
         "category": Category.TREES,
         "difficulty": Difficulty.EASY,
         "tags": ["tree", "binary_tree", "dfs"],
-        "url": "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+        "url": "https = //leetcode.com/problems/maximum-depth-of-binary-tree/",
     },
     {
         "id": 543,
@@ -450,7 +449,7 @@ TOP_100_MANIFEST = [
         "category": Category.TREES,
         "difficulty": Difficulty.EASY,
         "tags": ["tree", "binary_tree", "dfs"],
-        "url": "https://leetcode.com/problems/diameter-of-binary-tree/",
+        "url": "https = //leetcode.com/problems/diameter-of-binary-tree/",
     },
     {
         "id": 110,
@@ -459,7 +458,7 @@ TOP_100_MANIFEST = [
         "category": Category.TREES,
         "difficulty": Difficulty.EASY,
         "tags": ["tree", "binary_tree", "dfs"],
-        "url": "https://leetcode.com/problems/balanced-binary-tree/",
+        "url": "https = //leetcode.com/problems/balanced-binary-tree/",
     },
     {
         "id": 100,
@@ -468,7 +467,7 @@ TOP_100_MANIFEST = [
         "category": Category.TREES,
         "difficulty": Difficulty.EASY,
         "tags": ["tree", "binary_tree", "dfs"],
-        "url": "https://leetcode.com/problems/same-tree/",
+        "url": "https = //leetcode.com/problems/same-tree/",
     },
     {
         "id": 572,
@@ -477,7 +476,7 @@ TOP_100_MANIFEST = [
         "category": Category.TREES,
         "difficulty": Difficulty.EASY,
         "tags": ["tree", "binary_tree", "dfs"],
-        "url": "https://leetcode.com/problems/subtree-of-another-tree/",
+        "url": "https = //leetcode.com/problems/subtree-of-another-tree/",
     },
     {
         "id": 98,
@@ -486,7 +485,7 @@ TOP_100_MANIFEST = [
         "category": Category.TREES,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["tree", "binary_tree", "bst", "dfs"],
-        "url": "https://leetcode.com/problems/validate-binary-search-tree/",
+        "url": "https = //leetcode.com/problems/validate-binary-search-tree/",
     },
     {
         "id": 102,
@@ -495,7 +494,7 @@ TOP_100_MANIFEST = [
         "category": Category.TREES,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["tree", "binary_tree", "bfs"],
-        "url": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
+        "url": "https = //leetcode.com/problems/binary-tree-level-order-traversal/",
     },
     # Tries (2 problems)
     {
@@ -505,7 +504,7 @@ TOP_100_MANIFEST = [
         "category": Category.TRIES,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["trie", "string", "design"],
-        "url": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+        "url": "https = //leetcode.com/problems/implement-trie-prefix-tree/",
     },
     {
         "id": 211,
@@ -514,7 +513,7 @@ TOP_100_MANIFEST = [
         "category": Category.TRIES,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["trie", "string", "dfs", "design"],
-        "url": "https://leetcode.com/problems/design-add-and-search-words-data-structure/",
+        "url": "https = //leetcode.com/problems/design-add-and-search-words-data-structure/",
     },
     # Heap / Priority Queue (5 problems)
     {
@@ -524,7 +523,7 @@ TOP_100_MANIFEST = [
         "category": Category.HEAP,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "heap", "divide_conquer", "sorting"],
-        "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+        "url": "https = //leetcode.com/problems/kth-largest-element-in-an-array/",
     },
     {
         "id": 692,
@@ -533,7 +532,7 @@ TOP_100_MANIFEST = [
         "category": Category.HEAP,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["string", "hashmap", "heap", "sorting"],
-        "url": "https://leetcode.com/problems/top-k-frequent-words/",
+        "url": "https = //leetcode.com/problems/top-k-frequent-words/",
     },
     {
         "id": 295,
@@ -542,7 +541,7 @@ TOP_100_MANIFEST = [
         "category": Category.HEAP,
         "difficulty": Difficulty.HARD,
         "tags": ["heap", "design"],
-        "url": "https://leetcode.com/problems/find-median-from-data-stream/",
+        "url": "https = //leetcode.com/problems/find-median-from-data-stream/",
     },
     {
         "id": 621,
@@ -551,7 +550,7 @@ TOP_100_MANIFEST = [
         "category": Category.HEAP,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "hashmap", "greedy", "heap"],
-        "url": "https://leetcode.com/problems/task-scheduler/",
+        "url": "https = //leetcode.com/problems/task-scheduler/",
     },
     {
         "id": 1046,
@@ -560,7 +559,7 @@ TOP_100_MANIFEST = [
         "category": Category.HEAP,
         "difficulty": Difficulty.EASY,
         "tags": ["array", "heap"],
-        "url": "https://leetcode.com/problems/last-stone-weight/",
+        "url": "https = //leetcode.com/problems/last-stone-weight/",
     },
     # Backtracking (5 problems)
     {
@@ -570,7 +569,7 @@ TOP_100_MANIFEST = [
         "category": Category.BACKTRACKING,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "backtracking", "bit_manipulation"],
-        "url": "https://leetcode.com/problems/subsets/",
+        "url": "https = //leetcode.com/problems/subsets/",
     },
     {
         "id": 90,
@@ -579,7 +578,7 @@ TOP_100_MANIFEST = [
         "category": Category.BACKTRACKING,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "backtracking"],
-        "url": "https://leetcode.com/problems/subsets-ii/",
+        "url": "https = //leetcode.com/problems/subsets-ii/",
     },
     {
         "id": 39,
@@ -588,7 +587,7 @@ TOP_100_MANIFEST = [
         "category": Category.BACKTRACKING,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "backtracking"],
-        "url": "https://leetcode.com/problems/combination-sum/",
+        "url": "https = //leetcode.com/problems/combination-sum/",
     },
     {
         "id": 40,
@@ -597,7 +596,7 @@ TOP_100_MANIFEST = [
         "category": Category.BACKTRACKING,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "backtracking"],
-        "url": "https://leetcode.com/problems/combination-sum-ii/",
+        "url": "https = //leetcode.com/problems/combination-sum-ii/",
     },
     {
         "id": 46,
@@ -606,7 +605,7 @@ TOP_100_MANIFEST = [
         "category": Category.BACKTRACKING,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "backtracking"],
-        "url": "https://leetcode.com/problems/permutations/",
+        "url": "https = //leetcode.com/problems/permutations/",
     },
     # Graphs (7 problems)
     {
@@ -616,7 +615,7 @@ TOP_100_MANIFEST = [
         "category": Category.GRAPHS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "dfs", "bfs", "union_find"],
-        "url": "https://leetcode.com/problems/number-of-islands/",
+        "url": "https = //leetcode.com/problems/number-of-islands/",
     },
     {
         "id": 133,
@@ -625,7 +624,7 @@ TOP_100_MANIFEST = [
         "category": Category.GRAPHS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["hashmap", "dfs", "bfs", "graph"],
-        "url": "https://leetcode.com/problems/clone-graph/",
+        "url": "https = //leetcode.com/problems/clone-graph/",
     },
     {
         "id": 207,
@@ -634,7 +633,7 @@ TOP_100_MANIFEST = [
         "category": Category.GRAPHS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["dfs", "bfs", "graph", "topological_sort"],
-        "url": "https://leetcode.com/problems/course-schedule/",
+        "url": "https = //leetcode.com/problems/course-schedule/",
     },
     {
         "id": 210,
@@ -643,7 +642,7 @@ TOP_100_MANIFEST = [
         "category": Category.GRAPHS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["dfs", "bfs", "graph", "topological_sort"],
-        "url": "https://leetcode.com/problems/course-schedule-ii/",
+        "url": "https = //leetcode.com/problems/course-schedule-ii/",
     },
     {
         "id": 417,
@@ -652,7 +651,7 @@ TOP_100_MANIFEST = [
         "category": Category.GRAPHS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "dfs", "bfs"],
-        "url": "https://leetcode.com/problems/pacific-atlantic-water-flow/",
+        "url": "https = //leetcode.com/problems/pacific-atlantic-water-flow/",
     },
     {
         "id": 130,
@@ -661,7 +660,7 @@ TOP_100_MANIFEST = [
         "category": Category.GRAPHS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "dfs", "bfs", "union_find"],
-        "url": "https://leetcode.com/problems/surrounded-regions/",
+        "url": "https = //leetcode.com/problems/surrounded-regions/",
     },
     {
         "id": 994,
@@ -670,7 +669,7 @@ TOP_100_MANIFEST = [
         "category": Category.GRAPHS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "bfs"],
-        "url": "https://leetcode.com/problems/rotting-oranges/",
+        "url": "https = //leetcode.com/problems/rotting-oranges/",
     },
     # Intervals (5 problems)
     {
@@ -680,7 +679,7 @@ TOP_100_MANIFEST = [
         "category": Category.INTERVALS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "sorting"],
-        "url": "https://leetcode.com/problems/merge-intervals/",
+        "url": "https = //leetcode.com/problems/merge-intervals/",
     },
     {
         "id": 57,
@@ -689,7 +688,7 @@ TOP_100_MANIFEST = [
         "category": Category.INTERVALS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array"],
-        "url": "https://leetcode.com/problems/insert-interval/",
+        "url": "https = //leetcode.com/problems/insert-interval/",
     },
     {
         "id": 435,
@@ -698,7 +697,7 @@ TOP_100_MANIFEST = [
         "category": Category.INTERVALS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "dynamic_programming", "greedy", "sorting"],
-        "url": "https://leetcode.com/problems/non-overlapping-intervals/",
+        "url": "https = //leetcode.com/problems/non-overlapping-intervals/",
     },
     {
         "id": 252,
@@ -707,7 +706,7 @@ TOP_100_MANIFEST = [
         "category": Category.INTERVALS,
         "difficulty": Difficulty.EASY,
         "tags": ["array", "sorting"],
-        "url": "https://leetcode.com/problems/meeting-rooms/",
+        "url": "https = //leetcode.com/problems/meeting-rooms/",
     },
     {
         "id": 253,
@@ -716,7 +715,7 @@ TOP_100_MANIFEST = [
         "category": Category.INTERVALS,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "two_pointers", "greedy", "sorting", "heap"],
-        "url": "https://leetcode.com/problems/meeting-rooms-ii/",
+        "url": "https = //leetcode.com/problems/meeting-rooms-ii/",
     },
     # Greedy (4 problems)
     {
@@ -726,7 +725,7 @@ TOP_100_MANIFEST = [
         "category": Category.GREEDY,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "dynamic_programming", "greedy"],
-        "url": "https://leetcode.com/problems/jump-game/",
+        "url": "https = //leetcode.com/problems/jump-game/",
     },
     {
         "id": 45,
@@ -735,7 +734,7 @@ TOP_100_MANIFEST = [
         "category": Category.GREEDY,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "dynamic_programming", "greedy"],
-        "url": "https://leetcode.com/problems/jump-game-ii/",
+        "url": "https = //leetcode.com/problems/jump-game-ii/",
     },
     {
         "id": 134,
@@ -744,7 +743,7 @@ TOP_100_MANIFEST = [
         "category": Category.GREEDY,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "greedy"],
-        "url": "https://leetcode.com/problems/gas-station/",
+        "url": "https = //leetcode.com/problems/gas-station/",
     },
     {
         "id": 763,
@@ -753,7 +752,7 @@ TOP_100_MANIFEST = [
         "category": Category.GREEDY,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["string", "greedy", "two_pointers"],
-        "url": "https://leetcode.com/problems/partition-labels/",
+        "url": "https = //leetcode.com/problems/partition-labels/",
     },
     # 1-D Dynamic Programming (6 problems)
     {
@@ -763,7 +762,7 @@ TOP_100_MANIFEST = [
         "category": Category.DP_1D,
         "difficulty": Difficulty.EASY,
         "tags": ["math", "dynamic_programming"],
-        "url": "https://leetcode.com/problems/climbing-stairs/",
+        "url": "https = //leetcode.com/problems/climbing-stairs/",
     },
     {
         "id": 198,
@@ -772,7 +771,7 @@ TOP_100_MANIFEST = [
         "category": Category.DP_1D,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "dynamic_programming"],
-        "url": "https://leetcode.com/problems/house-robber/",
+        "url": "https = //leetcode.com/problems/house-robber/",
     },
     {
         "id": 213,
@@ -781,7 +780,7 @@ TOP_100_MANIFEST = [
         "category": Category.DP_1D,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "dynamic_programming"],
-        "url": "https://leetcode.com/problems/house-robber-ii/",
+        "url": "https = //leetcode.com/problems/house-robber-ii/",
     },
     {
         "id": 322,
@@ -790,7 +789,7 @@ TOP_100_MANIFEST = [
         "category": Category.DP_1D,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "dynamic_programming", "bfs"],
-        "url": "https://leetcode.com/problems/coin-change/",
+        "url": "https = //leetcode.com/problems/coin-change/",
     },
     {
         "id": 300,
@@ -799,7 +798,7 @@ TOP_100_MANIFEST = [
         "category": Category.DP_1D,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "binary_search", "dynamic_programming"],
-        "url": "https://leetcode.com/problems/longest-increasing-subsequence/",
+        "url": "https = //leetcode.com/problems/longest-increasing-subsequence/",
     },
     {
         "id": 416,
@@ -808,7 +807,7 @@ TOP_100_MANIFEST = [
         "category": Category.DP_1D,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "dynamic_programming"],
-        "url": "https://leetcode.com/problems/partition-equal-subset-sum/",
+        "url": "https = //leetcode.com/problems/partition-equal-subset-sum/",
     },
     # 2-D Dynamic Programming (5 problems)
     {
@@ -818,7 +817,7 @@ TOP_100_MANIFEST = [
         "category": Category.DP_2D,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["math", "dynamic_programming", "combinatorics"],
-        "url": "https://leetcode.com/problems/unique-paths/",
+        "url": "https = //leetcode.com/problems/unique-paths/",
     },
     {
         "id": 1143,
@@ -827,7 +826,7 @@ TOP_100_MANIFEST = [
         "category": Category.DP_2D,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["string", "dynamic_programming"],
-        "url": "https://leetcode.com/problems/longest-common-subsequence/",
+        "url": "https = //leetcode.com/problems/longest-common-subsequence/",
     },
     {
         "id": 72,
@@ -836,7 +835,7 @@ TOP_100_MANIFEST = [
         "category": Category.DP_2D,
         "difficulty": Difficulty.HARD,
         "tags": ["string", "dynamic_programming"],
-        "url": "https://leetcode.com/problems/edit-distance/",
+        "url": "https = //leetcode.com/problems/edit-distance/",
     },
     {
         "id": 139,
@@ -845,7 +844,7 @@ TOP_100_MANIFEST = [
         "category": Category.DP_2D,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["string", "dynamic_programming", "trie"],
-        "url": "https://leetcode.com/problems/word-break/",
+        "url": "https = //leetcode.com/problems/word-break/",
     },
     {
         "id": 221,
@@ -854,7 +853,7 @@ TOP_100_MANIFEST = [
         "category": Category.DP_2D,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "dynamic_programming"],
-        "url": "https://leetcode.com/problems/maximal-square/",
+        "url": "https = //leetcode.com/problems/maximal-square/",
     },
     # Bit Manipulation (4 problems)
     {
@@ -864,7 +863,7 @@ TOP_100_MANIFEST = [
         "category": Category.BIT_MANIP,
         "difficulty": Difficulty.EASY,
         "tags": ["array", "bit_manipulation"],
-        "url": "https://leetcode.com/problems/single-number/",
+        "url": "https = //leetcode.com/problems/single-number/",
     },
     {
         "id": 191,
@@ -873,7 +872,7 @@ TOP_100_MANIFEST = [
         "category": Category.BIT_MANIP,
         "difficulty": Difficulty.EASY,
         "tags": ["divide_conquer", "bit_manipulation"],
-        "url": "https://leetcode.com/problems/number-of-1-bits/",
+        "url": "https = //leetcode.com/problems/number-of-1-bits/",
     },
     {
         "id": 338,
@@ -882,7 +881,7 @@ TOP_100_MANIFEST = [
         "category": Category.BIT_MANIP,
         "difficulty": Difficulty.EASY,
         "tags": ["dynamic_programming", "bit_manipulation"],
-        "url": "https://leetcode.com/problems/counting-bits/",
+        "url": "https = //leetcode.com/problems/counting-bits/",
     },
     {
         "id": 190,
@@ -891,7 +890,7 @@ TOP_100_MANIFEST = [
         "category": Category.BIT_MANIP,
         "difficulty": Difficulty.EASY,
         "tags": ["divide_conquer", "bit_manipulation"],
-        "url": "https://leetcode.com/problems/reverse-bits/",
+        "url": "https = //leetcode.com/problems/reverse-bits/",
     },
     # Math & Geometry (4 problems)
     {
@@ -901,7 +900,7 @@ TOP_100_MANIFEST = [
         "category": Category.MATH_GEOMETRY,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "math"],
-        "url": "https://leetcode.com/problems/rotate-image/",
+        "url": "https = //leetcode.com/problems/rotate-image/",
     },
     {
         "id": 54,
@@ -910,7 +909,7 @@ TOP_100_MANIFEST = [
         "category": Category.MATH_GEOMETRY,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array"],
-        "url": "https://leetcode.com/problems/spiral-matrix/",
+        "url": "https = //leetcode.com/problems/spiral-matrix/",
     },
     {
         "id": 73,
@@ -919,7 +918,7 @@ TOP_100_MANIFEST = [
         "category": Category.MATH_GEOMETRY,
         "difficulty": Difficulty.MEDIUM,
         "tags": ["array", "hashmap"],
-        "url": "https://leetcode.com/problems/set-matrix-zeroes/",
+        "url": "https = //leetcode.com/problems/set-matrix-zeroes/",
     },
     {
         "id": 202,
@@ -928,32 +927,32 @@ TOP_100_MANIFEST = [
         "category": Category.MATH_GEOMETRY,
         "difficulty": Difficulty.EASY,
         "tags": ["hashmap", "math", "two_pointers"],
-        "url": "https://leetcode.com/problems/happy-number/",
+        "url": "https = //leetcode.com/problems/happy-number/",
     },
 ]
 
 
-def get_problem_by_slug(slug: str) -> dict | None:
-    """Get a problem from the manifest by slug."""
+def get_problem_by_slug(self, slug: str) -> dict | None:
+    """Return the problem dictionary matching the given slug, or None if not found."""
     for problem in TOP_100_MANIFEST:
         if problem["slug"] == slug:
             return problem
     return None
 
 
-def get_problems_by_category(category: Category) -> list[dict]:
-    """Get all problems in a category from the manifest."""
-    return [p for p in TOP_100_MANIFEST if p["category"] == category]
-
-
-def get_all_problems() -> list[dict]:
-    """Get all problems from the manifest."""
+def get_all_problems(self) -> list[dict]:
+    """Return a shallow copy of all problems in the manifest."""
     return TOP_100_MANIFEST.copy()
 
 
-def get_category_stats() -> dict[str, int]:
-    """Get count of problems per category."""
-    stats = {}
+def get_problems_by_category(self, category: str) -> list[dict]:
+    """Return all problems in the manifest belonging to the given category."""
+    return [p for p in TOP_100_MANIFEST if p["category"].value == category]
+
+
+def get_category_stats(self) -> dict[str, int]:
+    """Return a dictionary mapping category names to problem counts."""
+    stats: dict[str, int] = {}
     for problem in TOP_100_MANIFEST:
         cat_name = problem["category"].value
         stats[cat_name] = stats.get(cat_name, 0) + 1

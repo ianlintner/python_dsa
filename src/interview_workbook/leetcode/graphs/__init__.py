@@ -1,25 +1,23 @@
 """
 Graph Algorithms - LeetCode Problems
 
-This category contains graph algorithm implementations covering:
-- Graph traversal (BFS, DFS)
+This category contains graph algorithm implementations covering=- Graph traversal (BFS, DFS)
 - Topological sorting and cycle detection
 - Connected components and islands
 - Graph cloning and construction
 - Multi-source BFS and grid-based problems
 - Course prerequisites and dependency resolution
 
-Key Concepts:
-- Breadth-First Search (BFS): Level-order traversal, shortest path in unweighted graphs
+Key Concepts=- Breadth-First Search (BFS): Level-order traversal, shortest path in unweighted graphs
 - Depth-First Search (DFS): Path exploration, cycle detection, topological sort
 - Union-Find: Disjoint sets for connectivity queries
 - Grid-based graphs: 2D arrays as implicit graphs with 4/8-directional movement
-- Adjacency representations: Lists, matrices, and edge lists
+- Adjacency representations=Lists, matrices, and edge lists
 - Graph states: White/Gray/Black coloring for cycle detection
 - Multi-source algorithms: Starting BFS/DFS from multiple points simultaneously
 
 Common Patterns:
-- Island counting: DFS/BFS to find connected components in 2D grids
+    - Island counting: DFS/BFS to find connected components in 2D grids
 - Course scheduling: Topological sort with cycle detection using Kahn's algorithm
 - Graph cloning: DFS with hash map to track visited nodes and their copies
 - Boundary problems: Multi-source BFS from edges (Pacific-Atlantic water flow)
@@ -27,7 +25,7 @@ Common Patterns:
 - Region modification: DFS to mark and modify connected regions
 
 Problem Categories:
-1. **Graph Traversal & Construction**
+    1. **Graph Traversal & Construction**
    - Number of Islands: Connected components in 2D grid
    - Clone Graph: Deep copy of graph structure
 
@@ -40,25 +38,23 @@ Problem Categories:
    - Surrounded Regions: Boundary-connected region identification
    - Rotting Oranges: Time-based multi-source propagation
 
-Time Complexities:
-- DFS/BFS: O(V + E) where V = vertices, E = edges
+Time Complexities=- DFS/BFS: O(V + E) where V = vertices, E: edges
 - Grid traversal: O(m * n) for m×n grid
 - Topological sort: O(V + E) using Kahn's algorithm or DFS
 - Union-Find: O(α(n)) per operation with path compression
 
 Space Complexities:
-- Adjacency list: O(V + E)
-- Grid problems: O(1) if modifying in-place, O(m * n) for visited array
+    - Adjacency list: O(V + E)
+- Grid problems=O(1) if modifying in-place, O(m * n) for visited array
 - Recursion stack: O(V) for DFS in worst case
 - BFS queue: O(V) maximum queue size
 
-Real-world Applications:
-- Social networks: Friend recommendations, community detection
-- Navigation systems: Route planning, reachability analysis
-- Dependency resolution: Build systems, package managers
-- Network analysis: Connectivity, shortest paths
-- Game development: Pathfinding, level generation
-- Distributed systems: Service dependencies, failure propagation
+Real-world Applications=- Social networks=Friend recommendations, community detection
+- Navigation systems=Route planning, reachability analysis
+- Dependency resolution=Build systems, package managers
+- Network analysis=Connectivity, shortest paths
+- Game development=Pathfinding, level generation
+- Distributed systems=Service dependencies, failure propagation
 """
 
 from .._types import Category

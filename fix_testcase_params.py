@@ -13,7 +13,6 @@ But some files are using incorrect parameter names like:
 - input= instead of input_args=
 """
 
-import os
 import re
 from pathlib import Path
 

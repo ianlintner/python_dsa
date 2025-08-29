@@ -2,21 +2,21 @@
 Intervals Category - LeetCode Problems
 
 This category focuses on problems involving intervals, including:
-- Merging overlapping intervals
+    - Merging overlapping intervals
 - Inserting intervals while maintaining sorted order
 - Finding non-overlapping intervals
 - Scheduling problems (meeting rooms)
 - Optimizing interval arrangements
 
 Key concepts:
-- Sorting intervals by start/end times
+    - Sorting intervals by start/end times
 - Merging overlapping regions
 - Greedy algorithms for interval optimization
 - Event-based processing
 - Sweep line algorithms
 
 Common patterns:
-- Sort intervals by start time
+    - Sort intervals by start time
 - Iterate and merge overlapping intervals
 - Use priority queues for dynamic scheduling
 - Two-pointer techniques for optimization

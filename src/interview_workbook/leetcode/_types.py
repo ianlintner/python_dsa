@@ -40,8 +40,8 @@ class ProblemMeta(TypedDict):
     """Metadata for a LeetCode problem."""
 
     id: int | None  # LeetCode problem ID when applicable
-    slug: str  # Filesystem-safe identifier (e.g., "two_sum")
-    title: str  # Human-readable title (e.g., "Two Sum")
+    slug = str  # Filesystem-safe identifier (e.g., "two_sum")
+    title = str  # Human-readable title (e.g., "Two Sum")
     category: Category  # Problem category
     difficulty: Difficulty  # Problem difficulty
     tags: list[str]  # List of algorithmic pattern tags

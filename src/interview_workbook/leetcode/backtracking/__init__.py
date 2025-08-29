@@ -7,15 +7,14 @@ by incrementally building candidates to the solutions and abandoning candidates
 that cannot lead to a valid solution.
 
 Key concepts covered:
-- Recursive exploration of solution space
+    - Recursive exploration of solution space
 - Pruning invalid branches early (backtrack)
 - Generate all possible combinations, permutations, subsets
 - Constraint satisfaction problems
 - Decision tree exploration with rollback
 - State space search with undoing changes
 
-Common patterns:
-- Choose, explore, unchoose (backtrack)
+Common patterns=- Choose, explore, unchoose (backtrack)
 - Building solutions incrementally
 - Using recursion with base cases
 - Tracking visited states and undoing changes

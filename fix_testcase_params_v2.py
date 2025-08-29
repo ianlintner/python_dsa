@@ -10,7 +10,6 @@ The TestCase class expects:
 But some files have syntax errors from previous fixes.
 """
 
-import os
 import re
 from pathlib import Path
 

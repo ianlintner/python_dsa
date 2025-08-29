@@ -5,7 +5,7 @@ This module contains implementations of fundamental linked list manipulation pat
 Focus on pointer manipulation, traversal techniques, and common linked list operations.
 
 Problems implemented:
-- reverse_linked_list: Reverse Linked List (Easy)
+    - reverse_linked_list: Reverse Linked List (Easy)
 - merge_two_sorted_lists: Merge Two Sorted Lists (Easy)
 - reorder_list: Reorder List (Medium)
 - remove_nth_node_from_end: Remove Nth Node From End of List (Medium)
