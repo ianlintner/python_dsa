@@ -41,8 +41,15 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Rotting Oranges problem."""
+    solver = Solution()
+    grid = [
+        [2,1,1],
+        [1,1,0],
+        [0,1,1],
+    ]
+    result = solver.solve(grid)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters

@@ -46,8 +46,16 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Surrounded Regions problem."""
+    solver = Solution()
+    board = [
+        ["X","X","X","X"],
+        ["X","O","O","X"],
+        ["X","X","O","X"],
+        ["X","O","X","X"],
+    ]
+    result = solver.solve(board)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters
