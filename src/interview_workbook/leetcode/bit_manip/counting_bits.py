@@ -6,23 +6,33 @@ TODO: Add problem description
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, n: int) -> list[int]:
+        """Return array where ith element is number of set bits in i's binary representation."""
+        dp = [0] * (n + 1)
+        for i in range(1, n + 1):
+            dp[i] = dp[i >> 1] + (i & 1)
+        return dp
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Demo for Counting Bits problem."""
+    import random
+    random.seed(0)
+    n = 5
+    result = Solution().solve(n)
+    return f"Counting bits up to {n}: {result}"
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="counting_bits",
-#     title="Counting Bits",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+from src.interview_workbook.leetcode._types import Category, Difficulty
+from src.interview_workbook.leetcode._registry import register_problem
+
+register_problem(
+    id=338,
+    slug="counting_bits",
+    title="Counting Bits",
+    category=Category.BIT_MANIP,
+    difficulty=Difficulty.MEDIUM,
+    tags=["bit manipulation", "dp"],
+    url="https://leetcode.com/problems/counting-bits/",
+    notes="Standard bit manipulation + DP trick"
+)
