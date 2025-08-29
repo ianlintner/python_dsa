@@ -5,27 +5,27 @@ This document captures **non-obvious, project-specific rules** and conventions f
 ---
 
 ## Testing
-- All tests use **pytest**.  
-- Test discovery depends on `tests/conftest.py` ensuring the project root is on `sys.path`.  
+- All tests use **pytest**.
+- Test discovery depends on `tests/conftest.py` ensuring the project root is on `sys.path`.
 - Run a single test with:
 
   ```bash
   pytest tests/test_demos.py::test_run_all_demos_headless -v
   ```
 
-- The primary test suite drives `discover_demos()` and `run_demo()` from `flask_app.app`.  
+- The primary test suite drives `discover_demos()` and `run_demo()` from `flask_app.app`.
 - All discovered demos must implement a `demo()` function. Tests assert its existence and require it to run without exceptions.
 
 ---
 
 ## Demo System
-- Demos are discovered dynamically using `discover_demos()` (returns categories of demos).  
-- Tests flatten categories into a list of metadata dicts:  
+- Demos are discovered dynamically using `discover_demos()` (returns categories of demos).
+- Tests flatten categories into a list of metadata dicts:
   ```python
   {"id": module_path, "name": ..., ...}
-  ```  
-- Each demo module must:  
-  - Be importable by its `"id"`.  
+  ```
+- Each demo module must:
+  - Be importable by its `"id"`.
   - Expose a callable `demo()`.
 
 - `run_demo(module_id)` must return a `str` (empty string is valid).
@@ -34,7 +34,7 @@ This document captures **non-obvious, project-specific rules** and conventions f
 
 ## Randomness Seeding
 - Test reliability depends on deterministic seeding:
-  - `random.seed(0)`  
+  - `random.seed(0)`
   - `numpy.random.seed(0)` if NumPy is installed
 
 Ensure demos respect these randomness seeds when introducing stochastic behaviors.
@@ -42,14 +42,14 @@ Ensure demos respect these randomness seeds when introducing stochastic behavior
 ---
 
 ## Code Conventions
-- Maintain determinism: results must be reproducible under fixed seeds.  
-- Demo output can be empty but must not raise.  
-- Any new demos should be designed to run **headless**—no GUI or interactive prompts.  
+- Maintain determinism: results must be reproducible under fixed seeds.
+- Demo output can be empty but must not raise.
+- Any new demos should be designed to run **headless**—no GUI or interactive prompts.
 
 ---
 
 ## Hidden Rules
-- Fix-up utilities (`fix_leetcode_syntax_corruption.py`, `fix_comprehensive_leetcode_corruption.py`) are not just scripts, they enforce **consistency of the LeetCode-style notebooks**. Do not modify them casually.  
-- All core algorithms live under `src/interview_workbook/`. Follow the existing categorization (`two_pointers/`, etc.).  
+- Fix-up utilities (`fix_leetcode_syntax_corruption.py`, `fix_comprehensive_leetcode_corruption.py`) are not just scripts, they enforce **consistency of the LeetCode-style notebooks**. Do not modify them casually.
+- All core algorithms live under `src/interview_workbook/`. Follow the existing categorization (`two_pointers/`, etc.).
 
 ---

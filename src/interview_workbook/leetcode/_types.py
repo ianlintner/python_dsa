@@ -3,7 +3,7 @@ Type definitions for LeetCode problem metadata and categorization.
 """
 
 from enum import Enum
-from typing import TypedDict
+from typing import TypedDict, Optional
 
 
 class Difficulty(Enum):
@@ -39,15 +39,15 @@ class Category(Enum):
 class ProblemMeta(TypedDict):
     """Metadata for a LeetCode problem."""
 
-    id: int | None  # LeetCode problem ID when applicable
-    slug = str  # Filesystem-safe identifier (e.g., "two_sum")
-    title = str  # Human-readable title (e.g., "Two Sum")
+    id: Optional[int]  # LeetCode problem ID when applicable
+    slug: str  # Filesystem-safe identifier (e.g., "two_sum")
+    title: str  # Human-readable title (e.g., "Two Sum")
     category: Category  # Problem category
     difficulty: Difficulty  # Problem difficulty
     tags: list[str]  # List of algorithmic pattern tags
     module: str  # Full dotted path to module
-    url: str | None  # LeetCode problem URL if available
-    notes: str | None  # Optional description or notes
+    url: Optional[str]  # LeetCode problem URL if available
+    notes: Optional[str]  # Optional description or notes
 
 
 # Common tags used across problems for additional categorization

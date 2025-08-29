@@ -932,7 +932,9 @@ TOP_100_MANIFEST = [
 ]
 
 
-def get_problem_by_slug(self, slug: str) -> dict | None:
+from typing import Optional
+
+def get_problem_by_slug(self, slug: str) -> Optional[dict]:
     """Return the problem dictionary matching the given slug, or None if not found."""
     for problem in TOP_100_MANIFEST:
         if problem["slug"] == slug:

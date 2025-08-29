@@ -5,24 +5,21 @@ TODO: Add problem description
 """
 
 
-class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+from typing import Optional
 
 
-def demo():
-    """TODO: Implement demo function."""
-    pass
+class TreeNode:
+    """Binary tree node class used in tree-related problems."""
+
+    def __init__(self, val: int = 0, left: Optional["TreeNode"] = None, right: Optional["TreeNode"] = None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="_nodes",
-#     title=" Nodes",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+class ListNode:
+    """Linked list node class used in linked list problems."""
+
+    def __init__(self, val: int = 0, next: Optional["ListNode"] = None):
+        self.val = val
+        self.next = next

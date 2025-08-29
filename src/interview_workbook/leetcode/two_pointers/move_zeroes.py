@@ -74,6 +74,15 @@ class Solution:
                 left += 1
 
 
+# Define test cases for Move Zeroes
+test_cases = [
+    TestCase(input_args=([0, 1, 0, 3, 12],), expected=[1, 3, 12, 0, 0], description="Mixed zeros and non-zeros"),
+    TestCase(input_args=([0],), expected=[0], description="Single zero"),
+    TestCase(input_args=([1, 2, 3],), expected=[1, 2, 3], description="No zeros"),
+    TestCase(input_args=([0, 0, 0, 1],), expected=[1, 0, 0, 0], description="Zeros then one"),
+    TestCase(input_args=([],), expected=[], description="Empty array"),
+]
+
 # Helper function for testing since function modifies input
 def test_move_zeroes(nums: List[int]) -> List[int]:
     """Wrapper function for testing - returns modified array."""
@@ -85,11 +94,11 @@ def test_move_zeroes(nums: List[int]) -> List[int]:
 def demo():
     """Run Move Zeroes demo with test cases."""
     test_cases = [
-        TestCase(input_data=[0, 1, 0, 3, 12], expected=[1, 3, 12, 0, 0]),
-        TestCase(input_data=[0], expected=[0]),
-        TestCase(input_data=[1, 2, 3], expected=[1, 2, 3]),
-        TestCase(input_data=[0, 0, 0, 1], expected=[1, 0, 0, 0]),
-        TestCase(input_data=[], expected=[]),
+        TestCase(([0, 1, 0, 3, 12],), [1, 3, 12, 0, 0], "Mixed zeros and non-zeros"),
+        TestCase(([0],), [0], "Single zero"),
+        TestCase(([1, 2, 3],), [1, 2, 3], "No zeros"),
+        TestCase(([0, 0, 0, 1],), [1, 0, 0, 0], "Zeros then one"),
+        TestCase(([],), [], "Empty array"),
     ]
 
     test_results = run_test_cases(test_move_zeroes, test_cases, "LeetCode 283: Move Zeroes")

@@ -6,23 +6,51 @@ TODO: Add problem description
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def findMin(self, nums: list[int]) -> int:
+        """Find minimum in rotated sorted array."""
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] > nums[right]:
+                left = mid + 1
+            else:
+                right = mid
+        return nums[left]
 
+
+from interview_workbook.leetcode._runner import TestCase, run_test_cases, create_demo_output
+from interview_workbook.leetcode._registry import register_problem
+from interview_workbook.leetcode._types import Category, Difficulty
+
+test_cases = [
+    TestCase(([3,4,5,1,2],), 1, "Rotated with min in middle"),
+    TestCase(([4,5,6,7,0,1,2],), 0, "Rotated with min near end"),
+    TestCase(([11,13,15,17],), 11, "Not rotated"),
+]
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run Find Minimum in Rotated Sorted Array demo."""
+    def wrapper(nums):
+        return Solution().findMin(nums)
+
+    results = run_test_cases(wrapper, test_cases, "LeetCode 153: Find Minimum in Rotated Sorted Array")
+
+    return create_demo_output(
+        "Find Minimum in Rotated Sorted Array",
+        results,
+        time_complexity="O(log n)",
+        space_complexity="O(1)",
+        approach_notes="Binary search compares mid with right to shrink interval until min found."
+    )
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="find_min_in_rotated_sorted_array",
-#     title="Find Min In Rotated Sorted Array",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=153,
+    slug="find_min_in_rotated_sorted_array",
+    title="Find Minimum in Rotated Sorted Array",
+    category=Category.BINARY_SEARCH,
+    difficulty=Difficulty.MEDIUM,
+    tags=["binary_search", "array"],
+    url="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+    notes="Uses binary search variant comparing mid with rightmost value."
+)
