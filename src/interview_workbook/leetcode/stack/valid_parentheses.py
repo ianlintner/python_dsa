@@ -9,8 +9,8 @@ An input string is valid if:
 2. Open brackets must be closed in the correct order.
 """
 
-from src.interview_workbook.leetcode._registry import register_problem
-from src.interview_workbook.leetcode._types import Category, Difficulty
+from interview_workbook.leetcode._registry import register_problem
+from interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:

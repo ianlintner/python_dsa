@@ -6,14 +6,22 @@ TODO: Add problem description
 
 
 class Solution:
-    def solve(self, *args) -> None:
-        """TODO: Implement solution."""
-        pass
+    def solve(self, s: str, t: str) -> bool:
+        """Check if two strings are anagrams using character counting."""
+        if len(s) != len(t):
+            return False
+
+        from collections import Counter
+
+        return Counter(s) == Counter(t)
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Demonstrate valid anagram solution."""
+    sol = Solution()
+    assert sol.solve("anagram", "nagaram") is True
+    assert sol.solve("rat", "car") is False
+    return "Valid Anagram demo passed."
 
 
 # TODO: Register the problem with correct parameters

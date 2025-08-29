@@ -1,5 +1,3 @@
-from src.interview_workbook.leetcode._registry import Category, Difficulty, register_problem
-
 """
 Implement Trie
 
@@ -62,15 +60,3 @@ def demo():
     outputs.append(trie.search("app"))  # True
 
     return str(outputs)
-
-
-# TODO: Register the problem with correct parameters
-register_problem(
-    slug="implement_trie",
-    title="Implement Trie (Prefix Tree)",
-    category=Category.TRIES,
-    difficulty=Difficulty.MEDIUM,
-    tags=[],
-    url="",
-    notes="",
-)

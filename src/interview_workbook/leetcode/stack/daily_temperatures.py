@@ -19,14 +19,13 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
 register_problem(
-    id=0,
+    id=739,
     slug="daily_temperatures",
     title="Daily Temperatures",
     category=Category.STACK,
     difficulty=Difficulty.MEDIUM,
-    tags=[],
-    url="",
-    notes="",
+    tags=["stack", "monotonic stack"],
+    url="https://leetcode.com/problems/daily-temperatures/",
+    notes="Use a monotonic stack to track previous warmer days.",
 )
