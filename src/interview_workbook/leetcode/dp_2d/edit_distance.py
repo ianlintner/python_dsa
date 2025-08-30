@@ -3,6 +3,8 @@ Edit Distance
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -41,13 +43,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="edit_distance",
-#     title="Edit Distance",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=72,
+    slug="edit_distance",
+    title="Edit Distance",
+    category=Category.DP_2D,
+    difficulty=Difficulty.HARD,
+    tags=["string", "dynamic_programming"],
+    url="https://leetcode.com/problems/edit-distance/",
+    notes="",
+)

@@ -3,6 +3,8 @@ Longest Common Subsequence
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -32,13 +34,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="longest_common_subsequence",
-#     title="Longest Common Subsequence",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=1143,
+    slug="longest_common_subsequence",
+    title="Longest Common Subsequence",
+    category=Category.DP_2D,
+    difficulty=Difficulty.MEDIUM,
+    tags=["string", "dynamic_programming"],
+    url="https://leetcode.com/problems/longest-common-subsequence/",
+    notes="",
+)

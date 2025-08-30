@@ -3,6 +3,8 @@ Maximal Square
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -38,13 +40,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="maximal_square",
-#     title="Maximal Square",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=221,
+    slug="maximal_square",
+    title="Maximal Square",
+    category=Category.DP_2D,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "dynamic_programming"],
+    url="https://leetcode.com/problems/maximal-square/",
+    notes="",
+)

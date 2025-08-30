@@ -3,6 +3,8 @@ Word Break
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -32,13 +34,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="word_break",
-#     title="Word Break",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=139,
+    slug="word_break",
+    title="Word Break",
+    category=Category.DP_2D,
+    difficulty=Difficulty.MEDIUM,
+    tags=["string", "dynamic_programming", "trie"],
+    url="https://leetcode.com/problems/word-break/",
+    notes="",
+)
