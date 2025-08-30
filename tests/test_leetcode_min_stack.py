@@ -2,7 +2,6 @@
 Tests for Min Stack
 """
 
-
 from src.interview_workbook.leetcode.stack.min_stack import Solution
 
 

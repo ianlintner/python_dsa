@@ -2,7 +2,6 @@
 Tests for Search in Rotated Sorted Array
 """
 
-
 from src.interview_workbook.leetcode.binary_search.search_in_rotated_sorted_array import (
     Solution,
 )
