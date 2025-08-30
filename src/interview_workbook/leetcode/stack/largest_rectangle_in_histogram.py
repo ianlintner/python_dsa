@@ -4,6 +4,7 @@ Largest Rectangle In Histogram
 Given a histogram represented by an array of bar heights,
 find the area of the largest rectangle in it.
 """
+
 from interview_workbook.leetcode._registry import register_problem
 from interview_workbook.leetcode._types import Category, Difficulty
 
@@ -27,9 +28,6 @@ class Solution:
 def demo():
     return str(Solution().solve([2, 1, 5, 6, 2, 3]))
 
-
-from interview_workbook.leetcode._registry import register_problem
-from interview_workbook.leetcode._types import Category, Difficulty
 
 register_problem(
     id=84,

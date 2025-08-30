@@ -3,6 +3,7 @@ Min Stack
 
 TODO: Add problem description
 """
+
 from interview_workbook.leetcode._registry import register_problem
 from interview_workbook.leetcode._types import Category, Difficulty
 
