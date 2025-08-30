@@ -11,7 +11,7 @@ class TestSolution:
         """Test with provided examples."""
         solution = Solution()
         ops = ["MinStack", "push", "push", "push", "getMin", "pop", "top", "getMin"]
-        vals = [[], [-2],, [-3], [], [], [], []]
+        vals = [[], [-2], [0], [-3], [], [], [], []]
         expected = [None, None, None, None, -3, None, 0, -2]
         assert solution.solve(ops, vals) == expected
 
@@ -19,7 +19,7 @@ class TestSolution:
         """Test edge cases."""
         solution = Solution()
         ops = ["MinStack", "push", "getMin", "push", "getMin", "pop", "getMin"]
-        vals = [[],, [],, [], [], []]
+        vals = [[], [1], [], [2], [], [], []]
         expected = [None, None, 1, None, 1, None, 1]
         assert solution.solve(ops, vals) == expected
 

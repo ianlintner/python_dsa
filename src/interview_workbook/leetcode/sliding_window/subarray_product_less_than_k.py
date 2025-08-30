@@ -42,5 +42,5 @@ register_problem(
     difficulty=Difficulty.MEDIUM,
     tags=["array", "sliding window"],
     url="https://leetcode.com/problems/subarray-product-less-than-k/",
-    notes="Two-pointer sliding window. Expand right, shrink left until product < k."
+    notes="Two-pointer sliding window. Expand right, shrink left until product < k.",
 )

@@ -27,7 +27,7 @@ class TestSolution:
         """Test edge cases."""
         solution = Solution()
         assert solution.solve([]) == []
-        assert solution.solve() ==
+        assert solution.solve([90, 80, 70, 60, 50]) == [0, 0, 0, 0, 0]
         assert solution.solve() ==
 
     def test_large_input(self):
