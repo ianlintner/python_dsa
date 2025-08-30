@@ -5,7 +5,7 @@ TODO: Add problem description
 """
 
 from src.interview_workbook.leetcode._registry import register_problem
-from src/interview_workbook.leetcode._types import Category, Difficulty
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -28,7 +28,7 @@ class Solution:
 
 def demo():
     """Run a simple demonstration for Subarray Product Less Than K."""
-    nums = [10, 5, 2, 6]
+    nums =
     k = 100
     result = Solution().solve(nums, k)
     return f"Input: nums={nums}, k={k} -> Count of subarrays: {result}"
