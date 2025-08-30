@@ -3,6 +3,8 @@ Meeting Rooms Ii
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -39,13 +41,13 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="meeting_rooms_ii",
-#     title="Meeting Rooms Ii",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=253,
+    slug="meeting_rooms_ii",
+    title="Meeting Rooms II",
+    category=Category.INTERVALS,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "two_pointers", "greedy", "sorting", "heap"],
+    url="https://leetcode.com/problems/meeting-rooms-ii/",
+    notes="",
+)

@@ -5,6 +5,8 @@ Problem: Merge Intervals
 LeetCode link: https://leetcode.com/problems/merge-intervals/
 Description: Given an array of intervals where intervals[i] = [start, end], merge all overlapping intervals and return an array of non-overlapping intervals covering all the input intervals.
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -34,13 +36,13 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="merge_intervals",
-#     title="Merge Intervals",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=56,
+    slug="merge_intervals",
+    title="Merge Intervals",
+    category=Category.INTERVALS,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "sorting"],
+    url="https://leetcode.com/problems/merge-intervals/",
+    notes="",
+)

@@ -3,6 +3,8 @@ Insert Interval
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -40,13 +42,13 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="insert_interval",
-#     title="Insert Interval",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=57,
+    slug="insert_interval",
+    title="Insert Interval",
+    category=Category.INTERVALS,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array"],
+    url="https://leetcode.com/problems/insert-interval/",
+    notes="",
+)

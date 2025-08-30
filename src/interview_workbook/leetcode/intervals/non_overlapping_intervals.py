@@ -3,6 +3,8 @@ Non Overlapping Intervals
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -33,13 +35,13 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="non_overlapping_intervals",
-#     title="Non Overlapping Intervals",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=435,
+    slug="non_overlapping_intervals",
+    title="Non-overlapping Intervals",
+    category=Category.INTERVALS,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "dynamic_programming", "greedy", "sorting"],
+    url="https://leetcode.com/problems/non-overlapping-intervals/",
+    notes="",
+)
