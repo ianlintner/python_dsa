@@ -25,5 +25,5 @@ class TestSolution:
         solution = Solution()
         target = 10**6
         positions = list(range(0, 10**5))
-        speeds = *10**5
+        speeds = [10**5] * 10**5
         assert solution.solve(target, positions, speeds) == 10**5
