@@ -3,6 +3,8 @@ Invert Binary Tree
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -62,13 +64,13 @@ def demo():
     return f"Before: {before}, After: {after}"
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="invert_binary_tree",
-#     title="Invert Binary Tree",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=226,
+    slug="invert_binary_tree",
+    title="Invert Binary Tree",
+    category=Category.TREES,
+    difficulty=Difficulty.EASY,
+    tags=["tree", "binary_tree", "dfs", "bfs"],
+    url="https://leetcode.com/problems/invert-binary-tree/",
+    notes="",
+)

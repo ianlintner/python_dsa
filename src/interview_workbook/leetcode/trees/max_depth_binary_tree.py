@@ -3,6 +3,8 @@ Max Depth Binary Tree
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -39,13 +41,13 @@ def demo():
     return f"Max depth of binary tree: {depth}"
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="max_depth_binary_tree",
-#     title="Max Depth Binary Tree",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=104,
+    slug="max_depth_binary_tree",
+    title="Maximum Depth of Binary Tree",
+    category=Category.TREES,
+    difficulty=Difficulty.EASY,
+    tags=["tree", "binary_tree", "dfs"],
+    url="https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+    notes="",
+)

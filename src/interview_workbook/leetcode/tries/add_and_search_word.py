@@ -5,6 +5,8 @@ Problem: Add and Search Word (Data structure design)
 LeetCode link: https://leetcode.com/problems/add-and-search-word-data-structure-design/
 Description: Design a data structure that adds new words and finds if a string with optional '.' wildcards matches any previously added word.
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class WordDictionary:
@@ -68,13 +70,13 @@ def demo():
     return str(outputs)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="add_and_search_word",
-#     title="Add And Search Word",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=211,
+    slug="add_and_search_word",
+    title="Design Add and Search Words Data Structure",
+    category=Category.TRIES,
+    difficulty=Difficulty.MEDIUM,
+    tags=["trie", "string", "dfs", "design"],
+    url="https://leetcode.com/problems/design-add-and-search-words-data-structure/",
+    notes="",
+)

@@ -51,14 +51,13 @@ def demo():
     )
 
 
-# TODO: Register the problem with correct parameters
 register_problem(
-    id=0,
+    id=110,
     slug="balanced_binary_tree",
     title="Balanced Binary Tree",
     category=Category.TREES,
     difficulty=Difficulty.EASY,
-    tags=[],
-    url="",
+    tags=["tree", "binary_tree", "dfs"],
+    url="https://leetcode.com/problems/balanced-binary-tree/",
     notes="",
 )

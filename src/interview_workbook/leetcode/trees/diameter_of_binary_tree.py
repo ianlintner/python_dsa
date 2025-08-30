@@ -5,6 +5,8 @@ Problem: Diameter of Binary Tree
 LeetCode link: https://leetcode.com/problems/diameter-of-binary-tree/
 Description: Find the length of the longest path between any two nodes in a binary tree. The path may or may not pass through the root.
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -51,13 +53,13 @@ def demo():
     return f"Diameter of binary tree: {result}"
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="diameter_of_binary_tree",
-#     title="Diameter Of Binary Tree",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=543,
+    slug="diameter_of_binary_tree",
+    title="Diameter of Binary Tree",
+    category=Category.TREES,
+    difficulty=Difficulty.EASY,
+    tags=["tree", "binary_tree", "dfs"],
+    url="https://leetcode.com/problems/diameter-of-binary-tree/",
+    notes="",
+)
