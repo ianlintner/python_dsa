@@ -5,6 +5,7 @@ Problem: Spiral Matrix
 LeetCode link: https://leetcode.com/problems/spiral-matrix/
 Description: Given an m x n matrix, return all elements of the matrix in spiral order.
 """
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 

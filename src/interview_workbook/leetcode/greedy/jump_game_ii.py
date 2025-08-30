@@ -3,6 +3,7 @@ Jump Game Ii
 
 TODO: Add problem description
 """
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
@@ -28,7 +29,7 @@ class Solution:
 def demo():
     """Run a demo for the Jump Game II problem."""
     solver = Solution()
-    nums = [2,3,1,1,4]
+    nums = [2, 3, 1, 1, 4]
     result = solver.solve(nums)
     return str(result)
 

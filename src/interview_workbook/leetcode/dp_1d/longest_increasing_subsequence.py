@@ -3,6 +3,7 @@ Longest Increasing Subsequence
 
 TODO: Add problem description
 """
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
@@ -14,6 +15,7 @@ class Solution:
             return 0
         nums = args[0]
         import bisect
+
         sub = []
         for x in nums:
             i = bisect.bisect_left(sub, x)

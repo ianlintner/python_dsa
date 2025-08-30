@@ -5,9 +5,10 @@ Problem: Add Two Numbers
 LeetCode link: https://leetcode.com/problems/add-two-numbers/
 Description: Add two numbers represented as linked lists and return head of result list.
 """
+
+from src.interview_workbook.leetcode._nodes import ListNode
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
-from src.interview_workbook.leetcode._nodes import ListNode
 
 
 class Solution:

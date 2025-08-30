@@ -10,7 +10,9 @@ from src.interview_workbook.leetcode._types import Category, Difficulty
 class TreeNode:
     """Basic binary tree node."""
 
-    def __init__(self, val: int = 0, left: "TreeNode | None" = None, right: "TreeNode | None" = None):
+    def __init__(
+        self, val: int = 0, left: "TreeNode | None" = None, right: "TreeNode | None" = None
+    ):
         self.val = val
         self.left = left
         self.right = right
@@ -22,11 +24,7 @@ def is_same_tree(p: TreeNode | None, q: TreeNode | None) -> bool:
         return True
     if not p or not q:
         return False
-    return (
-        p.val == q.val
-        and is_same_tree(p.left, q.left)
-        and is_same_tree(p.right, q.right)
-    )
+    return p.val == q.val and is_same_tree(p.left, q.left) and is_same_tree(p.right, q.right)
 
 
 def isSubtree(root: TreeNode | None, subRoot: TreeNode | None) -> bool:

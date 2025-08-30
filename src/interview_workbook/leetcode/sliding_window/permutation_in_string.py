@@ -4,10 +4,11 @@ Permutation In String
 TODO: Add problem description
 """
 
-
 from collections import Counter
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
+
 
 class Solution:
     def solve(self, *args):
@@ -37,6 +38,7 @@ def demo():
     result = Solution().solve(s1, s2)
     return f"Input: s1={s1}, s2={s2} -> Contains permutation? {result}"
 
+
 register_problem(
     id=567,
     slug="permutation_in_string",
@@ -45,5 +47,5 @@ register_problem(
     difficulty=Difficulty.MEDIUM,
     tags=["hash table", "two pointers", "string", "sliding window"],
     url="https://leetcode.com/problems/permutation-in-string/",
-    notes="Sliding window with character counts compared to target counts."
+    notes="Sliding window with character counts compared to target counts.",
 )

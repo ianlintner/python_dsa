@@ -4,10 +4,10 @@ Remove Nth Node From End
 TODO: Add problem description
 """
 
-
 from src.interview_workbook.leetcode._nodes import ListNode
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
+
 
 class Solution:
     def solve(self, *args):

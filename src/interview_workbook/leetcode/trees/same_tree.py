@@ -1,4 +1,4 @@
-""" 
+"""
 Same Tree (LeetCode 100)
 
 Given two binary trees, write a function to check if they are the same or not.
@@ -24,11 +24,7 @@ class Solution:
                 return True
             if not t1 or not t2:
                 return False
-            return (
-                t1.val == t2.val
-                and is_same(t1.left, t2.left)
-                and is_same(t1.right, t2.right)
-            )
+            return t1.val == t2.val and is_same(t1.left, t2.left) and is_same(t1.right, t2.right)
 
         return is_same(p, q)
 
@@ -47,10 +43,7 @@ def demo():
     t4 = TreeNode(1, None, TreeNode(2))
     result2 = sol.solve(t3, t4)
 
-    return (
-        f"Same Tree Test 1 (identical): {result1}\n"
-        f"Same Tree Test 2 (different): {result2}"
-    )
+    return f"Same Tree Test 1 (identical): {result1}\n" f"Same Tree Test 2 (different): {result2}"
 
 
 # Register the problem with correct parameters
@@ -62,5 +55,5 @@ register_problem(
     difficulty=Difficulty.EASY,
     tags=[],
     url="https://leetcode.com/problems/same-tree/",
-    notes=""
+    notes="",
 )

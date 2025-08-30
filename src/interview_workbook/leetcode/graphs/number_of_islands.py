@@ -16,14 +16,7 @@ class Solution:
         visited = set()
 
         def dfs(r, c):
-            if (
-                r < 0
-                or c < 0
-                or r >= rows
-                or c >= cols
-                or grid[r][c] == "0"
-                or (r, c) in visited
-            ):
+            if r < 0 or c < 0 or r >= rows or c >= cols or grid[r][c] == "0" or (r, c) in visited:
                 return
             visited.add((r, c))
             dfs(r + 1, c)
@@ -53,7 +46,7 @@ def demo():
     return f"Number of islands: {islands}"
 
 
-from src.shared.problems import register_problem, Category, Difficulty
+from src.shared.problems import Category, Difficulty, register_problem
 
 # Register the problem with correct parameters
 register_problem(
@@ -64,5 +57,5 @@ register_problem(
     difficulty=Difficulty.MEDIUM,
     tags=["dfs", "matrix"],
     url="https://leetcode.com/problems/number-of-islands/",
-    notes="Classic flood fill DFS over 2D grid."
+    notes="Classic flood fill DFS over 2D grid.",
 )

@@ -5,6 +5,7 @@ Problem: Merge Intervals
 LeetCode link: https://leetcode.com/problems/merge-intervals/
 Description: Given an array of intervals where intervals[i] = [start, end], merge all overlapping intervals and return an array of non-overlapping intervals covering all the input intervals.
 """
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
@@ -18,7 +19,7 @@ class Solution:
         Returns:
             List[List[int]]
         """
-        intervals, = args
+        (intervals,) = args
         if not intervals:
             return []
         intervals.sort(key=lambda x: x[0])

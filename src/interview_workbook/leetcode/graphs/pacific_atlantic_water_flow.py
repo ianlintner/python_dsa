@@ -3,6 +3,7 @@ Pacific Atlantic Water Flow
 
 TODO: Add problem description
 """
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
@@ -45,11 +46,11 @@ def demo():
     """Run a demo for the Pacific Atlantic Water Flow problem."""
     solver = Solution()
     heights = [
-        [1,2,2,3,5],
-        [3,2,3,4,4],
-        [2,4,5,3,1],
-        [6,7,1,4,5],
-        [5,1,1,2,4],
+        [1, 2, 2, 3, 5],
+        [3, 2, 3, 4, 4],
+        [2, 4, 5, 3, 1],
+        [6, 7, 1, 4, 5],
+        [5, 1, 1, 2, 4],
     ]
     result = solver.solve(heights)
     return str(sorted(result))

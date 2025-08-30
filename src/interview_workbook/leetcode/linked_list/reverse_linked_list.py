@@ -5,6 +5,7 @@ Problem: Reverse Linked List
 LeetCode link: https://leetcode.com/problems/reverse-linked-list/
 Description: Reverse a singly linked list and return the reversed list.
 """
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 

@@ -3,9 +3,12 @@ Reverse Bits
 
 TODO: Add problem description
 """
+
 import random
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
+
 
 class Solution:
     def solve(self, n: int) -> int:
@@ -15,8 +18,6 @@ class Solution:
             result = (result << 1) | (n & 1)
             n >>= 1
         return result
-
-
 
 
 def demo() -> str:

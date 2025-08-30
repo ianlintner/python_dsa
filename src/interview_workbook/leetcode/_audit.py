@@ -3,6 +3,7 @@
 
 TODO: Add problem description
 """
+
 from ._registry import register_problem
 from ._types import Category, Difficulty
 

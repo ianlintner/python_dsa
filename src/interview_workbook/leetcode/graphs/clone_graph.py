@@ -3,11 +3,12 @@ Clone Graph
 
 TODO: Add problem description
 """
+
+from collections import deque
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
-
-from collections import deque
 
 class Solution:
     def solve(self, node):
@@ -31,10 +32,12 @@ class Solution:
 
 def demo():
     """Run a demo for the Clone Graph problem."""
+
     class Node:
         def __init__(self, val):
             self.val = val
             self.neighbors = []
+
         def __repr__(self):
             return f"Node({self.val})"
 

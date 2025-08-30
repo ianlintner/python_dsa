@@ -3,11 +3,11 @@ Find Median From Data Stream
 
 TODO: Add problem description
 """
-from src.interview_workbook.leetcode._registry import register_problem
-from src.interview_workbook.leetcode._types import Category, Difficulty
-
 
 import heapq
+
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:

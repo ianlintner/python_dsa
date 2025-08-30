@@ -23,7 +23,7 @@ class Solution:
 
 
 def demo():
-    return str(Solution().solve([73,74,75,71,69,72,76,73]))
+    return str(Solution().solve([73, 74, 75, 71, 69, 72, 76, 73]))
 
 
 register_problem(

@@ -3,9 +3,12 @@ Number Of 1 Bits
 
 TODO: Add problem description
 """
+
 import random
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
+
 
 class Solution:
     def solve(self, n: int) -> int:

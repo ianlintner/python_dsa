@@ -3,6 +3,7 @@ Edit Distance
 
 TODO: Add problem description
 """
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
@@ -27,9 +28,9 @@ class Solution:
                     dp[i][j] = dp[i - 1][j - 1]
                 else:
                     dp[i][j] = 1 + min(
-                        dp[i - 1][j],    # delete
-                        dp[i][j - 1],    # insert
-                        dp[i - 1][j - 1] # replace
+                        dp[i - 1][j],  # delete
+                        dp[i][j - 1],  # insert
+                        dp[i - 1][j - 1],  # replace
                     )
         return dp[m][n]
 

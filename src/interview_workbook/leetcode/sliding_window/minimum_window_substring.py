@@ -6,10 +6,11 @@ LeetCode link: https://leetcode.com/problems/minimum-window-substring/
 Description: Given two strings s and t, return the minimum window substring of s such that every character in t is included in the window. If no such substring exists, return an empty string.
 """
 
-
 from collections import Counter
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
+
 
 class Solution:
     def solve(self, *args):
@@ -35,7 +36,7 @@ class Solution:
                     have -= 1
                 l += 1
         l, r = res
-        return s[l:r+1] if res_len != float("inf") else ""
+        return s[l : r + 1] if res_len != float("inf") else ""
 
 
 def demo():
@@ -54,5 +55,5 @@ register_problem(
     difficulty=Difficulty.HARD,
     tags=["hash table", "string", "sliding window"],
     url="https://leetcode.com/problems/minimum-window-substring/",
-    notes="Classic sliding window with two pointers tracking have/need counts."
+    notes="Classic sliding window with two pointers tracking have/need counts.",
 )

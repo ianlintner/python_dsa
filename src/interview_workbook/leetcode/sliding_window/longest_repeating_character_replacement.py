@@ -3,11 +3,12 @@ Longest Repeating Character Replacement
 
 TODO: Add problem description
 """
+
+from collections import defaultdict
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
-
-from collections import defaultdict
 
 class Solution:
     def solve(self, *args):

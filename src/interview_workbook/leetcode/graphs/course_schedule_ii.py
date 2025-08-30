@@ -3,11 +3,12 @@ Course Schedule Ii
 
 TODO: Add problem description
 """
+
+from collections import defaultdict, deque
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
-
-from collections import defaultdict, deque
 
 class Solution:
     def solve(self, numCourses, prerequisites):
@@ -37,7 +38,7 @@ def demo():
     """Run a demo for the Course Schedule II problem."""
     solver = Solution()
     numCourses = 4
-    prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+    prerequisites = [[1, 0], [2, 0], [3, 1], [3, 2]]
     result = solver.solve(numCourses, prerequisites)
     return str(result)
 

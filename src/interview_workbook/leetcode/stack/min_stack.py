@@ -8,6 +8,7 @@ TODO: Add problem description
 class Solution:
     def solve(self, operations, values):
         """Execute operations on MinStack and return results list."""
+
         class MinStack:
             def __init__(self):
                 self.stack = []
@@ -50,8 +51,8 @@ class Solution:
 
 
 def demo():
-    ops = ["MinStack","push","push","push","getMin","pop","top","getMin"]
-    vals = [[],[-2],[0],[-3],[],[],[],[]]
+    ops = ["MinStack", "push", "push", "push", "getMin", "pop", "top", "getMin"]
+    vals = [[], [-2], [0], [-3], [], [], [], []]
     return str(Solution().solve(ops, vals))
 
 

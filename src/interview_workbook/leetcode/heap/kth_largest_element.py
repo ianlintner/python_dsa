@@ -3,12 +3,12 @@ Kth Largest Element
 
 TODO: Add problem description
 """
-from src.interview_workbook.leetcode._registry import register_problem
-from src.interview_workbook.leetcode._types import Category, Difficulty
-
 
 import heapq
 import random
+
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:

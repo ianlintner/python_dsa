@@ -3,9 +3,12 @@ Single Number
 
 TODO: Add problem description
 """
+
 import random
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
+
 
 class Solution:
     def solve(self, nums: list[int]) -> int:
@@ -14,8 +17,6 @@ class Solution:
         for num in nums:
             result ^= num
         return result
-
-
 
 
 def demo() -> str:

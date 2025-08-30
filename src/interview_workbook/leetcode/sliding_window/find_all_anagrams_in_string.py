@@ -3,11 +3,12 @@ Find All Anagrams In String
 
 TODO: Add problem description
 """
+
+from collections import Counter
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
-
-from collections import Counter
 
 class Solution:
     def solve(self, *args):

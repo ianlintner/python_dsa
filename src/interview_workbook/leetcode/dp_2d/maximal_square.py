@@ -3,6 +3,7 @@ Maximal Square
 
 TODO: Add problem description
 """
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
@@ -31,10 +32,10 @@ def demo():
     """Run a demo for the Maximal Square problem."""
     solver = Solution()
     matrix = [
-        ["1","0","1","0","0"],
-        ["1","0","1","1","1"],
-        ["1","1","1","1","1"],
-        ["1","0","0","1","0"],
+        ["1", "0", "1", "0", "0"],
+        ["1", "0", "1", "1", "1"],
+        ["1", "1", "1", "1", "1"],
+        ["1", "0", "0", "1", "0"],
     ]
     result = solver.solve(matrix)
     return str(result)

@@ -4,11 +4,11 @@ Binary Tree Level Order Traversal
 Given the root of a binary tree, return the level order traversal of its
 nodes' values. (i.e., from left to right, level by level).
 """
-from src.interview_workbook.leetcode._registry import register_problem
-from src.interview_workbook.leetcode._types import Category, Difficulty
-
 
 from collections import deque
+
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class TreeNode:

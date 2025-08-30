@@ -3,6 +3,7 @@ Surrounded Regions
 
 TODO: Add problem description
 """
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
@@ -15,13 +16,7 @@ class Solution:
         rows, cols = len(board), len(board[0])
 
         def dfs(r, c):
-            if (
-                r < 0
-                or c < 0
-                or r >= rows
-                or c >= cols
-                or board[r][c] != "O"
-            ):
+            if r < 0 or c < 0 or r >= rows or c >= cols or board[r][c] != "O":
                 return
             board[r][c] = "E"
             dfs(r + 1, c)
@@ -51,10 +46,10 @@ def demo():
     """Run a demo for the Surrounded Regions problem."""
     solver = Solution()
     board = [
-        ["X","X","X","X"],
-        ["X","O","O","X"],
-        ["X","X","O","X"],
-        ["X","O","X","X"],
+        ["X", "X", "X", "X"],
+        ["X", "O", "O", "X"],
+        ["X", "X", "O", "X"],
+        ["X", "O", "X", "X"],
     ]
     result = solver.solve(board)
     return str(result)

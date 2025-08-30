@@ -5,6 +5,7 @@ Problem: Search in Rotated Sorted Array
 LeetCode link: https://leetcode.com/problems/search-in-rotated-sorted-array/
 Description: Given a rotated sorted array of distinct integers, return the index of the target if it exists, otherwise return -1. Must run in O(log n) time.
 """
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 

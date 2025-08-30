@@ -3,6 +3,7 @@ Meeting Rooms Ii
 
 TODO: Add problem description
 """
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
@@ -16,7 +17,7 @@ class Solution:
         Returns:
             int
         """
-        intervals, = args
+        (intervals,) = args
         if not intervals:
             return 0
         starts = sorted([i[0] for i in intervals])

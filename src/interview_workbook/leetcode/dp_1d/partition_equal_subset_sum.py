@@ -7,6 +7,7 @@ that the sum of elements in both subsets is equal.
 
 This is the classic Subset Sum / 0-1 Knapsack variation.
 """
+
 from interview_workbook.leetcode._registry import register_problem
 from interview_workbook.leetcode._types import Category, Difficulty
 
@@ -29,6 +30,7 @@ class Solution:
 
 
 import random
+
 
 def demo() -> str:
     """Demonstrate Partition Equal Subset Sum solution."""
@@ -55,5 +57,5 @@ register_problem(
     difficulty=Difficulty.MEDIUM,
     tags=["dynamic-programming", "subset-sum"],
     url="https://leetcode.com/problems/partition-equal-subset-sum/",
-    notes="Uses 1D DP for subset sum check"
+    notes="Uses 1D DP for subset sum check",
 )

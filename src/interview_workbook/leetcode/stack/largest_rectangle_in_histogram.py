@@ -23,7 +23,7 @@ class Solution:
 
 
 def demo():
-    return str(Solution().solve([2,1,5,6,2,3]))
+    return str(Solution().solve([2, 1, 5, 6, 2, 3]))
 
 
 from interview_workbook.leetcode._registry import register_problem

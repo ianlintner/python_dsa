@@ -20,14 +20,16 @@ class Solution:
     def solve(self, n: int) -> list[str]:
         """Return all combinations of n pairs of valid parentheses."""
         res = []
+
         def backtrack(s, left, right):
-            if len(s) == 2*n:
+            if len(s) == 2 * n:
                 res.append(s)
                 return
             if left < n:
-                backtrack(s+'(', left+1, right)
+                backtrack(s + "(", left + 1, right)
             if right < left:
-                backtrack(s+')', left, right+1)
+                backtrack(s + ")", left, right + 1)
+
         backtrack("", 0, 0)
         return res
 

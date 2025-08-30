@@ -2,7 +2,6 @@
 Tests for Largest Rectangle in Histogram
 """
 
-
 from src.interview_workbook.leetcode.stack.largest_rectangle_in_histogram import (
     Solution,
 )

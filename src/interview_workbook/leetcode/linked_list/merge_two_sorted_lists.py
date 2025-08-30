@@ -5,9 +5,10 @@ Problem: Merge Two Sorted Lists
 LeetCode link: https://leetcode.com/problems/merge-two-sorted-lists/
 Description: Merge two sorted linked lists and return the merged list.
 """
+
+from src.interview_workbook.leetcode._nodes import ListNode
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
-from src.interview_workbook.leetcode._nodes import ListNode
 
 
 class Solution:

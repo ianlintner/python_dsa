@@ -5,12 +5,12 @@ Problem: Last Stone Weight
 LeetCode link: https://leetcode.com/problems/last-stone-weight/
 Description: Given an array of stones, repeatedly smash the two heaviest stones together. If they are equal, both are destroyed; otherwise the difference remains as a new stone. Return the last stone weight or 0 if none remain.
 """
-from src.interview_workbook.leetcode._registry import register_problem
-from src.interview_workbook.leetcode._types import Category, Difficulty
-
 
 import heapq
 import random
+
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -36,7 +36,7 @@ class Solution:
 def demo() -> str:
     """Demo for Last Stone Weight."""
     random.seed(0)
-    stones = [2,7,4,1,8,1]
+    stones = [2, 7, 4, 1, 8, 1]
     s = Solution()
     return f"Last stone weight from {stones} -> {s.solve(stones)}"
 

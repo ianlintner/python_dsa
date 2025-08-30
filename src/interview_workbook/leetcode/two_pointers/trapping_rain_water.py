@@ -1,8 +1,9 @@
 """LeetCode 42 - Trapping Rain Water (Two Pointers)."""
 
 from typing import List
+
 from src.interview_workbook.leetcode._registry import register_problem
-from src.interview_workbook.leetcode._types import ProblemCategory, Difficulty
+from src.interview_workbook.leetcode._types import Difficulty, ProblemCategory
 
 
 def trap(height: List[int]) -> int:
