@@ -28,7 +28,7 @@ class Solution:
 
 def demo():
     """Run a simple demonstration for Subarray Product Less Than K."""
-    nums =
+    nums = [10, 5, 2, 6]
     k = 100
     result = Solution().solve(nums, k)
     return f"Input: nums={nums}, k={k} -> Count of subarrays: {result}"
