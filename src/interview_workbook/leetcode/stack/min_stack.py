@@ -56,9 +56,6 @@ def demo():
     return str(Solution().solve(ops, vals))
 
 
-from interview_workbook.leetcode._registry import register_problem
-from interview_workbook.leetcode._types import Category, Difficulty
-
 register_problem(
     id=155,
     slug="min_stack",

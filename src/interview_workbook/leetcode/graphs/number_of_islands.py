@@ -46,8 +46,6 @@ def demo():
     return f"Number of islands: {islands}"
 
 
-from src.shared.problems import Category, Difficulty, register_problem
-
 # Register the problem with correct parameters
 register_problem(
     id=200,

@@ -5,6 +5,7 @@ TODO: Add problem description
 """
 
 import heapq
+import random
 
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
@@ -44,9 +45,6 @@ class Solution:
         for n in nums:
             self.add_num(n)
         return self.find_median()
-
-
-import random
 
 
 def demo() -> str:

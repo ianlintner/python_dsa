@@ -8,6 +8,8 @@ that the sum of elements in both subsets is equal.
 This is the classic Subset Sum / 0-1 Knapsack variation.
 """
 
+import random
+
 from interview_workbook.leetcode._registry import register_problem
 from interview_workbook.leetcode._types import Category, Difficulty
 
@@ -27,9 +29,6 @@ class Solution:
             for s in range(target, num - 1, -1):
                 dp[s] = dp[s] or dp[s - num]
         return dp[target]
-
-
-import random
 
 
 def demo() -> str:
