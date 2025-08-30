@@ -9,7 +9,7 @@ class TestSolution:
     def test_example_cases(self):
         """Test with provided examples."""
         solution = Solution()
-        assert solution.solve() == [
+        assert solution.solve([73, 74, 75, 71, 69, 72, 76, 73]) == [
             1,
             1,
             4,

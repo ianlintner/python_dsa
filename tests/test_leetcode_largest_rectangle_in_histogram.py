@@ -11,16 +11,16 @@ class TestSolution:
     def test_example_cases(self):
         """Test with provided examples."""
         solution = Solution()
-        assert solution.solve() == 10
-        assert solution.solve() == 4
+        assert solution.solve([2, 1, 5, 6, 2, 3]) == 10
+        assert solution.solve([2, 4]) == 4
 
     def test_edge_cases(self):
         """Test edge cases."""
         solution = Solution()
         assert solution.solve([]) == 0
-        assert solution.solve() == 1
-        assert solution.solve() == 25
-        assert solution.solve() == 9
+        assert solution.solve([1]) == 1
+        assert solution.solve([5, 5, 5, 5, 5]) == 25
+        assert solution.solve([6, 7, 5, 2, 4, 5, 9, 3]) == 16
 
     def test_large_input(self):
         """Test with larger inputs."""
