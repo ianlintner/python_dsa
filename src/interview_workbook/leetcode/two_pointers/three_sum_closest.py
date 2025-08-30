@@ -47,7 +47,7 @@ def demo() -> str:
 
 # Register this problem
 register_problem(
-    problem_id=16,
+    id=16,
     slug="3sum-closest",
     difficulty=Difficulty.MEDIUM,
     category=Category.TWO_POINTERS,

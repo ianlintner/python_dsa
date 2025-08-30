@@ -35,7 +35,7 @@ def demo() -> str:
 
 
 register_problem(
-    problem_id=11,
+    id=11,
     slug="container-with-most-water",
     category=Category.TWO_POINTERS,
     difficulty=Difficulty.MEDIUM,

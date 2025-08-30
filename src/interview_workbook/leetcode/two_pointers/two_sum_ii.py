@@ -9,7 +9,7 @@ The solution must use only constant extra space.
 https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
 """
 
-from src.interview_workbook.leetcode._runner import register_problem
+from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
 

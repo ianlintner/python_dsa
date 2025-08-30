@@ -34,9 +34,12 @@ class TestSolution:
             expected.append(None)
         for i in range(1000):
             ops.append("getMin")
+            vals.append([])
             expected.append(0)
             ops.append("top")
+            vals.append([])
             expected.append(999 - i)
             ops.append("pop")
+            vals.append([])
             expected.append(None)
         assert solution.solve(ops, vals) == expected

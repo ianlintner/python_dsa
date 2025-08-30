@@ -5,6 +5,7 @@ Find all unique triplets in the array which gives the sum of zero.
 from typing import List
 
 from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 def threeSum(nums: List[int]) -> List[List[int]]:
@@ -45,10 +46,10 @@ def demo() -> str:
 
 
 register_problem(
-    problem_id=15,
+    id=15,
     slug="3sum",
-    category="TWO_POINTERS",
-    difficulty="MEDIUM",
+    category=Category.TWO_POINTERS,
+    difficulty=Difficulty.MEDIUM,
     tags=["Array", "Two Pointers", "Sorting"],
     url="https://leetcode.com/problems/3sum/",
 )

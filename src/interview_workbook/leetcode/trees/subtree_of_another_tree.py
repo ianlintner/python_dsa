@@ -3,6 +3,8 @@
 Check if one binary tree is a subtree of another.
 """
 
+from typing import Optional
+
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
@@ -11,14 +13,14 @@ class TreeNode:
     """Basic binary tree node."""
 
     def __init__(
-        self, val: int = 0, left: "TreeNode | None" = None, right: "TreeNode | None" = None
+        self, val: int = 0, left: Optional["TreeNode"] = None, right: Optional["TreeNode"] = None
     ):
         self.val = val
         self.left = left
         self.right = right
 
 
-def is_same_tree(p: TreeNode | None, q: TreeNode | None) -> bool:
+def is_same_tree(p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
     """Helper to check if two trees are structurally identical."""
     if not p and not q:
         return True
@@ -27,7 +29,7 @@ def is_same_tree(p: TreeNode | None, q: TreeNode | None) -> bool:
     return p.val == q.val and is_same_tree(p.left, q.left) and is_same_tree(p.right, q.right)
 
 
-def isSubtree(root: TreeNode | None, subRoot: TreeNode | None) -> bool:
+def isSubtree(root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
     """Check if subRoot is a subtree of root."""
     if not subRoot:
         return True
@@ -58,7 +60,8 @@ def demo() -> str:
 
 # Register problem metadata
 register_problem(
-    problem_id=572,
+    id=572,
+    slug="subtree_of_another_tree",
     title="Subtree of Another Tree",
     difficulty=Difficulty.EASY,
     category=Category.TREES,

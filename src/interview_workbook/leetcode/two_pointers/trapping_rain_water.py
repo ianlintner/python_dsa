@@ -3,7 +3,7 @@
 from typing import List
 
 from src.interview_workbook.leetcode._registry import register_problem
-from src.interview_workbook.leetcode._types import Difficulty, ProblemCategory
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 def trap(height: List[int]) -> int:
@@ -49,10 +49,10 @@ def demo() -> str:
 
 # Register problem metadata
 register_problem(
-    problem_id=42,
+    id=42,
     title="Trapping Rain Water",
     slug="trapping-rain-water",
-    category=ProblemCategory.TWO_POINTERS,
+    category=Category.TWO_POINTERS,
     difficulty=Difficulty.HARD,
     tags=["Array", "Two Pointers", "Dynamic Programming", "Stack", "Monotonic Stack"],
     url="https://leetcode.com/problems/trapping-rain-water/",
