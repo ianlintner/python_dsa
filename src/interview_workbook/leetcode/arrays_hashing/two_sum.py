@@ -7,6 +7,8 @@ Description: Find two numbers in an array that add up to a given target and retu
 """
 
 from src.interview_workbook.leetcode._runner import TestCase
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -44,13 +46,13 @@ def demo():
     return "\n".join(outputs)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="two_sum",
-#     title="Two Sum",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=1,
+    slug="two_sum",
+    title="Two Sum",
+    category=Category.ARRAYS_HASHING,
+    difficulty=Difficulty.EASY,
+    tags=["array", "hashmap"],
+    url="https://leetcode.com/problems/two-sum/",
+    notes="",
+)

@@ -9,6 +9,8 @@ The solution set must not contain duplicate combinations.
 """
 
 from typing import List
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -39,13 +41,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=40,
-#     slug="combination-sum-ii",
-#     title="Combination Sum II",
-#     category=Category.BACKTRACKING,
-#     difficulty=Difficulty.MEDIUM,
-#     tags=["backtracking"],
-#     url="https://leetcode.com/problems/combination-sum-ii/",
-#     notes="")
+register_problem(
+    id=40,
+    slug="combination_sum_ii",
+    title="Combination Sum II",
+    category=Category.BACKTRACKING,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "backtracking"],
+    url="https://leetcode.com/problems/combination-sum-ii/",
+    notes="",
+)

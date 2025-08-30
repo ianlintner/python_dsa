@@ -28,8 +28,12 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Gas Station problem."""
+    solver = Solution()
+    gas = [1, 2, 3, 4, 5]
+    cost = [3, 4, 5, 1, 2]
+    result = solver.solve(gas, cost)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters

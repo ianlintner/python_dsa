@@ -3,6 +3,8 @@ Valid Sudoku
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -43,13 +45,13 @@ def demo():
     return "Valid Sudoku demo passed."
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="valid_sudoku",
-#     title="Valid Sudoku",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=36,
+    slug="valid_sudoku",
+    title="Valid Sudoku",
+    category=Category.ARRAYS_HASHING,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "hashmap"],
+    url="https://leetcode.com/problems/valid-sudoku/",
+    notes="",
+)

@@ -3,6 +3,8 @@ Valid Anagram
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -24,13 +26,13 @@ def demo():
     return "Valid Anagram demo passed."
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="valid_anagram",
-#     title="Valid Anagram",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=242,
+    slug="valid_anagram",
+    title="Valid Anagram",
+    category=Category.ARRAYS_HASHING,
+    difficulty=Difficulty.EASY,
+    tags=["string", "hashmap", "sorting"],
+    url="https://leetcode.com/problems/valid-anagram/",
+    notes="",
+)

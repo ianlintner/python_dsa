@@ -3,6 +3,8 @@
 
 TODO: Add problem description
 """
+from ._registry import register_problem
+from ._types import Category, Difficulty
 
 
 class Solution:
@@ -18,13 +20,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="_audit",
-#     title=" Audit",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=0,
+    slug="_audit",
+    title="Audit",
+    category=Category.ARRAYS_HASHING,
+    difficulty=Difficulty.EASY,
+    tags=["utility"],
+    url="",
+    notes="Internal module for auditing purposes.",
+)

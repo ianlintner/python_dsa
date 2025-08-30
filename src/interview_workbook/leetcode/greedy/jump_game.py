@@ -23,8 +23,11 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Jump Game problem."""
+    solver = Solution()
+    nums = [2,3,1,1,4]
+    result = solver.solve(nums)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters

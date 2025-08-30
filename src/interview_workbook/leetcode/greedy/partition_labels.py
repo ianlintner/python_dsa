@@ -24,8 +24,11 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a demo for the Partition Labels problem."""
+    solver = Solution()
+    s = "ababcbacadefegdehijhklij"
+    result = solver.solve(s)
+    return str(result)
 
 
 # TODO: Register the problem with correct parameters
