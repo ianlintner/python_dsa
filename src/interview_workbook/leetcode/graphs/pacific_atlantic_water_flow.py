@@ -3,6 +3,8 @@ Pacific Atlantic Water Flow
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -53,13 +55,13 @@ def demo():
     return str(sorted(result))
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="pacific_atlantic_water_flow",
-#     title="Pacific Atlantic Water Flow",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=417,
+    slug="pacific_atlantic_water_flow",
+    title="Pacific Atlantic Water Flow",
+    category=Category.GRAPHS,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "dfs", "bfs"],
+    url="https://leetcode.com/problems/pacific-atlantic-water-flow/",
+    notes="",
+)

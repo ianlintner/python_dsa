@@ -3,6 +3,8 @@ Course Schedule Ii
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 from collections import defaultdict, deque
@@ -40,13 +42,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="course_schedule_ii",
-#     title="Course Schedule Ii",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=210,
+    slug="course_schedule_ii",
+    title="Course Schedule II",
+    category=Category.GRAPHS,
+    difficulty=Difficulty.MEDIUM,
+    tags=["dfs", "bfs", "graph", "topological_sort"],
+    url="https://leetcode.com/problems/course-schedule-ii/",
+    notes="",
+)

@@ -3,6 +3,8 @@ Clone Graph
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 from collections import deque
@@ -49,13 +51,13 @@ def demo():
     return f"Cloned node val: {clone.val}, neighbors: {[nei.val for nei in clone.neighbors]}"
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="clone_graph",
-#     title="Clone Graph",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=133,
+    slug="clone_graph",
+    title="Clone Graph",
+    category=Category.GRAPHS,
+    difficulty=Difficulty.MEDIUM,
+    tags=["hashmap", "dfs", "bfs", "graph"],
+    url="https://leetcode.com/problems/clone-graph/",
+    notes="",
+)

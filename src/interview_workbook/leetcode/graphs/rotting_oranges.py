@@ -3,6 +3,8 @@ Rotting Oranges
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 from collections import deque
@@ -52,13 +54,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="rotting_oranges",
-#     title="Rotting Oranges",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=994,
+    slug="rotting_oranges",
+    title="Rotting Oranges",
+    category=Category.GRAPHS,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "bfs"],
+    url="https://leetcode.com/problems/rotting-oranges/",
+    notes="",
+)

@@ -3,6 +3,8 @@ Surrounded Regions
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -58,13 +60,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="surrounded_regions",
-#     title="Surrounded Regions",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=130,
+    slug="surrounded_regions",
+    title="Surrounded Regions",
+    category=Category.GRAPHS,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "dfs", "bfs", "union_find"],
+    url="https://leetcode.com/problems/surrounded-regions/",
+    notes="",
+)
