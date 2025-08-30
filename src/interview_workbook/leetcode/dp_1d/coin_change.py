@@ -3,6 +3,8 @@ Coin Change
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -29,13 +31,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="coin_change",
-#     title="Coin Change",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=322,
+    slug="coin_change",
+    title="Coin Change",
+    category=Category.DP_1D,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "dynamic_programming", "bfs"],
+    url="https://leetcode.com/problems/coin-change/",
+    notes="",
+)

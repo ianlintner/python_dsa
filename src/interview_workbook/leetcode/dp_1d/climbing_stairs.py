@@ -3,6 +3,8 @@ Climbing Stairs
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -27,13 +29,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="climbing_stairs",
-#     title="Climbing Stairs",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=70,
+    slug="climbing_stairs",
+    title="Climbing Stairs",
+    category=Category.DP_1D,
+    difficulty=Difficulty.EASY,
+    tags=["math", "dynamic_programming"],
+    url="https://leetcode.com/problems/climbing-stairs/",
+    notes="",
+)

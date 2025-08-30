@@ -3,6 +3,8 @@ Longest Increasing Subsequence
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -30,13 +32,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="longest_increasing_subsequence",
-#     title="Longest Increasing Subsequence",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=300,
+    slug="longest_increasing_subsequence",
+    title="Longest Increasing Subsequence",
+    category=Category.DP_1D,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "binary_search", "dynamic_programming"],
+    url="https://leetcode.com/problems/longest-increasing-subsequence/",
+    notes="",
+)

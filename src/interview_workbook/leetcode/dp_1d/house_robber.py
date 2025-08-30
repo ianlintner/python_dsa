@@ -3,6 +3,8 @@ House Robber
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -26,13 +28,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="house_robber",
-#     title="House Robber",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=198,
+    slug="house_robber",
+    title="House Robber",
+    category=Category.DP_1D,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "dynamic_programming"],
+    url="https://leetcode.com/problems/house-robber/",
+    notes="",
+)
