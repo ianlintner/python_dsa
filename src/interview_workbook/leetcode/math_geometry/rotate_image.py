@@ -3,6 +3,8 @@ Rotate Image
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -25,13 +27,13 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="rotate_image",
-#     title="Rotate Image",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=48,
+    slug="rotate_image",
+    title="Rotate Image",
+    category=Category.MATH_GEOMETRY,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "math"],
+    url="https://leetcode.com/problems/rotate-image/",
+    notes="",
+)

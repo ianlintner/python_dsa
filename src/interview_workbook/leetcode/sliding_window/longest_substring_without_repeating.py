@@ -5,6 +5,8 @@ Problem: Longest Substring Without Repeating Characters
 LeetCode link: https://leetcode.com/problems/longest-substring-without-repeating-characters/
 Description: Given a string, find the length of the longest substring without repeating characters.
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -27,13 +29,13 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="longest_substring_without_repeating",
-#     title="Longest Substring Without Repeating",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=3,
+    slug="longest_substring_without_repeating",
+    title="Longest Substring Without Repeating Characters",
+    category=Category.SLIDING_WINDOW,
+    difficulty=Difficulty.MEDIUM,
+    tags=["string", "sliding_window", "hashmap"],
+    url="https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+    notes="",
+)

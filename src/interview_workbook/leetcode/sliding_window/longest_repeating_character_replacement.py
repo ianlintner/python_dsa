@@ -3,6 +3,8 @@ Longest Repeating Character Replacement
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 from collections import defaultdict
@@ -30,13 +32,13 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="longest_repeating_character_replacement",
-#     title="Longest Repeating Character Replacement",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=424,
+    slug="longest_repeating_character_replacement",
+    title="Longest Repeating Character Replacement",
+    category=Category.SLIDING_WINDOW,
+    difficulty=Difficulty.MEDIUM,
+    tags=["string", "sliding_window"],
+    url="https://leetcode.com/problems/longest-repeating-character-replacement/",
+    notes="",
+)

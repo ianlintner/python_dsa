@@ -3,6 +3,8 @@ Set Matrix Zeroes
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -40,13 +42,13 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="set_matrix_zeroes",
-#     title="Set Matrix Zeroes",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=73,
+    slug="set_matrix_zeroes",
+    title="Set Matrix Zeroes",
+    category=Category.MATH_GEOMETRY,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "hashmap"],
+    url="https://leetcode.com/problems/set-matrix-zeroes/",
+    notes="",
+)
