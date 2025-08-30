@@ -5,6 +5,8 @@ TODO: Add problem description
 """
 
 from src.interview_workbook.leetcode._runner import TestCase
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -60,13 +62,13 @@ def demo():
     return "\n".join(outputs)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="find_peak_element",
-#     title="Find Peak Element",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=162,
+    slug="find_peak_element",
+    title="Find Peak Element",
+    category=Category.BINARY_SEARCH,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "binary_search"],
+    url="https://leetcode.com/problems/find-peak-element/",
+    notes="",
+)

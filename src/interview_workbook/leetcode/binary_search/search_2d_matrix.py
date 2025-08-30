@@ -5,6 +5,8 @@ TODO: Add problem description
 """
 
 from interview_workbook.leetcode._runner import TestCase
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -48,13 +50,13 @@ def demo():
     return "\n".join(outputs)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="search_2d_matrix",
-#     title="Search 2D Matrix",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=74,
+    slug="search_2d_matrix",
+    title="Search a 2D Matrix",
+    category=Category.BINARY_SEARCH,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "binary_search"],
+    url="https://leetcode.com/problems/search-a-2d-matrix/",
+    notes="",
+)

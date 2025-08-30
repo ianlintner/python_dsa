@@ -4,6 +4,8 @@ Number Of 1 Bits
 TODO: Add problem description
 """
 import random
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 class Solution:
     def solve(self, n: int) -> int:
@@ -24,13 +26,13 @@ def demo() -> str:
     return str(results)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="number_of_1_bits",
-#     title="Number Of 1 Bits",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=191,
+    slug="number_of_1_bits",
+    title="Number of 1 Bits",
+    category=Category.BIT_MANIP,
+    difficulty=Difficulty.EASY,
+    tags=["divide_conquer", "bit_manipulation"],
+    url="https://leetcode.com/problems/number-of-1-bits/",
+    notes="",
+)

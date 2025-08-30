@@ -7,6 +7,8 @@ TODO: Add problem description
 import logging
 
 from src.interview_workbook.leetcode._runner import TestCase
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -64,13 +66,13 @@ def demo():
     return result_str
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="koko_eating_bananas",
-#     title="Koko Eating Bananas",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=875,
+    slug="koko_eating_bananas",
+    title="Koko Eating Bananas",
+    category=Category.BINARY_SEARCH,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "binary_search"],
+    url="https://leetcode.com/problems/koko-eating-bananas/",
+    notes="",
+)

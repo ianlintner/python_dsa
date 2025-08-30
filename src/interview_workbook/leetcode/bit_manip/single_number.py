@@ -4,6 +4,8 @@ Single Number
 TODO: Add problem description
 """
 import random
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 class Solution:
     def solve(self, nums: list[int]) -> int:
@@ -29,13 +31,13 @@ def demo() -> str:
     return str(results)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="single_number",
-#     title="Single Number",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=136,
+    slug="single_number",
+    title="Single Number",
+    category=Category.BIT_MANIP,
+    difficulty=Difficulty.EASY,
+    tags=["array", "bit_manipulation"],
+    url="https://leetcode.com/problems/single-number/",
+    notes="",
+)

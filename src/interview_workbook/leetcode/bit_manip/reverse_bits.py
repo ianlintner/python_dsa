@@ -4,6 +4,8 @@ Reverse Bits
 TODO: Add problem description
 """
 import random
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 class Solution:
     def solve(self, n: int) -> int:
@@ -26,13 +28,13 @@ def demo() -> str:
     return str(results)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="reverse_bits",
-#     title="Reverse Bits",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=190,
+    slug="reverse_bits",
+    title="Reverse Bits",
+    category=Category.BIT_MANIP,
+    difficulty=Difficulty.EASY,
+    tags=["divide_conquer", "bit_manipulation"],
+    url="https://leetcode.com/problems/reverse-bits/",
+    notes="",
+)

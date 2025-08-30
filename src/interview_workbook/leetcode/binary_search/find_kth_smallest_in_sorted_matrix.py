@@ -3,6 +3,8 @@ Find Kth Smallest In Sorted Matrix
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -68,13 +70,13 @@ def demo():
     return "\n".join(output)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="find_kth_smallest_in_sorted_matrix",
-#     title="Find Kth Smallest In Sorted Matrix",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=378,
+    slug="find_kth_smallest_in_sorted_matrix",
+    title="Kth Smallest Element in a Sorted Matrix",
+    category=Category.BINARY_SEARCH,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "binary_search", "heap"],
+    url="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/",
+    notes="",
+)
