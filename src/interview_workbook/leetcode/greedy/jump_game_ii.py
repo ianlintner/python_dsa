@@ -3,6 +3,8 @@ Jump Game Ii
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -31,13 +33,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="jump_game_ii",
-#     title="Jump Game Ii",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=45,
+    slug="jump_game_ii",
+    title="Jump Game II",
+    category=Category.GREEDY,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "dynamic_programming", "greedy"],
+    url="https://leetcode.com/problems/jump-game-ii/",
+    notes="",
+)

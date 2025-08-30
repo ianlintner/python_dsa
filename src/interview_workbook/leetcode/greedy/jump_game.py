@@ -5,6 +5,8 @@ Problem: Jump Game
 LeetCode link: https://leetcode.com/problems/jump-game/
 Description: Determine if it is possible to reach the last index of an array, given maximum jump lengths at each position.
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -30,13 +32,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="jump_game",
-#     title="Jump Game",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=55,
+    slug="jump_game",
+    title="Jump Game",
+    category=Category.GREEDY,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "dynamic_programming", "greedy"],
+    url="https://leetcode.com/problems/jump-game/",
+    notes="",
+)

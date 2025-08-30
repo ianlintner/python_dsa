@@ -3,6 +3,8 @@ Partition Labels
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -31,13 +33,13 @@ def demo():
     return str(result)
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="partition_labels",
-#     title="Partition Labels",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=763,
+    slug="partition_labels",
+    title="Partition Labels",
+    category=Category.GREEDY,
+    difficulty=Difficulty.MEDIUM,
+    tags=["string", "greedy", "two_pointers"],
+    url="https://leetcode.com/problems/partition-labels/",
+    notes="",
+)
