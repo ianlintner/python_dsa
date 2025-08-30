@@ -18,7 +18,7 @@ class TestSolution:
         solution = Solution()
         assert solution.solve(10, [], []) == 0
         assert solution.solve(20, [6, 2, 12], [3, 1, 3]) == 3
-        assert solution.solve(10, [6, 8], [3, 2]) == 1
+        assert solution.solve(10, [6, 8], [3, 2]) == 2
 
     def test_large_input(self):
         """Test with larger inputs."""
