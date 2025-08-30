@@ -8,6 +8,8 @@ The solution must use only constant extra space.
 
 https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
 """
+from src.interview_workbook.leetcode._runner import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -34,6 +36,8 @@ def demo():
     return str(result)
 
 
+from src.interview_workbook.leetcode._runner import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 register_problem(
     id=167,
     slug="two-sum-ii-input-array-is-sorted",
