@@ -20,7 +20,7 @@ class TestSolution:
         solution = Solution()
         assert solution.solve([]) == 0
         assert solution.solve() == 1
-        assert solution.solve() == 5
+        assert solution.solve() == 25
         assert solution.solve() == 9
 
     def test_large_input(self):

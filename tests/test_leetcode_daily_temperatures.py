@@ -3,23 +3,36 @@ Tests for Daily Temperatures
 """
 
 
+from src.interview_workbook.leetcode.stack.daily_temperatures import Solution
+
+
 class TestSolution:
     def test_example_cases(self):
         """Test with provided examples."""
-        # TODO: Add test cases
-        # Example:
-        # solution = Solution()
-        # assert solution.method_name(input) == expected_output
-        pass
+        solution = Solution()
+        assert solution.solve() == [
+            1,
+            1,
+            4,
+            2,
+            1,
+            1,
+            0,
+            0,
+        ]
+        assert solution.solve() ==
+        assert solution.solve() ==
 
     def test_edge_cases(self):
         """Test edge cases."""
-        # TODO: Add edge case tests
-        # solution = Solution()
-        pass
+        solution = Solution()
+        assert solution.solve([]) == []
+        assert solution.solve() ==
+        assert solution.solve() ==
 
     def test_large_input(self):
         """Test with larger inputs."""
-        # TODO: Add performance tests if needed
-        # solution = Solution()
-        pass
+        solution = Solution()
+        temps = list(range(30, 101)) * 1000
+        result = solution.solve(temps)
+        assert len(result) == len(temps)
