@@ -20,8 +20,8 @@ class TestSolution:
             0,
             0,
         ]
-        assert solution.solve() ==
-        assert solution.solve() ==
+        assert solution.solve([30, 40, 50, 60]) == [1, 1, 1, 0]
+        assert solution.solve([30, 60, 90]) == [1, 1, 0]
 
     def test_edge_cases(self):
         """Test edge cases."""
