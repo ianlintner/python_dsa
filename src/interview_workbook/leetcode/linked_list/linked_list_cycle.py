@@ -3,6 +3,8 @@ Linked List Cycle
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
@@ -27,13 +29,13 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="linked_list_cycle",
-#     title="Linked List Cycle",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=141,
+    slug="linked_list_cycle",
+    title="Linked List Cycle",
+    category=Category.LINKED_LIST,
+    difficulty=Difficulty.EASY,
+    tags=["linked_list", "two_pointers"],
+    url="https://leetcode.com/problems/linked-list-cycle/",
+    notes="",
+)

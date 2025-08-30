@@ -5,7 +5,8 @@ Problem: Add Two Numbers
 LeetCode link: https://leetcode.com/problems/add-two-numbers/
 Description: Add two numbers represented as linked lists and return head of result list.
 """
-
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 from src.interview_workbook.leetcode._nodes import ListNode
 
 
@@ -37,13 +38,13 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="add_two_numbers",
-#     title="Add Two Numbers",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=2,
+    slug="add_two_numbers",
+    title="Add Two Numbers",
+    category=Category.LINKED_LIST,
+    difficulty=Difficulty.MEDIUM,
+    tags=["linked_list", "math"],
+    url="https://leetcode.com/problems/add-two-numbers/",
+    notes="",
+)

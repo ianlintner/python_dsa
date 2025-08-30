@@ -5,7 +5,8 @@ Problem: Merge Two Sorted Lists
 LeetCode link: https://leetcode.com/problems/merge-two-sorted-lists/
 Description: Merge two sorted linked lists and return the merged list.
 """
-
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 from src.interview_workbook.leetcode._nodes import ListNode
 
 
@@ -36,13 +37,13 @@ def demo():
     pass
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="merge_two_sorted_lists",
-#     title="Merge Two Sorted Lists",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=21,
+    slug="merge_two_sorted_lists",
+    title="Merge Two Sorted Lists",
+    category=Category.LINKED_LIST,
+    difficulty=Difficulty.EASY,
+    tags=["linked_list"],
+    url="https://leetcode.com/problems/merge-two-sorted-lists/",
+    notes="",
+)
