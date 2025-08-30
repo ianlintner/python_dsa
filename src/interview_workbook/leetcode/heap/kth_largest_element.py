@@ -3,6 +3,8 @@ Kth Largest Element
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 import heapq
@@ -34,13 +36,13 @@ def demo() -> str:
     return f"{k}th largest in {nums} is {result}"
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="kth_largest_element",
-#     title="Kth Largest Element",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=215,
+    slug="kth_largest_element",
+    title="Kth Largest Element in an Array",
+    category=Category.HEAP,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "heap", "divide_conquer", "sorting"],
+    url="https://leetcode.com/problems/kth-largest-element-in-an-array/",
+    notes="",
+)

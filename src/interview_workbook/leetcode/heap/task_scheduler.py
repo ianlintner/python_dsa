@@ -5,6 +5,8 @@ Problem: Task Scheduler
 LeetCode link: https://leetcode.com/problems/task-scheduler/
 Description: Given a list of tasks represented by characters and a cooling interval n, return the least number of time units required to finish all tasks, where the same tasks must be separated by at least n time units.
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 from collections import Counter
@@ -54,13 +56,13 @@ def demo() -> str:
     return f"Tasks: {tasks}, Cooling: {n}, Minimum intervals: {result}"
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="task_scheduler",
-#     title="Task Scheduler",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=621,
+    slug="task_scheduler",
+    title="Task Scheduler",
+    category=Category.HEAP,
+    difficulty=Difficulty.MEDIUM,
+    tags=["array", "hashmap", "greedy", "heap"],
+    url="https://leetcode.com/problems/task-scheduler/",
+    notes="",
+)

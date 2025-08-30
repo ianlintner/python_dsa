@@ -3,6 +3,8 @@ Find Median From Data Stream
 
 TODO: Add problem description
 """
+from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 import heapq
@@ -57,13 +59,13 @@ def demo() -> str:
     return f"Median after stream {nums}: {s.find_median()}"
 
 
-# TODO: Register the problem with correct parameters
-# register_problem(
-#     id=0,
-#     slug="find_median_from_data_stream",
-#     title="Find Median From Data Stream",
-#     category=Category.UNKNOWN,
-#     difficulty=Difficulty.UNKNOWN,
-#     tags=[],
-#     url="",
-#     notes="")
+register_problem(
+    id=295,
+    slug="find_median_from_data_stream",
+    title="Find Median from Data Stream",
+    category=Category.HEAP,
+    difficulty=Difficulty.HARD,
+    tags=["heap", "design"],
+    url="https://leetcode.com/problems/find-median-from-data-stream/",
+    notes="",
+)
