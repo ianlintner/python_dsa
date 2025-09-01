@@ -12,8 +12,8 @@
       <div class="actions">
         <form method="post" action="{{ url_for('demo_run') }}">
           <input type="hidden" name="module" value="{{ meta.id }}" />
-          <button class="btn" type="submit">Run Demo</button>
-          <a class="btn secondary" href="{{ url_for('source') }}?module={{ meta.id }}">View Source</a>
+          <button class="btn-primary" type="submit">Run Demo</button>
+          <a class="btn-secondary" href="{{ url_for('source') }}?module={{ meta.id }}">View Source</a>
         </form>
       </div>
     </header>

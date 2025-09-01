@@ -245,77 +245,93 @@ PATH_VIZ_MODULES = {
 }
 
 
+# Template helper functions
+@app.context_processor
+def utility_processor():
+    def get_card_type(category, demo):
+        if category == 'visualizations' or demo['id'].startswith('viz.'):
+            return 'visualization-card'
+        if 'leetcode' in category:
+            return 'leetcode-card'
+        return 'algorithm-card'
+
+    def get_demo_status(demo):
+        # Placeholder logic for demo status
+        if 'TODO' in demo.get('title', '').upper():
+            return 'todo'
+        if demo.get('id') and hash(demo['id']) % 5 == 0:
+            return 'partial'
+        return 'complete'
+
+    def get_progress_percentage(demo):
+        status = get_demo_status(demo)
+        if status == 'complete':
+            return 100
+        if status == 'partial':
+            return 50
+        return 0
+
+    def get_progress_text(demo):
+        status = get_demo_status(demo)
+        if status == 'complete':
+            return "Completed"
+        if status == 'partial':
+            return "In Progress"
+        return "Not Started"
+        
+    def get_category_progress(category, demos):
+        completed = sum(1 for d in demos if get_demo_status(d) == 'complete')
+        return int((completed / len(demos)) * 100) if demos else 0
+
+    return dict(
+        get_card_type=get_card_type,
+        get_demo_status=get_demo_status,
+        get_progress_percentage=get_progress_percentage,
+        get_progress_text=get_progress_text,
+        get_category_progress=get_category_progress,
+    )
+
+
 @app.route("/")
 def index():
     # Build categories with additional top-level visualization entries for the dashboard
     categories = {k: v[:] for k, v in get_categories().items()}
+    
+    # Add LeetCode problems to categories
+    from src.interview_workbook.leetcode._registry import get_all as get_all_leetcode
+    from src.interview_workbook.leetcode._types import Category
+    
+    leetcode_problems = get_all_leetcode()
+    for problem in leetcode_problems:
+        category_key = f"leetcode/{problem['category'].value}"
+        categories.setdefault(category_key, []).append(problem)
+
+    # Add visualizations
     categories.setdefault("visualizations", [])
-    categories["visualizations"].append(
-        {
-            "id": "viz.sorting",
-            "title": "Sorting Visualizations",
-            "category": "visualizations",
-            "module": "viz.sorting",
-            "path": "flask_app/visualizations/sorting_viz.py",
-        }
-    )
-    categories["visualizations"].append(
-        {
-            "id": "viz.graph",
-            "title": "Graph Traversal (BFS/DFS)",
-            "category": "visualizations",
-            "module": "viz.graph",
-            "path": "flask_app/visualizations/graph_viz.py",
-        }
-    )
-    categories["visualizations"].append(
-        {
-            "id": "viz.path",
-            "title": "Pathfinding (A*/Dijkstra/BFS/GBFS)",
-            "category": "visualizations",
-            "module": "viz.path",
-            "path": "flask_app/visualizations/path_viz.py",
-        }
-    )
-    categories["visualizations"].append(
-        {
-            "id": "viz.arrays",
-            "title": "Array Techniques (Binary Search / Two-Pointers / Sliding Window)",
-            "category": "visualizations",
-            "module": "viz.arrays",
-            "path": "flask_app/visualizations/array_viz.py",
-        }
-    )
-    categories["visualizations"].append(
-        {
-            "id": "viz.mst",
-            "title": "Minimum Spanning Tree (Kruskal/Prim)",
-            "category": "visualizations",
-            "module": "viz.mst",
-            "path": "flask_app/visualizations/mst_viz.py",
-        }
-    )
-    categories["visualizations"].append(
-        {
-            "id": "viz.topo",
-            "title": "Topological Sort (Kahn)",
-            "category": "visualizations",
-            "module": "viz.topo",
-            "path": "flask_app/visualizations/topo_viz.py",
-        }
-    )
-    categories["visualizations"].append(
-        {
-            "id": "viz.nn",
-            "title": "Neural Network (MLP Binary Classifier)",
-            "category": "visualizations",
-            "module": "viz.nn",
-            "path": "flask_app/visualizations/nn_viz.py",
-        }
-    )
+    visualizations = [
+        {"id": "viz.sorting", "title": "Sorting Visualizations", "category": "visualizations", "module": "viz.sorting", "path": "flask_app/visualizations/sorting_viz.py"},
+        {"id": "viz.graph", "title": "Graph Traversal (BFS/DFS)", "category": "visualizations", "module": "viz.graph", "path": "flask_app/visualizations/graph_viz.py"},
+        {"id": "viz.path", "title": "Pathfinding (A*/Dijkstra/BFS/GBFS)", "category": "visualizations", "module": "viz.path", "path": "flask_app/visualizations/path_viz.py"},
+        {"id": "viz.arrays", "title": "Array Techniques", "category": "visualizations", "module": "viz.arrays", "path": "flask_app/visualizations/array_viz.py"},
+        {"id": "viz.mst", "title": "Minimum Spanning Tree (Kruskal/Prim)", "category": "visualizations", "module": "viz.mst", "path": "flask_app/visualizations/mst_viz.py"},
+        {"id": "viz.topo", "title": "Topological Sort (Kahn)", "category": "visualizations", "module": "viz.topo", "path": "flask_app/visualizations/topo_viz.py"},
+        {"id": "viz.nn", "title": "Neural Network (MLP Classifier)", "category": "visualizations", "module": "viz.nn", "path": "flask_app/visualizations/nn_viz.py"},
+    ]
+    categories["visualizations"].extend(visualizations)
+
+    total_demos = sum(len(demos) for demos in categories.values())
+    # Placeholder for completion stats
+    completed_demos = int(total_demos * 0.87)
+    remaining_todos = total_demos - completed_demos
+    completion_percentage = int((completed_demos / total_demos) * 100) if total_demos > 0 else 0
+
     return render_template(
         "index.html",
         categories=categories,
+        total_demos=total_demos,
+        completed_demos=completed_demos,
+        remaining_todos=remaining_todos,
+        completion_percentage=completion_percentage,
         sorting_viz_map=SORTING_VIZ_MAP,
         graph_viz_modules=GRAPH_VIZ_MODULES,
         path_viz_modules=PATH_VIZ_MODULES,

@@ -42,7 +42,15 @@
       <nav class="primary-nav flex flex-wrap items-center gap-2 text-sm" aria-label="Main">
         <a href="{{ url_for('index') }}"
            class="{{ 'active' if ep == 'index' else '' }}"
-           {% if ep == 'index' %}aria-current="page"{% endif %}>Home</a>
+           {% if ep == 'index' %}aria-current="page"{% endif %}>Dashboard</a>
+        <a href="{{ url_for('index') }}?view=algorithms"
+           class="{{ 'active' if request.args.get('view') == 'algorithms' else '' }}">Algorithms</a>
+        <a href="{{ url_for('index') }}?view=leetcode"
+           class="{{ 'active' if request.args.get('view') == 'leetcode' else '' }}">LeetCode</a>
+        <a href="{{ url_for('index') }}?view=visualizations"
+           class="{{ 'active' if request.args.get('view') == 'visualizations' else '' }}">Visualizations</a>
+        <a href="{{ url_for('index') }}?view=progress"
+           class="{{ 'active' if request.args.get('view') == 'progress' else '' }}">Progress</a>
         <a href="{{ url_for('big_o_guide') }}"
            class="{{ 'active' if ep == 'big_o_guide' else '' }}"
            {% if ep == 'big_o_guide' %}aria-current="page"{% endif %}>Big-O Guide</a>

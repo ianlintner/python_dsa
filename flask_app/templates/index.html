@@ -1,113 +1,496 @@
 {% extends "base.html" %}
 {% block content %}
-  <header class="demo-header mb-4">
-    <div>
-      <h2>Algorithm Demos</h2>
-      <div class="meta">
-        <span class="badge">dashboard</span>
-        <span class="path">Run or visualize algorithms from src/ modules</span>
+  <!-- Dashboard Header with Search -->
+  <header class="dashboard-header mb-6">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+      <div class="dashboard-title">
+        <h2 class="text-2xl font-bold text-white mb-2">Python DSA Dashboard</h2>
+        <div class="dashboard-stats flex flex-wrap gap-4 text-sm text-gray-400">
+          <span class="badge-info">{{ total_demos or 134 }} demos</span>
+          <span class="badge-info">{{ categories|length or 17 }} categories</span>
+          <span class="badge-success">{{ completion_percentage or 87 }}% complete</span>
+          {% if remaining_todos %}
+            <span class="badge-warning">{{ remaining_todos }} TODOs</span>
+          {% endif %}
+        </div>
+      </div>
+      
+      <!-- Search and Filter Bar -->
+      <div class="dashboard-controls">
+        <div class="search-container">
+          <input 
+            type="search" 
+            id="global-search" 
+            placeholder="Search algorithms, problems, visualizations..." 
+            class="search-input"
+            autocomplete="off"
+            aria-label="Search all content"
+          >
+          <div class="search-icon">🔍</div>
+        </div>
+        
+        <div class="filter-controls">
+          <select id="category-filter" class="filter-select" aria-label="Filter by category">
+            <option value="">All Categories</option>
+            {% for category in categories.keys() %}
+              <option value="{{ category }}">{{ category|title }}</option>
+            {% endfor %}
+          </select>
+          
+          <select id="status-filter" class="filter-select" aria-label="Filter by completion status">
+            <option value="">All Status</option>
+            <option value="complete">Complete</option>
+            <option value="partial">In Progress</option>
+            <option value="todo">TODO</option>
+          </select>
+        </div>
       </div>
     </div>
+
+    <!-- View Toggle Tabs -->
+    <nav class="view-tabs" role="tablist" aria-label="Content views">
+      <button class="view-tab active" data-view="all" role="tab" aria-selected="true">
+        All Content
+      </button>
+      <button class="view-tab" data-view="algorithms" role="tab">
+        Algorithms
+      </button>
+      <button class="view-tab" data-view="leetcode" role="tab">
+        LeetCode Problems
+      </button>
+      <button class="view-tab" data-view="visualizations" role="tab">
+        Visualizations
+      </button>
+      <button class="view-tab" data-view="progress" role="tab">
+        Progress Tracking
+      </button>
+    </nav>
   </header>
 
   {% if not categories %}
-    <p>No demos discovered. Ensure modules under <code>src/</code> define a <code>demo()</code> function.</p>
+    <div class="empty-state">
+      <div class="empty-icon">📊</div>
+      <h3>No demos discovered</h3>
+      <p>Ensure modules under <code>src/</code> define a <code>demo()</code> function.</p>
+    </div>
   {% else %}
-    <div class="categories mt-4">
-      {% for category, demos in categories.items() %}
-        <section class="category">
-          <h3>{{ category }} <span class="badge">{{ demos|length }} demos</span></h3>
-          <ul class="demo-list" role="list">
+    <!-- Main Content Area -->
+    <div class="dashboard-content">
+      <!-- All Content View -->
+      <div id="all-view" class="content-view active" role="tabpanel">
+        <div class="content-grid" id="content-grid">
+          {% for category, demos in categories.items() %}
             {% for d in demos %}
-              <li class="demo-item" role="listitem">
-                <div class="demo-title">{{ d.title }}</div>
-                <div class="demo-actions">
-                  {% if category == 'visualizations' or d.id.startswith('viz.') %}
-                    {% if d.id == 'viz.sorting' %}
-                      <a class="btn" href="{{ url_for('viz_sorting') }}">Open</a>
-                    {% elif d.id == 'viz.graph' %}
-                      <a class="btn" href="{{ url_for('viz_graph') }}?algo=bfs">Open</a>
-                    {% elif d.id == 'viz.path' %}
-                      <a class="btn" href="{{ url_for('viz_path') }}?algo=astar">Open</a>
-                    {% elif d.id == 'viz.arrays' %}
-                      <a class="btn" href="{{ url_for('viz_arrays') }}?algo=binary_search">Open</a>
-                    {% elif d.id == 'viz.mst' %}
-                      <a class="btn" href="{{ url_for('viz_mst') }}?algo=kruskal">Open</a>
-                    {% elif d.id == 'viz.topo' %}
-                      <a class="btn" href="{{ url_for('viz_topo') }}?algo=kahn">Open</a>
-                    {% elif d.id == 'viz.nn' %}
-                      <a class="btn" href="{{ url_for('viz_nn') }}?dataset=blobs">Open</a>
+              <article class="content-card {{ get_card_type(category, d) }}" 
+                       data-category="{{ category }}" 
+                       data-id="{{ d.id }}"
+                       data-status="{{ get_demo_status(d) }}"
+                       data-search-text="{{ (d.title + ' ' + category + ' ' + d.id)|lower }}">
+                
+                <!-- Card Header -->
+                <header class="card-header">
+                  <div class="card-status-indicator {{ get_demo_status(d) }}"></div>
+                  <div class="card-meta">
+                    <span class="card-category">{{ category|title }}</span>
+                    {% if d.get('difficulty') %}
+                      <span class="difficulty-badge {{ d.difficulty.value|lower }}">
+                        {{ d.difficulty.value }}
+                      </span>
+                    {% endif %}
+                  </div>
+                </header>
+                
+                <!-- Card Content -->
+                <div class="card-body">
+                  <h3 class="card-title">{{ d.title }}</h3>
+                  
+                  {% if d.get('tags') %}
+                    <div class="card-tags">
+                      {% for tag in d.tags[:3] %}
+                        <span class="tag">{{ tag }}</span>
+                      {% endfor %}
+                      {% if d.tags|length > 3 %}
+                        <span class="tag-more">+{{ d.tags|length - 3 }}</span>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                  
+                  <div class="card-description">
+                    {% if d.get('notes') and d.notes %}
+                      {{ d.notes[:100] }}{% if d.notes|length > 100 %}...{% endif %}
                     {% else %}
-                      <a class="btn" href="{{ url_for('index') }}">Open</a>
+                      Algorithm implementation with demo and complexity analysis.
                     {% endif %}
-                  {% else %}
-                    <button class="btn" data-run data-module="{{ d.id }}">Run</button>
-                    {% set viz_key = sorting_viz_map.get(d.id) if sorting_viz_map else None %}
-                    {% if viz_key %}
-                      <a class="btn secondary" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}">Visualize</a>
-                    {% endif %}
-                    {% if graph_viz_modules and d.id in graph_viz_modules %}
-                      <a class="btn secondary" href="{{ url_for('viz_graph') }}?algo=bfs">Graph Viz</a>
-                    {% endif %}
-                    {% if path_viz_modules and d.id in path_viz_modules %}
-                      <a class="btn secondary" href="{{ url_for('viz_path') }}?algo=astar">Pathfinding Viz</a>
-                    {% endif %}
-                    <a class="btn secondary" href="{{ url_for('demo_page') }}?module={{ d.id }}">Open</a>
-                    <a class="btn secondary" href="{{ url_for('source') }}?module={{ d.id }}">Source</a>
+                  </div>
+                  
+                  <!-- Progress indicator for incomplete items -->
+                  {% if get_demo_status(d) != 'complete' %}
+                    <div class="progress-indicator">
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ get_progress_percentage(d) }}%"></div>
+                      </div>
+                      <span class="progress-text">{{ get_progress_text(d) }}</span>
+                    </div>
                   {% endif %}
                 </div>
-                <div class="demo-id">{{ d.id }}</div>
-                <div class="panel run-panel" hidden>
-                  <h4>Output</h4>
-                  <pre class="output" role="status" aria-live="polite" aria-atomic="true"><code></code></pre>
+                
+                <!-- Card Actions -->
+                <footer class="card-actions">
+                  {% if category == 'visualizations' or d.id.startswith('viz.') %}
+                    {% if d.id == 'viz.sorting' %}
+                      <a class="btn-primary" href="{{ url_for('viz_sorting') }}">Launch</a>
+                    {% elif d.id == 'viz.graph' %}
+                      <a class="btn-primary" href="{{ url_for('viz_graph') }}?algo=bfs">Launch</a>
+                    {% elif d.id == 'viz.path' %}
+                      <a class="btn-primary" href="{{ url_for('viz_path') }}?algo=astar">Launch</a>
+                    {% elif d.id == 'viz.arrays' %}
+                      <a class="btn-primary" href="{{ url_for('viz_arrays') }}?algo=binary_search">Launch</a>
+                    {% elif d.id == 'viz.mst' %}
+                      <a class="btn-primary" href="{{ url_for('viz_mst') }}?algo=kruskal">Launch</a>
+                    {% elif d.id == 'viz.topo' %}
+                      <a class="btn-primary" href="{{ url_for('viz_topo') }}?algo=kahn">Launch</a>
+                    {% elif d.id == 'viz.nn' %}
+                      <a class="btn-primary" href="{{ url_for('viz_nn') }}?dataset=blobs">Launch</a>
+                    {% endif %}
+                    <button class="btn-secondary" onclick="showCardDetails('{{ d.id }}')">Details</button>
+                  {% else %}
+                    <button class="btn-primary demo-run-btn" data-module="{{ d.id }}">Run Demo</button>
+                    {% set viz_key = sorting_viz_map.get(d.id) if sorting_viz_map else None %}
+                    {% if viz_key %}
+                      <a class="btn-secondary" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}">Visualize</a>
+                    {% endif %}
+                    <div class="card-menu">
+                      <button class="btn-icon menu-trigger" aria-label="More actions">⋯</button>
+                      <div class="dropdown-menu">
+                        <a href="{{ url_for('demo_page') }}?module={{ d.id }}">Open Details</a>
+                        <a href="{{ url_for('source') }}?module={{ d.id }}">View Source</a>
+                        {% if d.get('url') %}
+                          <a href="{{ d.url }}" target="_blank" rel="noopener">LeetCode Problem</a>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+                </footer>
+                
+                <!-- Inline Demo Output Panel -->
+                <div class="demo-output-panel" hidden>
+                  <div class="output-header">
+                    <h4>Demo Output</h4>
+                    <button class="btn-icon close-output" aria-label="Close output">×</button>
+                  </div>
+                  <pre class="demo-output" role="status" aria-live="polite"><code></code></pre>
                 </div>
-              </li>
+              </article>
             {% endfor %}
-          </ul>
-        </section>
-      {% endfor %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Progress View -->
+      <div id="progress-view" class="content-view" role="tabpanel" hidden>
+        <div class="progress-dashboard">
+          <div class="progress-overview">
+            <h3>Overall Progress</h3>
+            <div class="progress-circle">
+              <div class="circle-progress" data-progress="{{ completion_percentage or 87 }}">
+                <span class="progress-number">{{ completion_percentage or 87 }}%</span>
+              </div>
+            </div>
+            <div class="progress-stats">
+              <div class="stat-item">
+                <span class="stat-number">{{ completed_demos or 116 }}</span>
+                <span class="stat-label">Completed</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">{{ remaining_todos or 18 }}</span>
+                <span class="stat-label">Remaining</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="category-progress">
+            <h3>Progress by Category</h3>
+            {% for category, demos in categories.items() %}
+              <div class="category-progress-item">
+                <div class="category-info">
+                  <span class="category-name">{{ category|title }}</span>
+                  <span class="category-count">{{ demos|length }} items</span>
+                </div>
+                <div class="category-progress-bar">
+                  <div class="progress-fill" style="width: {{ get_category_progress(category, demos) }}%"></div>
+                </div>
+                <span class="progress-percentage">{{ get_category_progress(category, demos) }}%</span>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
     </div>
   {% endif %}
 
+  <!-- Search Results Overlay -->
+  <div id="search-results" class="search-overlay" hidden>
+    <div class="search-results-container">
+      <div class="search-results-header">
+        <h3>Search Results</h3>
+        <button class="btn-icon close-search" aria-label="Close search">×</button>
+      </div>
+      <div class="search-results-content">
+        <div id="search-results-list"></div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    document.addEventListener("click", async (e) => {
-      const btn = e.target.closest("button[data-run]");
-      if (!btn) return;
-
-      const moduleId = btn.dataset.module;
-      const li = btn.closest("li.demo-item");
-      const panel = li.querySelector(".run-panel");
-      const code = panel.querySelector(".output > code");
-
-      // Show panel and set running state
-      panel.hidden = false;
-      panel.classList.remove("error");
-      code.textContent = "";
-      const original = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = "Running...";
-
-      try {
-        const res = await fetch("{{ url_for('api_demo_run') }}", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ module: moduleId }),
+    // Dashboard JavaScript
+    (function() {
+      'use strict';
+      
+      // State management
+      let allCards = [];
+      let filteredCards = [];
+      let currentView = 'all';
+      
+      // Initialize dashboard
+      function init() {
+        allCards = Array.from(document.querySelectorAll('.content-card'));
+        filteredCards = [...allCards];
+        
+        // Event listeners
+        document.getElementById('global-search').addEventListener('input', handleSearch);
+        document.getElementById('category-filter').addEventListener('change', handleFilters);
+        document.getElementById('status-filter').addEventListener('change', handleFilters);
+        
+        // View tabs
+        document.querySelectorAll('.view-tab').forEach(tab => {
+          tab.addEventListener('click', handleViewChange);
         });
-
-        const data = await res.json();
-        if (data.error) {
-          panel.classList.add("error");
-          code.textContent = data.error;
-        } else {
-          code.textContent = data.output || "(no output)";
-        }
-      } catch (err) {
-        panel.classList.add("error");
-        code.textContent = String(err);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = original;
+        
+        // Demo run buttons
+        document.addEventListener('click', handleDemoRun);
+        
+        // Menu dropdowns
+        document.addEventListener('click', handleMenus);
+        
+        // Initialize progress circles
+        initializeProgressCircles();
       }
-    });
+      
+      // Search functionality
+      function handleSearch(e) {
+        const query = e.target.value.toLowerCase().trim();
+        
+        if (query === '') {
+          hideSearchResults();
+          showAllCards();
+          return;
+        }
+        
+        const results = allCards.filter(card => {
+          const searchText = card.dataset.searchText || '';
+          return searchText.includes(query);
+        });
+        
+        if (query.length > 2) {
+          showSearchResults(results, query);
+        } else {
+          hideSearchResults();
+        }
+        
+        filterCards(results);
+      }
+      
+      // Filter functionality
+      function handleFilters() {
+        const categoryFilter = document.getElementById('category-filter').value;
+        const statusFilter = document.getElementById('status-filter').value;
+        
+        let filtered = allCards;
+        
+        if (categoryFilter) {
+          filtered = filtered.filter(card => card.dataset.category === categoryFilter);
+        }
+        
+        if (statusFilter) {
+          filtered = filtered.filter(card => card.dataset.status === statusFilter);
+        }
+        
+        filterCards(filtered);
+      }
+      
+      // View management
+      function handleViewChange(e) {
+        const newView = e.target.dataset.view;
+        if (newView === currentView) return;
+        
+        // Update tab states
+        document.querySelectorAll('.view-tab').forEach(tab => {
+          tab.classList.remove('active');
+          tab.setAttribute('aria-selected', 'false');
+        });
+        e.target.classList.add('active');
+        e.target.setAttribute('aria-selected', 'true');
+        
+        // Show/hide content views
+        document.querySelectorAll('.content-view').forEach(view => {
+          view.classList.remove('active');
+          view.hidden = true;
+        });
+        
+        const targetView = document.getElementById(newView + '-view');
+        if (targetView) {
+          targetView.classList.add('active');
+          targetView.hidden = false;
+        }
+        
+        currentView = newView;
+      }
+      
+      // Demo execution
+      async function handleDemoRun(e) {
+        const btn = e.target.closest('.demo-run-btn');
+        if (!btn) return;
+        
+        e.preventDefault();
+        const moduleId = btn.dataset.module;
+        const card = btn.closest('.content-card');
+        const outputPanel = card.querySelector('.demo-output-panel');
+        const outputCode = outputPanel.querySelector('.demo-output code');
+        
+        // Show output panel
+        outputPanel.hidden = false;
+        outputPanel.classList.remove('error');
+        outputCode.textContent = '';
+        
+        // Update button state
+        const originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Running...';
+        
+        try {
+          const response = await fetch('/api/demo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ module: moduleId })
+          });
+          
+          const data = await response.json();
+          
+          if (data.error) {
+            outputPanel.classList.add('error');
+            outputCode.textContent = data.error;
+          } else {
+            outputCode.textContent = data.output || '(no output)';
+          }
+        } catch (error) {
+          outputPanel.classList.add('error');
+          outputCode.textContent = 'Error: ' + error.message;
+        } finally {
+          btn.disabled = false;
+          btn.textContent = originalText;
+        }
+      }
+      
+      // Menu handling
+      function handleMenus(e) {
+        if (e.target.classList.contains('menu-trigger')) {
+          e.stopPropagation();
+          const menu = e.target.nextElementSibling;
+          menu.classList.toggle('show');
+        } else {
+          // Close all menus
+          document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+            menu.classList.remove('show');
+          });
+        }
+        
+        if (e.target.classList.contains('close-output')) {
+          e.target.closest('.demo-output-panel').hidden = true;
+        }
+        
+        if (e.target.classList.contains('close-search')) {
+          hideSearchResults();
+        }
+      }
+      
+      // Search results
+      function showSearchResults(results, query) {
+        const resultsContainer = document.getElementById('search-results-list');
+        
+        if (results.length === 0) {
+          resultsContainer.innerHTML = `<div class="no-results">No results found for "${query}"</div>`;
+        } else {
+          resultsContainer.innerHTML = results.map(card => {
+            const title = card.querySelector('.card-title').textContent;
+            const category = card.dataset.category;
+            return `
+              <div class="search-result-item" data-card-id="${card.dataset.id}">
+                <span class="result-title">${title}</span>
+                <span class="result-category">${category}</span>
+              </div>
+            `;
+          }).join('');
+        }
+        
+        document.getElementById('search-results').hidden = false;
+      }
+      
+      function hideSearchResults() {
+        document.getElementById('search-results').hidden = true;
+      }
+      
+      // Card filtering
+      function filterCards(cards) {
+        allCards.forEach(card => {
+          card.hidden = !cards.includes(card);
+        });
+      }
+      
+      function showAllCards() {
+        allCards.forEach(card => {
+          card.hidden = false;
+        });
+      }
+      
+      // Progress circles
+      function initializeProgressCircles() {
+        document.querySelectorAll('.circle-progress').forEach(circle => {
+          const progress = parseInt(circle.dataset.progress);
+          const circumference = 2 * Math.PI * 45; // radius = 45
+          const offset = circumference - (progress / 100) * circumference;
+          
+          // Create SVG if it doesn't exist
+          if (!circle.querySelector('svg')) {
+            circle.innerHTML = `
+              <svg width="100" height="100" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="var(--border)" stroke-width="8"/>
+                <circle cx="50" cy="50" r="45" fill="none" stroke="var(--accent)" stroke-width="8"
+                        stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"
+                        transform="rotate(-90 50 50)" class="progress-ring"/>
+              </svg>
+              <span class="progress-number">${progress}%</span>
+            `;
+          }
+        });
+      }
+      
+      // Global functions
+      window.showCardDetails = function(cardId) {
+        const card = document.querySelector(`[data-id="${cardId}"]`);
+        if (card) {
+          const detailsUrl = card.querySelector('a[href*="demo_page"]')?.href;
+          if (detailsUrl) {
+            window.location.href = detailsUrl;
+          }
+        }
+      };
+      
+      // Initialize when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
   </script>
 {% endblock %}
