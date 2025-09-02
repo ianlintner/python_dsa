@@ -85,7 +85,7 @@
                        data-category="{{ category }}" 
                        data-id="{{ d.id }}"
                        data-status="{{ get_demo_status(d) }}"
-                       data-search-text="{{ (d.title + ' ' + category + ' ' + d.id)|lower }}">
+                       data-search-text="{{ (d.title + ' ' + category + ' ' + d.id|string)|lower }}">
                 
                 <!-- Card Header -->
                 <header class="card-header">
@@ -136,7 +136,7 @@
                 
                 <!-- Card Actions -->
                 <footer class="card-actions">
-                  {% if category == 'visualizations' or d.id.startswith('viz.') %}
+                  {% if category == 'visualizations' or (d.id|string).startswith('viz.') %}
                     {% if d.id == 'viz.sorting' %}
                       <a class="btn-primary" href="{{ url_for('viz_sorting') }}">Launch</a>
                     {% elif d.id == 'viz.graph' %}

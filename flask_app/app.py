@@ -249,7 +249,9 @@ PATH_VIZ_MODULES = {
 @app.context_processor
 def utility_processor():
     def get_card_type(category, demo):
-        if category == 'visualizations' or demo['id'].startswith('viz.'):
+        # Add a check for the existence of 'id' and its type
+        demo_id = demo.get('id')
+        if category == 'visualizations' or (isinstance(demo_id, str) and demo_id.startswith('viz.')):
             return 'visualization-card'
         if 'leetcode' in category:
             return 'leetcode-card'
