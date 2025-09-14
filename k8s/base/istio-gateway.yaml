@@ -15,7 +15,7 @@ spec:
         - "dsa.hugecat.net"
       tls:
         mode: SIMPLE
-        credentialName: dsa-tls-cert
+        credentialName: python-dsa-tls-cert
     - port:
         number: 80
         name: http
