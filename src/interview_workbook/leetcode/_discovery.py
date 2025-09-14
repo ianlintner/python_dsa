@@ -15,12 +15,12 @@ def ensure_problems_loaded():
     This ensures that `register_problem()` calls defined in each file are executed.
     """
     pkg_dir = pathlib.Path(__file__).parent
-    pkg_name = "src.interview_workbook.leetcode" # Use a fixed path
-    
+    pkg_name = "src.interview_workbook.leetcode"  # Use a fixed path
+
     for _, module_name, is_pkg in pkgutil.iter_modules([str(pkg_dir)]):
         if module_name.startswith("_"):
             continue
-        
+
         if is_pkg:
             sub_pkg_dir = pkg_dir / module_name
             sub_pkg_name = f"{pkg_name}.{module_name}"

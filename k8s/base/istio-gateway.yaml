@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: python-dsa-gateway
+  namespace: prod
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      hosts:
+        - "dsa.hugecat.net"
+      tls:
+        mode: SIMPLE
+        credentialName: dsa-tls-cert
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "dsa.hugecat.net"

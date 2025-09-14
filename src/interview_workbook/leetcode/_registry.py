@@ -52,6 +52,7 @@ def by_slug(slug: str) -> Optional[dict]:
 def get_all() -> list[dict]:
     """Return a shallow copy of all problems in the manifest (with module metadata)."""
     from ._discovery import ensure_problems_loaded
+
     ensure_problems_loaded()
     return PROBLEMS.copy()
 

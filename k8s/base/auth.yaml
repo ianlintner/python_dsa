@@ -1,0 +1,11 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: python-dsa-policy
+  namespace: prod
+spec:
+  action: ALLOW
+  rules:
+    - to:
+        - operation:
+            methods: ["*"]

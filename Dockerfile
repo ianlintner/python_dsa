@@ -16,7 +16,8 @@ RUN apt-get update \
 # Install Python dependencies
 COPY pyproject.toml poetry.lock* requirements.txt* ./
 RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
+    && pip install -r requirements.txt \
+    && pip install gunicorn
 
 # Copy project
 COPY . .
@@ -24,5 +25,5 @@ COPY . .
 # Expose port for Flask app
 EXPOSE 5000
 
-# Default command to run Flask app
-CMD ["python", "-m", "flask_app.app"]
+# Default command to run Flask app with Gunicorn
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "flask_app.app:app"]

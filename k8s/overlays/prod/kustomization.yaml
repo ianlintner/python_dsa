@@ -3,3 +3,6 @@ kind: Kustomization
 namespace: prod
 resources:
   - ../../base
+
+transformers:
+  - transformers/cert-namespace-patch.yaml

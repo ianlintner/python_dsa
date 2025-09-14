@@ -250,39 +250,41 @@ PATH_VIZ_MODULES = {
 def utility_processor():
     def get_card_type(category, demo):
         # Add a check for the existence of 'id' and its type
-        demo_id = demo.get('id')
-        if category == 'visualizations' or (isinstance(demo_id, str) and demo_id.startswith('viz.')):
-            return 'visualization-card'
-        if 'leetcode' in category:
-            return 'leetcode-card'
-        return 'algorithm-card'
+        demo_id = demo.get("id")
+        if category == "visualizations" or (
+            isinstance(demo_id, str) and demo_id.startswith("viz.")
+        ):
+            return "visualization-card"
+        if "leetcode" in category:
+            return "leetcode-card"
+        return "algorithm-card"
 
     def get_demo_status(demo):
         # Placeholder logic for demo status
-        if 'TODO' in demo.get('title', '').upper():
-            return 'todo'
-        if demo.get('id') and hash(demo['id']) % 5 == 0:
-            return 'partial'
-        return 'complete'
+        if "TODO" in demo.get("title", "").upper():
+            return "todo"
+        if demo.get("id") and hash(demo["id"]) % 5 == 0:
+            return "partial"
+        return "complete"
 
     def get_progress_percentage(demo):
         status = get_demo_status(demo)
-        if status == 'complete':
+        if status == "complete":
             return 100
-        if status == 'partial':
+        if status == "partial":
             return 50
         return 0
 
     def get_progress_text(demo):
         status = get_demo_status(demo)
-        if status == 'complete':
+        if status == "complete":
             return "Completed"
-        if status == 'partial':
+        if status == "partial":
             return "In Progress"
         return "Not Started"
-        
+
     def get_category_progress(category, demos):
-        completed = sum(1 for d in demos if get_demo_status(d) == 'complete')
+        completed = sum(1 for d in demos if get_demo_status(d) == "complete")
         return int((completed / len(demos)) * 100) if demos else 0
 
     return dict(
@@ -298,11 +300,10 @@ def utility_processor():
 def index():
     # Build categories with additional top-level visualization entries for the dashboard
     categories = {k: v[:] for k, v in get_categories().items()}
-    
+
     # Add LeetCode problems to categories
     from src.interview_workbook.leetcode._registry import get_all as get_all_leetcode
-    from src.interview_workbook.leetcode._types import Category
-    
+
     leetcode_problems = get_all_leetcode()
     for problem in leetcode_problems:
         category_key = f"leetcode/{problem['category'].value}"
@@ -311,13 +312,55 @@ def index():
     # Add visualizations
     categories.setdefault("visualizations", [])
     visualizations = [
-        {"id": "viz.sorting", "title": "Sorting Visualizations", "category": "visualizations", "module": "viz.sorting", "path": "flask_app/visualizations/sorting_viz.py"},
-        {"id": "viz.graph", "title": "Graph Traversal (BFS/DFS)", "category": "visualizations", "module": "viz.graph", "path": "flask_app/visualizations/graph_viz.py"},
-        {"id": "viz.path", "title": "Pathfinding (A*/Dijkstra/BFS/GBFS)", "category": "visualizations", "module": "viz.path", "path": "flask_app/visualizations/path_viz.py"},
-        {"id": "viz.arrays", "title": "Array Techniques", "category": "visualizations", "module": "viz.arrays", "path": "flask_app/visualizations/array_viz.py"},
-        {"id": "viz.mst", "title": "Minimum Spanning Tree (Kruskal/Prim)", "category": "visualizations", "module": "viz.mst", "path": "flask_app/visualizations/mst_viz.py"},
-        {"id": "viz.topo", "title": "Topological Sort (Kahn)", "category": "visualizations", "module": "viz.topo", "path": "flask_app/visualizations/topo_viz.py"},
-        {"id": "viz.nn", "title": "Neural Network (MLP Classifier)", "category": "visualizations", "module": "viz.nn", "path": "flask_app/visualizations/nn_viz.py"},
+        {
+            "id": "viz.sorting",
+            "title": "Sorting Visualizations",
+            "category": "visualizations",
+            "module": "viz.sorting",
+            "path": "flask_app/visualizations/sorting_viz.py",
+        },
+        {
+            "id": "viz.graph",
+            "title": "Graph Traversal (BFS/DFS)",
+            "category": "visualizations",
+            "module": "viz.graph",
+            "path": "flask_app/visualizations/graph_viz.py",
+        },
+        {
+            "id": "viz.path",
+            "title": "Pathfinding (A*/Dijkstra/BFS/GBFS)",
+            "category": "visualizations",
+            "module": "viz.path",
+            "path": "flask_app/visualizations/path_viz.py",
+        },
+        {
+            "id": "viz.arrays",
+            "title": "Array Techniques",
+            "category": "visualizations",
+            "module": "viz.arrays",
+            "path": "flask_app/visualizations/array_viz.py",
+        },
+        {
+            "id": "viz.mst",
+            "title": "Minimum Spanning Tree (Kruskal/Prim)",
+            "category": "visualizations",
+            "module": "viz.mst",
+            "path": "flask_app/visualizations/mst_viz.py",
+        },
+        {
+            "id": "viz.topo",
+            "title": "Topological Sort (Kahn)",
+            "category": "visualizations",
+            "module": "viz.topo",
+            "path": "flask_app/visualizations/topo_viz.py",
+        },
+        {
+            "id": "viz.nn",
+            "title": "Neural Network (MLP Classifier)",
+            "category": "visualizations",
+            "module": "viz.nn",
+            "path": "flask_app/visualizations/nn_viz.py",
+        },
     ]
     categories["visualizations"].extend(visualizations)
 

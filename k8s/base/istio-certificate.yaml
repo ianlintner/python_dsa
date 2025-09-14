@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: python-dsa-tls-cert
+  labels:
+    app: python-dsa
+spec:
+  secretName: python-dsa-tls-cert
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - dsa.hugecat.net

@@ -3,4 +3,11 @@ kind: Kustomization
 
 resources:
   - deployment.yaml
+  - dns.yaml
   - service.yaml
+  - istio-gateway.yaml
+  - istio-virtualservice.yaml
+  - istio-certificate.yaml
+  - auth.yaml
+  - serviceaccount.yaml
+
