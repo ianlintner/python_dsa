@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-dsa
+  labels:
+    app: python-dsa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-dsa
+  template:
+    metadata:
+      labels:
+        app: python-dsa
+    spec:
+      containers:
+        - name: python-dsa
+          image: us-central1-docker.pkg.dev/kame-457417/kame-house-images/python-dsa:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
