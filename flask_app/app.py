@@ -260,39 +260,12 @@ def utility_processor():
         return "algorithm-card"
 
     def get_demo_status(demo):
-        # Placeholder logic for demo status
-        if "TODO" in demo.get("title", "").upper():
-            return "todo"
-        if demo.get("id") and hash(demo["id"]) % 5 == 0:
-            return "partial"
-        return "complete"
-
-    def get_progress_percentage(demo):
-        status = get_demo_status(demo)
-        if status == "complete":
-            return 100
-        if status == "partial":
-            return 50
-        return 0
-
-    def get_progress_text(demo):
-        status = get_demo_status(demo)
-        if status == "complete":
-            return "Completed"
-        if status == "partial":
-            return "In Progress"
-        return "Not Started"
-
-    def get_category_progress(category, demos):
-        completed = sum(1 for d in demos if get_demo_status(d) == "complete")
-        return int((completed / len(demos)) * 100) if demos else 0
+        # Simplified: no progress tracking
+        return "ok"
 
     return dict(
         get_card_type=get_card_type,
         get_demo_status=get_demo_status,
-        get_progress_percentage=get_progress_percentage,
-        get_progress_text=get_progress_text,
-        get_category_progress=get_category_progress,
     )
 
 

@@ -22,9 +22,9 @@ def test_index_page(client):
     assert resp.status_code == 200
     # Dashboard should contain some known entries injected at runtime
     assert b"Sorting Visualizations" in resp.data
-    # Ensure progress UI is not present
+    # Ensure no remnants of old progress UI
     page = resp.data.lower()
-    assert b"progress-tracking" not in page
+    assert b"progress" not in page
     assert b"todos" not in page
 
 

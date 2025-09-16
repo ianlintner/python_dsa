@@ -8,7 +8,7 @@
         <div class="dashboard-stats flex flex-wrap gap-4 text-sm text-gray-400">
           <span class="badge-info">{{ total_demos or 134 }} demos</span>
           <span class="badge-info">{{ categories|length or 17 }} categories</span>
-          <span class="badge-success">{{ completion_percentage or 87 }}% complete</span>
+          <!-- Removed old completion percentage -->
           {% if remaining_todos %}
             <span class="badge-warning">{{ remaining_todos }} TODOs</span>
           {% endif %}
@@ -37,12 +37,7 @@
             {% endfor %}
           </select>
           
-          <select id="status-filter" class="filter-select" aria-label="Filter by completion status">
-            <option value="">All Status</option>
-            <option value="complete">Complete</option>
-            <option value="partial">In Progress</option>
-            <option value="todo">TODO</option>
-          </select>
+          <!-- Removed old status filter -->
         </div>
       </div>
     </div>
@@ -61,9 +56,7 @@
       <button class="view-tab" data-view="visualizations" role="tab">
         Visualizations
       </button>
-      <button class="view-tab" data-view="progress" role="tab">
-        Progress Tracking
-      </button>
+      <!-- Removed old tab -->
     </nav>
   </header>
 
@@ -123,15 +116,7 @@
                     {% endif %}
                   </div>
                   
-                  <!-- Progress indicator for incomplete items -->
-                  {% if get_demo_status(d) != 'complete' %}
-                    <div class="progress-indicator">
-                      <div class="progress-bar">
-                        <div class="progress-fill" style="width: {{ get_progress_percentage(d) }}%"></div>
-                      </div>
-                      <span class="progress-text">{{ get_progress_text(d) }}</span>
-                    </div>
-                  {% endif %}
+                  <!-- Removed old indicator -->
                 </div>
                 
                 <!-- Card Actions -->
@@ -220,7 +205,7 @@
         // Event listeners
         document.getElementById('global-search').addEventListener('input', handleSearch);
         document.getElementById('category-filter').addEventListener('change', handleFilters);
-        document.getElementById('status-filter').addEventListener('change', handleFilters);
+        // Removed old status filter listener
         
         // View tabs
         document.querySelectorAll('.view-tab').forEach(tab => {
@@ -233,8 +218,7 @@
         // Menu dropdowns
         document.addEventListener('click', handleMenus);
         
-        // Initialize progress circles
-        initializeProgressCircles();
+        // Removed old initialization
       }
       
       // Search functionality
@@ -264,16 +248,10 @@
       // Filter functionality
       function handleFilters() {
         const categoryFilter = document.getElementById('category-filter').value;
-        const statusFilter = document.getElementById('status-filter').value;
-        
         let filtered = allCards;
         
         if (categoryFilter) {
           filtered = filtered.filter(card => card.dataset.category === categoryFilter);
-        }
-        
-        if (statusFilter) {
-          filtered = filtered.filter(card => card.dataset.status === statusFilter);
         }
         
         filterCards(filtered);
