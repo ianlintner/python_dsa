@@ -139,20 +139,13 @@
                     {% endif %}
                     <button class="btn-secondary" onclick="showCardDetails('{{ d.id }}')">Details</button>
                   {% else %}
-                    <button class="btn-primary demo-run-btn" data-module="{{ d.id }}">Run Demo</button>
-                    {% set viz_key = sorting_viz_map.get(d.id) if sorting_viz_map else None %}
-                    {% if viz_key %}
-                      <a class="btn-secondary" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}">Visualize</a>
-                    {% endif %}
-                    <div class="card-menu">
-                      <button class="btn-icon menu-trigger" aria-label="More actions">⋯</button>
-                      <div class="dropdown-menu">
-                        <a href="{{ url_for('demo_page') }}?module={{ d.id }}">Open Details</a>
-                        <a href="{{ url_for('source') }}?module={{ d.id }}">View Source</a>
-                        {% if d.get('url') %}
-                          <a href="{{ d.url }}" target="_blank" rel="noopener">LeetCode Problem</a>
-                        {% endif %}
-                      </div>
+                    <div class="card-action-icons">
+                      <button class="btn-icon demo-run-btn" data-module="{{ d.id }}" aria-label="Run Demo">▶️</button>
+                      {% set viz_key = sorting_viz_map.get(d.id) if sorting_viz_map else None %}
+                      {% if viz_key %}
+                        <a class="btn-icon" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}" aria-label="Visualize">📊</a>
+                      {% endif %}
+                      <a class="btn-icon" href="{{ url_for('source') }}?module={{ d.id }}" aria-label="View Source">📄</a>
                     </div>
                   {% endif %}
                 </footer>
@@ -254,6 +247,11 @@
           filtered = filtered.filter(card => card.dataset.category === categoryFilter);
         }
         
+        // Also respect current view
+        if (currentView !== 'all') {
+          filtered = filtered.filter(card => card.dataset.category === currentView);
+        }
+        
         filterCards(filtered);
       }
       
@@ -283,6 +281,9 @@
         }
         
         currentView = newView;
+        
+        // Reapply filters when view changes
+        handleFilters();
       }
       
       // Demo execution
