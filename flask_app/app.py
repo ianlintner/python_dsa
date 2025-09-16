@@ -404,7 +404,7 @@ def demo_run():
 
     output, error = None, None
     try:
-        output = run_demo(module)
+        output = run_demo(meta["module"])
     except Exception as e:
         error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
 
@@ -421,8 +421,20 @@ def api_demo_run():
         module = data.get("module")
     if not module:
         return jsonify({"error": "Missing module"}), 400
+    meta = None
+    for demos in get_categories().values():
+        for d in demos:
+            if d["id"] == module:
+                meta = d
+                break
+        if meta:
+            break
+
+    if meta is None:
+        return jsonify({"output": None, "error": f"Demo not found for module {module}"}), 404
+
     try:
-        output = run_demo(module)
+        output = run_demo(meta["module"])
         return jsonify({"output": output, "error": None})
     except Exception as e:
         error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
