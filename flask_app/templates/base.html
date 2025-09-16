@@ -49,8 +49,6 @@
            class="{{ 'active' if request.args.get('view') == 'leetcode' else '' }}">LeetCode</a>
         <a href="{{ url_for('index') }}?view=visualizations"
            class="{{ 'active' if request.args.get('view') == 'visualizations' else '' }}">Visualizations</a>
-        <a href="{{ url_for('index') }}?view=progress"
-           class="{{ 'active' if request.args.get('view') == 'progress' else '' }}">Progress</a>
         <a href="{{ url_for('big_o_guide') }}"
            class="{{ 'active' if ep == 'big_o_guide' else '' }}"
            {% if ep == 'big_o_guide' %}aria-current="page"{% endif %}>Big-O Guide</a>

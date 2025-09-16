@@ -364,19 +364,9 @@ def index():
     ]
     categories["visualizations"].extend(visualizations)
 
-    total_demos = sum(len(demos) for demos in categories.values())
-    # Placeholder for completion stats
-    completed_demos = int(total_demos * 0.87)
-    remaining_todos = total_demos - completed_demos
-    completion_percentage = int((completed_demos / total_demos) * 100) if total_demos > 0 else 0
-
     return render_template(
         "index.html",
         categories=categories,
-        total_demos=total_demos,
-        completed_demos=completed_demos,
-        remaining_todos=remaining_todos,
-        completion_percentage=completion_percentage,
         sorting_viz_map=SORTING_VIZ_MAP,
         graph_viz_modules=GRAPH_VIZ_MODULES,
         path_viz_modules=PATH_VIZ_MODULES,

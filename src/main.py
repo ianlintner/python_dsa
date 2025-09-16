@@ -124,15 +124,7 @@ def discover_demos() -> dict[str, tuple[str, str]]:
 
 def get_all_demos() -> dict[str, tuple[str, str]]:
     """Get combined static and dynamically discovered demos."""
-    all_demos = DEMOS.copy()
-    discovered = discover_demos()
-
-    # Add discovered demos, avoiding conflicts with static ones
-    for key, value in discovered.items():
-        if key not in all_demos:
-            all_demos[key] = value
-
-    return all_demos
+    return discover_demos()
 
 
 def list_demos():

@@ -186,45 +186,6 @@
         </div>
       </div>
 
-      <!-- Progress View -->
-      <div id="progress-view" class="content-view" role="tabpanel" hidden>
-        <div class="progress-dashboard">
-          <div class="progress-overview">
-            <h3>Overall Progress</h3>
-            <div class="progress-circle">
-              <div class="circle-progress" data-progress="{{ completion_percentage or 87 }}">
-                <span class="progress-number">{{ completion_percentage or 87 }}%</span>
-              </div>
-            </div>
-            <div class="progress-stats">
-              <div class="stat-item">
-                <span class="stat-number">{{ completed_demos or 116 }}</span>
-                <span class="stat-label">Completed</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-number">{{ remaining_todos or 18 }}</span>
-                <span class="stat-label">Remaining</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="category-progress">
-            <h3>Progress by Category</h3>
-            {% for category, demos in categories.items() %}
-              <div class="category-progress-item">
-                <div class="category-info">
-                  <span class="category-name">{{ category|title }}</span>
-                  <span class="category-count">{{ demos|length }} items</span>
-                </div>
-                <div class="category-progress-bar">
-                  <div class="progress-fill" style="width: {{ get_category_progress(category, demos) }}%"></div>
-                </div>
-                <span class="progress-percentage">{{ get_category_progress(category, demos) }}%</span>
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
     </div>
   {% endif %}
 
@@ -452,27 +413,6 @@
         });
       }
       
-      // Progress circles
-      function initializeProgressCircles() {
-        document.querySelectorAll('.circle-progress').forEach(circle => {
-          const progress = parseInt(circle.dataset.progress);
-          const circumference = 2 * Math.PI * 45; // radius = 45
-          const offset = circumference - (progress / 100) * circumference;
-          
-          // Create SVG if it doesn't exist
-          if (!circle.querySelector('svg')) {
-            circle.innerHTML = `
-              <svg width="100" height="100" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="45" fill="none" stroke="var(--border)" stroke-width="8"/>
-                <circle cx="50" cy="50" r="45" fill="none" stroke="var(--accent)" stroke-width="8"
-                        stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"
-                        transform="rotate(-90 50 50)" class="progress-ring"/>
-              </svg>
-              <span class="progress-number">${progress}%</span>
-            `;
-          }
-        });
-      }
       
       // Global functions
       window.showCardDetails = function(cardId) {

@@ -22,6 +22,10 @@ def test_index_page(client):
     assert resp.status_code == 200
     # Dashboard should contain some known entries injected at runtime
     assert b"Sorting Visualizations" in resp.data
+    # Ensure progress UI is not present
+    assert b"Progress Tracking" not in resp.data
+    assert b"% complete" not in resp.data
+    assert b"TODOs" not in resp.data
 
 
 def test_big_o_page(client):

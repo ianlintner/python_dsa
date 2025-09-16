@@ -8,7 +8,7 @@ from flask_app.app import discover_demos, run_demo  # type: ignore
 def _seed_all():
     random.seed(0)
     try:
-        import numpy as _np  # type: ignore
+        import numpy as _np  # type: ignore  # noqa: F401
 
         _np.random.seed(0)
     except Exception:
@@ -49,3 +49,5 @@ def test_run_all_demos_headless():
         assert hasattr(mod, "demo"), f"Module {module_id} missing demo()"
         out = run_demo(module_id)
         assert isinstance(out, str)
+        # Ensure no progress tracking remnants in output (UI-related, not algorithm logs)
+        assert "progress tracking" not in out.lower()

@@ -101,7 +101,7 @@ def test_test_runner_infrastructure():
     ]
 
     # Run the test cases
-    results = run_test_cases(add, test_cases, "Addition Test", show_details=True)
+    results = run_test_cases(add, test_cases, "Addition Test")
 
     # Verify results format
     assert isinstance(results, str)

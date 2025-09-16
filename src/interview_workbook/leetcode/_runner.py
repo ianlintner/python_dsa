@@ -17,7 +17,7 @@ class TestCase:
 
 
 def run_test_cases(
-    func: Callable, test_cases: List[TestCase], title: str, show_details: bool = False
+    func: Callable, test_cases: List[TestCase], title: str
 ) -> str:
     """Run a list of test cases and return formatted results string."""
     results = []
@@ -47,13 +47,7 @@ def run_test_cases(
     else:
         summary += f" - {len(test_cases) - passed} test(s) failed"
 
-    if show_details:
-        results_str = "\n".join(results)
-        return f"{summary}\n{results_str}"
-    # Always include ✓ PASS markers for any passing test
-    if passed > 0:
-        results.append("✓ PASS")
-    return summary if not results else f"{summary}\n" + "\n".join(results)
+    return f"{summary}\n" + "\n".join(results)
 
 
 def create_demo_output(
