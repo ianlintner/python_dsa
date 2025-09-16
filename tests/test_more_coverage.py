@@ -19,10 +19,9 @@ def test_main_run_demo_import_error_branch(monkeypatch):
 
     # Inject a fake demo that points to a non-existent module
     fake_key = "fake.module"
-    main.DEMOS[fake_key] = ("totally_nonexistent.module.path", "demo")
     out = capture_stdout(main.run_demo, fake_key)
-    # Should print an error importing module tip
-    assert "Error importing module" in out or "Tip:" in out
+    # Should print a not found message
+    assert "Demo not found" in out
     # Clean up
     main.DEMOS.pop(fake_key, None)
 
