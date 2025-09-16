@@ -43,7 +43,7 @@ def demo():
     t4 = TreeNode(1, None, TreeNode(2))
     result2 = sol.solve(t3, t4)
 
-    return f"Same Tree Test 1 (identical): {result1}\n" f"Same Tree Test 2 (different): {result2}"
+    return f"Same Tree Test 1 (identical): {result1}\nSame Tree Test 2 (different): {result2}"
 
 
 # Register the problem with correct parameters

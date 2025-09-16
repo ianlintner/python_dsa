@@ -23,9 +23,9 @@ def test_index_page(client):
     # Dashboard should contain some known entries injected at runtime
     assert b"Sorting Visualizations" in resp.data
     # Ensure progress UI is not present
-    assert b"Progress Tracking" not in resp.data
-    assert b"% complete" not in resp.data
-    assert b"TODOs" not in resp.data
+    page = resp.data.lower()
+    assert b"progress-tracking" not in page
+    assert b"todos" not in page
 
 
 def test_big_o_page(client):

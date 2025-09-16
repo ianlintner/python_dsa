@@ -16,9 +16,7 @@ class TestCase:
         self.description = description
 
 
-def run_test_cases(
-    func: Callable, test_cases: List[TestCase], title: str
-) -> str:
+def run_test_cases(func: Callable, test_cases: List[TestCase], title: str) -> str:
     """Run a list of test cases and return formatted results string."""
     results = []
     passed = 0

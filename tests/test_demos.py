@@ -49,5 +49,7 @@ def test_run_all_demos_headless():
         assert hasattr(mod, "demo"), f"Module {module_id} missing demo()"
         out = run_demo(module_id)
         assert isinstance(out, str)
-        # Ensure no progress tracking remnants in output (UI-related, not algorithm logs)
+        # Ensure no progress tracking remnants in output (UI-related only)
         assert "progress tracking" not in out.lower()
+        assert "progress ui" not in out.lower()
+        # Do not assert on generic words like "complete" since they appear in algorithm logs
