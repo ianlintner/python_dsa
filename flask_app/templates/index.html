@@ -14,21 +14,21 @@
           {% endif %}
         </div>
       </div>
-      
+
       <!-- Search and Filter Bar -->
       <div class="dashboard-controls">
         <div class="search-container">
-          <input 
-            type="search" 
-            id="global-search" 
-            placeholder="Search algorithms, problems, visualizations..." 
+          <input
+            type="search"
+            id="global-search"
+            placeholder="Search algorithms, problems, visualizations..."
             class="search-input"
             autocomplete="off"
             aria-label="Search all content"
           >
           <div class="search-icon">🔍</div>
         </div>
-        
+
         <div class="filter-controls">
           <select id="category-filter" class="filter-select" aria-label="Filter by category">
             <option value="">All Categories</option>
@@ -36,7 +36,7 @@
               <option value="{{ category }}">{{ category|title }}</option>
             {% endfor %}
           </select>
-          
+
           <!-- Removed old status filter -->
         </div>
       </div>
@@ -74,12 +74,12 @@
         <div class="content-grid" id="content-grid">
           {% for category, demos in categories.items() %}
             {% for d in demos %}
-              <article class="content-card {{ get_card_type(category, d) }}" 
-                       data-category="{{ category }}" 
+              <article class="content-card {{ get_card_type(category, d) }}"
+                       data-category="{{ category }}"
                        data-id="{{ d.id }}"
                        data-status="{{ get_demo_status(d) }}"
                        data-search-text="{{ (d.title + ' ' + category + ' ' + d.id|string)|lower }}">
-                
+
                 <!-- Card Header -->
                 <header class="card-header">
                   <div class="card-status-indicator {{ get_demo_status(d) }}"></div>
@@ -92,11 +92,11 @@
                     {% endif %}
                   </div>
                 </header>
-                
+
                 <!-- Card Content -->
                 <div class="card-body">
                   <h3 class="card-title">{{ d.title }}</h3>
-                  
+
                   {% if d.get('tags') %}
                     <div class="card-tags">
                       {% for tag in d.tags[:3] %}
@@ -107,7 +107,7 @@
                       {% endif %}
                     </div>
                   {% endif %}
-                  
+
                   <div class="card-description">
                     {% if d.get('notes') and d.notes %}
                       {{ d.notes[:100] }}{% if d.notes|length > 100 %}...{% endif %}
@@ -115,10 +115,10 @@
                       Algorithm implementation with demo and complexity analysis.
                     {% endif %}
                   </div>
-                  
+
                   <!-- Removed old indicator -->
                 </div>
-                
+
                 <!-- Card Actions -->
                 <footer class="card-actions">
                   {% if category == 'visualizations' or (d.id|string).startswith('viz.') %}
@@ -155,7 +155,7 @@
                     </div>
                   {% endif %}
                 </footer>
-                
+
                 <!-- Inline Demo Output Panel -->
                 <div class="demo-output-panel" hidden>
                   <div class="output-header">
@@ -193,82 +193,82 @@
     // Dashboard JavaScript
     (function() {
       'use strict';
-      
+
       // State management
       let allCards = [];
       let filteredCards = [];
       let currentView = 'all';
-      
+
       // Initialize dashboard
       function init() {
         allCards = Array.from(document.querySelectorAll('.content-card'));
         filteredCards = [...allCards];
-        
+
         // Event listeners
         document.getElementById('global-search').addEventListener('input', handleSearch);
         document.getElementById('category-filter').addEventListener('change', handleFilters);
         // Removed old status filter listener
-        
+
         // View tabs
         document.querySelectorAll('.view-tab').forEach(tab => {
           tab.addEventListener('click', handleViewChange);
         });
-        
+
         // Demo run buttons
         document.addEventListener('click', handleDemoRun);
-        
+
         // Menu dropdowns
         document.addEventListener('click', handleMenus);
-        
+
         // Removed old initialization
       }
-      
+
       // Search functionality
       function handleSearch(e) {
         const query = e.target.value.toLowerCase().trim();
-        
+
         if (query === '') {
           hideSearchResults();
           showAllCards();
           return;
         }
-        
+
         const results = allCards.filter(card => {
           const searchText = card.dataset.searchText || '';
           return searchText.includes(query);
         });
-        
+
         if (query.length > 2) {
           showSearchResults(results, query);
         } else {
           hideSearchResults();
         }
-        
+
         filterCards(results);
       }
-      
+
       // Filter functionality
       function handleFilters() {
         const categoryFilter = document.getElementById('category-filter').value;
         let filtered = allCards;
-        
+
         if (categoryFilter) {
           filtered = filtered.filter(card => card.dataset.category === categoryFilter);
         }
-        
+
         // Also respect current view
         if (currentView !== 'all') {
           filtered = filtered.filter(card => card.dataset.category === currentView);
         }
-        
+
         filterCards(filtered);
       }
-      
+
       // View management
       function handleViewChange(e) {
         const newView = e.target.dataset.view;
         if (newView === currentView) return;
-        
+
         // Update tab states
         document.querySelectorAll('.view-tab').forEach(tab => {
           tab.classList.remove('active');
@@ -276,55 +276,55 @@
         });
         e.target.classList.add('active');
         e.target.setAttribute('aria-selected', 'true');
-        
+
         // Show/hide content views
         document.querySelectorAll('.content-view').forEach(view => {
           view.classList.remove('active');
           view.hidden = true;
         });
-        
+
         const targetView = document.getElementById(newView + '-view');
         if (targetView) {
           targetView.classList.add('active');
           targetView.hidden = false;
         }
-        
+
         currentView = newView;
-        
+
         // Reapply filters when view changes
         handleFilters();
       }
-      
+
       // Demo execution
       async function handleDemoRun(e) {
         const btn = e.target.closest('.demo-run-btn');
         if (!btn) return;
-        
+
         e.preventDefault();
         const moduleId = btn.dataset.module;
         const card = btn.closest('.content-card');
         const outputPanel = card.querySelector('.demo-output-panel');
         const outputCode = outputPanel.querySelector('.demo-output code');
-        
+
         // Show output panel
         outputPanel.hidden = false;
         outputPanel.classList.remove('error');
         outputCode.textContent = '';
-        
+
         // Update button state
         const originalText = btn.textContent;
         btn.disabled = true;
         btn.textContent = 'Running...';
-        
+
         try {
           const response = await fetch('/api/demo', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ module: moduleId })
           });
-          
+
           const data = await response.json();
-          
+
           if (data.error) {
             outputPanel.classList.add('error');
             outputCode.textContent = data.error;
@@ -339,7 +339,7 @@
           btn.textContent = originalText;
         }
       }
-      
+
       // Menu handling
       function handleMenus(e) {
         if (e.target.classList.contains('menu-trigger')) {
@@ -352,20 +352,20 @@
             menu.classList.remove('show');
           });
         }
-        
+
         if (e.target.classList.contains('close-output')) {
           e.target.closest('.demo-output-panel').hidden = true;
         }
-        
+
         if (e.target.classList.contains('close-search')) {
           hideSearchResults();
         }
       }
-      
+
       // Search results
       function showSearchResults(results, query) {
         const resultsContainer = document.getElementById('search-results-list');
-        
+
         if (results.length === 0) {
           resultsContainer.innerHTML = `<div class="no-results">No results found for "${query}"</div>`;
         } else {
@@ -380,28 +380,28 @@
             `;
           }).join('');
         }
-        
+
         document.getElementById('search-results').hidden = false;
       }
-      
+
       function hideSearchResults() {
         document.getElementById('search-results').hidden = true;
       }
-      
+
       // Card filtering
       function filterCards(cards) {
         allCards.forEach(card => {
           card.hidden = !cards.includes(card);
         });
       }
-      
+
       function showAllCards() {
         allCards.forEach(card => {
           card.hidden = false;
         });
       }
-      
-      
+
+
       // Global functions
       window.showCardDetails = function(cardId) {
         const card = document.querySelector(`[data-id="${cardId}"]`);
@@ -412,7 +412,7 @@
           }
         }
       };
-      
+
       // Initialize when DOM is ready
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);

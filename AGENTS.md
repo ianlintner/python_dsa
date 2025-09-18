@@ -6,7 +6,7 @@ This document captures **non-obvious, project-specific rules** and conventions f
 
 ## Testing
 - All tests use **pytest**.
-- Activate shell python with source /Users/ianlintner/python_dsa/.venv/bin/activate  
+- Activate shell python with source /Users/ianlintner/python_dsa/.venv/bin/activate
 - Test discovery depends on `tests/conftest.py` ensuring the project root is on `sys.path`.
 - Run a single test with:
 
