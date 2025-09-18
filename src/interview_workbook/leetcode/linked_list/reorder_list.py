@@ -42,8 +42,28 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Reorder List problem."""
+    from src.interview_workbook.leetcode._nodes import ListNode
+
+    def build_list(nums):
+        dummy = ListNode(0)
+        curr = dummy
+        for n in nums:
+            curr.next = ListNode(n)
+            curr = curr.next
+        return dummy.next
+
+    def list_to_str(node):
+        vals = []
+        while node:
+            vals.append(str(node.val))
+            node = node.next
+        return "->".join(vals)
+
+    s = Solution()
+    head = build_list([1,2,3,4])
+    s.solve(head)
+    return f"[1,2,3,4] -> {list_to_str(head)}"
 
 
 register_problem(

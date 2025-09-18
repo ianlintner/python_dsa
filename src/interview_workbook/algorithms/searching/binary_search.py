@@ -213,6 +213,22 @@ def demo():
         found = binary_search_2d(matrix, target)
         print(f"  Search {target}: {found}")
 
+    print()
+
+    # Test recursive binary search
+    print("Recursive Binary Search:")
+    for target in [1, 7, 9, 4]:
+        idx = binary_search_recursive(arr, target)
+        print(f"  Search {target}: index {idx}")
+
+    print()
+
+    # Test search insert position
+    print("Search Insert Position:")
+    for target in [0, 2, 4, 10]:
+        pos = search_insert_position(arr, target)
+        print(f"  Insert {target}: position {pos}")
+
 
 if __name__ == "__main__":
     demo()

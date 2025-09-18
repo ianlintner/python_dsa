@@ -20,8 +20,12 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Happy Number problem."""
+    s = Solution()
+    n1, n2 = 19, 2
+    result1 = s.solve(n1)
+    result2 = s.solve(n2)
+    return f"{n1} -> {result1}; {n2} -> {result2}"
 
 
 register_problem(

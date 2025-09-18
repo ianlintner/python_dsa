@@ -26,8 +26,11 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Longest Substring Without Repeating Characters problem."""
+    s = Solution()
+    text = "abcabcbb"
+    result = s.solve(text)
+    return f"'{text}' -> {result}"
 
 
 register_problem(

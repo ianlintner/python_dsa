@@ -34,8 +34,29 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Merge Two Sorted Lists problem."""
+    from src.interview_workbook.leetcode._nodes import ListNode
+
+    def build_list(nums):
+        dummy = ListNode(0)
+        curr = dummy
+        for n in nums:
+            curr.next = ListNode(n)
+            curr = curr.next
+        return dummy.next
+
+    def list_to_str(node):
+        vals = []
+        while node:
+            vals.append(str(node.val))
+            node = node.next
+        return "->".join(vals)
+
+    s = Solution()
+    l1 = build_list([1,2,4])
+    l2 = build_list([1,3,4])
+    result = s.solve(l1, l2)
+    return f"[1,2,4] + [1,3,4] -> {list_to_str(result)}"
 
 
 register_problem(

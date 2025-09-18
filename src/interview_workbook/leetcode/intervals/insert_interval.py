@@ -39,8 +39,12 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Insert Interval problem."""
+    s = Solution()
+    intervals = [[1,3],[6,9]]
+    newInterval = [2,5]
+    result = s.solve(intervals, newInterval)
+    return str(result)
 
 
 register_problem(

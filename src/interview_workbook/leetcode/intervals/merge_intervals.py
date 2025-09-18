@@ -33,8 +33,11 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Merge Intervals problem."""
+    s = Solution()
+    intervals = [[1,3],[2,6],[8,10],[15,18]]
+    result = s.solve(intervals)
+    return f"{intervals} -> {result}"
 
 
 register_problem(

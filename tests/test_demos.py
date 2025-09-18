@@ -51,3 +51,18 @@ def test_run_all_demos_headless():
         assert isinstance(out, str)
         # Ensure no UI remnants of old progress system
         assert "progress" not in out.lower()
+
+
+def test_searching_demos_direct():
+    """Directly import and run searching demos to ensure coverage."""
+    from src.interview_workbook.algorithms.searching import (
+        binary_search,
+        linear_search,
+        quickselect,
+        advanced_search,
+    )
+
+    binary_search.demo()
+    linear_search.demo()
+    quickselect.demo()
+    advanced_search.demo()

@@ -35,8 +35,29 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Add Two Numbers problem."""
+    from src.interview_workbook.leetcode._nodes import ListNode
+
+    def build_list(nums):
+        dummy = ListNode(0)
+        curr = dummy
+        for n in nums:
+            curr.next = ListNode(n)
+            curr = curr.next
+        return dummy.next
+
+    def list_to_str(node):
+        vals = []
+        while node:
+            vals.append(str(node.val))
+            node = node.next
+        return "->".join(vals)
+
+    s = Solution()
+    l1 = build_list([2,4,3])  # represents 342
+    l2 = build_list([5,6,4])  # represents 465
+    result = s.solve(l1, l2)  # should represent 807 -> [7,0,8]
+    return f"243 + 564 -> {list_to_str(result)}"
 
 
 register_problem(

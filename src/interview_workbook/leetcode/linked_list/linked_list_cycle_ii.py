@@ -33,8 +33,16 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Linked List Cycle II problem."""
+    from src.interview_workbook.leetcode._nodes import ListNode
+
+    # Create a cycle list: 3 -> 2 -> 0 -> -4 -> back to 2
+    n1, n2, n3, n4 = ListNode(3), ListNode(2), ListNode(0), ListNode(-4)
+    n1.next, n2.next, n3.next, n4.next = n2, n3, n4, n2
+
+    s = Solution()
+    entry = s.solve(n1)
+    return f"Cycle entry node value: {entry.val if entry else None}"
 
 
 register_problem(

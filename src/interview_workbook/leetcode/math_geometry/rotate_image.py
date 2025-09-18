@@ -24,8 +24,15 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Rotate Image problem."""
+    s = Solution()
+    matrix = [
+        [1,2,3],
+        [4,5,6],
+        [7,8,9]
+    ]
+    result = s.solve(matrix)
+    return f"Rotated: {result}"
 
 
 register_problem(

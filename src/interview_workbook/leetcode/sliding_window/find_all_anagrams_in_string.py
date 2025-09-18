@@ -33,8 +33,11 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Find All Anagrams in String problem."""
+    s = Solution()
+    text, pattern = "cbaebabacd", "abc"
+    result = s.solve(text, pattern)
+    return f"'{pattern}' in '{text}' -> {result}"
 
 
 register_problem(

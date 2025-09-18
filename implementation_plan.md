@@ -1,70 +1,55 @@
 # Implementation Plan
 
 [Overview]  
-The goal is to simplify the user interface across both the Flask web app and the algorithm demo system by removing progress tracking and reducing visual clutter, making the dashboard more intuitive and user-friendly.
+The goal is to complete the missing demos in `src/interview_workbook/algorithms/searching` by ensuring each algorithm module has a `demo()` function that runs sample inputs and prints results.
 
-This implementation will focus on two main areas:  
-1. **Flask Web App (`flask_app/`)** – Simplify templates, remove unnecessary progress indicators, and streamline navigation.  
-2. **Algorithm Demo System (`src/main.py` and `src/interview_workbook/`)** – Remove progress tracking logic, simplify demo outputs, and ensure consistent UX principles across demos.  
-
-The high-level approach is to identify and remove progress-related UI elements, refactor templates for clarity, and adjust backend demo functions to avoid verbose or overwhelming outputs. This ensures a clean, minimal, and user-friendly experience.
+The searching algorithms already have core implementations (`binary_search`, `linear_search`, `quickselect`, `advanced_search`). Some files already contain a `demo()` function, but others are incomplete or inconsistent. This plan ensures all searching modules expose a consistent `demo()` entry point for testing and demonstration purposes. This will improve usability, testing coverage, and educational value of the repository.
 
 [Types]  
-No new types are required.
+No new type system changes are required.
 
-We will remove any type definitions related to progress tracking (if present in `_types.py` or related files). All existing algorithm and demo types remain unchanged.
+All functions will continue to use Python type hints (`list[int]`, `Sequence[int]`, `Callable`, etc.) as already present in the codebase.
 
 [Files]  
-We will modify existing files to remove progress tracking and simplify UI.
+We will add or complete `demo()` functions in the following files:
+- `src/interview_workbook/algorithms/searching/binary_search.py` (already has `demo()`, ensure coverage of all variants)
+- `src/interview_workbook/algorithms/searching/linear_search.py` (already has `demo()`, expand with more cases)
+- `src/interview_workbook/algorithms/searching/quickselect.py` (already has `demo()`, expand with median/kth examples)
+- `src/interview_workbook/algorithms/searching/advanced_search.py` (already has `demo()`, expand with rotated array, exponential search, unknown size)
 
-- **New files**: None  
-- **Modified files**:  
-  - `flask_app/templates/base.html` → Remove progress bars, tracking widgets, and simplify layout.  
-  - `flask_app/templates/index.html` → Simplify dashboard, remove progress indicators, highlight only key navigation.  
-  - `flask_app/static/style.css` → Remove styles related to progress bars and tracking, simplify typography and spacing.  
-  - `flask_app/app.py` → Remove backend logic that injects progress data into templates.  
-  - `src/main.py` → Remove progress tracking in demo discovery and execution. Simplify demo listing and running.  
-  - `src/interview_workbook/leetcode/_runner.py` → Remove `show_details` and progress-related flags from test/demo runner.  
-- **Deleted files**: None  
-- **Configuration updates**: None required.
+No files will be deleted or moved.  
+No configuration changes are required.
 
 [Functions]  
-We will remove or simplify functions that handle progress tracking.
+We will standardize and expand the `demo()` functions.
 
-- **New functions**: None  
-- **Modified functions**:  
-  - `discover_demos()` in `src/main.py` → Remove progress-related metadata.  
-  - `run_demo()` in `src/main.py` → Simplify output, remove progress tracking.  
-  - `create_demo_output()` in `src/interview_workbook/leetcode/_runner.py` → Remove progress details, return only clean results.  
-- **Removed functions**:  
-  - Any helper functions in `_runner.py` that exist solely for progress tracking.
+- **New/Expanded demo functions**:
+  - `binary_search.py:demo()` → Show standard binary search, recursive, lower/upper bound, first/last occurrence, range search, 2D search, insert position.
+  - `linear_search.py:demo()` → Show single match, multiple matches (`find_all`), and not-found case.
+  - `quickselect.py:demo()` → Show kth smallest, kth largest, median, and randomized partitioning.
+  - `advanced_search.py:demo()` → Show rotated array search, rotated with duplicates, exponential search, and unknown size search.
+
+No core algorithm functions will be modified. Only demos will be added/expanded.
 
 [Classes]  
-We will simplify classes that currently handle progress tracking.
-
-- **New classes**: None  
-- **Modified classes**:  
-  - `TestCase` in `src/interview_workbook/leetcode/_runner.py` → Remove `show_details` and progress-related attributes.  
-- **Removed classes**: None
+No new classes are required.  
+The only class-like structure is the helper `search_unknown_size` wrapper in `advanced_search.py`, which will be exercised in its demo.
 
 [Dependencies]  
-No new dependencies are required.
-
-We will ensure that no third-party progress tracking libraries (e.g., tqdm) are used. If present, they will be removed.
+No new dependencies are required.  
+We will continue using Python standard library only.
 
 [Testing]  
-We will update tests to reflect the removal of progress tracking.
+We will extend `tests/test_demos.py` to ensure each `demo()` runs without error.  
+- Add tests that call each `demo()` and assert no exceptions are raised.  
+- Optionally capture stdout to verify expected substrings (e.g., "Found at index", "Median is").  
 
-- Modify `tests/test_flask_smoke.py` to ensure UI loads without progress indicators.  
-- Modify `tests/test_demos.py` to validate simplified demo outputs.  
-- Remove or adjust any tests that assert progress tracking behavior.  
+This ensures demos remain functional and educational.
 
 [Implementation Order]  
-We will proceed in the following order:
-
-1. Update `flask_app/templates` and `flask_app/static/style.css` to remove progress UI.  
-2. Update `flask_app/app.py` to remove backend progress injection.  
-3. Update `src/main.py` to simplify demo discovery and execution.  
-4. Update `src/interview_workbook/leetcode/_runner.py` to remove progress tracking logic.  
-5. Update tests (`tests/test_flask_smoke.py`, `tests/test_demos.py`) to reflect simplified UI and outputs.  
-6. Run full test suite to validate changes.
+1. Update `binary_search.py:demo()` to cover all variants.  
+2. Update `linear_search.py:demo()` with multiple cases.  
+3. Update `quickselect.py:demo()` with kth/median examples.  
+4. Update `advanced_search.py:demo()` with rotated/exponential/unknown size examples.  
+5. Add/expand tests in `tests/test_demos.py` to call all demos.  
+6. Run pytest to confirm all demos pass.

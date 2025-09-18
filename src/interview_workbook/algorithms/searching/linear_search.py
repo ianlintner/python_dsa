@@ -85,6 +85,26 @@ def demo():
     print("  search key=val 2:", linear_search(pairs, ("?", 2), key=lambda x: x[1]))
     print("  find_all of 1:", find_all(arr, 1))
 
+    print()
+    # Test with strings
+    words = ["apple", "banana", "cherry", "date"]
+    print("Words:", words)
+    for t in ["banana", "date", "fig"]:
+        print(f"  search {t}: index ->", linear_search(words, t))
+
+    print()
+    # Test with key function on objects
+    class Item:
+        def __init__(self, name: str, value: int):
+            self.name = name
+            self.value = value
+        def __repr__(self):
+            return f"Item({self.name}, {self.value})"
+
+    items = [Item("x", 10), Item("y", 20), Item("z", 10)]
+    print("Items:", items)
+    print("  find_all value=10:", find_all(items, 10, key=lambda x: x.value))
+
 
 if __name__ == "__main__":
     demo()

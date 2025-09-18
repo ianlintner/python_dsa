@@ -29,8 +29,11 @@ class Solution:
 
 
 def demo():
-    """TODO: Implement demo function."""
-    pass
+    """Run a simple demonstration for Longest Repeating Character Replacement problem."""
+    s = Solution()
+    text, k = "AABABBA", 1
+    result = s.solve(text, k)
+    return f"'{text}' with k={k} -> {result}"
 
 
 register_problem(

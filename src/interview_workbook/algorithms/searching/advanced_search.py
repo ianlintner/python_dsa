@@ -230,6 +230,7 @@ def demo():
     print("  - Rotated array search chooses the sorted half each step.")
     print("  - With duplicates, worst case degrades to O(n).")
     print("  - Unknown size arrays: exponential range expansion, then binary search.")
+    print("  - Exponential search is useful for unbounded or very large arrays.")
 
 
 if __name__ == "__main__":
