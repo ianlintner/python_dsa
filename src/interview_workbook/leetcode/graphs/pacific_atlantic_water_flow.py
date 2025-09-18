@@ -42,18 +42,27 @@ class Solution:
         return list(pacific & atlantic)
 
 
-def demo():
+def demo() -> str:
     """Run a demo for the Pacific Atlantic Water Flow problem."""
-    solver = Solution()
     heights = [
-        [1, 2, 2, 3, 5],
-        [3, 2, 3, 4, 4],
-        [2, 4, 5, 3, 1],
-        [6, 7, 1, 4, 5],
-        [5, 1, 1, 2, 4],
+        [1,2,2,3,5],
+        [3,2,3,4,4],
+        [2,4,5,3,1],
+        [6,7,1,4,5],
+        [5,1,1,2,4]
     ]
-    result = solver.solve(heights)
-    return str(sorted(result))
+    print("Initial heights matrix:")
+    for row in heights:
+        print(row)
+    s = Solution()
+    result = s.solve(heights)
+    print(f"Final result: {result}")
+    return f"Pacific Atlantic Water Flow result -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
+    
 
 
 register_problem(

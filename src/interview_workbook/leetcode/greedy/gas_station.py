@@ -30,13 +30,20 @@ class Solution:
         return start
 
 
-def demo():
+def demo() -> str:
     """Run a demo for the Gas Station problem."""
-    solver = Solution()
-    gas = [1, 2, 3, 4, 5]
-    cost = [3, 4, 5, 1, 2]
-    result = solver.solve(gas, cost)
-    return str(result)
+    gas = [1,2,3,4,5]
+    cost = [3,4,5,1,2]
+    print(f"Gas: {gas}, Cost: {cost}")
+    s = Solution()
+    result = s.solve(gas, cost)
+    print(f"Final result: {result}")
+    return f"Gas Station result with gas {gas} and cost {cost} -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
+    
 
 
 register_problem(

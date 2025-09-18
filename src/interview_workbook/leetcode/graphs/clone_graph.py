@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
     solver = Solution()
     clone = solver.solve(n1)
-    return f"Cloned node val: {clone.val}, neighbors: {[nei.val for nei in clone.neighbors]}"
+    print(f"Cloned node val: {clone.val}, neighbors: {[nei.val for nei in clone.neighbors]}")
 
 
 register_problem(

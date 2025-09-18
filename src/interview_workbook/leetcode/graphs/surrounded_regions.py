@@ -42,17 +42,28 @@ class Solution:
         return board
 
 
-def demo():
+def demo() -> str:
     """Run a demo for the Surrounded Regions problem."""
-    solver = Solution()
     board = [
-        ["X", "X", "X", "X"],
-        ["X", "O", "O", "X"],
-        ["X", "X", "O", "X"],
-        ["X", "O", "X", "X"],
+        ["X","X","X","X"],
+        ["X","O","O","X"],
+        ["X","X","O","X"],
+        ["X","O","X","X"]
     ]
-    result = solver.solve(board)
-    return str(result)
+    print("Initial board:")
+    for row in board:
+        print("".join(row))
+    s = Solution()
+    s.solve(board)
+    print("Board after solve:")
+    for row in board:
+        print("".join(row))
+    return "Surrounded Regions demo executed"
+
+
+if __name__ == "__main__":
+    demo()
+    
 
 
 register_problem(

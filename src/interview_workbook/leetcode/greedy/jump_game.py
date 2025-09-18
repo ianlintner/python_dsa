@@ -25,12 +25,19 @@ class Solution:
         return True
 
 
-def demo():
+def demo() -> str:
     """Run a demo for the Jump Game problem."""
-    solver = Solution()
-    nums = [2, 3, 1, 1, 4]
-    result = solver.solve(nums)
-    return str(result)
+    nums = [2,3,1,1,4]
+    print(f"Input nums: {nums}")
+    s = Solution()
+    result = s.solve(nums)
+    print(f"Final result: {result}")
+    return f"Jump Game result for {nums} -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
+    
 
 
 register_problem(
