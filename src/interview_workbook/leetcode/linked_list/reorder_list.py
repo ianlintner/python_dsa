@@ -62,7 +62,9 @@ def demo():
 
     s = Solution()
     head = build_list([1, 2, 3, 4])
+    print(f"Original list: {list_to_str(head)}")
     s.solve(head)
+    print(f"Reordered list: {list_to_str(head)}")
     return f"[1,2,3,4] -> {list_to_str(head)}"
 
 

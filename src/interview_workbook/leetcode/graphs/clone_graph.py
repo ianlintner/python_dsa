@@ -54,6 +54,8 @@ def demo() -> str:
     node2.neighbors = [node1, node4]
     node3.neighbors = [node1, node4]
     node4.neighbors = [node2, node3]
+    print("Graph constructed with Node instances.")
+    print(node1)
     s.solve(node1)
     print("Graph cloned successfully (root node returned).")
     return "Clone Graph demo executed"

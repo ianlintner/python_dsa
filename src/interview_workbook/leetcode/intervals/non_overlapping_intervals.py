@@ -36,6 +36,7 @@ def demo():
     s = Solution()
     intervals = [[1, 2], [2, 3], [3, 4], [1, 3]]
     result = s.solve(intervals)
+    print(f"Initial intervals: {intervals}, Minimum to remove: {result}")
     return f"{intervals} -> {result}"
 
 

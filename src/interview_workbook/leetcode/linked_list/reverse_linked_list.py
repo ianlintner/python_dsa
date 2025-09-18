@@ -48,7 +48,9 @@ def demo():
 
     s = Solution()
     head = build_list([1, 2, 3, 4, 5])
+    print(f"Original list: {list_to_str(head)}")
     result = s.solve(head)
+    print(f"Reversed list: {list_to_str(result)}")
     return f"[1,2,3,4,5] -> {list_to_str(result)}"
 
 

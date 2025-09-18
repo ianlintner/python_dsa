@@ -43,7 +43,9 @@ def demo():
     s = Solution()
     intervals = [[1, 3], [6, 9]]
     newInterval = [2, 5]
+    print(f"Initial intervals: {intervals}, newInterval: {newInterval}")
     result = s.solve(intervals, newInterval)
+    print(f"Output: {result}")
     return str(result)
 
 

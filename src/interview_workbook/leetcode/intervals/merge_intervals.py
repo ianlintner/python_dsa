@@ -37,6 +37,7 @@ def demo():
     s = Solution()
     intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
     result = s.solve(intervals)
+    print(f"Initial intervals: {intervals}, Merged intervals: {result}")
     return f"{intervals} -> {result}"
 
 

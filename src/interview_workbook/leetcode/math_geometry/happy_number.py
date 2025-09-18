@@ -25,6 +25,7 @@ def demo():
     n1, n2 = 19, 2
     result1 = s.solve(n1)
     result2 = s.solve(n2)
+    print(f"{n1} -> {result1}; {n2} -> {result2}")
     return f"{n1} -> {result1}; {n2} -> {result2}"
 
 

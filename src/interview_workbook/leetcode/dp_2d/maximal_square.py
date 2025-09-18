@@ -37,7 +37,9 @@ def demo():
         ["1", "1", "1", "1", "1"],
         ["1", "0", "0", "1", "0"],
     ]
+    print(f"Input matrix: {matrix}")
     result = solver.solve(matrix)
+    print(f"Output: {result}")
     return str(result)
 
 

@@ -25,7 +25,9 @@ def demo():
     """Run a demo for the Unique Paths problem."""
     solver = Solution()
     m, n = 3, 7
+    print(f"Input: {m}, {n}")
     result = solver.solve(m, n)
+    print(f"Output: {result}")
     return str(result)
 
 

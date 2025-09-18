@@ -31,7 +31,9 @@ def demo():
     solver = Solution()
     s = "leetcode"
     wordDict = ["leet", "code"]
+    print(f"Input: {s}, {wordDict}")
     result = solver.solve(s, wordDict)
+    print(f"Output: {result}")
     return str(result)
 
 

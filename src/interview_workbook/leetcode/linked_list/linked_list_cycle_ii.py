@@ -39,9 +39,10 @@ def demo():
     # Create a cycle list: 3 -> 2 -> 0 -> -4 -> back to 2
     n1, n2, n3, n4 = ListNode(3), ListNode(2), ListNode(0), ListNode(-4)
     n1.next, n2.next, n3.next, n4.next = n2, n3, n4, n2
-
+    print("Created linked list with cycle at node with value 2")
     s = Solution()
     entry = s.solve(n1)
+    print(f"Cycle entry node value: {entry.val if entry else None}")
     return f"Cycle entry node value: {entry.val if entry else None}"
 
 

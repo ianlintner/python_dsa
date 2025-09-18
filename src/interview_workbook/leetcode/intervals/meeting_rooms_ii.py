@@ -44,6 +44,8 @@ def demo():
     intervals2 = [[7, 10], [2, 4]]
     result1 = s.solve(intervals1)
     result2 = s.solve(intervals2)
+    print(f"Intervals: {intervals1}, Meeting Rooms Needed: {result1}")
+    print(f"Intervals: {intervals2}, Meeting Rooms Needed: {result2}")
     return f"{intervals1} -> {result1}; {intervals2} -> {result2}"
 
 

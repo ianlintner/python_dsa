@@ -27,7 +27,9 @@ def demo():
     """Run a simple demonstration for Rotate Image problem."""
     s = Solution()
     matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    print(f"Initial matrix: {matrix}")
     result = s.solve(matrix)
+    print(f"Rotated matrix: {matrix}")
     return f"Rotated: {result}"
 
 
