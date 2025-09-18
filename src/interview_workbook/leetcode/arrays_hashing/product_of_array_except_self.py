@@ -39,6 +39,7 @@ def demo():
     sol = Solution()
     result = sol.solve([1, 2, 3, 4])
     assert result == [24, 12, 8, 6]
+    print(f"Final result: {result}")
     return "Product of Array Except Self demo passed."
 
 

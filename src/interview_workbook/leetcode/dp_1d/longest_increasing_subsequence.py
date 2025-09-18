@@ -31,6 +31,8 @@ def demo():
     solver = Solution()
     nums = [10, 9, 2, 5, 3, 7, 101, 18]
     result = solver.solve(nums)
+    print(f"Input nums: {nums}")
+    print(f"Final result: {result}")
     return str(result)
 
 

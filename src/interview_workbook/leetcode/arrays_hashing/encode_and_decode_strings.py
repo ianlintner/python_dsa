@@ -54,6 +54,10 @@ def demo():
     solver = Solution()
     encoded = solver.encode(strs)
     decoded = solver.decode(encoded)
+    print(f"Original strings: {strs}")
+    print(f"Encoded string: {encoded}")
+    print(f"Decoded strings: {decoded}")
+    assert strs == decoded
     return f"Original: {strs}\nEncoded: {encoded}\nDecoded: {decoded}"
 
 

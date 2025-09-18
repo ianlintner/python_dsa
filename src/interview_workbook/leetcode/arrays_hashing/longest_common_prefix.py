@@ -32,6 +32,8 @@ def demo():
     strs = ["flower", "flow", "flight"]
     solver = Solution()
     result = solver.solve(strs)
+    print(f"Input strings: {strs}")
+    print(f"Longest common prefix: {result}")
     return f"Input: {strs}\nLongest Common Prefix: {result}"
 
 

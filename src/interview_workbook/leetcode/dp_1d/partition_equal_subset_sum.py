@@ -43,6 +43,7 @@ def demo() -> str:
     sol = Solution()
     for nums in examples:
         out_lines.append(f"nums={nums}, can_partition={sol.solve(nums)}")
+    print("Final result:\n" + "\n".join(out_lines))
     return "\n".join(out_lines)
 
 

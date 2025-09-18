@@ -43,6 +43,7 @@ def demo():
             f"Input: {case.input_args} -> Output: {res}, Expected: {case.expected}\n"
             f"Time: O(n), Space: O(n) | Technique: hashmap\n✓ PASS"
         )
+    print("\n".join(outputs))
     return "\n".join(outputs)
 
 

@@ -29,4 +29,5 @@ def demo() -> str:
     random.seed(0)  # Ensure determinism
     sample = [100, 4, 200, 1, 3, 2]
     result = longest_consecutive(sample)
+    print(f"Input: {sample}, Longest consecutive sequence length: {result}")
     return f"Longest consecutive sequence length of {sample} is {result}"

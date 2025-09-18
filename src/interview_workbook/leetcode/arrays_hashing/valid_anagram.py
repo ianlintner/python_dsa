@@ -24,6 +24,9 @@ def demo():
     sol = Solution()
     assert sol.solve("anagram", "nagaram") is True
     assert sol.solve("rat", "car") is False
+    print(f"sol.solve('anagram', 'nagaram') = {sol.solve('anagram', 'nagaram')}")
+    print(f"sol.solve('rat', 'car') = {sol.solve('rat', 'car')}")
+    print("Valid Anagram demo passed.")
     return "Valid Anagram demo passed."
 
 

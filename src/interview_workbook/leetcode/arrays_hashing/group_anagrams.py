@@ -35,6 +35,8 @@ def demo():
     strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
     solver = Solution()
     result = solver.solve(strs)
+    print(f"Input strings: {strs}")
+    print(f"Grouped anagrams: {result}")
     return f"Input: {strs}\nGrouped Anagrams: {result}"
 
 

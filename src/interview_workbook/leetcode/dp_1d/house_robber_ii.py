@@ -32,6 +32,8 @@ def demo():
     solver = Solution()
     nums = [2, 3, 2]
     result = solver.solve(nums)
+    print(f"Input houses: {nums}")
+    print(f"Final result: {result}")
     return str(result)
 
 

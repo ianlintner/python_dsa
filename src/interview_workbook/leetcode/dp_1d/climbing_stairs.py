@@ -27,6 +27,8 @@ def demo():
     solver = Solution()
     n = 5
     result = solver.solve(n)
+    print(f"Number of stairs: {n}")
+    print(f"Final result: {result}")
     return str(result)
 
 

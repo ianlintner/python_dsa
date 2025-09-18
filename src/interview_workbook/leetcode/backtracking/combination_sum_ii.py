@@ -39,6 +39,7 @@ class Solution:
 def demo():
     s = Solution()
     result = s.combinationSum2([10, 1, 2, 7, 6, 1, 5], 8)
+    print(f"Final result: {result}")
     return str(result)
 
 

@@ -42,6 +42,8 @@ def demo():
         [".", ".", ".", ".", "8", ".", ".", "7", "9"],
     ]
     sol = Solution()
+    print(f"Input board:\n{board}")
+    print(f"Is valid Sudoku? {sol.solve(board)}")
     assert sol.solve(board) is True
     return "Valid Sudoku demo passed."
 

@@ -32,6 +32,7 @@ class Solution:
 def demo() -> str:
     s = Solution()
     result = s.subsetsWithDup([1, 2, 2])
+    print(f"Final result: {result}")
     return str(result)
 
 

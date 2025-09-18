@@ -20,16 +20,19 @@ class Solution:
             res.append(path[:])
             for i in range(start, len(nums)):
                 path.append(nums[i])
+                print(f"Path after append: {path}")
                 backtrack(i + 1, path)
                 path.pop()
 
         backtrack(0, [])
+        print(f"All subsets: {res}")
         return res
 
 
 def demo():
     s = Solution()
     result = s.subsets([1, 2, 3])
+    print(f"Final result: {result}")
     return str(result)
 
 

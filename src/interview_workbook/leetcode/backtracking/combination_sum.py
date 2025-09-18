@@ -29,6 +29,7 @@ class Solution:
                 path.pop()
 
         backtrack(0, [], 0)
+        print(f"All combinations: {res}")
         return res
 
 

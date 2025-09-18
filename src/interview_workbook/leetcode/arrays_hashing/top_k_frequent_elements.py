@@ -113,6 +113,7 @@ def demo():
     test_results = run_test_cases(
         test_top_k_frequent, test_cases, "LeetCode 347: Top K Frequent Elements"
     )
+    print("\n".join(test_results))
 
     return create_demo_output(
         "Top K Frequent Elements",

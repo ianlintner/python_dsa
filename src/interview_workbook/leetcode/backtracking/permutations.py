@@ -30,6 +30,7 @@ class Solution:
 def demo():
     s = Solution()
     result = s.permute([1, 2, 3])
+    print(f"Final result: {result}")
     return str(result)
 
 

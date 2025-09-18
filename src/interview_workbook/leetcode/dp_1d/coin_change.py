@@ -29,6 +29,8 @@ def demo():
     coins = [1, 2, 5]
     amount = 11
     result = solver.solve(coins, amount)
+    print(f"Coins: {coins}, Amount: {amount}")
+    print(f"Final result: {result}")
     return str(result)
 
 
