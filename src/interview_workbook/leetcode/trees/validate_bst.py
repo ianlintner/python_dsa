@@ -166,6 +166,7 @@ def demo() -> str:
         )
 
     output_lines.append("Demo completed")
+    print("\n".join(output_lines))
     return "\n".join(output_lines)
 
 

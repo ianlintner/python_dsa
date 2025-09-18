@@ -62,6 +62,8 @@ def demo():
     before = bfs(root)
     Solution().solve(root)
     after = bfs(root)
+    print("Running demo for Invert Binary Tree...")
+    print(f"Before: {before}, After: {after}")
     return f"Before: {before}, After: {after}"
 
 

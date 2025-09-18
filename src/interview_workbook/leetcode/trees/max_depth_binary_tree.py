@@ -39,6 +39,8 @@ def demo():
 
     sol = Solution()
     depth = sol.solve(root)
+    print("Running demo for Max Depth of Binary Tree...")
+    print(f"Max depth of binary tree: {depth}")
     return f"Max depth of binary tree: {depth}"
 
 

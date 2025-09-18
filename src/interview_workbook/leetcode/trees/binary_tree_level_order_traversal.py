@@ -49,8 +49,9 @@ def demo() -> str:
     root = TreeNode(3)
     root.left = TreeNode(9)
     root.right = TreeNode(20, TreeNode(15), TreeNode(7))
-
+    print("Running demo for Binary Tree Level Order Traversal...")
     result = levelOrder(root)
+    print(f"Level order traversal: {result}")
     return str(result)
 
 

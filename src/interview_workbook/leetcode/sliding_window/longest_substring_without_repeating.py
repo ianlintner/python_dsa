@@ -30,6 +30,7 @@ def demo():
     s = Solution()
     text = "abcabcbb"
     result = s.solve(text)
+    print(f"Input: '{text}' -> Output: {result}")
     return f"'{text}' -> {result}"
 
 

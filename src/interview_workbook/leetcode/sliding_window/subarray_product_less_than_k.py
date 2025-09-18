@@ -31,6 +31,7 @@ def demo():
     nums = [10, 5, 2, 6]
     k = 100
     result = Solution().solve(nums, k)
+    print(f"Input: nums={nums}, k={k} -> Count of subarrays: {result}")
     return f"Input: nums={nums}, k={k} -> Count of subarrays: {result}"
 
 

@@ -40,7 +40,9 @@ def demo():
     """Run a simple demonstration for Spiral Matrix problem."""
     s = Solution()
     matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    print(f"Input matrix: {matrix}")
     result = s.solve(matrix)
+    print(f"Spiral order: {result}")
     return f"Spiral order: {result}"
 
 

@@ -36,6 +36,7 @@ def demo():
     s1 = "ab"
     s2 = "eidbaooo"
     result = Solution().solve(s1, s2)
+    print(f"Input: s1={s1}, s2={s2} -> Contains permutation? {result}")
     return f"Input: s1={s1}, s2={s2} -> Contains permutation? {result}"
 
 

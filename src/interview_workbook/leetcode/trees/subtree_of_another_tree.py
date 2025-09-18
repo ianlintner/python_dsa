@@ -55,6 +55,8 @@ def demo() -> str:
     sub.right = TreeNode(2)
 
     result = isSubtree(root, sub)
+    print("Running demo for Subtree of Another Tree...")
+    print(f"Is subtree: {result}")
     return str(result)
 
 

@@ -45,8 +45,11 @@ def demo():
     """Run simple test cases for Best Time To Buy Sell Stock."""
     sol = Solution()
     outputs = []
+    print("Running demo for Best Time to Buy and Sell Stock...")
+    print("Test Cases:")
     for case in test_cases:
         res = sol.maxProfit(*case.input_args)
+        print(f"Input: {case.input_args} -> Output: {res}, Expected: {case.expected}")
         outputs.append(
             f"Best Time to Buy and Sell Stock | Test Case: {case.description}\n"
             f"Input: {case.input_args} -> Output: {res}, Expected: {case.expected}\n"

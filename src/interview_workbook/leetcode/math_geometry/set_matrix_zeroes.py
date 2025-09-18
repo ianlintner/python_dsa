@@ -43,6 +43,8 @@ def demo():
     s = Solution()
     matrix = [[1, 1, 1], [1, 0, 1], [1, 1, 1]]
     result = s.solve(matrix)
+    print(f"Zeroed matrix: {matrix}")
+    print(f"Final result: {result}")
     return f"Zeroed: {result}"
 
 

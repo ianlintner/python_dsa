@@ -51,6 +51,8 @@ def demo():
 
     sol = Solution()
     result = sol.solve(root)
+    print("Running demo for Diameter of Binary Tree...")
+    print(f"Diameter of binary tree: {result}")
     return f"Diameter of binary tree: {result}"
 
 

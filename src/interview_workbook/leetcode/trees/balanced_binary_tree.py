@@ -45,6 +45,9 @@ def demo():
     root_unbalanced.left.left = TreeNode(3)
 
     sol = Solution()
+    print("Running demo for Balanced Binary Tree...")
+    print(f"Balanced tree check (should be True): {sol.solve(root_balanced)}")
+    print(f"Unbalanced tree check (should be False): {sol.solve(root_unbalanced)}")
     return (
         f"Balanced tree check (should be True): {sol.solve(root_balanced)}\n"
         f"Unbalanced tree check (should be False): {sol.solve(root_unbalanced)}"

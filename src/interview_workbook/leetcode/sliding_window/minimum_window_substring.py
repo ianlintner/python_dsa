@@ -44,6 +44,7 @@ def demo():
     s = "ADOBECODEBANC"
     t = "ABC"
     result = Solution().solve(s, t)
+    print(f"Input: s={s}, t={t} -> Minimum window: {result}")
     return f"Input: s={s}, t={t} -> Minimum window: {result}"
 
 

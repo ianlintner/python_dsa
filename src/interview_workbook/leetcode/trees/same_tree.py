@@ -42,7 +42,9 @@ def demo():
     t3 = TreeNode(1, TreeNode(2), None)
     t4 = TreeNode(1, None, TreeNode(2))
     result2 = sol.solve(t3, t4)
-
+    print("Running demo for Same Tree...")
+    print(f"Same Tree Test 1 (identical): {result1}")
+    print(f"Same Tree Test 2 (different): {result2}")
     return f"Same Tree Test 1 (identical): {result1}\nSame Tree Test 2 (different): {result2}"
 
 

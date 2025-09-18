@@ -32,7 +32,9 @@ def demo():
     """Run a simple demonstration for Longest Repeating Character Replacement problem."""
     s = Solution()
     text, k = "AABABBA", 1
+    print(f"Input: '{text}' with k={k}")
     result = s.solve(text, k)
+    print(f"Output: {result}")
     return f"'{text}' with k={k} -> {result}"
 
 

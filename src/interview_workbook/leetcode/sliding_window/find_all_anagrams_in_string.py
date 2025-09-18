@@ -37,6 +37,7 @@ def demo():
     s = Solution()
     text, pattern = "cbaebabacd", "abc"
     result = s.solve(text, pattern)
+    print(f"Finding all anagrams of '{pattern}' in '{text}' -> {result}")
     return f"'{pattern}' in '{text}' -> {result}"
 
 

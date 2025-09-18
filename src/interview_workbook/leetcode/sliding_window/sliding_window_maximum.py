@@ -34,6 +34,7 @@ def demo():
     nums = [1, 3, -1, -3, 5, 3, 6, 7]
     k = 3
     result = Solution().solve(nums, k)
+    print(f"Input: nums={nums}, k={k} -> Sliding window maximums: {result}")
     return f"Input: nums={nums}, k={k} -> Sliding window maximums: {result}"
 
 

@@ -58,5 +58,6 @@ def demo():
     outputs.append(trie.startsWith("app"))  # True
     trie.insert("app")
     outputs.append(trie.search("app"))  # True
-
+    print("Running demo for Implement Trie...")
+    print(f"Search results: {outputs}")
     return str(outputs)

@@ -67,7 +67,8 @@ def demo():
     outputs.append(wd.search("bad"))  # True
     outputs.append(wd.search(".ad"))  # True
     outputs.append(wd.search("b.."))  # True
-
+    print("Running demo for Add and Search Word...")
+    print(f"Search results: {outputs}")
     return str(outputs)
 
 
