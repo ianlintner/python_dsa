@@ -830,6 +830,32 @@ code {
   color: var(--text);
 }
 
+.btn-icon-labeled {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-icon-labeled i {
+  font-size: 0.9rem;
+}
+
+.btn-icon-labeled:hover {
+  background-color: var(--border);
+  color: var(--text);
+  border-color: var(--accent-2);
+}
+
 .card-menu {
   position: relative;
   margin-left: auto;

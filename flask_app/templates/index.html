@@ -140,12 +140,18 @@
                     <button class="btn-secondary" onclick="showCardDetails('{{ d.id }}')">Details</button>
                   {% else %}
                     <div class="card-action-icons">
-                      <button class="btn-icon demo-run-btn" data-module="{{ d.id }}" aria-label="Run Demo">▶️</button>
+                      <button class="btn-icon-labeled demo-run-btn" data-module="{{ d.id }}" aria-label="Run Demo">
+                        <i class="fas fa-play"></i> <span>Run</span>
+                      </button>
                       {% set viz_key = sorting_viz_map.get(d.id) if sorting_viz_map else None %}
                       {% if viz_key %}
-                        <a class="btn-icon" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}" aria-label="Visualize">📊</a>
+                        <a class="btn-icon-labeled" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}" aria-label="Visualize">
+                          <i class="fas fa-chart-bar"></i> <span>Visualize</span>
+                        </a>
                       {% endif %}
-                      <a class="btn-icon" href="{{ url_for('source') }}?module={{ d.id }}" aria-label="View Source">📄</a>
+                      <a class="btn-icon-labeled" href="{{ url_for('source') }}?module={{ d.id }}" aria-label="View Source">
+                        <i class="fas fa-code"></i> <span>Source</span>
+                      </a>
                     </div>
                   {% endif %}
                 </footer>
@@ -179,6 +185,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <script>
     // Dashboard JavaScript
