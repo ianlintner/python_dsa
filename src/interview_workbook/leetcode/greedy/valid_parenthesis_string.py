@@ -13,10 +13,10 @@ class Solution:
         """Check if the string is a valid parenthesis string with '*' wildcard."""
         lo = hi = 0
         for c in s:
-            if c == '(':
+            if c == "(":
                 lo += 1
                 hi += 1
-            elif c == ')':
+            elif c == ")":
                 lo = max(lo - 1, 0)
                 hi -= 1
             else:  # '*'
@@ -39,7 +39,7 @@ def demo() -> str:
 
 if __name__ == "__main__":
     demo()
-    
+
 
 register_problem(
     id=678,

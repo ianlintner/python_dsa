@@ -38,7 +38,6 @@ def demo() -> str:
 
 if __name__ == "__main__":
     demo()
-    
 
 
 register_problem(

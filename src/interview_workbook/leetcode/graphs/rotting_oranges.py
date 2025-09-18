@@ -41,11 +41,7 @@ class Solution:
 
 def demo() -> str:
     """Run a demo for the Rotting Oranges problem."""
-    grid = [
-        [2,1,1],
-        [1,1,0],
-        [0,1,1]
-    ]
+    grid = [[2, 1, 1], [1, 1, 0], [0, 1, 1]]
     print("Initial grid:")
     for row in grid:
         print(row)

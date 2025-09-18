@@ -27,7 +27,7 @@ class Solution:
 
 def demo() -> str:
     """Run a demo for the Candy problem."""
-    ratings = [1,0,2]
+    ratings = [1, 0, 2]
     print(f"Ratings: {ratings}")
     s = Solution()
     result = s.solve(ratings)
@@ -37,7 +37,7 @@ def demo() -> str:
 
 if __name__ == "__main__":
     demo()
-    
+
 
 register_problem(
     id=135,

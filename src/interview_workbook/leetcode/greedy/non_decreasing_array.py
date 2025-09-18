@@ -26,7 +26,7 @@ class Solution:
 
 def demo() -> str:
     """Run a demo for the Non-decreasing Array problem."""
-    nums = [4,2,3]
+    nums = [4, 2, 3]
     print(f"Input nums: {nums}")
     s = Solution()
     result = s.solve(nums)
@@ -36,7 +36,7 @@ def demo() -> str:
 
 if __name__ == "__main__":
     demo()
-    
+
 
 register_problem(
     id=665,

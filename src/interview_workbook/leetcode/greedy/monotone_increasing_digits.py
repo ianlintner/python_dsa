@@ -20,7 +20,7 @@ class Solution:
                 digits[i - 1] = str(int(digits[i - 1]) - 1)
                 i -= 1
             for j in range(i + 1, len(digits)):
-                digits[j] = '9'
+                digits[j] = "9"
         return int("".join(digits))
 
 
@@ -36,7 +36,7 @@ def demo() -> str:
 
 if __name__ == "__main__":
     demo()
-    
+
 
 register_problem(
     id=738,

@@ -22,8 +22,8 @@ class Solution:
 
 def demo() -> str:
     """Run a demo for the Merge Triplets problem."""
-    triplets = [[2,5,3],[1,8,4],[1,7,5]]
-    target = [2,7,5]
+    triplets = [[2, 5, 3], [1, 8, 4], [1, 7, 5]]
+    target = [2, 7, 5]
     print(f"Triplets: {triplets}, Target: {target}")
     s = Solution()
     result = s.solve(triplets, target)
@@ -33,7 +33,7 @@ def demo() -> str:
 
 if __name__ == "__main__":
     demo()
-    
+
 
 register_problem(
     id=1899,

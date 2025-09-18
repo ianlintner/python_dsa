@@ -32,8 +32,8 @@ class Solution:
 
 def demo() -> str:
     """Run a demo for the Gas Station problem."""
-    gas = [1,2,3,4,5]
-    cost = [3,4,5,1,2]
+    gas = [1, 2, 3, 4, 5]
+    cost = [3, 4, 5, 1, 2]
     print(f"Gas: {gas}, Cost: {cost}")
     s = Solution()
     result = s.solve(gas, cost)
@@ -43,7 +43,6 @@ def demo() -> str:
 
 if __name__ == "__main__":
     demo()
-    
 
 
 register_problem(

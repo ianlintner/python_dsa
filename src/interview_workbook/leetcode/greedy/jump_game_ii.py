@@ -28,7 +28,7 @@ class Solution:
 
 def demo() -> str:
     """Run a demo for the Jump Game II problem."""
-    nums = [2,3,1,1,4]
+    nums = [2, 3, 1, 1, 4]
     print(f"Input nums: {nums}")
     s = Solution()
     result = s.solve(nums)
@@ -38,7 +38,6 @@ def demo() -> str:
 
 if __name__ == "__main__":
     demo()
-    
 
 
 register_problem(

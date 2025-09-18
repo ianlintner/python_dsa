@@ -33,7 +33,7 @@ class Solution:
 def demo() -> str:
     """Run a demo for the Clone Graph problem."""
     # Simple graph: 1--2, 1--3, 2--4, 3--4
-    from collections import defaultdict
+
     graph = {1: [2, 3], 2: [1, 4], 3: [1, 4], 4: [2, 3]}
     print(f"Initial graph adjacency list: {graph}")
     s = Solution()
@@ -45,11 +45,11 @@ def demo() -> str:
     node2.neighbors = [node1, node4]
     node3.neighbors = [node1, node4]
     node4.neighbors = [node2, node3]
-    result = s.solve(node1)
+    s.solve(node1)
     print("Graph cloned successfully (root node returned).")
     return "Clone Graph demo executed"
-    
-    
+
+
 if __name__ == "__main__":
     demo()
 
