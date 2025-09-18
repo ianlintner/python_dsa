@@ -5,7 +5,6 @@ TODO: Add problem description
 """
 
 import heapq
-import random
 
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
@@ -51,19 +50,13 @@ def demo() -> str:
     """Demo for Find Median From Data Stream."""
     nums = [41, 35, 62, 4, 97, 108]
     print(f"Initial stream: {nums}")
-    mf = MedianFinder()
+    s = Solution()
     for num in nums:
-        mf.addNum(num)
-        print(f"Added {num}, current median: {mf.findMedian()}")
-    result = mf.findMedian()
+        s.add_num(num)
+        print(f"Added {num}, current median: {s.find_median()}")
+    result = s.find_median()
     print(f"Final median: {result}")
     return f"Median of {nums} -> {result}"
-    random.seed(0)
-    nums = [5, 15, 1, 3]
-    s = Solution()
-    for n in nums:
-        s.add_num(n)
-    return f"Median after stream {nums}: {s.find_median()}"
 
 
 register_problem(
