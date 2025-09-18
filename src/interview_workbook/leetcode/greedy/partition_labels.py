@@ -26,12 +26,19 @@ class Solution:
         return partitions
 
 
-def demo():
+def demo() -> str:
     """Run a demo for the Partition Labels problem."""
-    solver = Solution()
     s = "ababcbacadefegdehijhklij"
+    print(f"Input string: {s}")
+    solver = Solution()
     result = solver.solve(s)
-    return str(result)
+    print(f"Final result: {result}")
+    return f"Partition Labels result for '{s}' -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
+    
 
 
 register_problem(
