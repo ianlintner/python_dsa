@@ -49,6 +49,15 @@ class Solution:
 
 def demo() -> str:
     """Demo for Find Median From Data Stream."""
+    nums = [41, 35, 62, 4, 97, 108]
+    print(f"Initial stream: {nums}")
+    mf = MedianFinder()
+    for num in nums:
+        mf.addNum(num)
+        print(f"Added {num}, current median: {mf.findMedian()}")
+    result = mf.findMedian()
+    print(f"Final median: {result}")
+    return f"Median of {nums} -> {result}"
     random.seed(0)
     nums = [5, 15, 1, 3]
     s = Solution()
@@ -67,3 +76,6 @@ register_problem(
     url="https://leetcode.com/problems/find-median-from-data-stream/",
     notes="",
 )
+
+if __name__ == "__main__":
+    print(demo())

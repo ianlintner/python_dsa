@@ -35,7 +35,7 @@ class Solution:
 def demo():
     """Run a simple demonstration for Merge Intervals problem."""
     s = Solution()
-    intervals = [[1,3],[2,6],[8,10],[15,18]]
+    intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
     result = s.solve(intervals)
     return f"{intervals} -> {result}"
 

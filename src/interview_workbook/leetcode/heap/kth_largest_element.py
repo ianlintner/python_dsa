@@ -31,8 +31,10 @@ def demo() -> str:
     random.seed(0)
     nums = [3, 2, 1, 5, 6, 4]
     k = 2
+    print(f"Initial nums: {nums}, k={k}")
     s = Solution()
     result = s.solve(nums, k)
+    print(f"Final result: {result}")
     return f"{k}th largest in {nums} is {result}"
 
 
@@ -46,3 +48,6 @@ register_problem(
     url="https://leetcode.com/problems/kth-largest-element-in-an-array/",
     notes="",
 )
+
+if __name__ == "__main__":
+    print(demo())

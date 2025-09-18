@@ -24,8 +24,19 @@ class Solution:
         return len(stack)
 
 
-def demo():
-    return str(Solution().solve(12, [10, 8, 0, 5, 3], [2, 4, 1, 1, 3]))
+def demo() -> str:
+    target = 12
+    position = [10, 8, 0, 5, 3]
+    speed = [2, 4, 1, 1, 3]
+    print(f"Target: {target}, Positions: {position}, Speeds: {speed}")
+    s = Solution()
+    result = s.solve(target, position, speed)
+    print(f"Final result: {result}")
+    return f"Car Fleet to target {target} with positions {position} and speeds {speed} -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
 
 
 register_problem(

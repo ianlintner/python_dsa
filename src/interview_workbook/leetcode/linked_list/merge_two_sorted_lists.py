@@ -53,8 +53,8 @@ def demo():
         return "->".join(vals)
 
     s = Solution()
-    l1 = build_list([1,2,4])
-    l2 = build_list([1,3,4])
+    l1 = build_list([1, 2, 4])
+    l2 = build_list([1, 3, 4])
     result = s.solve(l1, l2)
     return f"[1,2,4] + [1,3,4] -> {list_to_str(result)}"
 

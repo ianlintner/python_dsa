@@ -31,16 +31,18 @@ class Solution:
         return not stack
 
 
-def demo():
+def demo() -> str:
     """Run demo for Valid Parentheses problem."""
-    import random
-
-    random.seed(0)
-
     cases = ["()", "()[]{}", "(]", "([)]", "{[]}"]
+    print(f"Test cases: {cases}")
     sol = Solution()
     outputs = [sol.solve(c) for c in cases]
-    return str(outputs)
+    print(f"Results: {outputs}")
+    return f"Valid Parentheses results for {cases} -> {outputs}"
+
+
+if __name__ == "__main__":
+    demo()
 
 
 register_problem(

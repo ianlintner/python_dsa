@@ -259,7 +259,7 @@ def demo():
     # Test deterministic median of medians
     arr = [12, 3, 5, 7, 4, 19, 26]
     print("Median of Medians Selection:")
-    for k in [0, len(arr)//2, len(arr)-1]:
+    for k in [0, len(arr) // 2, len(arr) - 1]:
         val = median_of_medians(arr, k)
         print(f"  k={k}: {val}")
     print()

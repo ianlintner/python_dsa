@@ -34,8 +34,17 @@ class Solution:
         return res
 
 
-def demo():
-    return str(Solution().solve(3))
+def demo() -> str:
+    n = 3
+    print(f"Initial n: {n}")
+    s = Solution()
+    result = s.solve(n)
+    print(f"Final result: {result}")
+    return f"Generate Parentheses for n={n} -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
 
 
 register_problem(

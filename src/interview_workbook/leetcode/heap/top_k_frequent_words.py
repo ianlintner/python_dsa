@@ -33,11 +33,26 @@ class Solution:
 def demo() -> str:
     """Demonstration of Top K Frequent Words with deterministic seeding."""
     random.seed(0)
+    outputs = []
+
+    # First example
     words = ["i", "love", "leetcode", "i", "love", "coding"]
     k = 2
     sol = Solution()
     result = sol.top_k_frequent(words, k)
-    return f"Words: {words}, K: {k}, Top K Frequent: {result}"
+    out1 = f"Words: {words}, K: {k}, Top K Frequent: {result}"
+    print(out1)
+    outputs.append(out1)
+
+    # Second example
+    words2 = ["apple", "banana", "apple", "orange", "banana", "apple"]
+    k2 = 2
+    result2 = sol.top_k_frequent(words2, k2)
+    out2 = f"Words: {words2}, K: {k2}, Top K Frequent: {result2}"
+    print(out2)
+    outputs.append(out2)
+
+    return "\n".join(outputs)
 
 
 register_problem(
@@ -50,3 +65,6 @@ register_problem(
     url="https://leetcode.com/problems/top-k-frequent-words/",
     notes="",
 )
+
+if __name__ == "__main__":
+    demo()

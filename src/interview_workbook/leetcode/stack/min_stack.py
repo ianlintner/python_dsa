@@ -53,10 +53,17 @@ class Solution:
         return res
 
 
-def demo():
+def demo() -> str:
     ops = ["MinStack", "push", "push", "push", "getMin", "pop", "top", "getMin"]
-    vals = [[], [-2], [0], [-3], [], [], [], []]
-    return str(Solution().solve(ops, vals))
+    print(f"Operations: {ops}")
+    s = Solution()
+    result = s.solve(ops, [[0], [-2], [0], [-3], [], [], [], []])
+    print(f"Final result: {result}")
+    return f"MinStack operations {ops} -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
 
 
 register_problem(

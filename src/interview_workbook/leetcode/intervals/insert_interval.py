@@ -41,8 +41,8 @@ class Solution:
 def demo():
     """Run a simple demonstration for Insert Interval problem."""
     s = Solution()
-    intervals = [[1,3],[6,9]]
-    newInterval = [2,5]
+    intervals = [[1, 3], [6, 9]]
+    newInterval = [2, 5]
     result = s.solve(intervals, newInterval)
     return str(result)
 

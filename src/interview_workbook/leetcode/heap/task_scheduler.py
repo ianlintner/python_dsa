@@ -48,6 +48,13 @@ class Solution:
 
 def demo() -> str:
     """Demonstration of Task Scheduler algorithm with deterministic seeding."""
+    tasks = ["A", "A", "A", "B", "B", "B"]
+    n = 2
+    print(f"Initial tasks: {tasks}, cooldown={n}")
+    s = Solution()
+    result = s.solve(tasks, n)
+    print(f"Final result: {result}")
+    return f"Least intervals to finish tasks {tasks} with cooldown {n} -> {result}"
     random.seed(0)
     tasks = ["A", "A", "A", "B", "B", "B"]
     n = 2
@@ -66,3 +73,6 @@ register_problem(
     url="https://leetcode.com/problems/task-scheduler/",
     notes="",
 )
+
+if __name__ == "__main__":
+    print(demo())

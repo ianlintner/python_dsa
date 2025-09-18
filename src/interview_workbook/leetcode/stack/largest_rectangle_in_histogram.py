@@ -25,8 +25,17 @@ class Solution:
         return max_area
 
 
-def demo():
-    return str(Solution().solve([2, 1, 5, 6, 2, 3]))
+def demo() -> str:
+    nums = [2, 1, 5, 6, 2, 3]
+    print(f"Initial histogram: {nums}")
+    s = Solution()
+    result = s.solve(nums)
+    print(f"Final result: {result}")
+    return f"Largest rectangle in {nums} -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
 
 
 register_problem(

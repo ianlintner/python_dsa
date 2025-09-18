@@ -37,8 +37,13 @@ def demo() -> str:
     """Demo for Last Stone Weight."""
     random.seed(0)
     stones = [2, 7, 4, 1, 8, 1]
+    print(f"Initial stones: {stones}")
     s = Solution()
-    return f"Last stone weight from {stones} -> {s.solve(stones)}"
+    result = s.solve(stones)
+    print(f"Final result: {result}")
+    output = f"Last stone weight from {stones} is {result}"
+    print(output)
+    return output
 
 
 register_problem(
@@ -51,3 +56,6 @@ register_problem(
     url="https://leetcode.com/problems/last-stone-weight/",
     notes="",
 )
+
+if __name__ == "__main__":
+    demo()

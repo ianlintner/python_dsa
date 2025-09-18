@@ -39,11 +39,7 @@ class Solution:
 def demo():
     """Run a simple demonstration for Spiral Matrix problem."""
     s = Solution()
-    matrix = [
-        [1,2,3],
-        [4,5,6],
-        [7,8,9]
-    ]
+    matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     result = s.solve(matrix)
     return f"Spiral order: {result}"
 

@@ -34,7 +34,7 @@ class Solution:
 def demo():
     """Run a simple demonstration for Non-overlapping Intervals problem."""
     s = Solution()
-    intervals = [[1,2],[2,3],[3,4],[1,3]]
+    intervals = [[1, 2], [2, 3], [3, 4], [1, 3]]
     result = s.solve(intervals)
     return f"{intervals} -> {result}"
 

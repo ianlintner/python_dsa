@@ -54,8 +54,8 @@ def demo():
         return "->".join(vals)
 
     s = Solution()
-    l1 = build_list([2,4,3])  # represents 342
-    l2 = build_list([5,6,4])  # represents 465
+    l1 = build_list([2, 4, 3])  # represents 342
+    l2 = build_list([5, 6, 4])  # represents 465
     result = s.solve(l1, l2)  # should represent 807 -> [7,0,8]
     return f"243 + 564 -> {list_to_str(result)}"
 

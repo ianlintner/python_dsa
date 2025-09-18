@@ -47,7 +47,7 @@ def demo():
         return "->".join(vals)
 
     s = Solution()
-    head = build_list([1,2,3,4,5])
+    head = build_list([1, 2, 3, 4, 5])
     result = s.solve(head)
     return f"[1,2,3,4,5] -> {list_to_str(result)}"
 

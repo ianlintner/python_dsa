@@ -41,11 +41,7 @@ class Solution:
 def demo():
     """Run a simple demonstration for Set Matrix Zeroes problem."""
     s = Solution()
-    matrix = [
-        [1,1,1],
-        [1,0,1],
-        [1,1,1]
-    ]
+    matrix = [[1, 1, 1], [1, 0, 1], [1, 1, 1]]
     result = s.solve(matrix)
     return f"Zeroed: {result}"
 

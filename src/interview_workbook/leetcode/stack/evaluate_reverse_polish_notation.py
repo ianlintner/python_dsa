@@ -30,11 +30,18 @@ class Solution:
         return stack[0]
 
 
-def demo():
+def demo() -> str:
     """Run a deterministic demo using a sample test case."""
-    tokens = ["2", "1", "+", "3", "*"]  # (2 + 1) * 3 = 9
-    result = Solution().solve(tokens)
-    return str(result)
+    tokens = ["2", "1", "+", "3", "*"]
+    print(f"Initial tokens: {tokens}")
+    s = Solution()
+    result = s.solve(tokens)
+    print(f"Final result: {result}")
+    return f"Evaluate RPN {tokens} -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
 
 
 register_problem(

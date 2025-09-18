@@ -93,11 +93,13 @@ def demo():
         print(f"  search {t}: index ->", linear_search(words, t))
 
     print()
+
     # Test with key function on objects
     class Item:
         def __init__(self, name: str, value: int):
             self.name = name
             self.value = value
+
         def __repr__(self):
             return f"Item({self.name}, {self.value})"
 
