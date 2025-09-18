@@ -39,16 +39,24 @@ class Solution:
         return minutes if fresh == 0 else -1
 
 
-def demo():
+def demo() -> str:
     """Run a demo for the Rotting Oranges problem."""
-    solver = Solution()
     grid = [
-        [2, 1, 1],
-        [1, 1, 0],
-        [0, 1, 1],
+        [2,1,1],
+        [1,1,0],
+        [0,1,1]
     ]
-    result = solver.solve(grid)
-    return str(result)
+    print("Initial grid:")
+    for row in grid:
+        print(row)
+    s = Solution()
+    result = s.solve(grid)
+    print(f"Final result: {result}")
+    return f"Rotting Oranges result for grid -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
 
 
 register_problem(

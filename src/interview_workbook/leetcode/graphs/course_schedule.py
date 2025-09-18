@@ -32,13 +32,19 @@ class Solution:
         return visited == numCourses
 
 
-def demo():
+def demo() -> str:
     """Run a demo for the Course Schedule problem."""
-    solver = Solution()
-    numCourses = 2
+    num_courses = 2
     prerequisites = [[1, 0]]
-    result = solver.solve(numCourses, prerequisites)
-    return str(result)
+    print(f"Number of courses: {num_courses}, Prerequisites: {prerequisites}")
+    s = Solution()
+    result = s.solve(num_courses, prerequisites)
+    print(f"Final result: {result}")
+    return f"Course Schedule with {num_courses} courses and prerequisites {prerequisites} -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
 
 
 register_problem(

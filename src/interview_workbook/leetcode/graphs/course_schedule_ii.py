@@ -34,13 +34,19 @@ class Solution:
         return order if len(order) == numCourses else []
 
 
-def demo():
+def demo() -> str:
     """Run a demo for the Course Schedule II problem."""
-    solver = Solution()
-    numCourses = 4
+    num_courses = 4
     prerequisites = [[1, 0], [2, 0], [3, 1], [3, 2]]
-    result = solver.solve(numCourses, prerequisites)
-    return str(result)
+    print(f"Number of courses: {num_courses}, Prerequisites: {prerequisites}")
+    s = Solution()
+    result = s.solve(num_courses, prerequisites)
+    print(f"Final result: {result}")
+    return f"Course Schedule II with {num_courses} courses and prerequisites {prerequisites} -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
 
 
 register_problem(
