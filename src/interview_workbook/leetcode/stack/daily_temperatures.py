@@ -22,8 +22,17 @@ class Solution:
         return res
 
 
-def demo():
-    return str(Solution().solve([73, 74, 75, 71, 69, 72, 76, 73]))
+def demo() -> str:
+    temps = [73, 74, 75, 71, 69, 72, 76, 73]
+    print(f"Initial temperatures: {temps}")
+    s = Solution()
+    result = s.solve(temps)
+    print(f"Final result: {result}")
+    return f"Daily temperatures result for {temps} -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
 
 
 register_problem(
