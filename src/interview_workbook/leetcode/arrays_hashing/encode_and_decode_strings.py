@@ -58,6 +58,8 @@ def demo():
     print(f"Encoded string: {encoded}")
     print(f"Decoded strings: {decoded}")
     assert strs == decoded
+    print(strs)
+    print("Encode and Decode Strings demo passed.")
     return f"Original: {strs}\nEncoded: {encoded}\nDecoded: {decoded}"
 
 

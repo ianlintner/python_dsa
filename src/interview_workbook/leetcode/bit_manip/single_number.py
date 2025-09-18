@@ -28,7 +28,9 @@ def demo() -> str:
         [4, 1, 2, 1, 2],
         [1],
     ]
+    print(f"Test values: {test_values}")
     results = {str(lst): sol.solve(lst) for lst in test_values}
+    print(f"Final results: {results}")
     return str(results)
 
 

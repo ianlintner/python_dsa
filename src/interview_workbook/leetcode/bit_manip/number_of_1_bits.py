@@ -25,7 +25,9 @@ def demo() -> str:
     random.seed(0)
     sol = Solution()
     test_values = [0, 1, 2, 3, 7, 8, 15, 16, 31]
+    print(f"Test values: {test_values}")
     results = {val: sol.solve(val) for val in test_values}
+    print(f"Final results: {results}")
     return str(results)
 
 

@@ -21,6 +21,8 @@ def demo():
     nums = [1, 2, 3, 1]
     solver = Solution()
     result = solver.solve(nums)
+    print(f"Input: {nums} -> Contains Duplicate: {result}")
+    assert result is True
     return f"Input: {nums} -> Contains Duplicate: {result}"
 
 

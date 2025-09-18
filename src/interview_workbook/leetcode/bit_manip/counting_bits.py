@@ -25,6 +25,7 @@ def demo():
     random.seed(0)
     n = 5
     result = Solution().solve(n)
+    print(f"Counting bits up to {n}: {result}")
     return f"Counting bits up to {n}: {result}"
 
 

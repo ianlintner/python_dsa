@@ -40,7 +40,9 @@ def demo():
     solver = Solution()
     word1 = "horse"
     word2 = "ros"
+    print(f"Input: {word1}, {word2}")
     result = solver.solve(word1, word2)
+    print(f"Output: {result}")
     return str(result)
 
 

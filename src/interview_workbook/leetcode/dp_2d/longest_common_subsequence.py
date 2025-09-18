@@ -31,7 +31,9 @@ def demo():
     solver = Solution()
     text1 = "abcde"
     text2 = "ace"
+    print(f"Input: {text1}, {text2}")
     result = solver.solve(text1, text2)
+    print(f"Output: {result}")
     return str(result)
 
 
