@@ -15,6 +15,10 @@ from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
+    def solve(self, tasks: list[str], n: int) -> int:
+        """Alias for least_interval to match demo() convention."""
+        return self.least_interval(tasks, n)
+
     def least_interval(self, tasks: list[str], n: int) -> int:
         """
         Return the least number of intervals the CPU will take to finish all tasks.
@@ -48,6 +52,7 @@ class Solution:
 
 def demo() -> str:
     """Demonstration of Task Scheduler algorithm with deterministic seeding."""
+    random.seed(0)
     tasks = ["A", "A", "A", "B", "B", "B"]
     n = 2
     print(f"Initial tasks: {tasks}, cooldown={n}")
@@ -55,12 +60,6 @@ def demo() -> str:
     result = s.solve(tasks, n)
     print(f"Final result: {result}")
     return f"Least intervals to finish tasks {tasks} with cooldown {n} -> {result}"
-    random.seed(0)
-    tasks = ["A", "A", "A", "B", "B", "B"]
-    n = 2
-    sol = Solution()
-    result = sol.least_interval(tasks, n)
-    return f"Tasks: {tasks}, Cooling: {n}, Minimum intervals: {result}"
 
 
 register_problem(
