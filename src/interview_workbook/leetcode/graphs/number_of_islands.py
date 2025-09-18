@@ -36,7 +36,7 @@ class Solution:
         return islands
 
 
-def demo():
+def demo() -> str:
     """Run demo for Number of Islands problem."""
     grid = [
         ["1", "1", "0", "0", "0"],
@@ -44,9 +44,17 @@ def demo():
         ["0", "0", "1", "0", "0"],
         ["0", "0", "0", "1", "1"],
     ]
-    solution = Solution()
-    islands = solution.solve(grid)
-    return f"Number of islands: {islands}"
+    print("Initial grid:")
+    for row in grid:
+        print("".join(row))
+    s = Solution()
+    result = s.solve(grid)
+    print(f"Final result: {result}")
+    return f"Number of Islands in grid -> {result}"
+
+
+if __name__ == "__main__":
+    demo()
 
 
 register_problem(
