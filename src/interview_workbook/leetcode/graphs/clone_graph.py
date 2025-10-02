@@ -1,10 +1,21 @@
 """
 Clone Graph
 
-TODO: Add problem description
+LeetCode 133. Clone Graph
+
+Given a reference of a node in a connected undirected graph, return a deep copy (clone) of the graph. 
+Each node in the graph contains a value (int) and a list (List[Node]) of its neighbors.
+
+Constraints:
+- The number of nodes in the graph is in the range [0, 100].
+- 1 <= Node.val <= 100
+- Node.val is unique for each node.
+- There are no repeated edges and no self-loops in the graph.
+- The graph is connected and all nodes can be visited starting from the given node.
 """
 
 from collections import deque
+from typing import Optional
 
 from src.interview_workbook.leetcode._registry import register_problem
 from src.interview_workbook.leetcode._types import Category, Difficulty
@@ -20,7 +31,7 @@ class Node:
 
 
 class Solution:
-    def solve(self, node: Node) -> Node | None:
+    def solve(self, node: Node) -> Optional[Node]:
         """Clone an undirected graph using BFS."""
         if not node:
             return None
