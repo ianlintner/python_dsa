@@ -22,6 +22,10 @@ RUN pip install --upgrade pip \
 # Copy project
 COPY . .
 
+# Build documentation with MkDocs
+RUN pip install mkdocs mkdocs-material mkdocs-mermaid2-plugin mkdocs-awesome-pages-plugin mkdocs-git-revision-date-localized-plugin \
+    && mkdocs build --clean
+
 # Expose port for Flask app
 EXPOSE 5000
 

@@ -21,9 +21,8 @@ fix:
 
 # Default target: build docs
 docs:
-	@echo "Building documentation with MkDocs + plugins..."
-	pip install -q mkdocs mkdocs-material mkdocs-mermaid2-plugin mkdocs-awesome-pages-plugin mkdocs-git-revision-date-localized-plugin
-	mkdocs build --clean
+	@echo "Building documentation with Docker image..."
+	docker run --rm -v $(PWD):/docs squidfunk/mkdocs-material build --clean
 
 # Serve docs locally
 serve-docs:
