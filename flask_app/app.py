@@ -350,7 +350,15 @@ def index():
 
 def run_demo(module_name: str) -> str:
     """Import the module and execute its demo() while capturing stdout."""
-    mod = importlib.import_module(module_name)
+    # Defensive: ensure module_name is a valid dotted identifier, not a numeric string
+    if not isinstance(module_name, str) or module_name.strip() == "" or module_name.isdigit():
+        raise ValueError(f"Invalid module name: {module_name!r}")
+
+    try:
+        mod = importlib.import_module(module_name)
+    except ModuleNotFoundError as e:
+        raise ModuleNotFoundError(f"Could not import module {module_name!r}. Ensure it is a valid demo id.") from e
+
     demo_fn = getattr(mod, "demo", None)
     if not callable(demo_fn):
         raise ValueError(f"Module {module_name} does not define a callable demo()")
