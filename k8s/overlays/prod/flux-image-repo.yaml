@@ -1,0 +1,36 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: python-dsa
+  namespace: flux-system
+spec:
+  image: us-central1-docker.pkg.dev/kame-457417/python-dsa/python-dsa
+  interval: 1m
+  secretRef:
+    name: artifact-registry-creds
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: python-dsa-latest
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: python-dsa
+  policy:
+    semver:
+      range: ">=0.0.0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: python-dsa-automation
+  namespace: flux-system
+spec:
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  update:
+    strategy: Setters
+    path: ./k8s/overlays/prod

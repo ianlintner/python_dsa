@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: prod
 resources:
   - ../../base
+  - flux-image-repo.yaml
   - artifact-registry-iam.yaml
 
 transformers:
