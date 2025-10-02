@@ -60,13 +60,17 @@ def demo():
     res1_heap = solution.kthSmallestHeap(matrix1, k1)
     output.append("Find Kth Smallest In Sorted Matrix")
     output.append("Time: O(n log(max-min)) | Space: O(1)")
-    output.append(f"Test Case 1: matrix={matrix1}, k={k1} -> {res1} (heap: {res1_heap})")
+    output.append(
+        f"Test Case 1: matrix={matrix1}, k={k1} -> {res1} (heap: {res1_heap})"
+    )
 
     matrix2 = [[1, 2], [1, 3]]
     k2 = 3
     res2 = solution.kthSmallest(matrix2, k2)
     res2_heap = solution.kthSmallestHeap(matrix2, k2)
-    output.append(f"Test Case 2: matrix={matrix2}, k={k2} -> {res2} (heap: {res2_heap})")
+    output.append(
+        f"Test Case 2: matrix={matrix2}, k={k2} -> {res2} (heap: {res2_heap})"
+    )
 
     return "\n".join(output)
 

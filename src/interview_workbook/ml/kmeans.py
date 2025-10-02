@@ -77,7 +77,10 @@ class KMeans:
 
         for _ in range(self.max_iter):
             # Assign
-            labels = [min(range(self.n_clusters), key=lambda c: _dist2(x, centroids[c])) for x in X]
+            labels = [
+                min(range(self.n_clusters), key=lambda c: _dist2(x, centroids[c]))
+                for x in X
+            ]
             # Recompute
             new_centroids: List[Point] = []
             for c in range(self.n_clusters):
@@ -89,14 +92,17 @@ class KMeans:
                     new_centroids.append(rng.choice(X)[:])
 
             # Check movement
-            shift = sum(math.sqrt(_dist2(a, b)) for a, b in zip(centroids, new_centroids))
+            shift = sum(
+                math.sqrt(_dist2(a, b)) for a, b in zip(centroids, new_centroids)
+            )
             centroids = new_centroids
             if shift < self.tol:
                 break
 
         self.cluster_centers_ = centroids
         self.labels_ = [
-            min(range(self.n_clusters), key=lambda c: _dist2(x, centroids[c])) for x in X
+            min(range(self.n_clusters), key=lambda c: _dist2(x, centroids[c]))
+            for x in X
         ]
         return self
 
@@ -104,6 +110,9 @@ class KMeans:
         if not self.cluster_centers_:
             raise RuntimeError("Model not fitted")
         return [
-            min(range(self.n_clusters), key=lambda c: _dist2(x, self.cluster_centers_[c]))
+            min(
+                range(self.n_clusters),
+                key=lambda c: _dist2(x, self.cluster_centers_[c]),
+            )
             for x in X
         ]

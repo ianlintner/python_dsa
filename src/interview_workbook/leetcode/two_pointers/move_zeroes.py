@@ -35,7 +35,11 @@ Edge Cases:
 from typing import List
 
 from interview_workbook.leetcode._registry import register_problem
-from interview_workbook.leetcode._runner import TestCase, create_demo_output, run_test_cases
+from interview_workbook.leetcode._runner import (
+    TestCase,
+    create_demo_output,
+    run_test_cases,
+)
 from interview_workbook.leetcode._types import Category, Difficulty
 
 
@@ -83,7 +87,9 @@ test_cases = [
     ),
     TestCase(input_args=([0],), expected=[0], description="Single zero"),
     TestCase(input_args=([1, 2, 3],), expected=[1, 2, 3], description="No zeros"),
-    TestCase(input_args=([0, 0, 0, 1],), expected=[1, 0, 0, 0], description="Zeros then one"),
+    TestCase(
+        input_args=([0, 0, 0, 1],), expected=[1, 0, 0, 0], description="Zeros then one"
+    ),
     TestCase(input_args=([],), expected=[], description="Empty array"),
 ]
 
@@ -106,7 +112,9 @@ def demo():
         TestCase(([],), [], "Empty array"),
     ]
 
-    test_results = run_test_cases(test_move_zeroes, test_cases, "LeetCode 283: Move Zeroes")
+    test_results = run_test_cases(
+        test_move_zeroes, test_cases, "LeetCode 283: Move Zeroes"
+    )
 
     return create_demo_output(
         "Move Zeroes",

@@ -130,7 +130,11 @@ def edit_distance_with_operations(word1: str, word2: str) -> tuple[int, list[str
 
 
 def weighted_edit_distance(
-    word1: str, word2: str, insert_cost: int = 1, delete_cost: int = 1, replace_cost: int = 1
+    word1: str,
+    word2: str,
+    insert_cost: int = 1,
+    delete_cost: int = 1,
+    replace_cost: int = 1,
 ) -> int:
     """
     Weighted edit distance with different costs for operations.
@@ -315,17 +319,26 @@ def demo():
 
     print(f"LCS length: {lcs_len}")
     print(f"Delete-only distance: {delete_only_dist}")
-    print(f"Relationship check: {len(word1)} + {len(word2)} - 2*{lcs_len} = {delete_only_dist}")
+    print(
+        f"Relationship check: {len(word1)} + {len(word2)} - 2*{lcs_len} = {delete_only_dist}"
+    )
     print()
 
     # One edit distance
     print("One Edit Distance:")
-    one_edit_cases = [("ab", "acb"), ("cab", "ad"), ("1203", "1213"), ("teacher", "treacher")]
+    one_edit_cases = [
+        ("ab", "acb"),
+        ("cab", "ad"),
+        ("1203", "1213"),
+        ("teacher", "treacher"),
+    ]
 
     for s, t in one_edit_cases:
         is_one_edit = one_edit_distance(s, t)
         actual_dist = edit_distance(s, t)
-        print(f"'{s}' and '{t}': one edit = {is_one_edit}, actual distance = {actual_dist}")
+        print(
+            f"'{s}' and '{t}': one edit = {is_one_edit}, actual distance = {actual_dist}"
+        )
     print()
 
     # Edit distance within k

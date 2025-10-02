@@ -276,7 +276,9 @@ def minimum_height_trees(n: int, edges: list[list[int]]) -> list[int]:
     return list(leaves)
 
 
-def build_graph_from_edges(edges: list[list[int]], num_nodes: int) -> dict[int, list[int]]:
+def build_graph_from_edges(
+    edges: list[list[int]], num_nodes: int
+) -> dict[int, list[int]]:
     """Helper function to build adjacency list from edge list."""
     graph = defaultdict(list)
     for u, v in edges:

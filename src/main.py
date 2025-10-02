@@ -13,13 +13,31 @@ DEMOS = {
         "interview_workbook.algorithms.sorting.non_comparison_sorts",
         "demo",
     ),
-    "sorting.insertion_sort": ("interview_workbook.algorithms.sorting.insertion_sort", "demo"),
-    "sorting.selection_sort": ("interview_workbook.algorithms.sorting.selection_sort", "demo"),
-    "sorting.bubble_sort": ("interview_workbook.algorithms.sorting.bubble_sort", "demo"),
+    "sorting.insertion_sort": (
+        "interview_workbook.algorithms.sorting.insertion_sort",
+        "demo",
+    ),
+    "sorting.selection_sort": (
+        "interview_workbook.algorithms.sorting.selection_sort",
+        "demo",
+    ),
+    "sorting.bubble_sort": (
+        "interview_workbook.algorithms.sorting.bubble_sort",
+        "demo",
+    ),
     # Searching algorithms
-    "searching.binary_search": ("interview_workbook.algorithms.searching.binary_search", "demo"),
-    "searching.linear_search": ("interview_workbook.algorithms.searching.linear_search", "demo"),
-    "searching.quickselect": ("interview_workbook.algorithms.searching.quickselect", "demo"),
+    "searching.binary_search": (
+        "interview_workbook.algorithms.searching.binary_search",
+        "demo",
+    ),
+    "searching.linear_search": (
+        "interview_workbook.algorithms.searching.linear_search",
+        "demo",
+    ),
+    "searching.quickselect": (
+        "interview_workbook.algorithms.searching.quickselect",
+        "demo",
+    ),
     "searching.advanced_search": (
         "interview_workbook.algorithms.searching.advanced_search",
         "demo",
@@ -43,7 +61,10 @@ DEMOS = {
     "dp.knapsack": ("interview_workbook.dp.knapsack", "demo"),
     "dp.edit_distance": ("interview_workbook.dp.edit_distance", "demo"),
     "dp.bitmask_tsp": ("interview_workbook.dp.bitmask_tsp", "demo"),
-    "dp.state_compression_grid": ("interview_workbook.dp.state_compression_grid", "demo"),
+    "dp.state_compression_grid": (
+        "interview_workbook.dp.state_compression_grid",
+        "demo",
+    ),
     "dp.lcs": ("interview_workbook.dp.lcs", "demo"),
     # String algorithms
     "strings.kmp": ("interview_workbook.strings.kmp", "demo"),
@@ -55,22 +76,46 @@ DEMOS = {
     "patterns.sliding_window": ("interview_workbook.patterns.sliding_window", "demo"),
     "patterns.monotonic_stack": ("interview_workbook.patterns.monotonic_stack", "demo"),
     "patterns.backtracking": ("interview_workbook.patterns.backtracking", "demo"),
-    "patterns.meet_in_the_middle": ("interview_workbook.patterns.meet_in_the_middle", "demo"),
+    "patterns.meet_in_the_middle": (
+        "interview_workbook.patterns.meet_in_the_middle",
+        "demo",
+    ),
     "patterns.binary_search_on_answer": (
         "interview_workbook.patterns.binary_search_on_answer",
         "demo",
     ),
     "patterns.two_pointers": ("interview_workbook.patterns.two_pointers", "demo"),
     # Data structures
-    "data_structures.union_find": ("interview_workbook.data_structures.union_find", "demo"),
+    "data_structures.union_find": (
+        "interview_workbook.data_structures.union_find",
+        "demo",
+    ),
     "data_structures.trie": ("interview_workbook.data_structures.trie", "demo"),
-    "data_structures.lru_cache": ("interview_workbook.data_structures.lru_cache", "demo"),
-    "data_structures.lfu_cache": ("interview_workbook.data_structures.lfu_cache", "demo"),
-    "data_structures.fenwick_tree": ("interview_workbook.data_structures.fenwick_tree", "demo"),
-    "data_structures.segment_tree": ("interview_workbook.data_structures.segment_tree", "demo"),
-    "data_structures.heap_patterns": ("interview_workbook.data_structures.heap_patterns", "demo"),
+    "data_structures.lru_cache": (
+        "interview_workbook.data_structures.lru_cache",
+        "demo",
+    ),
+    "data_structures.lfu_cache": (
+        "interview_workbook.data_structures.lfu_cache",
+        "demo",
+    ),
+    "data_structures.fenwick_tree": (
+        "interview_workbook.data_structures.fenwick_tree",
+        "demo",
+    ),
+    "data_structures.segment_tree": (
+        "interview_workbook.data_structures.segment_tree",
+        "demo",
+    ),
+    "data_structures.heap_patterns": (
+        "interview_workbook.data_structures.heap_patterns",
+        "demo",
+    ),
     # Systems / Streaming
-    "systems.reservoir_sampling": ("interview_workbook.systems.reservoir_sampling", "demo"),
+    "systems.reservoir_sampling": (
+        "interview_workbook.systems.reservoir_sampling",
+        "demo",
+    ),
     "systems.rate_limiter": ("interview_workbook.systems.rate_limiter", "demo"),
     "systems.sharded_bfs": ("interview_workbook.systems.sharded_bfs", "demo"),
     "systems.consensus_basics": ("interview_workbook.systems.consensus_basics", "demo"),

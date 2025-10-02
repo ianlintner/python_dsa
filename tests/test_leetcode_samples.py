@@ -26,7 +26,10 @@ def test_two_sum_samples():
 
 def test_valid_palindrome_samples():
     """Test Valid Palindrome problem with its sample cases."""
-    from interview_workbook.leetcode.two_pointers.valid_palindrome import Solution, test_cases
+    from interview_workbook.leetcode.two_pointers.valid_palindrome import (
+        Solution,
+        test_cases,
+    )
 
     solution = Solution()
 
@@ -132,7 +135,10 @@ def test_test_case_failures():
 @pytest.mark.parametrize(
     "problem_module,expected_demo_content",
     [
-        ("interview_workbook.leetcode.arrays_hashing.two_sum", ["Two Sum", "O(n)", "hashmap"]),
+        (
+            "interview_workbook.leetcode.arrays_hashing.two_sum",
+            ["Two Sum", "O(n)", "hashmap"],
+        ),
         (
             "interview_workbook.leetcode.two_pointers.valid_palindrome",
             ["Valid Palindrome", "O(n)", "two pointers"],
@@ -153,7 +159,9 @@ def test_demo_content_quality(problem_module, expected_demo_content):
     # Check for expected content (case insensitive)
     demo_lower = demo_output.lower()
     for expected in expected_demo_content:
-        assert expected.lower() in demo_lower, f"Demo missing expected content: {expected}"
+        assert (
+            expected.lower() in demo_lower
+        ), f"Demo missing expected content: {expected}"
 
     # Should contain complexity analysis
     assert "time:" in demo_lower
@@ -190,7 +198,9 @@ def test_solution_classes_exist():
 
 def test_edge_cases():
     """Test edge cases for the implemented problems."""
-    from interview_workbook.leetcode.arrays_hashing.two_sum import Solution as TwoSumSolution
+    from interview_workbook.leetcode.arrays_hashing.two_sum import (
+        Solution as TwoSumSolution,
+    )
     from interview_workbook.leetcode.sliding_window.best_time_to_buy_sell_stock import (
         Solution as StockSolution,
     )
@@ -219,7 +229,9 @@ def test_edge_cases():
 
 def test_test_case_descriptions():
     """Test that test cases have meaningful descriptions."""
-    from interview_workbook.leetcode.arrays_hashing.two_sum import test_cases as two_sum_cases
+    from interview_workbook.leetcode.arrays_hashing.two_sum import (
+        test_cases as two_sum_cases,
+    )
     from interview_workbook.leetcode.sliding_window.best_time_to_buy_sell_stock import (
         test_cases as stock_cases,
     )

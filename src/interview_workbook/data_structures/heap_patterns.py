@@ -87,7 +87,11 @@ class MedianMaintenance:
             raise ValueError("No elements")
         if len(self.low) == len(self.high):
             return (-self.low[0] + self.high[0]) / 2.0
-        return float(-self.low[0]) if len(self.low) > len(self.high) else float(self.high[0])
+        return (
+            float(-self.low[0])
+            if len(self.low) > len(self.high)
+            else float(self.high[0])
+        )
 
 
 def demo():
@@ -118,7 +122,9 @@ def demo():
 
     print("Notes & Interview Tips:")
     print("  - For k largest/smallest, keep a bounded heap of size k.")
-    print("  - For top-k frequent, heap on frequency; Counter + heapq.nlargest is another option.")
+    print(
+        "  - For top-k frequent, heap on frequency; Counter + heapq.nlargest is another option."
+    )
     print("  - Merge k sorted lists with a heap of next candidates for O(N log k).")
     print("  - Median maintenance uses two heaps; keep sizes within 1 of each other.")
 

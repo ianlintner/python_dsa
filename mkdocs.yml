@@ -1,0 +1,51 @@
+site_name: Engineering Study Plan
+site_description: Consolidated study plan and documentation for engineers (Intern → Principal)
+site_author: Engineering Team
+repo_url: https://github.com/ianlintner/python_dsa
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - search.suggest
+    - search.highlight
+    - navigation.top
+plugins:
+  - search
+  - mermaid2
+  - awesome-pages
+  - git-revision-date-localized:
+      fallback_to_build_date: true
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+nav:
+  - Home: index.md
+  - Engineering Study Plan: docs/ENGINEERING_STUDY_PLAN.md
+  - Algorithms Portfolio: docs/ALGORITHMS_PORTFOLIO.md
+  - Learning Path: docs/LEARNING_PATH.md
+  - Consistency Models: docs/CONSISTENCY_MODELS.md
+  - System Design Guide: docs/INTERVIEW_SYSTEM_DESIGN.md
+  - NeetCode Top 100: docs/NEETCODE_TOP100.md

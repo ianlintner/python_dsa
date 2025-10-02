@@ -21,7 +21,9 @@ def reservoir_sample_one(stream: Iterable[int], seed: int | None = None) -> int 
     return sample
 
 
-def reservoir_sample_k(stream: Iterable[int], k: int, seed: int | None = None) -> list[int]:
+def reservoir_sample_k(
+    stream: Iterable[int], k: int, seed: int | None = None
+) -> list[int]:
     """
     Reservoir sampling for arbitrary k (Algorithm R generalized).
     Returns a list of k sampled items with equal probability among all n choose k subsets.
@@ -109,11 +111,15 @@ def demo():
     # Weighted sampling: favor larger numbers (weight = value)
     weighted_stream = [(x, float(x)) for x in data]
     w_samp = reservoir_sample_k_weighted(weighted_stream, 10, seed=42)
-    print(f"k=10 weighted sample (weights=x): {sorted(w_samp)}  (bias towards larger x)")
+    print(
+        f"k=10 weighted sample (weights=x): {sorted(w_samp)}  (bias towards larger x)"
+    )
 
     # Sampling from a stream that is too small
     small = [10, 20, 30]
-    print(f"Reservoir sample k=5 from small stream {small}: {reservoir_sample_k(small, 5, seed=1)}")
+    print(
+        f"Reservoir sample k=5 from small stream {small}: {reservoir_sample_k(small, 5, seed=1)}"
+    )
 
     # Infinite stream sampling demonstration (take first 1000 values)
     inf = infinite_stream(0)
@@ -129,7 +135,9 @@ def demo():
         "  - Reservoir sampling selects a uniform sample from a stream without knowing its length in advance."
     )
     print("  - k=1: replace current sample with probability 1/i at i-th element.")
-    print("  - k>1: keep initial k items; for i>k, replace random index < k with probability k/i.")
+    print(
+        "  - k>1: keep initial k items; for i>k, replace random index < k with probability k/i."
+    )
     print(
         "  - Weighted variant (Efraimidis-Spirakis) supports probabilities proportional to weights."
     )

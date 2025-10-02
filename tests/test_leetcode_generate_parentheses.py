@@ -9,7 +9,13 @@ class TestSolution:
     def test_example_cases(self):
         """Test with provided examples."""
         solution = Solution()
-        assert set(solution.solve(3)) == {"((()))", "(()())", "(())()", "()(())", "()()()"}
+        assert set(solution.solve(3)) == {
+            "((()))",
+            "(()())",
+            "(())()",
+            "()(())",
+            "()()()",
+        }
         assert set(solution.solve(1)) == {"()"}
 
     def test_edge_cases(self):

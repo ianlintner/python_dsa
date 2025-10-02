@@ -42,7 +42,11 @@ from collections import Counter
 from typing import List
 
 from interview_workbook.leetcode._registry import register_problem
-from interview_workbook.leetcode._runner import TestCase, create_demo_output, run_test_cases
+from interview_workbook.leetcode._runner import (
+    TestCase,
+    create_demo_output,
+    run_test_cases,
+)
 from interview_workbook.leetcode._types import Category, Difficulty
 
 

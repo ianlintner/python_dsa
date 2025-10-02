@@ -14,7 +14,9 @@ class TestSolution:
         assert solution.solve(["2", "1", "+", "3", "*"]) == 9
         assert solution.solve(["4", "13", "5", "/", "+"]) == 6
         assert (
-            solution.solve(["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"])
+            solution.solve(
+                ["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"]
+            )
             == 22
         )
 

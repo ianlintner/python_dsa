@@ -116,8 +116,14 @@ def fibonacci_matrix_power(n: int) -> int:
     def matrix_multiply(A: list[list[int]], B: list[list[int]]) -> list[list[int]]:
         """Multiply two 2x2 matrices."""
         return [
-            [A[0][0] * B[0][0] + A[0][1] * B[1][0], A[0][0] * B[0][1] + A[0][1] * B[1][1]],
-            [A[1][0] * B[0][0] + A[1][1] * B[1][0], A[1][0] * B[0][1] + A[1][1] * B[1][1]],
+            [
+                A[0][0] * B[0][0] + A[0][1] * B[1][0],
+                A[0][0] * B[0][1] + A[0][1] * B[1][1],
+            ],
+            [
+                A[1][0] * B[0][0] + A[1][1] * B[1][0],
+                A[1][0] * B[0][1] + A[1][1] * B[1][1],
+            ],
         ]
 
     def matrix_power(matrix: list[list[int]], power: int) -> list[list[int]]:
@@ -282,13 +288,18 @@ def demo():
     import time
 
     # Only test fast methods for large n
-    fast_methods = [("Optimized", fibonacci_optimized), ("Matrix Power", fibonacci_matrix_power)]
+    fast_methods = [
+        ("Optimized", fibonacci_optimized),
+        ("Matrix Power", fibonacci_matrix_power),
+    ]
 
     for name, func in fast_methods:
         start_time = time.time()
         result = func(large_n)
         end_time = time.time()
-        print(f"  {name:12}: F({large_n}) = {result} (took {end_time - start_time:.6f}s)")
+        print(
+            f"  {name:12}: F({large_n}) = {result} (took {end_time - start_time:.6f}s)"
+        )
 
 
 if __name__ == "__main__":

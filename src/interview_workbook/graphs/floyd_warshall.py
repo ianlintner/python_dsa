@@ -23,7 +23,9 @@ def build_adj_matrix(
     return dist
 
 
-def floyd_warshall(dist: list[list[float]]) -> tuple[list[list[float]], list[list[int | None]]]:
+def floyd_warshall(
+    dist: list[list[float]],
+) -> tuple[list[list[float]], list[list[int | None]]]:
     """
     Floyd–Warshall algorithm for All-Pairs Shortest Paths (APSP).
 
@@ -77,7 +79,9 @@ def floyd_warshall(dist: list[list[float]]) -> tuple[list[list[float]], list[lis
                     if dist[k][j] == INF:
                         continue
                     dist[i][j] = NEG_INF
-                    next_hop[i][j] = None  # path not well-defined due to negative cycle influence
+                    next_hop[i][
+                        j
+                    ] = None  # path not well-defined due to negative cycle influence
 
     return dist, next_hop
 
@@ -144,7 +148,11 @@ def demo():
     for i in range(n2):
         print(f"dist[{i}]: {dist2_out[i]}")
     print(f"Has negative cycle? {has_negative_cycle(dist2_out)}")
-    print("Path 0 -> 2:", reconstruct_path(next2, 0, 2), "(empty if undefined due to neg cycle)")
+    print(
+        "Path 0 -> 2:",
+        reconstruct_path(next2, 0, 2),
+        "(empty if undefined due to neg cycle)",
+    )
     print()
 
     # Example 3: Undirected graph APSP
@@ -167,7 +175,9 @@ def demo():
     print("Complexity and Notes:")
     print("  - Time: O(V^3), Space: O(V^2)")
     print("  - Handles negative edges; detect cycles via dist[i][i] < 0")
-    print("  - For sparse graphs and single-source queries, prefer Dijkstra/Bellman-Ford")
+    print(
+        "  - For sparse graphs and single-source queries, prefer Dijkstra/Bellman-Ford"
+    )
     print("  - For many sources on sparse graphs, Johnson's algorithm may be better")
 
 

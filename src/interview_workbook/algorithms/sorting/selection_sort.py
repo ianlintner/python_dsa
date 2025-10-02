@@ -62,7 +62,9 @@ def selection_sort(a: list, key: Optional[Callable[[object], object]] = None) ->
     return arr
 
 
-def selection_sort_inplace(a: list, key: Optional[Callable[[object], object]] = None) -> None:
+def selection_sort_inplace(
+    a: list, key: Optional[Callable[[object], object]] = None
+) -> None:
     """
     In-place selection sort (mutates the input list).
     """

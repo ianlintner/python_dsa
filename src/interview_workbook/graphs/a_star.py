@@ -120,6 +120,7 @@ def a_star_grid(
             dx = abs(p[0] - goal[0])
             dy = abs(p[1] - goal[1])
             return (dx + dy) + (math.sqrt(2) - 2) * min(dx, dy)
+
     else:
         dirs = [(1, 0, 1.0), (-1, 0, 1.0), (0, 1, 1.0), (0, -1, 1.0)]
 
@@ -205,14 +206,18 @@ def demo():
     ]
     start = (0, 0)
     goal = (3, 4)
-    cost, path = a_star_grid(grid, start, goal, passable=lambda x: x == 0, diagonal=False)
+    cost, path = a_star_grid(
+        grid, start, goal, passable=lambda x: x == 0, diagonal=False
+    )
     print(f"Path {start}->{goal}: cost={cost:.2f}, path={path}")
     print()
 
     print("Notes & Interview Tips:")
     print("  - Heuristic must be admissible and ideally consistent for optimality.")
     print("  - On grids, Manhattan (4-dir) or Octile (8-dir) are common heuristics.")
-    print("  - If h=0, A* becomes Dijkstra; if h overestimates, may be fast but not optimal.")
+    print(
+        "  - If h=0, A* becomes Dijkstra; if h overestimates, may be fast but not optimal."
+    )
     print("  - Practical uses: pathfinding in games, routing, planning.")
 
 

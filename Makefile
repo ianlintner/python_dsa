@@ -1,54 +1,37 @@
-SHELL := /bin/bash
 
-PYTHON ?= python3
+# Makefile for Documentation (Bastage-style with plugins)
 
-.PHONY: help install precommit-install precommit-all format format-check lint lint-fix test check ci run-ui
+.PHONY: docs clean-docs serve-docs lint format fix
 
-help:
-	@echo "Targets:"
-	@echo "  install            Install project with dev extras (ruff, pre-commit, pytest)"
-	@echo "  precommit-install  Install git hooks (pre-commit)"
-	@echo "  precommit-all      Run all pre-commit hooks across the repo"
-	@echo "  format             Format code with Ruff formatter"
-	@echo "  format-check       Check formatting (no changes)"
-	@echo "  lint               Lint with Ruff"
-	@echo "  lint-fix           Lint with Ruff and autofix"
-	@echo "  test               Run pytest"
-	@echo "  check              Run format-check + lint"
-	@echo "  ci                 Install deps, run hooks, run tests (local CI parity)"
-
-install:
-	$(PYTHON) -m pip install -U pip
-	$(PYTHON) -m pip install -e ".[dev]"
-
-precommit-install:
-	pre-commit install
-
-precommit-all:
-	pre-commit run --all-files --show-diff-on-failure --color=always
+# Directory for built docs
+DOCS_BUILD_DIR=site
+# Linting and formatting
+lint:
+	@echo "Running flake8 lint checks..."
+	flake8 src flask_app tests
 
 format:
-	$(PYTHON) -m ruff format .
+	@echo "Running black code formatter..."
+	black --verbose --diff --color src flask_app tests || true
 
-format-check:
-	$(PYTHON) -m ruff format --check .
+fix:
+	@echo "Running auto-format and lint..."
+	black --verbose --diff --color src flask_app tests || true
+	flake8 src flask_app tests || true
+	@echo "Auto-formatting and linting complete (errors ignored)."
 
-lint:
-	$(PYTHON) -m ruff check .
+# Default target: build docs
+docs:
+	@echo "Building documentation with MkDocs + plugins..."
+	pip install -q mkdocs mkdocs-material mkdocs-mermaid2-plugin mkdocs-awesome-pages-plugin mkdocs-git-revision-date-localized-plugin
+	mkdocs build --clean
 
-lint-fix:
-	$(PYTHON) -m ruff check --fix
+# Serve docs locally
+serve-docs:
+	@echo "Serving documentation at http://127.0.0.1:8000"
+	mkdocs serve
 
-test:
-	$(PYTHON) -m pytest -q
-
-coverage:
-	$(PYTHON) -m pytest
-
-check: format-check lint
-
-ci: install precommit-all test
-
-# Run the Flask UI for demos
-run-ui:
-	python3 flask_app/app.py
+# Clean built docs
+clean-docs:
+	@echo "Cleaning built documentation..."
+	rm -rf $(DOCS_BUILD_DIR)

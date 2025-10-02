@@ -1,6 +1,9 @@
 import random
 
-from interview_workbook.algorithms.sorting.bubble_sort import bubble_sort, bubble_sort_inplace
+from interview_workbook.algorithms.sorting.bubble_sort import (
+    bubble_sort,
+    bubble_sort_inplace,
+)
 from interview_workbook.algorithms.sorting.insertion_sort import (
     insertion_sort,
     insertion_sort_inplace,

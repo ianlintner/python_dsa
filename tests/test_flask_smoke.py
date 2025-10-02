@@ -74,7 +74,13 @@ def test_api_viz_graph(client):
 def test_api_viz_path(client):
     resp = client.post(
         "/api/viz/path",
-        data={"algo": "astar", "rows": "10", "cols": "15", "density": "0.2", "seed": "0"},
+        data={
+            "algo": "astar",
+            "rows": "10",
+            "cols": "15",
+            "density": "0.2",
+            "seed": "0",
+        },
     )
     assert resp.status_code == 200
     assert isinstance(resp.get_json(), dict)

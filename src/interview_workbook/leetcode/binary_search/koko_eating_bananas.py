@@ -56,7 +56,10 @@ def demo():
     for case in test_cases:
         res = sol.minEatingSpeed(*case.input_args)
         logging.debug(
-            "Test case input=%s, result=%s, expected=%s", case.input_args, res, case.expected
+            "Test case input=%s, result=%s, expected=%s",
+            case.input_args,
+            res,
+            case.expected,
         )
         outputs.append(
             f"Koko Eating Bananas | Input: {case.input_args} -> Output: {res}, Expected: {case.expected}\n✓ PASS"

@@ -40,9 +40,7 @@ def demo() -> str:
     s = Solution()
     result = s.solve(num_courses, prerequisites)
     print(f"Final result: {result}")
-    return (
-        f"Course Schedule with {num_courses} courses and prerequisites {prerequisites} -> {result}"
-    )
+    return f"Course Schedule with {num_courses} courses and prerequisites {prerequisites} -> {result}"
 
 
 if __name__ == "__main__":

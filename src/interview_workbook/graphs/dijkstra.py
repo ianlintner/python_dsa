@@ -139,7 +139,9 @@ def dijkstra_single_target(
     """
     distances, parents = dijkstra_with_path(graph, source, target)
     distance = distances.get(target, float("inf"))
-    path = reconstruct_path(parents, source, target) if distance != float("inf") else None
+    path = (
+        reconstruct_path(parents, source, target) if distance != float("inf") else None
+    )
     return distance, path
 
 
@@ -172,7 +174,9 @@ def dijkstra_k_shortest_paths(
             if neighbor not in visited and len(all_paths) < k:
                 path.append(neighbor)
                 visited.add(neighbor)
-                find_paths_dfs(neighbor, target, path, cost + weight, visited, all_paths)
+                find_paths_dfs(
+                    neighbor, target, path, cost + weight, visited, all_paths
+                )
                 path.pop()
                 visited.remove(neighbor)
 
@@ -196,7 +200,9 @@ def dijkstra_all_pairs(graph: WeightedGraph) -> dict[Vertex, dict[Vertex, Weight
     return all_distances
 
 
-def create_graph_from_edges(edges: list[tuple[Vertex, Vertex, Weight]]) -> WeightedGraph:
+def create_graph_from_edges(
+    edges: list[tuple[Vertex, Vertex, Weight]],
+) -> WeightedGraph:
     """Helper function to create adjacency list from edge list."""
     graph = defaultdict(list)
 
@@ -296,7 +302,12 @@ def demo():
     print()
 
     # All pairs shortest paths (small example)
-    small_graph = {"A": [("B", 1), ("C", 4)], "B": [("C", 2), ("D", 5)], "C": [("D", 1)], "D": []}
+    small_graph = {
+        "A": [("B", 1), ("C", 4)],
+        "B": [("C", 2), ("D", 5)],
+        "C": [("D", 1)],
+        "D": [],
+    }
 
     all_pairs = dijkstra_all_pairs(small_graph)
     print("All-pairs shortest paths:")

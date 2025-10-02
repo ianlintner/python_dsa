@@ -31,10 +31,14 @@ class Solution:
 
 test_cases = [
     TestCase(
-        ([[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 50]], 3), True, "Element present in row 1"
+        ([[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 50]], 3),
+        True,
+        "Element present in row 1",
     ),
     TestCase(
-        ([[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 50]], 13), False, "Element not present"
+        ([[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 50]], 13),
+        False,
+        "Element not present",
     ),
 ]
 

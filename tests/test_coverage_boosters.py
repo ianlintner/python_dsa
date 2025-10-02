@@ -41,7 +41,10 @@ def test_main_cli_paths_cover_list_and_demo_and_help(monkeypatch):
 
 
 def test_linear_search_and_find_all_on_iterables():
-    from interview_workbook.algorithms.searching.linear_search import find_all, linear_search
+    from interview_workbook.algorithms.searching.linear_search import (
+        find_all,
+        linear_search,
+    )
 
     # Use a non-Sequence iterable (generator) to cover iterable branch in find_all
     def gen():
@@ -72,11 +75,19 @@ def test_non_comparison_sorts_additional_branches():
 
     # counting_sort unstable branch
     arr = [3, 1, 2, 1, 0]
-    assert ncs.counting_sort(arr, min_value=0, max_value=3, stable=False) == [0, 1, 1, 2, 3]
+    assert ncs.counting_sort(arr, min_value=0, max_value=3, stable=False) == [
+        0,
+        1,
+        1,
+        2,
+        3,
+    ]
 
     # counting_sort_by_key with provided min/max aliases
     items = [("a", 3), ("b", 1), ("c", 2)]
-    sorted_items = ncs.counting_sort_by_key(items, key=lambda x: x[1], min_value=1, max_value=3)
+    sorted_items = ncs.counting_sort_by_key(
+        items, key=lambda x: x[1], min_value=1, max_value=3
+    )
     assert [x[1] for x in sorted_items] == [1, 2, 3]
 
     # radix_sort_lsd_fixed_strings with explicit max_len (exercise padding path)

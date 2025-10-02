@@ -382,7 +382,12 @@ def demo_page():
         abort(404, description=f"Demo not found for module {module}")
 
     return render_template(
-        "demo.html", meta=meta, output=None, error=None, code=None, notes=get_notes(meta["id"])
+        "demo.html",
+        meta=meta,
+        output=None,
+        error=None,
+        code=None,
+        notes=get_notes(meta["id"]),
     )
 
 
@@ -411,7 +416,12 @@ def demo_run():
         error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
 
     return render_template(
-        "demo.html", meta=meta, output=output, error=error, code=None, notes=get_notes(meta["id"])
+        "demo.html",
+        meta=meta,
+        output=output,
+        error=error,
+        code=None,
+        notes=get_notes(meta["id"]),
     )
 
 
@@ -433,7 +443,10 @@ def api_demo_run():
             break
 
     if meta is None:
-        return jsonify({"output": None, "error": f"Demo not found for module {module}"}), 404
+        return (
+            jsonify({"output": None, "error": f"Demo not found for module {module}"}),
+            404,
+        )
 
     try:
         output = run_demo(meta["module"])
@@ -462,7 +475,12 @@ def source():
         "path": str(filepath),
     }
     return render_template(
-        "demo.html", meta=meta, output=None, error=None, code=code, notes=get_notes(meta["id"])
+        "demo.html",
+        meta=meta,
+        output=None,
+        error=None,
+        code=code,
+        notes=get_notes(meta["id"]),
     )
 
 
@@ -473,7 +491,9 @@ def viz_sorting():
     try:
         from flask_app.visualizations import sorting_viz as s_viz  # type: ignore
 
-        algorithms = [{"key": k, "name": v["name"]} for k, v in s_viz.ALGORITHMS.items()]
+        algorithms = [
+            {"key": k, "name": v["name"]} for k, v in s_viz.ALGORITHMS.items()
+        ]
     except Exception:
         algorithms = [
             {"key": "quick", "name": "Quick Sort"},
@@ -570,7 +590,9 @@ def viz_path():
     try:
         from flask_app.visualizations import path_viz as p_viz  # type: ignore
 
-        algorithms = [{"key": k, "name": v["name"]} for k, v in p_viz.ALGORITHMS.items()]
+        algorithms = [
+            {"key": k, "name": v["name"]} for k, v in p_viz.ALGORITHMS.items()
+        ]
     except Exception:
         algorithms = [
             {"key": "astar", "name": "A* (Manhattan)"},
@@ -583,9 +605,12 @@ def viz_path():
         algo=algo,
         algorithms=algorithms,
         notes=get_notes(
-            {"astar": "a_star", "dijkstra": "dijkstra", "bfs": "bfs_dfs", "gbfs": "gbfs"}.get(
-                algo, algo
-            )
+            {
+                "astar": "a_star",
+                "dijkstra": "dijkstra",
+                "bfs": "bfs_dfs",
+                "gbfs": "gbfs",
+            }.get(algo, algo)
         ),
     )
 
@@ -621,11 +646,16 @@ def viz_arrays():
     try:
         from flask_app.visualizations import array_viz as a_viz  # type: ignore
 
-        algorithms = [{"key": k, "name": v["name"]} for k, v in a_viz.ALGORITHMS.items()]
+        algorithms = [
+            {"key": k, "name": v["name"]} for k, v in a_viz.ALGORITHMS.items()
+        ]
     except Exception:
         algorithms = [
             {"key": "binary_search", "name": "Binary Search"},
-            {"key": "two_pointers_sum", "name": "Two Pointers (Two-Sum in Sorted Array)"},
+            {
+                "key": "two_pointers_sum",
+                "name": "Two Pointers (Two-Sum in Sorted Array)",
+            },
             {
                 "key": "sliding_window_min_len_geq",
                 "name": "Sliding Window (Min Len with Sum ≥ target)",
@@ -677,7 +707,9 @@ def viz_mst():
     try:
         from flask_app.visualizations import mst_viz as m_viz  # type: ignore
 
-        algorithms = [{"key": k, "name": v["name"]} for k, v in m_viz.ALGORITHMS.items()]
+        algorithms = [
+            {"key": k, "name": v["name"]} for k, v in m_viz.ALGORITHMS.items()
+        ]
     except Exception:
         algorithms = [
             {"key": "kruskal", "name": "Minimum Spanning Tree (Kruskal)"},
@@ -723,7 +755,9 @@ def viz_topo():
     try:
         from flask_app.visualizations import topo_viz as t_viz  # type: ignore
 
-        algorithms = [{"key": k, "name": v["name"]} for k, v in t_viz.ALGORITHMS.items()]
+        algorithms = [
+            {"key": k, "name": v["name"]} for k, v in t_viz.ALGORITHMS.items()
+        ]
     except Exception:
         algorithms = [
             {"key": "kahn", "name": "Topological Sort (Kahn's Algorithm)"},
@@ -789,7 +823,13 @@ def api_viz_nn():
         from flask_app.visualizations import nn_viz as nn  # type: ignore
 
         result = nn.visualize(
-            dataset=dataset, n=n, hidden=hidden, lr=lr, epochs=epochs, seed=seed, grid=grid
+            dataset=dataset,
+            n=n,
+            hidden=hidden,
+            lr=lr,
+            epochs=epochs,
+            seed=seed,
+            grid=grid,
         )
         return jsonify(result)
     except Exception as e:

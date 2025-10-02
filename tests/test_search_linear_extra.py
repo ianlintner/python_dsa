@@ -1,6 +1,9 @@
 from typing import NamedTuple
 
-from interview_workbook.algorithms.searching.linear_search import find_all, linear_search
+from interview_workbook.algorithms.searching.linear_search import (
+    find_all,
+    linear_search,
+)
 
 
 class Item(NamedTuple):

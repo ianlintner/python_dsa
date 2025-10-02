@@ -149,7 +149,9 @@ def demo():
     print(
         "  - Distributed systems: combine local buckets with centralized quota for global rate limiting."
     )
-    print("  - Consider time precision, thread/process safety, and fairness across clients.")
+    print(
+        "  - Consider time precision, thread/process safety, and fairness across clients."
+    )
 
 
 if __name__ == "__main__":

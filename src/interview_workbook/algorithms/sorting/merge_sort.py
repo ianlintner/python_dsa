@@ -98,7 +98,14 @@ def demo():
     print("Merge Sort Demo")
     print("=" * 40)
 
-    test_cases = [[5, 1, 4, 2, 8, 0, 2], [1], [], [3, 3, 3, 3], [5, 4, 3, 2, 1], list(range(10))]
+    test_cases = [
+        [5, 1, 4, 2, 8, 0, 2],
+        [1],
+        [],
+        [3, 3, 3, 3],
+        [5, 4, 3, 2, 1],
+        list(range(10)),
+    ]
 
     for i, arr in enumerate(test_cases):
         print(f"Test {i + 1}: {arr}")

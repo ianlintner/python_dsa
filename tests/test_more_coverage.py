@@ -43,7 +43,10 @@ def test_check_sorted_len_guards_and_reverse():
 
 
 def test_linear_search_empty_and_singleton():
-    from interview_workbook.algorithms.searching.linear_search import find_all, linear_search
+    from interview_workbook.algorithms.searching.linear_search import (
+        find_all,
+        linear_search,
+    )
 
     assert linear_search([], 1) == -1
     assert linear_search([42], 42) == 0

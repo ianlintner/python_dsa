@@ -161,7 +161,9 @@ def test_module_path_consistency():
         expected_module = (
             f"interview_workbook.leetcode.{problem['category'].value}.{problem['slug']}"
         )
-        assert problem["module"] == expected_module, f"Module path mismatch for {problem['slug']}"
+        assert (
+            problem["module"] == expected_module
+        ), f"Module path mismatch for {problem['slug']}"
 
 
 @pytest.mark.parametrize(

@@ -143,10 +143,14 @@ class Cluster:
                         continue
                     if peer.current_term == term and peer.role != Role.FOLLOWER:
                         peer.role = Role.FOLLOWER
-                events.append(f"[t={self.tick}] Node {nid} became LEADER for term {term}")
+                events.append(
+                    f"[t={self.tick}] Node {nid} became LEADER for term {term}"
+                )
             else:
                 # Stay candidate; will retry after another timeout
-                events.append(f"[t={self.tick}] Node {nid} failed to get majority (votes={votes})")
+                events.append(
+                    f"[t={self.tick}] Node {nid} failed to get majority (votes={votes})"
+                )
 
         # Print events for this tick
         for e in events:
@@ -187,10 +191,16 @@ def demo():
     cluster = Cluster(n=5, seed=7)
     cluster.run(max_ticks=60)
     print("\nNotes & Interview Tips:")
-    print("  - Raft splits consensus into leader election, log replication, and safety.")
+    print(
+        "  - Raft splits consensus into leader election, log replication, and safety."
+    )
     print("  - Randomized election timeouts reduce split votes.")
-    print("  - Real systems handle persistent logs, RPC timeouts, retries, and partitions.")
-    print("  - Paxos follows different mechanics (proposers/acceptors/learners) with quorums.")
+    print(
+        "  - Real systems handle persistent logs, RPC timeouts, retries, and partitions."
+    )
+    print(
+        "  - Paxos follows different mechanics (proposers/acceptors/learners) with quorums."
+    )
 
 
 if __name__ == "__main__":

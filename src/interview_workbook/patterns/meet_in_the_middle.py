@@ -152,7 +152,9 @@ def demo():
     print()
 
     print("Notes & Interview Tips:")
-    print("  - Meet-in-the-middle splits n into n/2 + n/2 to reduce O(2^n) to ~O(2^(n/2)).")
+    print(
+        "  - Meet-in-the-middle splits n into n/2 + n/2 to reduce O(2^n) to ~O(2^(n/2))."
+    )
     print("  - Useful when n ~ 30-40 where pure backtracking is too slow.")
     print("  - Combine with sorting + binary search or hash maps for counts.")
 

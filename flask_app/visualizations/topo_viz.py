@@ -51,7 +51,8 @@ def generate_dag(
     rng = random.Random(seed)
     coords = _layer_layout(n, layers)
     nodes = [
-        {"id": i, "x": coords[i][0], "y": coords[i][1], "layer": coords[i][2]} for i in range(n)
+        {"id": i, "x": coords[i][0], "y": coords[i][1], "layer": coords[i][2]}
+        for i in range(n)
     ]
 
     # group node ids by layer
@@ -148,16 +149,37 @@ def kahn_frames(g: dict[str, Any], max_steps: int = 50000) -> list[dict[str, Any
         # Decrement indegrees of neighbors
         for v in adj[u]:
             frames.append(
-                _frame("inspect", u, list(q), removed, highlight_edges=[(u, v)], order=order)
+                _frame(
+                    "inspect",
+                    u,
+                    list(q),
+                    removed,
+                    highlight_edges=[(u, v)],
+                    order=order,
+                )
             )
             indeg[v] -= 1
             frames.append(
-                _frame("decrement", u, list(q), removed, highlight_edges=[(u, v)], order=order)
+                _frame(
+                    "decrement",
+                    u,
+                    list(q),
+                    removed,
+                    highlight_edges=[(u, v)],
+                    order=order,
+                )
             )
             if indeg[v] == 0:
                 q.append(v)
                 frames.append(
-                    _frame("enqueue", u, list(q), removed, highlight_edges=[(u, v)], order=order)
+                    _frame(
+                        "enqueue",
+                        u,
+                        list(q),
+                        removed,
+                        highlight_edges=[(u, v)],
+                        order=order,
+                    )
                 )
         steps += 1
 
@@ -174,7 +196,11 @@ ALGORITHMS = {
 
 
 def visualize(
-    algo_key: str, n: int = 12, layers: int = 3, p: float = 0.35, seed: int | None = None
+    algo_key: str,
+    n: int = 12,
+    layers: int = 3,
+    p: float = 0.35,
+    seed: int | None = None,
 ) -> dict[str, Any]:
     algo = ALGORITHMS.get(algo_key)
     if not algo:

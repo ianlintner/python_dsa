@@ -141,9 +141,13 @@ def demo():
     print()
 
     print("Notes & Interview Tips:")
-    print("  - Two pointers excel when the array is sorted or when shrinking/expanding ranges.")
+    print(
+        "  - Two pointers excel when the array is sorted or when shrinking/expanding ranges."
+    )
     print("  - For unique triplets, skip duplicates after moving pointers.")
-    print("  - For interval merging, always sort by start and track last merged interval.")
+    print(
+        "  - For interval merging, always sort by start and track last merged interval."
+    )
 
 
 if __name__ == "__main__":

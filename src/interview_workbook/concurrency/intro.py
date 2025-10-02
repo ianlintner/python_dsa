@@ -184,9 +184,15 @@ def demo():
     print(
         "  - asyncio: single-threaded concurrency via event loop; great for sockets/HTTP/db with async drivers."
     )
-    print("  - concurrent.futures: unified interface; ThreadPoolExecutor vs ProcessPoolExecutor.")
-    print("  - Producer-Consumer: Queue provides safe cross-thread communication and backpressure.")
-    print("  - Be mindful of context switching overhead, and use appropriate pool sizes.")
+    print(
+        "  - concurrent.futures: unified interface; ThreadPoolExecutor vs ProcessPoolExecutor."
+    )
+    print(
+        "  - Producer-Consumer: Queue provides safe cross-thread communication and backpressure."
+    )
+    print(
+        "  - Be mindful of context switching overhead, and use appropriate pool sizes."
+    )
 
 
 if __name__ == "__main__":

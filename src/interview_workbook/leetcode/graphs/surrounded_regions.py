@@ -44,7 +44,12 @@ class Solution:
 
 def demo() -> str:
     """Run a demo for the Surrounded Regions problem."""
-    board = [["X", "X", "X", "X"], ["X", "O", "O", "X"], ["X", "X", "O", "X"], ["X", "O", "X", "X"]]
+    board = [
+        ["X", "X", "X", "X"],
+        ["X", "O", "O", "X"],
+        ["X", "X", "O", "X"],
+        ["X", "O", "X", "X"],
+    ]
     print("Initial board:")
     for row in board:
         print("".join(row))

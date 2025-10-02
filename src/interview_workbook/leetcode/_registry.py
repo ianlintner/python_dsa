@@ -12,7 +12,9 @@ from .top100_manifest import TOP_100_MANIFEST
 # Augment each entry with a "module" key so metadata is consistent
 PROBLEMS: list[dict] = []
 for p in TOP_100_MANIFEST:
-    category = p["category"].value if hasattr(p["category"], "value") else str(p["category"])
+    category = (
+        p["category"].value if hasattr(p["category"], "value") else str(p["category"])
+    )
     module = f"interview_workbook.leetcode.{category}.{p['slug']}"
     PROBLEMS.append({**p, "module": module, "notes": p.get("notes", "")})
 

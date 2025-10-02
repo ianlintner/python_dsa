@@ -136,8 +136,12 @@ def demo():
     print(
         "  - TSP via Held-Karp is a classic bitmask DP: dp[mask][j] stores partial tour ending at j."
     )
-    print("  - Complexity O(n^2 * 2^n) limits n to ~20 in optimized languages; smaller in Python.")
-    print("  - For metric TSP, approximation algorithms (e.g., Christofides) are used at scale.")
+    print(
+        "  - Complexity O(n^2 * 2^n) limits n to ~20 in optimized languages; smaller in Python."
+    )
+    print(
+        "  - For metric TSP, approximation algorithms (e.g., Christofides) are used at scale."
+    )
 
 
 if __name__ == "__main__":

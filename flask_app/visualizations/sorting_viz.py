@@ -11,7 +11,9 @@ def _snap(
     return {"arr": arr[:], "a": a, "b": b, "op": op}
 
 
-def generate_array(n: int = 30, seed: int | None = None, unique: bool = True) -> list[int]:
+def generate_array(
+    n: int = 30, seed: int | None = None, unique: bool = True
+) -> list[int]:
     """
     Generate a random array for visualization.
     - If unique: values are 1..n shuffled
@@ -45,7 +47,9 @@ def bubble_sort_frames(arr: list[int], max_steps: int = 20000) -> list[dict[str,
     return frames
 
 
-def insertion_sort_frames(arr: list[int], max_steps: int = 20000) -> list[dict[str, Any]]:
+def insertion_sort_frames(
+    arr: list[int], max_steps: int = 20000
+) -> list[dict[str, Any]]:
     a = arr[:]
     frames: list[dict[str, Any]] = [_snap(a)]
     for i in range(1, len(a)):

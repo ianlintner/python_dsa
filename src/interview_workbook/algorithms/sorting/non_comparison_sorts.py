@@ -181,7 +181,9 @@ def radix_sort_lsd_integers(nums: list[int], base: int = 10) -> list[int]:
     return sorted_negatives + sorted_non_neg
 
 
-def radix_sort_lsd_fixed_strings(strings: list[str], max_len: int | None = None) -> list[str]:
+def radix_sort_lsd_fixed_strings(
+    strings: list[str], max_len: int | None = None
+) -> list[str]:
     """
     Radix Sort (LSD) for fixed-length ASCII strings. If variable length, left-pad with '\0'.
 
@@ -267,7 +269,9 @@ def demo():
     )
     print()
     print("Interview follow-ups:")
-    print("  - How to handle negatives in radix sort? (split and merge with reversed negatives)")
+    print(
+        "  - How to handle negatives in radix sort? (split and merge with reversed negatives)"
+    )
     print("  - How to ensure stability? (right-to-left placement in counting phase)")
     print("  - Memory trade-offs vs comparison sorts")
 

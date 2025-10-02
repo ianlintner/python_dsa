@@ -6,7 +6,9 @@ from typing import TypeVar
 T = TypeVar("T")
 
 
-def linear_search(a: Sequence[T], target: T, key: Callable[[T], object] | None = None) -> int:
+def linear_search(
+    a: Sequence[T], target: T, key: Callable[[T], object] | None = None
+) -> int:
     """
     Linear search over a sequence.
 
@@ -43,7 +45,9 @@ def linear_search(a: Sequence[T], target: T, key: Callable[[T], object] | None =
         return -1
 
 
-def find_all(a: Iterable[T], target: T, key: Callable[[T], object] | None = None) -> list[int]:
+def find_all(
+    a: Iterable[T], target: T, key: Callable[[T], object] | None = None
+) -> list[int]:
     """
     Return all indices where target occurs (if input is a Sequence), else consume iterable and return indices in order.
 

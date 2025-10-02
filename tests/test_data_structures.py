@@ -9,8 +9,15 @@ from interview_workbook.data_structures.heap_patterns import (
 )
 from interview_workbook.data_structures.lfu_cache import LFUCache
 from interview_workbook.data_structures.lru_cache import LRUCache, SimpleLRUCache
-from interview_workbook.data_structures.segment_tree import RangeMinSegmentTree, SegmentTree
-from interview_workbook.data_structures.trie import Trie, WordDictionary, find_words_in_board
+from interview_workbook.data_structures.segment_tree import (
+    RangeMinSegmentTree,
+    SegmentTree,
+)
+from interview_workbook.data_structures.trie import (
+    Trie,
+    WordDictionary,
+    find_words_in_board,
+)
 from interview_workbook.data_structures.union_find import UnionFind
 
 
@@ -101,7 +108,9 @@ class TestCachesHeaps:
         assert cache.get(2) == -1
         assert cache.get(3) == 3
         assert cache.get(1) == 1
-        cache.put(4, 4)  # evict key 3 or 1 based on freq; touch 3 to ensure eviction target
+        cache.put(
+            4, 4
+        )  # evict key 3 or 1 based on freq; touch 3 to ensure eviction target
         # To define eviction deterministically, bump key 3 before inserting 4
         # But since above we already accessed 3 once, both 1 and 3 have freq >= 1.
         # Accept either eviction policy: one of them should be missing now.
