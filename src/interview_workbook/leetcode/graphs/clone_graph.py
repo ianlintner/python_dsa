@@ -3,7 +3,7 @@ Clone Graph
 
 LeetCode 133. Clone Graph
 
-Given a reference of a node in a connected undirected graph, return a deep copy (clone) of the graph. 
+Given a reference of a node in a connected undirected graph, return a deep copy (clone) of the graph.
 Each node in the graph contains a value (int) and a list (List[Node]) of its neighbors.
 
 Constraints:
