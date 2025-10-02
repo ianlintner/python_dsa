@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: prod
 resources:
   - ../../base
+  - artifact-registry-iam.yaml
 
 transformers:
   - transformers/cert-namespace-patch.yaml
