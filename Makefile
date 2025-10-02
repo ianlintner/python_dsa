@@ -15,9 +15,8 @@ format:
 	black --verbose --diff --color src flask_app tests || true
 
 fix:
-	@echo "Running auto-format and lint..."
-	black --verbose --diff --color src flask_app tests || true
-	flake8 src flask_app tests || true
+	@echo "Running pre-commit hooks (ruff, ruff-format, etc.)..."
+	pre-commit run --all-files || true
 	@echo "Auto-formatting and linting complete (errors ignored)."
 
 # Default target: build docs
