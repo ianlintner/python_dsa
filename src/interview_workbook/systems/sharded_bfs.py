@@ -32,9 +32,7 @@ Complexity:
 
 Graph = dict[int, list[int]]
 Partitions = dict[int, int]  # node -> shard_id
-ShardGraphs = dict[
-    int, Graph
-]  # shard_id -> subgraph (only owns adjacency for its nodes)
+ShardGraphs = dict[int, Graph]  # shard_id -> subgraph (only owns adjacency for its nodes)
 
 
 def partition_round_robin(nodes: Iterable[int], num_shards: int) -> Partitions:
@@ -145,9 +143,7 @@ def demo():
     start = 0
     for shards in [2, 3, 4]:
         dist = sharded_bfs(graph, start=start, num_shards=shards)
-        print(
-            f"Distances from {start} with {shards} shards: {dict(sorted(dist.items()))}"
-        )
+        print(f"Distances from {start} with {shards} shards: {dict(sorted(dist.items()))}")
     print()
 
     print("Notes & Interview Tips:")

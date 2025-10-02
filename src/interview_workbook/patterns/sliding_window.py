@@ -191,16 +191,12 @@ def demo():
     )
     s2 = "ADOBECODEBANC"
     t2 = "ABC"
-    print(
-        f"Min window substring of '{s2}' containing '{t2}': '{min_window_substring(s2, t2)}'"
-    )
+    print(f"Min window substring of '{s2}' containing '{t2}': '{min_window_substring(s2, t2)}'")
     print()
 
     arr = [1, 1, 1]
     target = 2
-    print(
-        f"Count subarrays sum={target} in {arr}: {count_subarrays_sum_k(arr, target)}"
-    )
+    print(f"Count subarrays sum={target} in {arr}: {count_subarrays_sum_k(arr, target)}")
     print()
 
     bin_arr = [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0]

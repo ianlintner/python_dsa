@@ -297,9 +297,7 @@ def demo():
         start_time = time.time()
         result = func(large_n)
         end_time = time.time()
-        print(
-            f"  {name:12}: F({large_n}) = {result} (took {end_time - start_time:.6f}s)"
-        )
+        print(f"  {name:12}: F({large_n}) = {result} (took {end_time - start_time:.6f}s)")
 
 
 if __name__ == "__main__":

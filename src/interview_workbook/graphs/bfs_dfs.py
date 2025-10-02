@@ -44,9 +44,7 @@ def bfs(graph: Graph, start: Hashable) -> list[Hashable]:
     return result
 
 
-def bfs_shortest_path(
-    graph: Graph, start: Hashable, target: Hashable
-) -> list[Hashable] | None:
+def bfs_shortest_path(graph: Graph, start: Hashable, target: Hashable) -> list[Hashable] | None:
     """
     Find shortest path between start and target using BFS.
     Returns None if no path exists.
@@ -173,16 +171,12 @@ def dfs_path_exists(graph: Graph, start: Hashable, target: Hashable) -> bool:
 
         if node not in visited:
             visited.add(node)
-            stack.extend(
-                neighbor for neighbor in graph.get(node, []) if neighbor not in visited
-            )
+            stack.extend(neighbor for neighbor in graph.get(node, []) if neighbor not in visited)
 
     return False
 
 
-def find_all_paths(
-    graph: Graph, start: Hashable, target: Hashable
-) -> list[list[Hashable]]:
+def find_all_paths(graph: Graph, start: Hashable, target: Hashable) -> list[list[Hashable]]:
     """
     Find all simple paths from start to target.
     Warning: Can be exponential in number of paths!

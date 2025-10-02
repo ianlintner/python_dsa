@@ -69,9 +69,7 @@ def insertion_sort(a: list[T], key: Optional[Callable[[T], object]] = None) -> l
     return arr
 
 
-def insertion_sort_inplace(
-    a: list[T], key: Optional[Callable[[T], object]] = None
-) -> None:
+def insertion_sort_inplace(a: list[T], key: Optional[Callable[[T], object]] = None) -> None:
     """
     In-place insertion sort (mutates the input list).
 

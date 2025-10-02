@@ -24,9 +24,9 @@ class LFUCache:
         self.capacity = capacity
         self.size = 0
         self.key_to_val_freq: dict[int, tuple[int, int]] = {}  # key -> (value, freq)
-        self.freq_to_keys: dict[int, OrderedDict[int, None]] = (
-            {}
-        )  # freq -> OrderedDict of keys (None placeholders)
+        self.freq_to_keys: dict[
+            int, OrderedDict[int, None]
+        ] = {}  # freq -> OrderedDict of keys (None placeholders)
         self.min_freq = 0
 
     def _touch(self, key: int, new_value: int | None = None) -> None:
@@ -104,9 +104,7 @@ def demo():
 
     print("\nNotes & Interview Tips:")
     print("  - Track min_freq to locate LFU bucket quickly.")
-    print(
-        "  - Within same frequency, evict the least recently used (OrderedDict FIFO)."
-    )
+    print("  - Within same frequency, evict the least recently used (OrderedDict FIFO).")
     print("  - All operations are O(1) amortized using hash maps + OrderedDict.")
 
 

@@ -29,11 +29,7 @@ def is_same_tree(p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         return True
     if not p or not q:
         return False
-    return (
-        p.val == q.val
-        and is_same_tree(p.left, q.left)
-        and is_same_tree(p.right, q.right)
-    )
+    return p.val == q.val and is_same_tree(p.left, q.left) and is_same_tree(p.right, q.right)
 
 
 def isSubtree(root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:

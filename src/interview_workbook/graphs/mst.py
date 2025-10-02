@@ -68,9 +68,7 @@ def kruskal_mst(
     return mst_weight, mst_edges
 
 
-def prim_mst(
-    n: int, adj: list[list[tuple[int, int]]]
-) -> tuple[int, list[tuple[int, int, int]]]:
+def prim_mst(n: int, adj: list[list[tuple[int, int]]]) -> tuple[int, list[tuple[int, int, int]]]:
     """
     Prim's algorithm for Minimum Spanning Tree (MST) using a min-heap.
 
@@ -117,9 +115,7 @@ def prim_mst(
     return mst_weight, mst_edges
 
 
-def build_adj_list(
-    n: int, edges: list[tuple[int, int, int]]
-) -> list[list[tuple[int, int]]]:
+def build_adj_list(n: int, edges: list[tuple[int, int, int]]) -> list[list[tuple[int, int]]]:
     """Build undirected adjacency list from edge list (u, v, w)."""
     adj: list[list[tuple[int, int]]] = [[] for _ in range(n)]
     for u, v, w in edges:
@@ -164,9 +160,7 @@ def demo():
     adj = build_adj_list(n, edges_undirected)
     w_prim, mst_p = prim_mst(n, adj)
     print(f"Prim MST total weight: {w_prim}")
-    print(
-        f"Prim MST edges: {sorted(mst_p, key=lambda x: (min(x[0], x[1]), max(x[0], x[1])))}"
-    )
+    print(f"Prim MST edges: {sorted(mst_p, key=lambda x: (min(x[0], x[1]), max(x[0], x[1])))}")
     print()
 
     # Disconnected graph (forest) example
@@ -187,9 +181,7 @@ def demo():
 
     print("Notes and Interview Tips:")
     print("  - Kruskal: sort edges and union-find; great on sparse graphs.")
-    print(
-        "  - Prim: grow MST from a start node using a min-heap; efficient with adjacency lists."
-    )
+    print("  - Prim: grow MST from a start node using a min-heap; efficient with adjacency lists.")
     print("  - Both assume undirected, connected graphs for a single MST;")
     print("    on disconnected graphs they produce a minimum spanning forest.")
     print("  - If all edges have distinct weights, MST is unique.")

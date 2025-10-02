@@ -155,9 +155,7 @@ class Trie:
             count += self._count_words_from_node(child)
         return count
 
-    def _collect_words(
-        self, node: TrieNode, prefix: str, words: list[str], limit: int
-    ) -> None:
+    def _collect_words(self, node: TrieNode, prefix: str, words: list[str], limit: int) -> None:
         """Collect words from subtree rooted at node."""
         if len(words) >= limit:
             return

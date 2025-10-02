@@ -192,9 +192,7 @@ def median_of_medians(a: list[int], k: int) -> int:
         else:
             return select(arr, pivot_idx + 1, right, k)
 
-    def partition_around_value(
-        arr: list[int], left: int, right: int, pivot_val: int
-    ) -> int:
+    def partition_around_value(arr: list[int], left: int, right: int, pivot_val: int) -> int:
         # Find pivot and move to end
         for i in range(left, right + 1):
             if arr[i] == pivot_val:
@@ -246,12 +244,8 @@ def demo():
             kth_smallest_heap = find_kth_smallest_heap(arr, rank)
             kth_largest_heap = find_kth_largest_heap(arr, rank)
 
-            print(
-                f"  rank={rank}: {rank}th smallest = {kth_smallest} (heap: {kth_smallest_heap})"
-            )
-            print(
-                f"  rank={rank}: {rank}th largest = {kth_largest} (heap: {kth_largest_heap})"
-            )
+            print(f"  rank={rank}: {rank}th smallest = {kth_smallest} (heap: {kth_smallest_heap})")
+            print(f"  rank={rank}: {rank}th largest = {kth_largest} (heap: {kth_largest_heap})")
 
         # Test median
         try:

@@ -319,9 +319,7 @@ def demo():
 
     print(f"LCS length: {lcs_len}")
     print(f"Delete-only distance: {delete_only_dist}")
-    print(
-        f"Relationship check: {len(word1)} + {len(word2)} - 2*{lcs_len} = {delete_only_dist}"
-    )
+    print(f"Relationship check: {len(word1)} + {len(word2)} - 2*{lcs_len} = {delete_only_dist}")
     print()
 
     # One edit distance
@@ -336,9 +334,7 @@ def demo():
     for s, t in one_edit_cases:
         is_one_edit = one_edit_distance(s, t)
         actual_dist = edit_distance(s, t)
-        print(
-            f"'{s}' and '{t}': one edit = {is_one_edit}, actual distance = {actual_dist}"
-        )
+        print(f"'{s}' and '{t}': one edit = {is_one_edit}, actual distance = {actual_dist}")
     print()
 
     # Edit distance within k

@@ -39,9 +39,7 @@ class NGramLM:
         if self.n == 1:
             ctx = ()
         else:
-            ctx = tuple((["<s>"] * (self.n - 1 - len(context))) + list(context))[
-                -(self.n - 1) :
-            ]
+            ctx = tuple((["<s>"] * (self.n - 1 - len(context))) + list(context))[-(self.n - 1) :]
         counts = self.context_counts.get(ctx, Counter())
         V = max(len(self.vocab), 1)
         num = counts.get(token, 0) + self.k

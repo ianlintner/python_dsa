@@ -33,9 +33,7 @@ class Solution:
 # Example test cases
 
 test_cases = [
-    TestCase(
-        ("A man, a plan, a canal: Panama",), True, "Classic palindrome with punctuation"
-    ),
+    TestCase(("A man, a plan, a canal: Panama",), True, "Classic palindrome with punctuation"),
     TestCase(("race a car",), False, "Clearly not a palindrome"),
     TestCase((" ",), True, "Single space is palindrome"),
 ]

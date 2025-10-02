@@ -134,12 +134,8 @@ def demo():
 
     print("Notes & Interview Tips:")
     print("  - O(n) time using transformed string with separators and radius array.")
-    print(
-        "  - Compare with expand-around-center O(n^2) approach for clarity vs performance."
-    )
-    print(
-        "  - Useful in problems requiring palindrome counts or longest palindromic substring."
-    )
+    print("  - Compare with expand-around-center O(n^2) approach for clarity vs performance.")
+    print("  - Useful in problems requiring palindrome counts or longest palindromic substring.")
 
 
 if __name__ == "__main__":

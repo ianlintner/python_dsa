@@ -159,9 +159,7 @@ def test_demo_content_quality(problem_module, expected_demo_content):
     # Check for expected content (case insensitive)
     demo_lower = demo_output.lower()
     for expected in expected_demo_content:
-        assert (
-            expected.lower() in demo_lower
-        ), f"Demo missing expected content: {expected}"
+        assert expected.lower() in demo_lower, f"Demo missing expected content: {expected}"
 
     # Should contain complexity analysis
     assert "time:" in demo_lower

@@ -123,9 +123,7 @@ def demo():
 
     print("Notes & Interview Tips:")
     print("  - Monotonic stack is used for next greater/smaller element patterns.")
-    print(
-        "  - For 'spans' and 'wait until greater', store indices and compute distances."
-    )
+    print("  - For 'spans' and 'wait until greater', store indices and compute distances.")
     print("  - For histogram area, flush with sentinel 0 to process all bars.")
     print("  - For water trapping, compute bounded areas between taller bars.")
 

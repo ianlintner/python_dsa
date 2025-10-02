@@ -130,9 +130,7 @@ def demo():
     # Koko eating bananas
     piles = [3, 6, 7, 11]
     h = 8
-    print(
-        f"Koko min speed to finish in {h} hours, piles={piles}: {min_eating_speed(piles, h)}"
-    )
+    print(f"Koko min speed to finish in {h} hours, piles={piles}: {min_eating_speed(piles, h)}")
     print()
 
     # Split array largest sum

@@ -44,9 +44,7 @@ def z_search(text: str, pattern: str, sep: str = "$") -> list[int]:
     if sep in text or sep in pattern:
         sep = "\u0001"  # Start of Heading control character (unlikely to be in inputs)
         if sep in text or sep in pattern:
-            raise ValueError(
-                "Separator collision in z_search; provide a safe 'sep' explicitly."
-            )
+            raise ValueError("Separator collision in z_search; provide a safe 'sep' explicitly.")
 
     s = pattern + sep + text
     Z = z_array(s)

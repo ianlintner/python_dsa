@@ -15,14 +15,10 @@ class MultinomialNB:
         self.alpha = alpha
         self.classes_: List[str] = []
         self.class_log_prior_: Dict[str, float] = {}
-        self.feature_log_prob_: Dict[str, Dict[str, float]] = (
-            {}
-        )  # class -> token -> log P(t|c)
+        self.feature_log_prob_: Dict[str, Dict[str, float]] = {}  # class -> token -> log P(t|c)
         self.vocabulary_: set[str] = set()
 
-    def fit(
-        self, docs_tokens: Sequence[Sequence[str]], y: Sequence[str]
-    ) -> "MultinomialNB":
+    def fit(self, docs_tokens: Sequence[Sequence[str]], y: Sequence[str]) -> "MultinomialNB":
         if len(docs_tokens) != len(y):
             raise ValueError("Mismatched X/y lengths")
         n = len(y)
@@ -53,9 +49,7 @@ class MultinomialNB:
                 self.feature_log_prob_[c][t] = math.log(num / denom)
         return self
 
-    def predict_log_proba(
-        self, docs_tokens: Sequence[Sequence[str]]
-    ) -> List[Dict[str, float]]:
+    def predict_log_proba(self, docs_tokens: Sequence[Sequence[str]]) -> List[Dict[str, float]]:
         if not self.classes_:
             raise RuntimeError("Model not fitted")
         out: List[Dict[str, float]] = []

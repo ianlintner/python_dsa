@@ -51,9 +51,7 @@ class SegmentTree:
             self._apply(idx << 1 | 1, add, right_len)
             self.lazy[idx] = 0
 
-    def _range_add(
-        self, idx: int, left: int, right: int, ql: int, qr: int, add: int
-    ) -> None:
+    def _range_add(self, idx: int, left: int, right: int, ql: int, qr: int, add: int) -> None:
         if ql > right or qr < left:
             return
         if ql <= left and right <= qr:
@@ -206,9 +204,7 @@ def demo():
     print(f"range_min(0, 7): {rmq.range_min(0, 7)} (expected {min(arr)})")
     print("point_set(3, 0)")
     rmq.point_set(3, 0)
-    print(
-        f"range_min(2, 4): {rmq.range_min(2, 4)} (expected {min([arr[2], 0, arr[4]])})"
-    )
+    print(f"range_min(2, 4): {rmq.range_min(2, 4)} (expected {min([arr[2], 0, arr[4]])})")
 
     print("\nComplexity:")
     print("  Build: O(n)")

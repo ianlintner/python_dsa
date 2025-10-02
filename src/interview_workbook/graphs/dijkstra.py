@@ -139,9 +139,7 @@ def dijkstra_single_target(
     """
     distances, parents = dijkstra_with_path(graph, source, target)
     distance = distances.get(target, float("inf"))
-    path = (
-        reconstruct_path(parents, source, target) if distance != float("inf") else None
-    )
+    path = reconstruct_path(parents, source, target) if distance != float("inf") else None
     return distance, path
 
 
@@ -174,9 +172,7 @@ def dijkstra_k_shortest_paths(
             if neighbor not in visited and len(all_paths) < k:
                 path.append(neighbor)
                 visited.add(neighbor)
-                find_paths_dfs(
-                    neighbor, target, path, cost + weight, visited, all_paths
-                )
+                find_paths_dfs(neighbor, target, path, cost + weight, visited, all_paths)
                 path.pop()
                 visited.remove(neighbor)
 

@@ -3,7 +3,7 @@
 
 ## Development workflow
   - Always kill any existing process running on port 5000 before starting a new Flask server.
-  - Use the command:  
+  - Use the command:
     ```bash
     lsof -ti:5002 | xargs kill -9 && cd flask_app && python app.py --host=127.0.0.1 --port=5002
     ```
@@ -11,7 +11,7 @@
 
 ## Virtual environment usage
   - Always activate the local virtual environment before running the Flask app to ensure dependencies are correctly loaded.
-  - Example:  
+  - Example:
     ```bash
     source .venv/bin/activate
     ```

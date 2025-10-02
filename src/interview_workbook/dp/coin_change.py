@@ -55,9 +55,7 @@ def coin_change_count_ways(coins: list[int], amount: int) -> int:
     return dp[amount]
 
 
-def coin_change_with_reconstruction(
-    coins: list[int], amount: int
-) -> tuple[int, list[int]]:
+def coin_change_with_reconstruction(coins: list[int], amount: int) -> tuple[int, list[int]]:
     """
     Find minimum coins and return the actual coins used.
 

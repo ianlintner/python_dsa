@@ -79,9 +79,7 @@ def floyd_warshall(
                     if dist[k][j] == INF:
                         continue
                     dist[i][j] = NEG_INF
-                    next_hop[i][
-                        j
-                    ] = None  # path not well-defined due to negative cycle influence
+                    next_hop[i][j] = None  # path not well-defined due to negative cycle influence
 
     return dist, next_hop
 
@@ -175,9 +173,7 @@ def demo():
     print("Complexity and Notes:")
     print("  - Time: O(V^3), Space: O(V^2)")
     print("  - Handles negative edges; detect cycles via dist[i][i] < 0")
-    print(
-        "  - For sparse graphs and single-source queries, prefer Dijkstra/Bellman-Ford"
-    )
+    print("  - For sparse graphs and single-source queries, prefer Dijkstra/Bellman-Ford")
     print("  - For many sources on sparse graphs, Johnson's algorithm may be better")
 
 

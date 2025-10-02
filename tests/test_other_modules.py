@@ -183,9 +183,7 @@ class TestGraphsBasics:
         order = topological_sort_kahn(dag, 4)
         # Validate topological order: edges go from earlier to later
         pos = {node: i for i, node in enumerate(order)}
-        assert (
-            pos[0] < pos[1] and pos[0] < pos[2] and pos[1] < pos[3] and pos[2] < pos[3]
-        )
+        assert pos[0] < pos[1] and pos[0] < pos[2] and pos[1] < pos[3] and pos[2] < pos[3]
 
         # Dijkstra on small graph
         # WeightedGraph type accepts mapping node -> list of (neighbor, weight)

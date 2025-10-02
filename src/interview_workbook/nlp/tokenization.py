@@ -11,9 +11,7 @@ def whitespace_tokenize(text: str, lowercase: bool = True) -> List[str]:
     return [t for t in text.split() if t]
 
 
-def regex_tokenize(
-    text: str, pattern: str = r"\w+|[^\w\s]", lowercase: bool = True
-) -> List[str]:
+def regex_tokenize(text: str, pattern: str = r"\w+|[^\w\s]", lowercase: bool = True) -> List[str]:
     """Regex tokenizer; default keeps words and punctuation as tokens."""
     if lowercase:
         text = text.lower()

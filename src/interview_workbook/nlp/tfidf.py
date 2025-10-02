@@ -55,7 +55,5 @@ class TfidfVectorizer:
             vectors.append(vec)
         return vectors
 
-    def fit_transform(
-        self, corpus_tokens: Sequence[Sequence[str]]
-    ) -> List[Dict[str, float]]:
+    def fit_transform(self, corpus_tokens: Sequence[Sequence[str]]) -> List[Dict[str, float]]:
         return self.fit(corpus_tokens).transform(corpus_tokens)

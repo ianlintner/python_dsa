@@ -85,9 +85,7 @@ def test_non_comparison_sorts_additional_branches():
 
     # counting_sort_by_key with provided min/max aliases
     items = [("a", 3), ("b", 1), ("c", 2)]
-    sorted_items = ncs.counting_sort_by_key(
-        items, key=lambda x: x[1], min_value=1, max_value=3
-    )
+    sorted_items = ncs.counting_sort_by_key(items, key=lambda x: x[1], min_value=1, max_value=3)
     assert [x[1] for x in sorted_items] == [1, 2, 3]
 
     # radix_sort_lsd_fixed_strings with explicit max_len (exercise padding path)

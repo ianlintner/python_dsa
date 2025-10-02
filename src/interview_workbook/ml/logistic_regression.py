@@ -61,10 +61,7 @@ class LogisticRegressionBinary:
 
             old_w = w[:]
             w = [wj - self.lr * gj for wj, gj in zip(w, grad)]
-            if (
-                self.tol > 0
-                and sum((wj - owj) ** 2 for wj, owj in zip(w, old_w)) < self.tol
-            ):
+            if self.tol > 0 and sum((wj - owj) ** 2 for wj, owj in zip(w, old_w)) < self.tol:
                 break
 
         if self.fit_intercept:

@@ -108,9 +108,7 @@ class TestCachesHeaps:
         assert cache.get(2) == -1
         assert cache.get(3) == 3
         assert cache.get(1) == 1
-        cache.put(
-            4, 4
-        )  # evict key 3 or 1 based on freq; touch 3 to ensure eviction target
+        cache.put(4, 4)  # evict key 3 or 1 based on freq; touch 3 to ensure eviction target
         # To define eviction deterministically, bump key 3 before inserting 4
         # But since above we already accessed 3 once, both 1 and 3 have freq >= 1.
         # Accept either eviction policy: one of them should be missing now.

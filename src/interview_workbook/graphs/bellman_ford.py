@@ -76,9 +76,7 @@ def reconstruct_path(parent: list[int], target: int) -> list[int]:
     return path
 
 
-def detect_negative_cycle(
-    n: int, edges: list[tuple[int, int, int]]
-) -> list[int] | None:
+def detect_negative_cycle(n: int, edges: list[tuple[int, int, int]]) -> list[int] | None:
     """
     Detect any negative cycle in a directed graph using Bellman-Ford style approach.
 
@@ -147,9 +145,7 @@ def demo():
         if dist[t] == float("inf"):
             print(f"  {source} -> {t}: unreachable")
         elif parent[t] == -2:
-            print(
-                f"  {source} -> {t}: affected by negative cycle (no well-defined shortest path)"
-            )
+            print(f"  {source} -> {t}: affected by negative cycle (no well-defined shortest path)")
         else:
             print(f"  {source} -> {t}: distance={dist[t]}, path={path}")
     print()
@@ -172,12 +168,8 @@ def demo():
 
     print("Notes and Interview Tips:")
     print("  - Use Dijkstra when edges are non-negative; BF handles negatives.")
-    print(
-        "  - BF can detect negative cycles reachable from source by a V-th relaxation."
-    )
-    print(
-        "  - Complexity: O(V*E). On dense graphs, consider Johnson's algorithm for all-pairs."
-    )
+    print("  - BF can detect negative cycles reachable from source by a V-th relaxation.")
+    print("  - Complexity: O(V*E). On dense graphs, consider Johnson's algorithm for all-pairs.")
     print(
         "  - For all-pairs shortest paths with negatives (but no negative cycles), use Floyd-Warshall."
     )
