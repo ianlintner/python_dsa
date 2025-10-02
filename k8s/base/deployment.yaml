@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: python-dsa
-          image: us-central1-docker.pkg.dev/kame-457417/kame-house-images/python-dsa:latest
+          image: us-central1-docker.pkg.dev/kame-457417/python-dsa/python-dsa:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
