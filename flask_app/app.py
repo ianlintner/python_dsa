@@ -274,14 +274,6 @@ def index():
     # Build categories with additional top-level visualization entries for the dashboard
     categories = {k: v[:] for k, v in get_categories().items()}
 
-    # Add LeetCode problems to categories
-    from src.interview_workbook.leetcode._registry import get_all as get_all_leetcode
-
-    leetcode_problems = get_all_leetcode()
-    for problem in leetcode_problems:
-        category_key = f"leetcode/{problem['category'].value}"
-        categories.setdefault(category_key, []).append(problem)
-
     # Add visualizations
     categories.setdefault("visualizations", [])
     visualizations = [
@@ -349,11 +341,6 @@ def index():
 
 
 def run_demo(module_name: str) -> str:
-    """Import the module and execute its demo() while capturing stdout."""
-    # Defensive: ensure module_name is a valid dotted identifier, not a numeric string
-    if not isinstance(module_name, str) or module_name.strip() == "" or module_name.isdigit():
-        raise ValueError(f"Invalid module name: {module_name!r}")
-
     try:
         mod = importlib.import_module(module_name)
     except ModuleNotFoundError as e:
@@ -402,6 +389,9 @@ def demo_page():
 @app.post("/demo")
 def demo_run():
     module = request.form.get("module")
+    if not module and request.is_json:
+        data = request.get_json(silent=True) or {}
+        module = data.get("module")
     if not module:
         abort(400, description="Missing module")
 
