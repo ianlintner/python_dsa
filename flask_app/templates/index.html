@@ -36,28 +36,11 @@
               <option value="{{ category }}">{{ category|title }}</option>
             {% endfor %}
           </select>
-
-          <!-- Removed old status filter -->
         </div>
       </div>
     </div>
 
-    <!-- View Toggle Tabs -->
-    <nav class="view-tabs" role="tablist" aria-label="Content views">
-      <button class="view-tab active" data-view="all" role="tab" aria-selected="true">
-        All Content
-      </button>
-      <button class="view-tab" data-view="algorithms" role="tab">
-        Algorithms
-      </button>
-      <button class="view-tab" data-view="leetcode" role="tab">
-        LeetCode Problems
-      </button>
-      <button class="view-tab" data-view="visualizations" role="tab">
-        Visualizations
-      </button>
-      <!-- Removed old tab -->
-    </nav>
+
   </header>
 
   {% if not categories %}
@@ -197,7 +180,7 @@
       // State management
       let allCards = [];
       let filteredCards = [];
-      let currentView = 'all';
+      let currentView = '{{ current_view|default("all") }}';
 
       // Initialize dashboard
       function init() {
@@ -221,6 +204,11 @@
         document.addEventListener('click', handleMenus);
 
         // Removed old initialization
+
+        // Apply initial filters if currentView is not "all"
+        if (currentView !== 'all') {
+          handleFilters();
+        }
       }
 
       // Search functionality
@@ -258,7 +246,11 @@
 
         // Also respect current view
         if (currentView !== 'all') {
-          filtered = filtered.filter(card => card.dataset.category === currentView);
+          if (currentView === 'algorithms') {
+            filtered = filtered.filter(card => !card.dataset.category.startsWith('leetcode') && card.dataset.category !== 'visualizations');
+          } else {
+            filtered = filtered.filter(card => card.dataset.category.startsWith(currentView));
+          }
         }
 
         filterCards(filtered);
@@ -283,15 +275,8 @@
           view.hidden = true;
         });
 
-        const targetView = document.getElementById(newView + '-view');
-        if (targetView) {
-          targetView.classList.add('active');
-          targetView.hidden = false;
-        }
-
+        // For our dashboard, we only have one content grid, so just filter cards
         currentView = newView;
-
-        // Reapply filters when view changes
         handleFilters();
       }
 
@@ -406,7 +391,7 @@
       window.showCardDetails = function(cardId) {
         const card = document.querySelector(`[data-id="${cardId}"]`);
         if (card) {
-          const detailsUrl = card.querySelector('a[href*="demo_page"]')?.href;
+          const detailsUrl = card.querySelector('a.btn-primary')?.href;
           if (detailsUrl) {
             window.location.href = detailsUrl;
           }

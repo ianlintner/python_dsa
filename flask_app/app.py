@@ -337,12 +337,14 @@ def index():
     ]
     categories["visualizations"].extend(visualizations)
 
+    view = request.args.get("view", "all")
     return render_template(
         "index.html",
         categories=categories,
         sorting_viz_map=SORTING_VIZ_MAP,
         graph_viz_modules=GRAPH_VIZ_MODULES,
         path_viz_modules=PATH_VIZ_MODULES,
+        current_view=view,
     )
 
 
