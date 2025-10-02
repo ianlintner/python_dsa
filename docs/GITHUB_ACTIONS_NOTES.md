@@ -19,12 +19,12 @@ The repository uses a GitHub Actions workflow defined in [`.github/workflows/ci.
 2. **Docker Build & Push**
    - Runs after tests succeed.
    - Authenticates to Google Cloud using **Workload Identity Federation (WIF)**:
-     - Workload Identity Provider:  
+     - Workload Identity Provider:
        `projects/316518955652/locations/global/workloadIdentityPools/github-pool/providers/github-oidc`
-     - Service Account:  
+     - Service Account:
        `kame-house-oidc@kame-457417.iam.gserviceaccount.com`
    - Configures Docker for Artifact Registry.
-   - Builds and pushes the Docker image to:  
+   - Builds and pushes the Docker image to:
      `us-central1-docker.pkg.dev/kame-457417/python-dsa/python-dsa:latest`
 
 ### Workload Identity Federation (WIF) Setup
