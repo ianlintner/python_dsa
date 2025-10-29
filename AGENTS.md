@@ -198,14 +198,14 @@ The codebase is organized by common interview patterns:
 
 ### Test Framework and Configuration
 - **Framework:** All tests use **pytest** (version 8.0+)
-- **Configuration:** Test settings in `pyproject.toml` and `pytest.ini`
-- **Coverage:** Tests include coverage reporting via pytest-cov
+- **Configuration:** Test settings in `pyproject.toml` under `[tool.pytest.ini_options]`
+- **Coverage:** Tests include coverage reporting via pytest-cov (enabled by default)
 - **Test Discovery:** Tests in `tests/` directory, files matching `test_*.py` pattern
 - **Module Path:** `tests/conftest.py` ensures the project root is on `sys.path`
 
 ### Running Tests
 ```bash
-# Run all tests
+# Run all tests (includes coverage by default per pyproject.toml)
 pytest -q
 
 # Run specific test file
@@ -214,8 +214,11 @@ pytest tests/test_sorting.py -v
 # Run single test
 pytest tests/test_demos.py::test_run_all_demos_headless -v
 
-# Run with coverage report
+# Run with detailed coverage report
 pytest --cov=src --cov-report=term-missing
+
+# Run without coverage (faster for quick checks)
+pytest -q --no-cov
 ```
 
 ### Test Requirements
