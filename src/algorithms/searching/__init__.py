@@ -1,5 +1,5 @@
 """
-Sorting algorithms (lightweight top-level namespace).
+Searching algorithms (lightweight top-level namespace).
 
 Provides lazy accessors for submodules to avoid circular import issues.
 """
@@ -8,31 +8,25 @@ from importlib import import_module
 from typing import Any
 
 __all__ = [
-    "bubble_sort",
-    "heap_sort",
-    "insertion_sort",
-    "merge_sort",
-    "non_comparison_sorts",
-    "quick_sort",
-    "selection_sort",
+    "advanced_search",
+    "binary_search",
+    "linear_search",
+    "quickselect",
 ]
 
 
 def __getattr__(name: str) -> Any:
     """
-    Lazily import and expose sorting submodules as attributes:
-      - bubble_sort
-      - heap_sort
-      - insertion_sort
-      - merge_sort
-      - non_comparison_sorts
-      - quick_sort
-      - selection_sort
+    Lazily import and expose searching submodules as attributes:
+      - advanced_search
+      - binary_search
+      - linear_search
+      - quickselect
     """
     if name in __all__:
         import sys
 
-        canonical = f"interview_workbook.algorithms.sorting.{name}"
+        canonical = f"interview_workbook.algorithms.searching.{name}"
         # If already imported under canonical path, reuse it to avoid reload/circulars
         if canonical in sys.modules:
             return sys.modules[canonical]
