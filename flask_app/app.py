@@ -344,7 +344,9 @@ def run_demo(module_name: str) -> str:
     try:
         mod = importlib.import_module(module_name)
     except ModuleNotFoundError as e:
-        raise ModuleNotFoundError(f"Could not import module {module_name!r}. Ensure it is a valid demo id.") from e
+        raise ModuleNotFoundError(
+            f"Could not import module {module_name!r}. Ensure it is a valid demo id."
+        ) from e
 
     demo_fn = getattr(mod, "demo", None)
     if not callable(demo_fn):
@@ -474,9 +476,7 @@ def viz_sorting():
     try:
         from flask_app.visualizations import sorting_viz as s_viz  # type: ignore
 
-        algorithms = [
-            {"key": k, "name": v["name"]} for k, v in s_viz.ALGORITHMS.items()
-        ]
+        algorithms = [{"key": k, "name": v["name"]} for k, v in s_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
             {"key": "quick", "name": "Quick Sort"},
@@ -573,9 +573,7 @@ def viz_path():
     try:
         from flask_app.visualizations import path_viz as p_viz  # type: ignore
 
-        algorithms = [
-            {"key": k, "name": v["name"]} for k, v in p_viz.ALGORITHMS.items()
-        ]
+        algorithms = [{"key": k, "name": v["name"]} for k, v in p_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
             {"key": "astar", "name": "A* (Manhattan)"},
@@ -629,9 +627,7 @@ def viz_arrays():
     try:
         from flask_app.visualizations import array_viz as a_viz  # type: ignore
 
-        algorithms = [
-            {"key": k, "name": v["name"]} for k, v in a_viz.ALGORITHMS.items()
-        ]
+        algorithms = [{"key": k, "name": v["name"]} for k, v in a_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
             {"key": "binary_search", "name": "Binary Search"},
@@ -690,9 +686,7 @@ def viz_mst():
     try:
         from flask_app.visualizations import mst_viz as m_viz  # type: ignore
 
-        algorithms = [
-            {"key": k, "name": v["name"]} for k, v in m_viz.ALGORITHMS.items()
-        ]
+        algorithms = [{"key": k, "name": v["name"]} for k, v in m_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
             {"key": "kruskal", "name": "Minimum Spanning Tree (Kruskal)"},
@@ -738,9 +732,7 @@ def viz_topo():
     try:
         from flask_app.visualizations import topo_viz as t_viz  # type: ignore
 
-        algorithms = [
-            {"key": k, "name": v["name"]} for k, v in t_viz.ALGORITHMS.items()
-        ]
+        algorithms = [{"key": k, "name": v["name"]} for k, v in t_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
             {"key": "kahn", "name": "Topological Sort (Kahn's Algorithm)"},
