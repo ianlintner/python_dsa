@@ -10,6 +10,7 @@ Space complexity: O(N) for storing particles
 
 from __future__ import annotations
 
+import math
 import random
 
 
@@ -150,8 +151,6 @@ def estimate_pose(particles: list[Particle]) -> tuple[float, float, float]:
 
 def _gaussian(x: float, mu: float, sigma: float) -> float:
     """Gaussian probability density."""
-    import math
-
     return math.exp(-0.5 * ((x - mu) / sigma) ** 2) / (sigma * math.sqrt(2 * math.pi))
 
 

@@ -179,7 +179,8 @@ def test_rrt_plan():
 
     path = rrt.rrt_plan(maze, start, goal, max_iterations=500, step_size=1.0, goal_sample_rate=0.2)
     # RRT is probabilistic, so it may not always find a path, but with these parameters it should
-    assert path is not None or isinstance(path, type(None))
+    # Check that path is either None or a valid non-empty list
+    assert path is None or (isinstance(path, list) and len(path) > 0)
     if path:
         assert path[0] == start
         assert path[-1] == goal

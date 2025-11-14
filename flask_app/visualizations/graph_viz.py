@@ -53,9 +53,7 @@ def _ensure_connected(n: int, edges: set[tuple[int, int]], rng: random.Random) -
             edges.add(e)
 
 
-def generate_graph(
-    n: int = 12, p: float = 0.25, seed: int | None = None
-) -> dict[str, Any]:
+def generate_graph(n: int = 12, p: float = 0.25, seed: int | None = None) -> dict[str, Any]:
     """
     Generate an undirected simple graph with n nodes.
     - Start with no edges, add each possible edge with probability p
@@ -85,9 +83,7 @@ def _frame(state: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def bfs_frames(
-    g: dict[str, Any], start: int = 0, max_steps: int = 20000
-) -> list[dict[str, Any]]:
+def bfs_frames(g: dict[str, Any], start: int = 0, max_steps: int = 20000) -> list[dict[str, Any]]:
     n = g["n"]
     adj: list[list[int]] = [[] for _ in range(n)]
     for u, v in g["edges"]:
@@ -152,9 +148,7 @@ def bfs_frames(
     return frames
 
 
-def dfs_frames(
-    g: dict[str, Any], start: int = 0, max_steps: int = 20000
-) -> list[dict[str, Any]]:
+def dfs_frames(g: dict[str, Any], start: int = 0, max_steps: int = 20000) -> list[dict[str, Any]]:
     n = g["n"]
     adj: list[list[int]] = [[] for _ in range(n)]
     for u, v in g["edges"]:

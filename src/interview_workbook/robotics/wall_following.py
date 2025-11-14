@@ -48,7 +48,6 @@ def wall_follow_left_hand(
 
     robot = RobotState(start[0], start[1], Direction.NORTH)
     path = [start]
-    visited = {start}
 
     for _ in range(max_steps):
         if (robot.x, robot.y) == goal:
@@ -80,8 +79,6 @@ def wall_follow_left_hand(
                     robot.turn_right()
 
         current_pos = (robot.x, robot.y)
-        if current_pos not in visited:
-            visited.add(current_pos)
         path.append(current_pos)
 
     return None  # Goal not reached within max_steps
@@ -109,7 +106,6 @@ def wall_follow_right_hand(
 
     robot = RobotState(start[0], start[1], Direction.NORTH)
     path = [start]
-    visited = {start}
 
     for _ in range(max_steps):
         if (robot.x, robot.y) == goal:
@@ -141,8 +137,6 @@ def wall_follow_right_hand(
                     robot.turn_left()
 
         current_pos = (robot.x, robot.y)
-        if current_pos not in visited:
-            visited.add(current_pos)
         path.append(current_pos)
 
     return None

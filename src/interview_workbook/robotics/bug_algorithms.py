@@ -245,6 +245,9 @@ def _on_m_line(start: tuple[int, int], goal: tuple[int, int], point: tuple[int, 
     v2 = (point[0] - start[0], point[1] - start[1])
 
     # Cross product (for 2D, this is scalar)
+    # For 2D vectors, the cross product's magnitude gives the area of the parallelogram formed by v1 and v2,
+    # which is proportional to the perpendicular distance from 'point' to the line from 'start' to 'goal'.
+    # In grid-based navigation, we allow a small tolerance to account for discretization.
     cross = v1[0] * v2[1] - v1[1] * v2[0]
 
     # Allow small tolerance for discrete grid

@@ -34,9 +34,7 @@ def binary_search_frames(
     arr: list[int], target: int, max_steps: int = 20000
 ) -> list[dict[str, Any]]:
     a = arr[:]
-    frames: list[dict[str, Any]] = [
-        _snap(a, "init", lo=0, hi=len(a) - 1, mid=None, found=False)
-    ]
+    frames: list[dict[str, Any]] = [_snap(a, "init", lo=0, hi=len(a) - 1, mid=None, found=False)]
     lo, hi = 0, len(a) - 1
     steps = 0
     while lo <= hi and steps < max_steps:
@@ -71,14 +69,10 @@ def two_pointers_sum_frames(
             return frames
         if s < target:
             left += 1
-            frames.append(
-                _snap(a, "move-left", l=left, r=right, sum=None, target=target)
-            )
+            frames.append(_snap(a, "move-left", l=left, r=right, sum=None, target=target))
         else:
             right -= 1
-            frames.append(
-                _snap(a, "move-right", l=left, r=right, sum=None, target=target)
-            )
+            frames.append(_snap(a, "move-right", l=left, r=right, sum=None, target=target))
         steps += 1
     frames.append(_snap(a, "not-found", l=left, r=right, sum=None, target=target))
     return frames
@@ -93,9 +87,7 @@ def sliding_window_min_len_geq_frames(
     """
     a = arr[:]
     frames: list[dict[str, Any]] = [
-        _snap(
-            a, "init", win_l=0, win_r=-1, best_l=None, best_r=None, s=0, target=target
-        )
+        _snap(a, "init", win_l=0, win_r=-1, best_l=None, best_r=None, s=0, target=target)
     ]
     n = len(a)
     s = 0

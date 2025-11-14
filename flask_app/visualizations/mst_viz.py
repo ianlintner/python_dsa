@@ -9,9 +9,7 @@ Coord = tuple[float, float]
 Edge = tuple[int, int, float]
 
 
-def _circle_layout(
-    n: int, jitter: float = 0.0, rng: random.Random | None = None
-) -> list[Coord]:
+def _circle_layout(n: int, jitter: float = 0.0, rng: random.Random | None = None) -> list[Coord]:
     pts: list[Coord] = []
     rng = rng or random.Random()
     for i in range(n):
@@ -131,9 +129,7 @@ def kruskal_frames(g: dict[str, Any], max_steps: int = 50000) -> list[dict[str, 
     return frames
 
 
-def prim_frames(
-    g: dict[str, Any], start: int = 0, max_steps: int = 50000
-) -> list[dict[str, Any]]:
+def prim_frames(g: dict[str, Any], start: int = 0, max_steps: int = 50000) -> list[dict[str, Any]]:
     n: int = g["n"]
     edges: list[Edge] = g["edges"]
     # Build adjacency

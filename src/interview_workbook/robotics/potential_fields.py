@@ -119,6 +119,8 @@ def potential_field_navigate(
         angle = math.atan2(fy_total, fx_total)
 
         # Try 8 directions, prioritizing the direction of total force
+        # Generate angles in a zigzag pattern: [0, -π/4, +π/4, -π/2, +π/2, -3π/4, +3π/4, π]
+        # This explores nearby directions first before trying opposite directions
         directions = []
         for i in range(8):
             a = angle + (i // 2) * (math.pi / 4) * (1 if i % 2 == 0 else -1)

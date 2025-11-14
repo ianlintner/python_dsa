@@ -372,15 +372,54 @@ Each demo module must:
 
 ## PR and Change Guidelines
 
-### Before Submitting Changes
+### Before Submitting Changes - Required CI Checks
+
+**CRITICAL: Always run these checks before committing to ensure CI passes:**
+
+```bash
+# 1. Install dependencies
+python -m pip install -e ".[dev]"
+
+# 2. Run all pre-commit hooks (includes format, lint, and other checks)
+pre-commit run --all-files --show-diff-on-failure --color=always
+
+# 3. Run full test suite
+pytest -q
+
+# 4. Verify no linting errors remain
+ruff check .
+```
+
+**Pre-commit Hook Checks (must all pass):**
+- ✅ `ruff` - Linting (E, F, I, B rules)
+- ✅ `ruff-format` - Code formatting
+- ✅ `trailing-whitespace` - Remove trailing whitespace
+- ✅ `end-of-file-fixer` - Ensure files end with newline
+- ✅ `check-merge-conflicts` - Check for merge conflict markers
+
+**If pre-commit hooks fail:**
+1. Review the error output carefully
+2. Fix issues manually or use `ruff check --fix` for auto-fixes
+3. Re-run `pre-commit run --all-files` until all checks pass
+4. Commit the fixes
+
+**Common Issues:**
+- Trailing whitespace: Run `pre-commit run trailing-whitespace --all-files`
+- Import ordering: Run `ruff check --fix` to auto-sort imports
+- Formatting: Run `ruff format .` to format all files
+
+### Standard Pre-Commit Workflow
+
 1. **Run tests:** `pytest -q` must pass
 2. **Format code:** `ruff format .`
 3. **Fix linting:** `ruff check --fix`
-4. **Check coverage:** Maintain or improve test coverage
-5. **Update docs:** If adding new features, update relevant documentation
+4. **Run pre-commit:** `pre-commit run --all-files`
+5. **Check coverage:** Maintain or improve test coverage
+6. **Update docs:** If adding new features, update relevant documentation
 
 ### PR Acceptance Criteria
-- All tests pass
+- All tests pass (208/208 currently)
+- All pre-commit hooks pass
 - Code is properly formatted (Ruff)
 - No new linting errors
 - Test coverage maintained or improved
@@ -395,6 +434,8 @@ Each demo module must:
 - [ ] Code follows existing style conventions
 - [ ] Demo function exists and works
 - [ ] No breaking changes to existing APIs
+- [ ] All pre-commit hooks pass
+- [ ] CI checks will pass (verified locally)
 
 ---
 

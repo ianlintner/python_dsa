@@ -51,8 +51,7 @@ def generate_dag(
     rng = random.Random(seed)
     coords = _layer_layout(n, layers)
     nodes = [
-        {"id": i, "x": coords[i][0], "y": coords[i][1], "layer": coords[i][2]}
-        for i in range(n)
+        {"id": i, "x": coords[i][0], "y": coords[i][1], "layer": coords[i][2]} for i in range(n)
     ]
 
     # group node ids by layer
