@@ -159,6 +159,53 @@ Use: Subarrays with sum/unique/count constraints.
 Typical Time: O(n), Space: O(1)
 Use: Two-sum in sorted array, dedup, merging, partitioning.
 """,
+    # Robotics Navigation
+    "wall_following": """Summary: Reactive navigation using left/right-hand rule along walls.
+Time: O(P) where P is perimeter of obstacles
+Space: O(1) for basic version
+Use: Maze navigation with unknown environment, bump sensors only.
+Pitfall: May not find goal if obstacles disconnected; doesn't guarantee shortest path.
+""",
+    "bug_algorithms": """Summary: Bug1/Bug2 goal-seeking with obstacle circumnavigation.
+Bug1: Traverse full perimeter, leave at closest point. Time: O(n*P)
+Bug2: Follow m-line, leave when closer than hit point. Often more efficient.
+Both: Provably complete, reactive (local sensing), not optimal.
+Use: Goal-seeking in unknown environments with guaranteed completeness.
+""",
+    "pledge_algorithm": """Summary: Wall-following with cumulative rotation tracking.
+Time: O(P) where P is obstacle perimeter
+Space: O(1) rotation counter
+Use: Escape closed loops; resume straight motion when rotation sum = 0.
+Advantage: More sophisticated than basic wall-following.
+""",
+    "potential_fields": """Summary: Artificial potential fields for reactive navigation.
+Time: O(steps * obstacles) per iteration
+Space: O(1) for force calculations
+Use: Real-time reactive planning; attractive force to goal, repulsive from obstacles.
+Pitfall: Can get stuck in local minima (e.g., U-shaped obstacles).
+Parameters: attractive_gain, repulsive_gain, influence_distance need tuning.
+""",
+    "rrt": """Summary: Rapidly-exploring Random Tree sampling-based planner.
+Time: O(iterations * tree_size) for nearest neighbor search
+Space: O(tree_size) for storing nodes
+Use: High-dimensional configuration spaces, complex obstacles.
+Probabilistically complete; not optimal (variants: RRT*, RRT-Connect).
+Parameters: step_size, goal_sample_rate, max_iterations affect performance.
+""",
+    "particle_filter": """Summary: Monte Carlo localization using particle set representation.
+Time: O(N * M) where N=particles, M=landmarks
+Space: O(N) for particle set
+Steps: Predict (motion model), Update (measurement likelihood), Resample.
+Use: Non-parametric belief, multimodal distributions, global localization.
+Pitfall: Particle depletion; add noise during resampling.
+""",
+    "occupancy_grid": """Summary: Probabilistic environment mapping with log-odds.
+Time: O(rays * cells_per_ray) per update
+Space: O(width * height) for grid
+Use: SLAM, obstacle detection, autonomous navigation.
+Log-odds prevents numerical issues; ray-based sensor model.
+Cells along ray marked free, endpoint marked occupied.
+""",
 }
 
 
@@ -344,7 +391,9 @@ def run_demo(module_name: str) -> str:
     try:
         mod = importlib.import_module(module_name)
     except ModuleNotFoundError as e:
-        raise ModuleNotFoundError(f"Could not import module {module_name!r}. Ensure it is a valid demo id.") from e
+        raise ModuleNotFoundError(
+            f"Could not import module {module_name!r}. Ensure it is a valid demo id."
+        ) from e
 
     demo_fn = getattr(mod, "demo", None)
     if not callable(demo_fn):
@@ -474,9 +523,7 @@ def viz_sorting():
     try:
         from flask_app.visualizations import sorting_viz as s_viz  # type: ignore
 
-        algorithms = [
-            {"key": k, "name": v["name"]} for k, v in s_viz.ALGORITHMS.items()
-        ]
+        algorithms = [{"key": k, "name": v["name"]} for k, v in s_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
             {"key": "quick", "name": "Quick Sort"},
@@ -573,9 +620,7 @@ def viz_path():
     try:
         from flask_app.visualizations import path_viz as p_viz  # type: ignore
 
-        algorithms = [
-            {"key": k, "name": v["name"]} for k, v in p_viz.ALGORITHMS.items()
-        ]
+        algorithms = [{"key": k, "name": v["name"]} for k, v in p_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
             {"key": "astar", "name": "A* (Manhattan)"},
@@ -622,6 +667,59 @@ def api_viz_path():
         return jsonify({"error": error}), 500
 
 
+@app.get("/viz/robotics")
+def viz_robotics():
+    # Render robotics navigation visualization page
+    algo = request.args.get("algo", "wall_left")
+    try:
+        from flask_app.visualizations import robotics_viz as r_viz  # type: ignore
+
+        algorithms = [{"key": k, "name": v["name"]} for k, v in r_viz.ALGORITHMS.items()]
+    except Exception:
+        algorithms = [
+            {"key": "wall_left", "name": "Wall Following (Left-Hand)"},
+            {"key": "wall_right", "name": "Wall Following (Right-Hand)"},
+            {"key": "bug1", "name": "Bug1 Algorithm"},
+            {"key": "pledge", "name": "Pledge Algorithm"},
+            {"key": "potential", "name": "Potential Fields"},
+            {"key": "rrt", "name": "RRT"},
+        ]
+    return render_template(
+        "viz_robotics.html",
+        algo=algo,
+        algorithms=algorithms,
+        notes=get_notes(
+            {
+                "wall_left": "wall_following",
+                "wall_right": "wall_following",
+                "bug1": "bug_algorithms",
+                "pledge": "pledge_algorithm",
+                "potential": "potential_fields",
+                "rrt": "rrt",
+            }.get(algo, algo)
+        ),
+    )
+
+
+@app.get("/viz/robotics/data")
+def api_viz_robotics():
+    algo = request.args.get("algo", "wall_left")
+    rows = int(request.args.get("rows", 15))
+    cols = int(request.args.get("cols", 20))
+    density = float(request.args.get("density", 0.2))
+    seed = request.args.get("seed", None)
+    seed = int(seed) if seed not in (None, "", "null") else None
+
+    try:
+        from flask_app.visualizations import robotics_viz as r_viz  # type: ignore
+
+        result = r_viz.visualize(algo, rows=rows, cols=cols, density=density, seed=seed)
+        return jsonify(result)
+    except Exception as e:
+        error = "".join(traceback.format_exception(type(e), e, e.__traceback__))
+        return jsonify({"error": error}), 500
+
+
 @app.get("/viz/arrays")
 def viz_arrays():
     # Render array techniques visualization page (Binary Search / Two-Pointers / Sliding Window)
@@ -629,9 +727,7 @@ def viz_arrays():
     try:
         from flask_app.visualizations import array_viz as a_viz  # type: ignore
 
-        algorithms = [
-            {"key": k, "name": v["name"]} for k, v in a_viz.ALGORITHMS.items()
-        ]
+        algorithms = [{"key": k, "name": v["name"]} for k, v in a_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
             {"key": "binary_search", "name": "Binary Search"},
@@ -690,9 +786,7 @@ def viz_mst():
     try:
         from flask_app.visualizations import mst_viz as m_viz  # type: ignore
 
-        algorithms = [
-            {"key": k, "name": v["name"]} for k, v in m_viz.ALGORITHMS.items()
-        ]
+        algorithms = [{"key": k, "name": v["name"]} for k, v in m_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
             {"key": "kruskal", "name": "Minimum Spanning Tree (Kruskal)"},
@@ -738,9 +832,7 @@ def viz_topo():
     try:
         from flask_app.visualizations import topo_viz as t_viz  # type: ignore
 
-        algorithms = [
-            {"key": k, "name": v["name"]} for k, v in t_viz.ALGORITHMS.items()
-        ]
+        algorithms = [{"key": k, "name": v["name"]} for k, v in t_viz.ALGORITHMS.items()]
     except Exception:
         algorithms = [
             {"key": "kahn", "name": "Topological Sort (Kahn's Algorithm)"},

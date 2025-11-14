@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+{% block content %}
+  <article class="viz-page">
+    <header class="demo-header">
+      <div>
+        <h2>Robotics Navigation Visualization</h2>
+        <div class="meta">
+          <span class="badge">interactive</span>
+          <span class="path">Robot navigation algorithms</span>
+        </div>
+      </div>
+    </header>
+
+    {% if notes %}
+      <section class="panel">
+        <h3>Algorithm Notes</h3>
+        <pre class="notes"><code>{{ notes }}</code></pre>
+        <p class="small"><a href="{{ url_for('big_o_guide') }}">Big-O Guide</a></p>
+      </section>
+    {% endif %}
+
+    <section class="panel">
+      <form id="controls" class="viz-controls" onsubmit="return false;">
+        <label>
+          Algorithm
+          <select id="algo">
+            {% for a in algorithms %}
+              <option value="{{ a.key }}" {% if a.key == algo %}selected{% endif %}>{{ a.name }}</option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <label>
+          Rows
+          <input id="rows" type="range" min="8" max="30" step="1" value="15" />
+          <span id="rowsLabel">15</span>
+        </label>
+
+        <label>
+          Cols
+          <input id="cols" type="range" min="10" max="40" step="1" value="20" />
+          <span id="colsLabel">20</span>
+        </label>
+
+        <label>
+          Obstacle density
+          <input id="density" type="range" min="0" max="0.4" step="0.05" value="0.2" />
+          <span id="densityLabel">0.20</span>
+        </label>
+
+        <label class="row">
+          Seed (optional)
+          <input id="seed" type="number" step="1" placeholder="random" />
+        </label>
+
+        <label>
+          Speed (fps)
+          <input id="speed" type="range" min="1" max="60" step="1" value="12" />
+          <span id="speedLabel">12</span>
+        </label>
+
+        <div class="viz-buttons">
+          <button id="generate" class="btn" type="button">Generate</button>
+          <button id="play" class="btn" type="button">Play</button>
+          <button id="pause" class="btn secondary" type="button" disabled>Pause</button>
+          <button id="step" class="btn secondary" type="button">Step</button>
+          <button id="reset" class="btn secondary" type="button">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div id="status" class="viz-status">Ready</div>
+      <div id="legend" class="viz-legend">
+        <span><span class="legend-box" style="background: #e8f5e9;"></span> Free space</span>
+        <span><span class="legend-box" style="background: #333;"></span> Obstacle</span>
+        <span><span class="legend-box" style="background: #4caf50;"></span> Start</span>
+        <span><span class="legend-box" style="background: #f44336;"></span> Goal</span>
+        <span><span class="legend-box" style="background: #2196f3;"></span> Robot</span>
+        <span><span class="legend-box" style="background: #90caf9;"></span> Path</span>
+        <span><span class="legend-box" style="background: #ffecb3;"></span> Visited</span>
+      </div>
+      <div id="grid" class="grid"></div>
+    </section>
+  </article>
+
+  <style>
+    .grid {
+      display: inline-block;
+      border: 2px solid #333;
+      margin: 1rem auto;
+      line-height: 0;
+      font-size: 0;
+    }
+    .grid-row {
+      display: block;
+      height: 20px;
+    }
+    .grid-cell {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+    .cell-free { background: #e8f5e9; }
+    .cell-obstacle { background: #333; }
+    .cell-start { background: #4caf50; }
+    .cell-goal { background: #f44336; }
+    .cell-robot { background: #2196f3; position: relative; }
+    .cell-path { background: #90caf9; }
+    .cell-visited { background: #ffecb3; }
+    
+    .robot-arrow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+    .robot-arrow.NORTH {
+      border-width: 0 6px 10px 6px;
+      border-color: transparent transparent white transparent;
+    }
+    .robot-arrow.SOUTH {
+      border-width: 10px 6px 0 6px;
+      border-color: white transparent transparent transparent;
+    }
+    .robot-arrow.EAST {
+      border-width: 6px 0 6px 10px;
+      border-color: transparent transparent transparent white;
+    }
+    .robot-arrow.WEST {
+      border-width: 6px 10px 6px 0;
+      border-color: transparent white transparent transparent;
+    }
+
+    .viz-legend {
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .legend-box {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #999;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+  </style>
+
+  <script>
+    const el = (id) => document.getElementById(id);
+    const algoSel = el("algo");
+    const rowsRange = el("rows");
+    const rowsLabel = el("rowsLabel");
+    const colsRange = el("cols");
+    const colsLabel = el("colsLabel");
+    const densityRange = el("density");
+    const densityLabel = el("densityLabel");
+    const seedInput = el("seed");
+    const speedRange = el("speed");
+    const speedLabel = el("speedLabel");
+    const statusEl = el("status");
+    const gridEl = el("grid");
+    const btnGenerate = el("generate");
+    const btnPlay = el("play");
+    const btnPause = el("pause");
+    const btnStep = el("step");
+    const btnReset = el("reset");
+
+    let frames = [];
+    let frameIdx = 0;
+    let playing = false;
+    let gridData = null;
+    let animInterval = null;
+
+    // Update labels
+    rowsRange.oninput = () => (rowsLabel.textContent = rowsRange.value);
+    colsRange.oninput = () => (colsLabel.textContent = colsRange.value);
+    densityRange.oninput = () => (densityLabel.textContent = parseFloat(densityRange.value).toFixed(2));
+    speedRange.oninput = () => (speedLabel.textContent = speedRange.value);
+
+    function fetchData() {
+      const algo = algoSel.value;
+      const rows = parseInt(rowsRange.value);
+      const cols = parseInt(colsRange.value);
+      const density = parseFloat(densityRange.value);
+      const seed = seedInput.value.trim() || null;
+
+      statusEl.textContent = "Generating...";
+      const params = new URLSearchParams({ algo, rows, cols, density });
+      if (seed) params.append("seed", seed);
+
+      fetch(`/viz/robotics/data?${params}`)
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.error) {
+            statusEl.textContent = `Error: ${data.error}`;
+            return;
+          }
+          frames = data.frames || [];
+          gridData = data.grid;
+          frameIdx = 0;
+          statusEl.textContent = `Ready. ${frames.length} frames.`;
+          renderFrame();
+        })
+        .catch((err) => {
+          statusEl.textContent = `Error: ${err.message}`;
+        });
+    }
+
+    function renderFrame() {
+      if (!gridData || !frames.length) return;
+      
+      const frame = frames[frameIdx] || frames[0];
+      const { rows, cols, grid, start, goal } = gridData;
+      
+      let html = "";
+      for (let r = 0; r < rows; r++) {
+        html += '<div class="grid-row">';
+        for (let c = 0; c < cols; c++) {
+          let cls = "grid-cell";
+          
+          // Check cell type
+          if (grid[r][c] === 1) {
+            cls += " cell-obstacle";
+          } else if (c === start[0] && r === start[1]) {
+            cls += " cell-start";
+          } else if (c === goal[0] && r === goal[1]) {
+            cls += " cell-goal";
+          } else if (frame.robot && c === frame.robot[0] && r === frame.robot[1]) {
+            cls += " cell-robot";
+          } else if (frame.path && frame.path.some(p => p[0] === c && p[1] === r)) {
+            cls += " cell-path";
+          } else if (frame.visited && frame.visited.some(v => v[0] === c && v[1] === r)) {
+            cls += " cell-visited";
+          } else {
+            cls += " cell-free";
+          }
+          
+          html += `<div class="${cls}">`;
+          
+          // Add direction arrow for robot
+          if (frame.robot && c === frame.robot[0] && r === frame.robot[1] && frame.direction) {
+            html += `<div class="robot-arrow ${frame.direction}"></div>`;
+          }
+          
+          html += "</div>";
+        }
+        html += "</div>";
+      }
+      
+      gridEl.innerHTML = html;
+      statusEl.textContent = `Frame ${frameIdx + 1}/${frames.length} - ${frame.op}`;
+    }
+
+    function play() {
+      if (playing) return;
+      playing = true;
+      btnPlay.disabled = true;
+      btnPause.disabled = false;
+      
+      const fps = parseInt(speedRange.value);
+      const interval = 1000 / fps;
+      
+      animInterval = setInterval(() => {
+        frameIdx++;
+        if (frameIdx >= frames.length) {
+          frameIdx = frames.length - 1;
+          pause();
+        }
+        renderFrame();
+      }, interval);
+    }
+
+    function pause() {
+      playing = false;
+      btnPlay.disabled = false;
+      btnPause.disabled = true;
+      if (animInterval) {
+        clearInterval(animInterval);
+        animInterval = null;
+      }
+    }
+
+    function step() {
+      pause();
+      if (frameIdx < frames.length - 1) {
+        frameIdx++;
+        renderFrame();
+      }
+    }
+
+    function reset() {
+      pause();
+      frameIdx = 0;
+      renderFrame();
+    }
+
+    btnGenerate.onclick = fetchData;
+    btnPlay.onclick = play;
+    btnPause.onclick = pause;
+    btnStep.onclick = step;
+    btnReset.onclick = reset;
+
+    // Initial load
+    fetchData();
+  </script>
+{% endblock %}
