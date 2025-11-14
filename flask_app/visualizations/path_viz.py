@@ -92,9 +92,7 @@ def a_star_frames(grid: dict[str, Any], max_steps: int = 50000) -> list[dict[str
     came_from: dict[Coord, Coord] = {}
     g_score: dict[Coord, int] = {start: 0}
 
-    frames: list[dict[str, Any]] = [
-        _frame(None, list(open_set), list(closed_set), [], "init")
-    ]
+    frames: list[dict[str, Any]] = [_frame(None, list(open_set), list(closed_set), [], "init")]
 
     while open_heap and len(frames) < max_steps:
         _, _, current = heapq.heappop(open_heap)
@@ -105,9 +103,7 @@ def a_star_frames(grid: dict[str, Any], max_steps: int = 50000) -> list[dict[str
 
         if current == goal:
             path = _reconstruct_path(came_from, current)
-            frames.append(
-                _frame(current, list(open_set), list(closed_set), path, "done")
-            )
+            frames.append(_frame(current, list(open_set), list(closed_set), path, "done"))
             return frames
 
         closed_set.add(current)
@@ -125,18 +121,14 @@ def a_star_frames(grid: dict[str, Any], max_steps: int = 50000) -> list[dict[str
                 heapq.heappush(open_heap, (f, tie, nbr))
                 open_set.add(nbr)
                 p = _reconstruct_path(came_from, current)
-                frames.append(
-                    _frame(nbr, list(open_set), list(closed_set), p, "push/update")
-                )
+                frames.append(_frame(nbr, list(open_set), list(closed_set), p, "push/update"))
 
     # No path found
     frames.append(_frame(None, list(open_set), list(closed_set), [], "no-path"))
     return frames
 
 
-def dijkstra_frames(
-    grid: dict[str, Any], max_steps: int = 50000
-) -> list[dict[str, Any]]:
+def dijkstra_frames(grid: dict[str, Any], max_steps: int = 50000) -> list[dict[str, Any]]:
     rows, cols = grid["rows"], grid["cols"]
     walls = set(map(tuple, grid["walls"]))
     start: Coord = tuple(grid["start"])  # type: ignore
@@ -151,9 +143,7 @@ def dijkstra_frames(
     came_from: dict[Coord, Coord] = {}
     dist: dict[Coord, int] = {start: 0}
 
-    frames: list[dict[str, Any]] = [
-        _frame(None, list(open_set), list(closed_set), [], "init")
-    ]
+    frames: list[dict[str, Any]] = [_frame(None, list(open_set), list(closed_set), [], "init")]
 
     while open_heap and len(frames) < max_steps:
         _, _, current = heapq.heappop(open_heap)
@@ -164,9 +154,7 @@ def dijkstra_frames(
 
         if current == goal:
             path = _reconstruct_path(came_from, current)
-            frames.append(
-                _frame(current, list(open_set), list(closed_set), path, "done")
-            )
+            frames.append(_frame(current, list(open_set), list(closed_set), path, "done"))
             return frames
 
         closed_set.add(current)
@@ -183,9 +171,7 @@ def dijkstra_frames(
                 heapq.heappush(open_heap, (nd, tie, nbr))
                 open_set.add(nbr)
                 p = _reconstruct_path(came_from, current)
-                frames.append(
-                    _frame(nbr, list(open_set), list(closed_set), p, "push/update")
-                )
+                frames.append(_frame(nbr, list(open_set), list(closed_set), p, "push/update"))
 
     frames.append(_frame(None, list(open_set), list(closed_set), [], "no-path"))
     return frames
@@ -246,9 +232,7 @@ def gbfs_frames(grid: dict[str, Any], max_steps: int = 50000) -> list[dict[str, 
     closed_set: set[Coord] = set()
     came_from: dict[Coord, Coord] = {}
 
-    frames: list[dict[str, Any]] = [
-        _frame(None, list(open_set), list(closed_set), [], "init")
-    ]
+    frames: list[dict[str, Any]] = [_frame(None, list(open_set), list(closed_set), [], "init")]
 
     while open_heap and len(frames) < max_steps:
         _, _, current = heapq.heappop(open_heap)
@@ -259,9 +243,7 @@ def gbfs_frames(grid: dict[str, Any], max_steps: int = 50000) -> list[dict[str, 
 
         if current == goal:
             path = _reconstruct_path(came_from, current)
-            frames.append(
-                _frame(current, list(open_set), list(closed_set), path, "done")
-            )
+            frames.append(_frame(current, list(open_set), list(closed_set), path, "done"))
             return frames
 
         closed_set.add(current)

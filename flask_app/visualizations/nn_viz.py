@@ -101,10 +101,7 @@ class TinyMLP:
     def forward(self, x: Point) -> tuple[list[float], float]:
         # x: (2,)
         # z1 = W1 x + b1
-        z1 = [
-            self.W1[i][0] * x[0] + self.W1[i][1] * x[1] + self.b1[i]
-            for i in range(self.h)
-        ]
+        z1 = [self.W1[i][0] * x[0] + self.W1[i][1] * x[1] + self.b1[i] for i in range(self.h)]
         a1 = [_tanh(z) for z in z1]
         # z2 = W2 a1 + b2
         z2 = sum(self.W2[i] * a1[i] for i in range(self.h)) + self.b2
@@ -137,10 +134,7 @@ class TinyMLP:
 
         # loss for monitoring (BCE)
         eps = 1e-9
-        loss = -(
-            float(y) * math.log(yhat + eps)
-            + (1.0 - float(y)) * math.log(1.0 - yhat + eps)
-        )
+        loss = -(float(y) * math.log(yhat + eps) + (1.0 - float(y)) * math.log(1.0 - yhat + eps))
         return loss
 
     def predict_proba(self, x: Point) -> float:
