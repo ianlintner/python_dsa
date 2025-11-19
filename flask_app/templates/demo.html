@@ -26,10 +26,14 @@
       </section>
     {% endif %}
 
-    {% if output %}
+    {% if output is not none %}
       <section class="panel">
         <h3>Output</h3>
-        <pre class="output"><code>{{ output }}</code></pre>
+        {% if output %}
+          <pre class="output"><code>{{ output }}</code></pre>
+        {% else %}
+          <p class="muted">Demo executed successfully with no output.</p>
+        {% endif %}
       </section>
     {% endif %}
 
