@@ -838,7 +838,8 @@ code {
   display: none;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   outline: 0;
 }
 
@@ -959,7 +960,7 @@ body.modal-open {
   border-radius: var(--radius-md);
   padding: 1rem;
   margin: 0;
-  overflow-x: auto;
+  overflow: auto;
   font-size: 0.875rem;
   line-height: 1.5;
   color: var(--text);
@@ -1022,6 +1023,26 @@ body.modal-open {
 .btn-outline-secondary:hover,
 .btn-outline-info:hover {
   transform: translateY(-1px);
+}
+
+/* Support for Bootstrap button modifiers with custom buttons */
+.btn-success.btn-sm,
+.btn-secondary.btn-sm,
+.btn-primary.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.2rem;
+}
+
+.btn-success.disabled,
+.btn-success:disabled,
+.btn-secondary.disabled,
+.btn-secondary:disabled,
+.btn-primary.disabled,
+.btn-primary:disabled {
+  opacity: 0.65;
+  pointer-events: none;
+  box-shadow: none;
 }
 
 .card-menu {

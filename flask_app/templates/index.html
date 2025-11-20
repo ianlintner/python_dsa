@@ -325,6 +325,8 @@
           backdrop = document.createElement('div');
           backdrop.className = 'modal-backdrop fade show';
           document.body.appendChild(backdrop);
+        } else {
+          backdrop.className = 'modal-backdrop fade show';
         }
 
         // Update button state
@@ -338,6 +340,10 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ module: moduleId })
           });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
 
           const data = await response.json();
 
@@ -377,6 +383,9 @@
 
       // Set up modal close handlers on init
       function setupModal() {
+        const modal = document.getElementById('demoOutputModal');
+        if (!modal) return;
+
         // Close button
         const closeButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
         closeButtons.forEach(btn => {
@@ -384,9 +393,15 @@
         });
 
         // Clicking outside modal
-        const modal = document.getElementById('demoOutputModal');
         modal.addEventListener('click', function(e) {
           if (e.target === modal) {
+            closeModal();
+          }
+        });
+
+        // Escape key to close modal
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && modal && modal.classList.contains('show')) {
             closeModal();
           }
         });
@@ -394,8 +409,31 @@
 
       // Menu handling
       function handleMenus(e) {
+        // Handle close-search button
         if (e.target.classList.contains('close-search')) {
           hideSearchResults();
+          return;
+        }
+        // Handle menu trigger clicks
+        if (e.target.classList.contains('menu-trigger')) {
+          const dropdown = e.target.nextElementSibling;
+          if (dropdown && dropdown.classList.contains('dropdown-menu')) {
+            dropdown.classList.toggle('show');
+          }
+          return;
+        }
+        // Handle closing dropdown menus
+        if (e.target.classList.contains('dropdown-menu') && e.target.classList.contains('show')) {
+          e.target.classList.remove('show');
+          return;
+        }
+        // Handle close output button clicks
+        if (e.target.classList.contains('close-output')) {
+          const output = e.target.closest('.output-container');
+          if (output) {
+            output.style.display = 'none';
+          }
+          return;
         }
       }
 
