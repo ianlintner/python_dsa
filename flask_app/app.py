@@ -403,8 +403,14 @@ def run_demo(module_name: str) -> str:
 
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
-        demo_fn()
-    return buf.getvalue()
+        result = demo_fn()
+
+    # If demo() printed to stdout, use that; otherwise use return value if present
+    output = buf.getvalue()
+    if not output and result is not None:
+        output = str(result)
+
+    return output
 
 
 @app.get("/demo")
