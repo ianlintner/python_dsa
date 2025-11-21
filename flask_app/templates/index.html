@@ -106,47 +106,54 @@
                 <footer class="card-actions">
                   {% if category == 'visualizations' or (d.id|string).startswith('viz.') %}
                     {% if d.id == 'viz.sorting' %}
-                      <a class="btn-primary" href="{{ url_for('viz_sorting') }}">Launch</a>
+                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_sorting') }}">
+                        <i class="fas fa-rocket me-1"></i> Launch
+                      </a>
                     {% elif d.id == 'viz.graph' %}
-                      <a class="btn-primary" href="{{ url_for('viz_graph') }}?algo=bfs">Launch</a>
+                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_graph') }}?algo=bfs">
+                        <i class="fas fa-rocket me-1"></i> Launch
+                      </a>
                     {% elif d.id == 'viz.path' %}
-                      <a class="btn-primary" href="{{ url_for('viz_path') }}?algo=astar">Launch</a>
+                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_path') }}?algo=astar">
+                        <i class="fas fa-rocket me-1"></i> Launch
+                      </a>
                     {% elif d.id == 'viz.arrays' %}
-                      <a class="btn-primary" href="{{ url_for('viz_arrays') }}?algo=binary_search">Launch</a>
+                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_arrays') }}?algo=binary_search">
+                        <i class="fas fa-rocket me-1"></i> Launch
+                      </a>
                     {% elif d.id == 'viz.mst' %}
-                      <a class="btn-primary" href="{{ url_for('viz_mst') }}?algo=kruskal">Launch</a>
+                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_mst') }}?algo=kruskal">
+                        <i class="fas fa-rocket me-1"></i> Launch
+                      </a>
                     {% elif d.id == 'viz.topo' %}
-                      <a class="btn-primary" href="{{ url_for('viz_topo') }}?algo=kahn">Launch</a>
+                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_topo') }}?algo=kahn">
+                        <i class="fas fa-rocket me-1"></i> Launch
+                      </a>
                     {% elif d.id == 'viz.nn' %}
-                      <a class="btn-primary" href="{{ url_for('viz_nn') }}?dataset=blobs">Launch</a>
+                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_nn') }}?dataset=blobs">
+                        <i class="fas fa-rocket me-1"></i> Launch
+                      </a>
                     {% endif %}
-                    <button class="btn-secondary" onclick="showCardDetails('{{ d.id }}')">Details</button>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="showCardDetails('{{ d.id }}')">
+                      <i class="fas fa-info-circle me-1"></i> Details
+                    </button>
                   {% else %}
-                    <div class="card-action-icons">
-                      <button class="btn-icon-labeled demo-run-btn" data-module="{{ d.id }}" aria-label="Run Demo">
-                        <i class="fas fa-play"></i> <span>Run</span>
+                    <div class="card-action-icons d-flex gap-2 w-100">
+                      <button class="btn btn-primary btn-sm demo-run-btn flex-grow-1" data-module="{{ d.id }}" data-title="{{ d.title }}" aria-label="Run Demo">
+                        <i class="fas fa-play me-1"></i> Run
                       </button>
                       {% set viz_key = sorting_viz_map.get(d.id) if sorting_viz_map else None %}
                       {% if viz_key %}
-                        <a class="btn-icon-labeled" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}" aria-label="Visualize">
-                          <i class="fas fa-chart-bar"></i> <span>Visualize</span>
+                        <a class="btn btn-outline-info btn-sm" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}" aria-label="Visualize">
+                          <i class="fas fa-chart-bar"></i>
                         </a>
                       {% endif %}
-                      <a class="btn-icon-labeled" href="{{ url_for('source') }}?module={{ d.id }}" aria-label="View Source">
-                        <i class="fas fa-code"></i> <span>Source</span>
+                      <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('source') }}?module={{ d.id }}" aria-label="View Source">
+                        <i class="fas fa-code"></i>
                       </a>
                     </div>
                   {% endif %}
                 </footer>
-
-                <!-- Inline Demo Output Panel -->
-                <div class="demo-output-panel" hidden>
-                  <div class="output-header">
-                    <h4>Demo Output</h4>
-                    <button class="btn-icon close-output" aria-label="Close output">×</button>
-                  </div>
-                  <pre class="demo-output" role="status" aria-live="polite"><code></code></pre>
-                </div>
               </article>
             {% endfor %}
           {% endfor %}
@@ -202,6 +209,9 @@
 
         // Menu dropdowns
         document.addEventListener('click', handleMenus);
+
+        // Setup modal handlers
+        setupModal();
 
         // Removed old initialization
 
@@ -287,19 +297,42 @@
 
         e.preventDefault();
         const moduleId = btn.dataset.module;
-        const card = btn.closest('.content-card');
-        const outputPanel = card.querySelector('.demo-output-panel');
-        const outputCode = outputPanel.querySelector('.demo-output code');
+        const moduleTitle = btn.dataset.title || 'Demo';
 
-        // Show output panel
-        outputPanel.hidden = false;
-        outputPanel.classList.remove('error');
-        outputCode.textContent = '';
+        // Get modal elements
+        const modal = document.getElementById('demoOutputModal');
+        const modalTitle = document.getElementById('demoOutputModalLabel');
+        const loadingSpinner = document.getElementById('demoLoadingSpinner');
+        const outputContent = document.getElementById('demoOutputContent');
+        const errorContent = document.getElementById('demoErrorContent');
+        const outputCode = outputContent.querySelector('code');
+        const errorCode = errorContent.querySelector('code');
+
+        // Set modal title
+        modalTitle.textContent = `${moduleTitle} - Output`;
+
+        // Show modal with loading state (vanilla JS without Bootstrap)
+        loadingSpinner.classList.remove('d-none');
+        outputContent.classList.add('d-none');
+        errorContent.classList.add('d-none');
+        modal.classList.add('show');
+        modal.style.display = 'block';
+        document.body.classList.add('modal-open');
+
+        // Add backdrop
+        let backdrop = document.querySelector('.modal-backdrop');
+        if (!backdrop) {
+          backdrop = document.createElement('div');
+          backdrop.className = 'modal-backdrop fade show';
+          document.body.appendChild(backdrop);
+        } else {
+          backdrop.className = 'modal-backdrop fade show';
+        }
 
         // Update button state
-        const originalText = btn.textContent;
+        const originalHTML = btn.innerHTML;
         btn.disabled = true;
-        btn.textContent = 'Running...';
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Running...';
 
         try {
           const response = await fetch('/api/demo', {
@@ -308,42 +341,99 @@
             body: JSON.stringify({ module: moduleId })
           });
 
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
           const data = await response.json();
 
+          // Hide loading spinner
+          loadingSpinner.classList.add('d-none');
+
           if (data.error) {
-            outputPanel.classList.add('error');
-            outputCode.textContent = data.error;
+            errorContent.classList.remove('d-none');
+            errorCode.textContent = data.error;
           } else {
+            outputContent.classList.remove('d-none');
             outputCode.textContent = data.output || '(no output)';
           }
         } catch (error) {
-          outputPanel.classList.add('error');
-          outputCode.textContent = 'Error: ' + error.message;
+          loadingSpinner.classList.add('d-none');
+          errorContent.classList.remove('d-none');
+          errorCode.textContent = 'Error: ' + error.message;
         } finally {
           btn.disabled = false;
-          btn.textContent = originalText;
+          btn.innerHTML = originalHTML;
         }
+      }
+
+      // Close modal function
+      function closeModal() {
+        const modal = document.getElementById('demoOutputModal');
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+
+        // Remove backdrop
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+          backdrop.remove();
+        }
+      }
+
+      // Set up modal close handlers on init
+      function setupModal() {
+        const modal = document.getElementById('demoOutputModal');
+        if (!modal) return;
+
+        // Close button
+        const closeButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
+        closeButtons.forEach(btn => {
+          btn.addEventListener('click', closeModal);
+        });
+
+        // Clicking outside modal
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeModal();
+          }
+        });
+
+        // Escape key to close modal
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && modal && modal.classList.contains('show')) {
+            closeModal();
+          }
+        });
       }
 
       // Menu handling
       function handleMenus(e) {
-        if (e.target.classList.contains('menu-trigger')) {
-          e.stopPropagation();
-          const menu = e.target.nextElementSibling;
-          menu.classList.toggle('show');
-        } else {
-          // Close all menus
-          document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
-            menu.classList.remove('show');
-          });
-        }
-
-        if (e.target.classList.contains('close-output')) {
-          e.target.closest('.demo-output-panel').hidden = true;
-        }
-
+        // Handle close-search button
         if (e.target.classList.contains('close-search')) {
           hideSearchResults();
+          return;
+        }
+        // Handle menu trigger clicks
+        if (e.target.classList.contains('menu-trigger')) {
+          const dropdown = e.target.nextElementSibling;
+          if (dropdown && dropdown.classList.contains('dropdown-menu')) {
+            dropdown.classList.toggle('show');
+          }
+          return;
+        }
+        // Handle closing dropdown menus
+        if (e.target.classList.contains('dropdown-menu') && e.target.classList.contains('show')) {
+          e.target.classList.remove('show');
+          return;
+        }
+        // Handle close output button clicks
+        if (e.target.classList.contains('close-output')) {
+          const output = e.target.closest('.output-container');
+          if (output) {
+            output.style.display = 'none';
+          }
+          return;
         }
       }
 
