@@ -20,7 +20,6 @@ spec:
     metadata:
       labels:
         app: python-dsa
-        istio-injection: enabled
       annotations:
         sidecar.istio.io/inject: "true"
     spec:
@@ -65,7 +64,11 @@ apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
   name: python-dsa-policy
+  namespace: default
 spec:
+  selector:
+    matchLabels:
+      app: python-dsa
   action: ALLOW
   rules:
     - to:
