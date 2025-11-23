@@ -64,20 +64,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - id: auth
-        uses: google-github-actions/auth@v2
+      - name: Azure Login
+        uses: azure/login@v2
         with:
-          workload_identity_provider: projects/316518955652/locations/global/workloadIdentityPools/github-pool/providers/github-oidc
-          service_account: kame-house-oidc@kame-457417.iam.gserviceaccount.com
-          create_credentials_file: true
-          export_environment_variables: true
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Configure Docker for Artifact Registry
-        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+      - name: Login to Azure Container Registry
+        run: az acr login --name gabby
 
       - name: Build and Push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: us-central1-docker.pkg.dev/kame-457417/python-dsa/python-dsa:latest
+          tags: gabby.azurecr.io/python-dsa:latest
