@@ -1,0 +1,21 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: python-dsa-tls-cert
+  namespace: default
+spec:
+  secretName: python-dsa-tls-cert
+  dnsNames:
+    - dsa.cat-herding.net
+  # Optionally include legacy host if you want a combined cert:
+  # - dsa.hugecat.net
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  privateKey:
+    rotationPolicy: Always
+    algorithm: RSA
+    size: 2048
+  usages:
+    - digital signature
+    - key encipherment

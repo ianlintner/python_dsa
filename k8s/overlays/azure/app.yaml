@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: python-dsa-workload-identity
+  labels:
+    app: python-dsa
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-dsa
+  labels:
+    app: python-dsa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-dsa
+  template:
+    metadata:
+      labels:
+        app: python-dsa
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      serviceAccountName: python-dsa-workload-identity
+      containers:
+        - name: python-dsa
+          image: gabby.azurecr.io/python-dsa:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: FLASK_ENV
+              value: production
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            - name: GUNICORN_WORKERS
+              value: "4"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-dsa
+  labels:
+    app: python-dsa
+spec:
+  selector:
+    app: python-dsa
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: ClusterIP
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: python-dsa-policy
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: python-dsa
+  action: ALLOW
+  rules:
+    - to:
+        - operation:
+            methods:
+              - "*"

@@ -1,11 +1,10 @@
-apiVersion: networking.istio.io/v1beta1
+apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
   name: python-dsa-virtualservice
-  namespace: prod
 spec:
   hosts:
-    - "dsa.hugecat.net"
+    - dsa.cat-herding.net
   gateways:
     - python-dsa-gateway
   http:
