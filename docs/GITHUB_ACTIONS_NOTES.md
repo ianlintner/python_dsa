@@ -20,10 +20,12 @@ The repository uses a GitHub Actions workflow defined in [`.github/workflows/ci.
    - Uploads `coverage.xml` as an artifact.
 
 2. **Docker Build & Push**
-   - Runs after tests succeed.
-   - Authenticates to Azure using [`azure/login`](https://github.com/Azure/login) with the `AZURE_CREDENTIALS` secret (JSON output from `az ad sp create-for-rbac --sdk-auth`).
-   - Logs in to Azure Container Registry (ACR) `gabby`.
-   - Builds and pushes the Docker image to `gabby.azurecr.io/python-dsa:latest`.
+
+    - Runs after tests succeed.
+    - Authenticates to Azure using [`azure/login`](https://github.com/Azure/login) with the `AZURE_CREDENTIALS` secret (JSON output from `az ad sp create-for-rbac --sdk-auth`).
+    - Logs in to Azure Container Registry (ACR) `gabby`.
+    - Uses `docker/setup-buildx-action` + `docker/metadata-action` for reproducible builds with cache reuse.
+    - Builds and pushes the Docker image to `gabby.azurecr.io/python-dsa` with tags: `latest` (default branch), branch/tag refs, and the commit SHA.
 
 ### Azure Service Principal Setup
 
