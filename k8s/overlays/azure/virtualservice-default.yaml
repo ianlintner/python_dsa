@@ -5,6 +5,7 @@ metadata:
 spec:
   hosts:
     - dsa.cat-herding.net
+    - dsa.hugecat.net
   gateways:
     - python-dsa-gateway
   http:

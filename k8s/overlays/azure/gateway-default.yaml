@@ -8,7 +8,7 @@ spec:
   servers:
     - port:
         number: 443
-        name: https
+        name: https-cat-herding
         protocol: HTTPS
       hosts:
         - dsa.cat-herding.net
@@ -16,8 +16,18 @@ spec:
         mode: SIMPLE
         credentialName: python-dsa-tls-cert
     - port:
+        number: 443
+        name: https-hugecat
+        protocol: HTTPS
+      hosts:
+        - dsa.hugecat.net
+      tls:
+        mode: SIMPLE
+        credentialName: python-dsa-hugecat-tls-cert
+    - port:
         number: 80
         name: http
         protocol: HTTP
       hosts:
         - dsa.cat-herding.net
+        - dsa.hugecat.net
