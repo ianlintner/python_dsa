@@ -2,6 +2,10 @@ apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
   name: python-dsa-virtualservice
+  labels:
+    app: python-dsa
+    app.kubernetes.io/name: python-dsa
+    app.kubernetes.io/component: web-application
 spec:
   hosts:
     - dsa.cat-herding.net
@@ -11,9 +15,27 @@ spec:
   http:
     - match:
         - uri:
+            prefix: /oauth2/
+      route:
+        - destination:
+            host: oauth2-proxy.default.svc.cluster.local
+            port:
+              number: 4180
+      headers:
+        request:
+          set:
+            X-Forwarded-Proto: https
+            X-Forwarded-Host: "%REQ(:authority)%"
+    - match:
+        - uri:
             prefix: /
       route:
         - destination:
             host: python-dsa
             port:
               number: 80
+      headers:
+        request:
+          set:
+            X-Forwarded-Proto: https
+            X-Forwarded-Host: "%REQ(:authority)%"

@@ -11,6 +11,8 @@ metadata:
   name: python-dsa
   labels:
     app: python-dsa
+    app.kubernetes.io/name: python-dsa
+    app.kubernetes.io/component: web-application
 spec:
   replicas: 1
   selector:
@@ -20,8 +22,13 @@ spec:
     metadata:
       labels:
         app: python-dsa
+        app.kubernetes.io/name: python-dsa
+        app.kubernetes.io/component: web-application
+        version: latest
       annotations:
         sidecar.istio.io/inject: "true"
+        proxy.istio.io/config: |
+          holdApplicationUntilProxyStarts: true
     spec:
       serviceAccountName: python-dsa-workload-identity
       containers:
@@ -37,6 +44,10 @@ spec:
               value: "1"
             - name: GUNICORN_WORKERS
               value: "4"
+            - name: OAUTH2_PROXY_ENABLED
+              value: "true"
+            - name: TRUSTED_PROXY_HEADERS
+              value: "X-Auth-Request-User,X-Auth-Request-Email,X-Forwarded-User,X-Forwarded-Email,Authorization"
           resources:
             requests:
               cpu: "100m"
@@ -51,6 +62,8 @@ metadata:
   name: python-dsa
   labels:
     app: python-dsa
+    app.kubernetes.io/name: python-dsa
+    app.kubernetes.io/component: web-application
 spec:
   selector:
     app: python-dsa
@@ -65,13 +78,28 @@ kind: AuthorizationPolicy
 metadata:
   name: python-dsa-policy
   namespace: default
+  labels:
+    app: python-dsa
+    app.kubernetes.io/name: python-dsa
+    app.kubernetes.io/component: web-application
 spec:
   selector:
     matchLabels:
       app: python-dsa
   action: ALLOW
   rules:
-    - to:
+    - from:
+        - source:
+            principals:
+              - "cluster.local/ns/default/sa/python-dsa-workload-identity"
+              - "cluster.local/ns/aks-istio-ingress/sa/*"
+      to:
         - operation:
             methods:
-              - "*"
+              - "GET"
+              - "POST"
+              - "PUT"
+              - "DELETE"
+              - "PATCH"
+              - "HEAD"
+              - "OPTIONS"
