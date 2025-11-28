@@ -6,6 +6,9 @@ metadata:
     app: python-dsa
     app.kubernetes.io/name: python-dsa
     app.kubernetes.io/component: web-application
+  annotations:
+    # OAuth2 proxy will handle authentication via ext-authz
+    security.istio.io/extAuthz: "enabled"
 spec:
   hosts:
     - dsa.cat-herding.net
@@ -13,6 +16,21 @@ spec:
   gateways:
     - python-dsa-gateway
   http:
+    # OAuth2 callback route - must bypass auth
+    - match:
+        - uri:
+            prefix: /oauth2/callback
+      route:
+        - destination:
+            host: oauth2-proxy.default.svc.cluster.local
+            port:
+              number: 4180
+      headers:
+        request:
+          set:
+            X-Forwarded-Proto: https
+            X-Forwarded-Host: "%REQ(:authority)%"
+    # OAuth2 auth endpoint
     - match:
         - uri:
             prefix: /oauth2/
@@ -26,6 +44,7 @@ spec:
           set:
             X-Forwarded-Proto: https
             X-Forwarded-Host: "%REQ(:authority)%"
+    # Main application route - will be protected by ext-authz
     - match:
         - uri:
             prefix: /
@@ -39,3 +58,4 @@ spec:
           set:
             X-Forwarded-Proto: https
             X-Forwarded-Host: "%REQ(:authority)%"
+            X-Forwarded-Uri: "%REQ(:path)%"
