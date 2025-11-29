@@ -7,8 +7,9 @@ metadata:
     app.kubernetes.io/name: python-dsa
     app.kubernetes.io/component: web-application
   annotations:
-    # OAuth2 proxy will handle authentication via ext-authz
-    security.istio.io/extAuthz: "enabled"
+    # Route ALL traffic through OAuth2 proxy instead of using ext-authz
+    # This allows OAuth2 proxy to handle redirects properly
+    security.istio.io/authz: "oauth2-proxy"
 spec:
   hosts:
     - dsa.cat-herding.net
@@ -16,46 +17,20 @@ spec:
   gateways:
     - python-dsa-gateway
   http:
-    # OAuth2 callback route - must bypass auth
-    - match:
-        - uri:
-            prefix: /oauth2/callback
-      route:
-        - destination:
-            host: oauth2-proxy.default.svc.cluster.local
-            port:
-              number: 4180
-      headers:
-        request:
-          set:
-            X-Forwarded-Proto: https
-            X-Forwarded-Host: "%REQ(:authority)%"
-    # OAuth2 auth endpoint
-    - match:
-        - uri:
-            prefix: /oauth2/
-      route:
-        - destination:
-            host: oauth2-proxy.default.svc.cluster.local
-            port:
-              number: 4180
-      headers:
-        request:
-          set:
-            X-Forwarded-Proto: https
-            X-Forwarded-Host: "%REQ(:authority)%"
-    # Main application route - will be protected by ext-authz
+    # Route ALL traffic through OAuth2 proxy which will:
+    # 1. Check authentication
+    # 2. Redirect to GitHub if not authenticated
+    # 3. Proxy to upstream (python-dsa) if authenticated
     - match:
         - uri:
             prefix: /
       route:
         - destination:
-            host: python-dsa
+            host: oauth2-proxy.default.svc.cluster.local
             port:
-              number: 80
+              number: 4180
       headers:
         request:
           set:
             X-Forwarded-Proto: https
             X-Forwarded-Host: "%REQ(:authority)%"
-            X-Forwarded-Uri: "%REQ(:path)%"
