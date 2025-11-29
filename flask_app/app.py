@@ -22,6 +22,40 @@ if str(SRC_DIR) not in sys.path:
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
+# Optional lightweight request diagnostics (enabled via REQUEST_DIAGNOSTICS=true)
+import os
+from datetime import datetime
+
+_DIAG_ENABLED = os.getenv("REQUEST_DIAGNOSTICS", "false").lower() == "true"
+
+if _DIAG_ENABLED:
+    print("[diag] Request diagnostics enabled")
+
+@app.before_request
+def _diag_log_request():  # pragma: no cover - diagnostics only
+    if not _DIAG_ENABLED:
+        return
+    h = request.headers
+    print(
+        f"[req] {datetime.utcnow().isoformat()} method={request.method} path={request.full_path} "
+        f"host={request.host} xfwd_host={h.get('X-Forwarded-Host')} proto={h.get('X-Forwarded-Proto')} "
+        f"auth_user={h.get('X-Auth-Request-User')} email={h.get('X-Auth-Request-Email')}"
+    )
+
+@app.after_request
+def _diag_log_response(resp):  # pragma: no cover - diagnostics only
+    if _DIAG_ENABLED:
+        print(
+            f"[resp] {datetime.utcnow().isoformat()} status={resp.status_code} path={request.path} "
+            f"length={resp.content_length}"
+        )
+    return resp
+
+@app.get("/ping")
+def ping():
+    """Basic health endpoint for upstream liveness checks."""
+    return jsonify({"status": "ok"})
+
 # Central notes database for algorithm modules (keyed by full module name or basename)
 MODULE_NOTES: dict[str, str] = {
     # Sorting

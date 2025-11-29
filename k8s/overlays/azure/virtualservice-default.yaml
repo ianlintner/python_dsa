@@ -6,10 +6,7 @@ metadata:
     app: python-dsa
     app.kubernetes.io/name: python-dsa
     app.kubernetes.io/component: web-application
-  annotations:
-    # Route ALL traffic through OAuth2 proxy instead of using ext-authz
-    # This allows OAuth2 proxy to handle redirects properly
-    security.istio.io/authz: "oauth2-proxy"
+    auth.cat-herding.net/enabled: "true"
 spec:
   hosts:
     - dsa.cat-herding.net
@@ -17,20 +14,17 @@ spec:
   gateways:
     - python-dsa-gateway
   http:
-    # Route ALL traffic through OAuth2 proxy which will:
-    # 1. Check authentication
-    # 2. Redirect to GitHub if not authenticated
-    # 3. Proxy to upstream (python-dsa) if authenticated
     - match:
         - uri:
             prefix: /
       route:
         - destination:
-            host: oauth2-proxy.default.svc.cluster.local
+            host: python-dsa.default.svc.cluster.local
             port:
-              number: 4180
-      headers:
-        request:
-          set:
-            X-Forwarded-Proto: https
-            X-Forwarded-Host: "%REQ(:authority)%"
+              number: 80
+      timeout: 30s
+      retries:
+        attempts: 3
+        perTryTimeout: 10s
+        retryOn: gateway-error,connect-failure,refused-stream
+

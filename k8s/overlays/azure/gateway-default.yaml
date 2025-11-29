@@ -32,4 +32,3 @@ spec:
       hosts:
         - dsa.cat-herding.net
         - dsa.hugecat.net
-        - hugecat.net

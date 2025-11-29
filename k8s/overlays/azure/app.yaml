@@ -24,6 +24,7 @@ spec:
         app: python-dsa
         app.kubernetes.io/name: python-dsa
         app.kubernetes.io/component: web-application
+        auth.cat-herding.net/enabled: "true"
         version: latest
       annotations:
         sidecar.istio.io/inject: "true"
@@ -44,8 +45,6 @@ spec:
               value: "1"
             - name: GUNICORN_WORKERS
               value: "4"
-            - name: OAUTH2_PROXY_ENABLED
-              value: "true"
             - name: TRUSTED_PROXY_HEADERS
               value: "X-Auth-Request-User,X-Auth-Request-Email,X-Forwarded-User,X-Forwarded-Email,Authorization"
           resources:
@@ -53,8 +52,8 @@ spec:
               cpu: "100m"
               memory: "128Mi"
             limits:
-              cpu: "500m"
-              memory: "512Mi"
+              cpu: "1000m"
+              memory: "1024Mi"
 ---
 apiVersion: v1
 kind: Service
@@ -76,7 +75,7 @@ spec:
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  name: python-dsa-policy
+  name: python-dsa-mtls-policy
   namespace: default
   labels:
     app: python-dsa

@@ -1,0 +1,53 @@
+---
+# AuthorizationPolicy that enforces authentication via ext_authz
+# This policy requires successful authentication from oauth2-proxy
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: python-dsa-require-auth
+  namespace: default
+  labels:
+    app: python-dsa
+    app.kubernetes.io/name: python-dsa
+    app.kubernetes.io/component: web-application
+    auth.cat-herding.net/enabled: "true"
+spec:
+  # Apply to python-dsa pods
+  selector:
+    matchLabels:
+      app: python-dsa
+  
+  # CUSTOM action defers to ext_authz (oauth2-proxy)
+  action: CUSTOM
+  
+  provider:
+    # References the oauth2-proxy extensionProvider configured in Istio mesh config
+    name: oauth2-proxy
+  
+  rules:
+  # Apply to all requests
+  - to:
+    - operation:
+        paths: ["/*"]
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]
+
+---
+# Allow health check endpoints without authentication
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: python-dsa-allow-healthcheck
+  namespace: default
+  labels:
+    app: python-dsa
+    app.kubernetes.io/name: python-dsa
+    app.kubernetes.io/component: web-application
+spec:
+  selector:
+    matchLabels:
+      app: python-dsa
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        paths: ["/ping", "/health", "/healthz", "/ready", "/readyz", "/livez"]
