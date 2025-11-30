@@ -7,19 +7,19 @@ Description: Given an array of intervals where intervals[i] = [start, end], merg
 """
 
 from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._runner import TestCase
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
-    def solve(self, *args):
+    def merge(self, intervals: list[list[int]]) -> list[list[int]]:
         """
-        Merge Intervals: Merge overlapping intervals.
+        Merge overlapping intervals.
         Args:
-            intervals (List[List[int]])
+            intervals: List of [start, end] intervals
         Returns:
-            List[List[int]]
+            List of merged non-overlapping intervals
         """
-        (intervals,) = args
         if not intervals:
             return []
         intervals.sort(key=lambda x: x[0])
@@ -32,13 +32,43 @@ class Solution:
         return merged
 
 
-def demo():
-    """Run a simple demonstration for Merge Intervals problem."""
-    s = Solution()
-    intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
-    result = s.solve(intervals)
-    print(f"Initial intervals: {intervals}, Merged intervals: {result}")
-    return f"{intervals} -> {result}"
+# Example test cases
+test_cases = [
+    TestCase(
+        ([[1, 3], [2, 6], [8, 10], [15, 18]],),
+        [[1, 6], [8, 10], [15, 18]],
+        "Overlapping and non-overlapping intervals",
+    ),
+    TestCase(([[1, 4], [4, 5]],), [[1, 5]], "Adjacent intervals"),
+    TestCase(([[1, 4], [0, 4]],), [[0, 4]], "Second interval starts before first"),
+    TestCase(([[1, 4]],), [[1, 4]], "Single interval"),
+]
+
+
+def demo() -> str:
+    """Run test cases for Merge Intervals."""
+    sol = Solution()
+    outputs = []
+    outputs.append("Merge Intervals | LeetCode 56")
+    outputs.append("=" * 50)
+    outputs.append("Time: O(n log n) | Space: O(n)")
+    outputs.append("Technique: Sort by start, merge overlapping\n")
+
+    for case in test_cases:
+        # Copy to avoid mutation
+        intervals_copy = [list(x) for x in case.input_args[0]]
+        res = sol.merge(intervals_copy)
+        passed = res == case.expected
+        status = "✓ PASS" if passed else "✗ FAIL"
+        outputs.append(f"Test Case: {case.description}")
+        outputs.append(f"  Input: intervals={case.input_args[0]}")
+        outputs.append(f"  Output: {res}")
+        outputs.append(f"  Expected: {case.expected}")
+        outputs.append(f"  {status}\n")
+
+    result = "\n".join(outputs)
+    print(result)
+    return result
 
 
 register_problem(

@@ -8,6 +8,7 @@ subsets (the power set). The solution set must not contain duplicate subsets.
 from typing import List
 
 from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._runner import TestCase
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
@@ -29,11 +30,58 @@ class Solution:
         return res
 
 
+# Example test cases
+test_cases = [
+    TestCase(
+        ([1, 2, 2],),
+        [[], [1], [1, 2], [1, 2, 2], [2], [2, 2]],
+        "Array with duplicates",
+    ),
+    TestCase(([0],), [[], [0]], "Single element"),
+    TestCase(
+        ([4, 4, 4, 1, 4],),
+        [
+            [],
+            [1],
+            [1, 4],
+            [1, 4, 4],
+            [1, 4, 4, 4],
+            [1, 4, 4, 4, 4],
+            [4],
+            [4, 4],
+            [4, 4, 4],
+            [4, 4, 4, 4],
+        ],
+        "Multiple duplicates",
+    ),
+]
+
+
 def demo() -> str:
-    s = Solution()
-    result = s.subsetsWithDup([1, 2, 2])
-    print(f"Final result: {result}")
-    return str(result)
+    """Run test cases for Subsets II."""
+    sol = Solution()
+    outputs = []
+    outputs.append("Subsets II | LeetCode 90")
+    outputs.append("=" * 50)
+    outputs.append("Time: O(n * 2^n) | Space: O(n)")
+    outputs.append("Technique: Backtracking with duplicate skipping\n")
+
+    for case in test_cases:
+        res = sol.subsetsWithDup(list(case.input_args[0]))
+        # Sort for comparison since order may vary
+        res_sorted = sorted([tuple(sorted(x)) for x in res])
+        expected_sorted = sorted([tuple(sorted(x)) for x in case.expected])
+        passed = res_sorted == expected_sorted
+        status = "✓ PASS" if passed else "✗ FAIL"
+        outputs.append(f"Test Case: {case.description}")
+        outputs.append(f"  Input: nums={list(case.input_args[0])}")
+        outputs.append(f"  Output: {res}")
+        outputs.append(f"  Expected: {case.expected}")
+        outputs.append(f"  {status}\n")
+
+    result = "\n".join(outputs)
+    print(result)
+    return result
 
 
 register_problem(
