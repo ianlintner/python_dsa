@@ -7,6 +7,7 @@ Description: Given a rotated sorted array of distinct integers, return the index
 """
 
 from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._runner import TestCase
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
@@ -31,13 +32,39 @@ class Solution:
         return -1
 
 
-def demo():
-    """Run a demo for the Search In Rotated Sorted Array problem."""
-    solver = Solution()
-    nums = [4, 5, 6, 7, 0, 1, 2]
-    target = 0
-    result = solver.search(nums, target)
-    return str(result)
+# Example test cases
+test_cases = [
+    TestCase(([4, 5, 6, 7, 0, 1, 2], 0), 4, "Target in right half after rotation"),
+    TestCase(([4, 5, 6, 7, 0, 1, 2], 3), -1, "Target not found"),
+    TestCase(([1], 0), -1, "Single element not found"),
+    TestCase(([1], 1), 0, "Single element found"),
+    TestCase(([3, 1], 1), 1, "Two elements rotated"),
+]
+
+
+def demo() -> str:
+    """Run test cases for Search in Rotated Sorted Array."""
+    sol = Solution()
+    outputs = []
+    outputs.append("Search in Rotated Sorted Array | LeetCode 33")
+    outputs.append("=" * 50)
+    outputs.append("Time: O(log n) | Space: O(1)")
+    outputs.append("Technique: Modified binary search\n")
+
+    for case in test_cases:
+        nums, target = case.input_args
+        res = sol.search(list(nums), target)
+        passed = res == case.expected
+        status = "✓ PASS" if passed else "✗ FAIL"
+        outputs.append(f"Test Case: {case.description}")
+        outputs.append(f"  Input: nums={list(nums)}, target={target}")
+        outputs.append(f"  Output: {res}")
+        outputs.append(f"  Expected: {case.expected}")
+        outputs.append(f"  {status}\n")
+
+    result = "\n".join(outputs)
+    print(result)
+    return result
 
 
 register_problem(
