@@ -1,23 +1,21 @@
 """
 Meeting Rooms
 
-TODO: Add problem description
+Problem: Meeting Rooms
+LeetCode link: https://leetcode.com/problems/meeting-rooms/
+Description: Given an array of meeting time intervals, determine if a person can attend all meetings.
 """
 
 from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._runner import TestCase
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
-    def solve(self, *args):
+    def canAttendMeetings(self, intervals: list[list[int]]) -> bool:
         """
         Meeting Rooms: Check if a person can attend all meetings.
-        Args:
-            intervals (List[List[int]])
-        Returns:
-            bool
         """
-        (intervals,) = args
         intervals.sort(key=lambda x: x[0])
         for i in range(1, len(intervals)):
             if intervals[i][0] < intervals[i - 1][1]:
@@ -25,16 +23,38 @@ class Solution:
         return True
 
 
-def demo():
-    """Run a simple demonstration for Meeting Rooms problem."""
-    s = Solution()
-    intervals1 = [[0, 30], [5, 10], [15, 20]]
-    intervals2 = [[7, 10], [2, 4]]
-    result1 = s.solve(intervals1)
-    result2 = s.solve(intervals2)
-    print(f"Intervals: {intervals1}, Can Attend All: {result1}")
-    print(f"Intervals: {intervals2}, Can Attend All: {result2}")
-    return f"{intervals1} -> {result1}; {intervals2} -> {result2}"
+# Example test cases
+test_cases = [
+    TestCase(([[0, 30], [5, 10], [15, 20]],), False, "Overlapping meetings"),
+    TestCase(([[7, 10], [2, 4]],), True, "Non-overlapping meetings"),
+    TestCase(([[1, 5], [5, 10]],), True, "Adjacent meetings (no overlap)"),
+    TestCase(([],), True, "Empty intervals"),
+]
+
+
+def demo() -> str:
+    """Run test cases for Meeting Rooms."""
+    sol = Solution()
+    outputs = []
+    outputs.append("Meeting Rooms | LeetCode 252")
+    outputs.append("=" * 50)
+    outputs.append("Time: O(n log n) | Space: O(1)")
+    outputs.append("Technique: Sort by start time, check overlaps\n")
+
+    for case in test_cases:
+        intervals = [list(x) for x in case.input_args[0]]  # Copy
+        res = sol.canAttendMeetings(intervals)
+        passed = res == case.expected
+        status = "✓ PASS" if passed else "✗ FAIL"
+        outputs.append(f"Test Case: {case.description}")
+        outputs.append(f"  Input: intervals={case.input_args[0]}")
+        outputs.append(f"  Output: {res}")
+        outputs.append(f"  Expected: {case.expected}")
+        outputs.append(f"  {status}\n")
+
+    result = "\n".join(outputs)
+    print(result)
+    return result
 
 
 register_problem(

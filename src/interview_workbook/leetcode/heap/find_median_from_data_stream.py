@@ -1,7 +1,9 @@
 """
 Find Median From Data Stream
 
-TODO: Add problem description
+Problem: Find Median from Data Stream
+LeetCode link: https://leetcode.com/problems/find-median-from-data-stream/
+Description: Design a data structure that supports adding numbers and finding the median in O(log n) time.
 """
 
 import heapq
@@ -39,24 +41,54 @@ class Solution:
             return float(-self.small[0])
         return (-self.small[0] + self.large[0]) / 2.0
 
-    def solve(self, nums: list[int]) -> float:
-        """Compute median by sequentially adding numbers from list."""
-        for n in nums:
-            self.add_num(n)
-        return self.find_median()
-
 
 def demo() -> str:
-    """Demo for Find Median From Data Stream."""
+    """Run test cases for Find Median from Data Stream."""
+    outputs = []
+    outputs.append("Find Median from Data Stream | LeetCode 295")
+    outputs.append("=" * 50)
+    outputs.append("Time: O(log n) add, O(1) find | Space: O(n)")
+    outputs.append("Technique: Two heaps (max-heap for lower half, min-heap for upper)\n")
+
+    # Test Case 1: Standard sequence
+    outputs.append("Test Case: Streaming median updates")
+    outputs.append("  Operations: addNum(1), addNum(2), findMedian(), addNum(3), findMedian()")
+    mf = Solution()
+    mf.add_num(1)
+    mf.add_num(2)
+    med1 = mf.find_median()
+    mf.add_num(3)
+    med2 = mf.find_median()
+    outputs.append(f"  After [1,2] -> median={med1} (expected 1.5)")
+    outputs.append(f"  After [1,2,3] -> median={med2} (expected 2.0)")
+    passed = med1 == 1.5 and med2 == 2.0
+    outputs.append(f"  {'✓ PASS' if passed else '✗ FAIL'}\n")
+
+    # Test Case 2: All same numbers
+    outputs.append("Test Case: All same numbers")
+    mf2 = Solution()
+    for n in [5, 5, 5, 5]:
+        mf2.add_num(n)
+    med3 = mf2.find_median()
+    outputs.append(f"  After [5,5,5,5] -> median={med3} (expected 5.0)")
+    passed2 = med3 == 5.0
+    outputs.append(f"  {'✓ PASS' if passed2 else '✗ FAIL'}\n")
+
+    # Test Case 3: Larger sequence
+    outputs.append("Test Case: Larger stream")
+    mf3 = Solution()
     nums = [41, 35, 62, 4, 97, 108]
-    print(f"Initial stream: {nums}")
-    s = Solution()
-    for num in nums:
-        s.add_num(num)
-        print(f"Added {num}, current median: {s.find_median()}")
-    result = s.find_median()
-    print(f"Final median: {result}")
-    return f"Median of {nums} -> {result}"
+    for n in nums:
+        mf3.add_num(n)
+    med4 = mf3.find_median()
+    outputs.append(f"  Stream: {nums}")
+    outputs.append(f"  Final median: {med4} (expected 51.5)")
+    passed3 = med4 == 51.5
+    outputs.append(f"  {'✓ PASS' if passed3 else '✗ FAIL'}\n")
+
+    result = "\n".join(outputs)
+    print(result)
+    return result
 
 
 register_problem(

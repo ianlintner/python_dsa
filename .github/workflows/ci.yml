@@ -63,7 +63,8 @@ jobs:
   docker-build-push:
     name: Build & Push Docker Image
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/'))
+    # Only run when pushing to main/tags AND Azure credentials are configured
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')) && vars.ENABLE_DOCKER_PUSH == 'true'
     needs: tests
     permissions:
       contents: 'read'
