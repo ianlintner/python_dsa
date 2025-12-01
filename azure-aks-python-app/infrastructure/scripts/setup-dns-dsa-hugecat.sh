@@ -25,13 +25,13 @@ echo "Gateway IP: $GATEWAY_IP"
 if [ -z "$RESOURCE_GROUP" ]; then
     echo "Finding resource group for DNS zone $DNS_ZONE..."
     RESOURCE_GROUP=$(az network dns zone list --query "[?name=='$DNS_ZONE'].resourceGroup | [0]" -o tsv)
-    
+
     if [ -z "$RESOURCE_GROUP" ]; then
         echo "ERROR: Could not find resource group for DNS zone $DNS_ZONE"
         echo "Please set RESOURCE_GROUP environment variable or create the DNS zone first."
         exit 1
     fi
-    
+
     echo "Found resource group: $RESOURCE_GROUP"
 fi
 

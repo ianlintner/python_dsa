@@ -11,15 +11,12 @@ import random
 from collections import Counter
 
 from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._runner import TestCase
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
 class Solution:
-    def solve(self, tasks: list[str], n: int) -> int:
-        """Alias for least_interval to match demo() convention."""
-        return self.least_interval(tasks, n)
-
-    def least_interval(self, tasks: list[str], n: int) -> int:
+    def leastInterval(self, tasks: list[str], n: int) -> int:
         """
         Return the least number of intervals the CPU will take to finish all tasks.
 
@@ -50,16 +47,42 @@ class Solution:
         return time
 
 
+# Example test cases
+test_cases = [
+    TestCase((["A", "A", "A", "B", "B", "B"], 2), 8, "Standard case with cooldown"),
+    TestCase((["A", "A", "A", "B", "B", "B"], 0), 6, "No cooldown"),
+    TestCase(
+        (["A", "A", "A", "A", "A", "A", "B", "C", "D", "E", "F", "G"], 2),
+        16,
+        "One dominant task",
+    ),
+]
+
+
 def demo() -> str:
-    """Demonstration of Task Scheduler algorithm with deterministic seeding."""
+    """Run test cases for Task Scheduler."""
     random.seed(0)
-    tasks = ["A", "A", "A", "B", "B", "B"]
-    n = 2
-    print(f"Initial tasks: {tasks}, cooldown={n}")
-    s = Solution()
-    result = s.solve(tasks, n)
-    print(f"Final result: {result}")
-    return f"Least intervals to finish tasks {tasks} with cooldown {n} -> {result}"
+    sol = Solution()
+    outputs = []
+    outputs.append("Task Scheduler | LeetCode 621")
+    outputs.append("=" * 50)
+    outputs.append("Time: O(n log 26) | Space: O(26)")
+    outputs.append("Technique: Max-heap with cooling cycle\n")
+
+    for case in test_cases:
+        tasks, n = case.input_args
+        res = sol.leastInterval(list(tasks), n)
+        passed = res == case.expected
+        status = "✓ PASS" if passed else "✗ FAIL"
+        outputs.append(f"Test Case: {case.description}")
+        outputs.append(f"  Input: tasks={list(tasks)}, n={n}")
+        outputs.append(f"  Output: {res}")
+        outputs.append(f"  Expected: {case.expected}")
+        outputs.append(f"  {status}\n")
+
+    result = "\n".join(outputs)
+    print(result)
+    return result
 
 
 register_problem(

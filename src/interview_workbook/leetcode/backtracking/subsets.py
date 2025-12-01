@@ -9,6 +9,7 @@ The solution set must not contain duplicate subsets, and the subsets may be retu
 from typing import List
 
 from src.interview_workbook.leetcode._registry import register_problem
+from src.interview_workbook.leetcode._runner import TestCase
 from src.interview_workbook.leetcode._types import Category, Difficulty
 
 
@@ -20,20 +21,49 @@ class Solution:
             res.append(path[:])
             for i in range(start, len(nums)):
                 path.append(nums[i])
-                print(f"Path after append: {path}")
                 backtrack(i + 1, path)
                 path.pop()
 
         backtrack(0, [])
-        print(f"All subsets: {res}")
         return res
 
 
-def demo():
-    s = Solution()
-    result = s.subsets([1, 2, 3])
-    print(f"Final result: {result}")
-    return str(result)
+# Example test cases
+test_cases = [
+    TestCase(
+        ([1, 2, 3],),
+        [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]],
+        "Three elements",
+    ),
+    TestCase(([0],), [[], [0]], "Single element"),
+]
+
+
+def demo() -> str:
+    """Run test cases for Subsets."""
+    sol = Solution()
+    outputs = []
+    outputs.append("Subsets | LeetCode 78")
+    outputs.append("=" * 50)
+    outputs.append("Time: O(n * 2^n) | Space: O(n)")
+    outputs.append("Technique: Backtracking to generate power set\n")
+
+    for case in test_cases:
+        res = sol.subsets(list(case.input_args[0]))
+        # Sort for comparison since order may vary
+        res_sorted = sorted([tuple(sorted(x)) for x in res])
+        expected_sorted = sorted([tuple(sorted(x)) for x in case.expected])
+        passed = res_sorted == expected_sorted
+        status = "✓ PASS" if passed else "✗ FAIL"
+        outputs.append(f"Test Case: {case.description}")
+        outputs.append(f"  Input: nums={list(case.input_args[0])}")
+        outputs.append(f"  Output: {res}")
+        outputs.append(f"  Expected: {case.expected}")
+        outputs.append(f"  {status}\n")
+
+    result = "\n".join(outputs)
+    print(result)
+    return result
 
 
 register_problem(
