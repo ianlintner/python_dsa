@@ -43,9 +43,15 @@ markdown_extensions:
   - pymdownx.tilde
 nav:
   - Home: index.md
-  - Engineering Study Plan: docs/ENGINEERING_STUDY_PLAN.md
-  - Algorithms Portfolio: docs/ALGORITHMS_PORTFOLIO.md
-  - Learning Path: docs/LEARNING_PATH.md
-  - Consistency Models: docs/CONSISTENCY_MODELS.md
-  - System Design Guide: docs/INTERVIEW_SYSTEM_DESIGN.md
-  - NeetCode Top 100: docs/NEETCODE_TOP100.md
+  - Engineering Study Plan: ENGINEERING_STUDY_PLAN.md
+  - Algorithms Portfolio: ALGORITHMS_PORTFOLIO.md
+  - Learning Path: LEARNING_PATH.md
+  - Consistency Models: CONSISTENCY_MODELS.md
+  - System Design Guide: INTERVIEW_SYSTEM_DESIGN.md
+  - NeetCode Top 100: NEETCODE_TOP100.md
+  - System Design Interviews:
+      - AI System Design Glossary: system_design_interviews/ai_system_design_glossary.md
+      - Bitly Clone: system_design_interviews/bitly_clone.md
+      - Facebook Clone: system_design_interviews/facebook_clone.md
+      - Twitter Clone: system_design_interviews/twitter_clone.md
+      - WhatsApp Clone: system_design_interviews/whatsapp_clone.md
