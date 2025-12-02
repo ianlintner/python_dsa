@@ -12,4 +12,3 @@ resources:
   - virtualservice-default.yaml
   - virtualservice-hugecat-redirect.yaml
   - authorization-policy-ext-authz.yaml
-

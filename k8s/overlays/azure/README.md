@@ -6,7 +6,7 @@ This directory contains Istio configuration to enable OAuth2 authentication for 
 
 - **Application**: python-dsa
 - **Namespace**: default
-- **Hostnames**: 
+- **Hostnames**:
   - `dsa.cat-herding.net` (primary)
   - `dsa.hugecat.net` (legacy)
 - **Port**: 80 (routes to container port 5000)
@@ -264,13 +264,13 @@ data:
         service: oauth2-proxy.default.svc.cluster.local
         port: 4180
         includeHeadersInCheck: ["authorization", "cookie"]
-        headersToUpstreamOnAllow: 
+        headersToUpstreamOnAllow:
           - "authorization"
           - "path"
           - "x-auth-request-user"
           - "x-auth-request-email"
           - "x-auth-request-preferred-username"
-        headersToDownstreamOnDeny: 
+        headersToDownstreamOnDeny:
           - "content-type"
           - "set-cookie"
         headersToDownstreamOnAllow:
