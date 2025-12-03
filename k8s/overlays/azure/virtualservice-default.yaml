@@ -27,4 +27,3 @@ spec:
         attempts: 3
         perTryTimeout: 10s
         retryOn: gateway-error,connect-failure,refused-stream
-

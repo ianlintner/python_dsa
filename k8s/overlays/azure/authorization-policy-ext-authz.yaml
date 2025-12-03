@@ -16,14 +16,14 @@ spec:
   selector:
     matchLabels:
       app: python-dsa
-  
+
   # CUSTOM action defers to ext_authz (oauth2-proxy)
   action: CUSTOM
-  
+
   provider:
     # References the oauth2-proxy extensionProvider configured in Istio mesh config
     name: oauth2-proxy
-  
+
   rules:
   # Apply to all requests
   - to:
