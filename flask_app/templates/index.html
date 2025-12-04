@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
   <!-- Dashboard Header with Search -->
-  <header class="dashboard-header mb-6">
+  <header class="dashboard-header dashboard mb-6">
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
-      <div class="dashboard-title">
+      <div class="dashboard-title dashboard__title">
         <h2 class="text-2xl font-bold text-white mb-2">Python DSA Dashboard</h2>
-        <div class="dashboard-stats flex flex-wrap gap-4 text-sm text-gray-400">
+        <div class="dashboard-stats dashboard__stats flex flex-wrap gap-4 text-sm text-gray-400">
           <span class="badge-info">{{ total_demos or 134 }} demos</span>
           <span class="badge-info">{{ categories|length or 17 }} categories</span>
           <!-- Removed old completion percentage -->
@@ -16,21 +16,21 @@
       </div>
 
       <!-- Search and Filter Bar -->
-      <div class="dashboard-controls">
+      <div class="dashboard-controls dashboard__controls">
         <div class="search-container">
           <input
             type="search"
             id="global-search"
             placeholder="Search algorithms, problems, visualizations..."
-            class="search-input"
+            class="search-input search__input"
             autocomplete="off"
             aria-label="Search all content"
           >
-          <div class="search-icon">🔍</div>
+          <div class="search-icon search__icon">🔍</div>
         </div>
 
         <div class="filter-controls">
-          <select id="category-filter" class="filter-select" aria-label="Filter by category">
+          <select id="category-filter" class="filter-select filter__select" aria-label="Filter by category">
             <option value="">All Categories</option>
             {% for category in categories.keys() %}
               <option value="{{ category }}">{{ category|title }}</option>
@@ -51,25 +51,25 @@
     </div>
   {% else %}
     <!-- Main Content Area -->
-    <div class="dashboard-content">
+    <div class="dashboard-content dashboard__content">
       <!-- All Content View -->
       <div id="all-view" class="content-view active" role="tabpanel">
-        <div class="content-grid" id="content-grid">
+        <div class="content-grid grid" id="content-grid">
           {% for category, demos in categories.items() %}
             {% for d in demos %}
-              <article class="content-card {{ get_card_type(category, d) }}"
+              <article class="content-card card {{ get_card_type(category, d) }}"
                        data-category="{{ category }}"
                        data-id="{{ d.id }}"
                        data-status="{{ get_demo_status(d) }}"
                        data-search-text="{{ (d.title + ' ' + category + ' ' + d.id|string)|lower }}">
 
                 <!-- Card Header -->
-                <header class="card-header">
-                  <div class="card-status-indicator {{ get_demo_status(d) }}"></div>
-                  <div class="card-meta">
-                    <span class="card-category">{{ category|title }}</span>
+                <header class="card-header card__header">
+                  <div class="card-status-indicator card__status {{ get_demo_status(d) }}"></div>
+                  <div class="card-meta card__meta">
+                    <span class="card-category card__category">{{ category|title }}</span>
                     {% if d.get('difficulty') %}
-                      <span class="difficulty-badge {{ d.difficulty.value|lower }}">
+                      <span class="difficulty-badge card__difficulty {{ d.difficulty.value|lower }}">
                         {{ d.difficulty.value }}
                       </span>
                     {% endif %}
@@ -77,21 +77,21 @@
                 </header>
 
                 <!-- Card Content -->
-                <div class="card-body">
-                  <h3 class="card-title">{{ d.title }}</h3>
+                <div class="card-body card__body">
+                  <h3 class="card-title card__title">{{ d.title }}</h3>
 
                   {% if d.get('tags') %}
-                    <div class="card-tags">
+                    <div class="card-tags card__tags">
                       {% for tag in d.tags[:3] %}
-                        <span class="tag">{{ tag }}</span>
+                        <span class="tag card__tag">{{ tag }}</span>
                       {% endfor %}
                       {% if d.tags|length > 3 %}
-                        <span class="tag-more">+{{ d.tags|length - 3 }}</span>
+                        <span class="tag-more card__tag-more">+{{ d.tags|length - 3 }}</span>
                       {% endif %}
                     </div>
                   {% endif %}
 
-                  <div class="card-description">
+                  <div class="card-description card__description">
                     {% if d.get('notes') and d.notes %}
                       {{ d.notes[:100] }}{% if d.notes|length > 100 %}...{% endif %}
                     {% else %}
@@ -103,7 +103,7 @@
                 </div>
 
                 <!-- Card Actions -->
-                <footer class="card-actions">
+                <footer class="card-actions card__actions">
                   {% if category == 'visualizations' or (d.id|string).startswith('viz.') %}
                     {% if d.id == 'viz.sorting' %}
                       <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_sorting') }}">
@@ -138,7 +138,7 @@
                       <i class="fas fa-info-circle me-1"></i> Details
                     </button>
                   {% else %}
-                    <div class="card-action-icons d-flex gap-2 w-100">
+                    <div class="card-action-icons card__action-icons d-flex gap-2 w-100">
                       <button class="btn btn-primary btn-sm demo-run-btn flex-grow-1" data-module="{{ d.id }}" data-title="{{ d.title }}" aria-label="Run Demo">
                         <i class="fas fa-play me-1"></i> Run
                       </button>
@@ -165,12 +165,12 @@
 
   <!-- Search Results Overlay -->
   <div id="search-results" class="search-overlay" hidden>
-    <div class="search-results-container">
-      <div class="search-results-header">
+    <div class="search-results-container search__results">
+      <div class="search-results-header search__results-header">
         <h3>Search Results</h3>
         <button class="btn-icon close-search" aria-label="Close search">×</button>
       </div>
-      <div class="search-results-content">
+      <div class="search-results-content search__results-content">
         <div id="search-results-list"></div>
       </div>
     </div>

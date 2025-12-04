@@ -12,6 +12,7 @@
         var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         var theme = saved || (prefersDark ? 'dark' : 'light');
         document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.setProperty('--transition-theme', 'color 180ms ease, background-color 180ms ease, border-color 180ms ease');
       } catch (e) {}
     })();
   </script>
@@ -25,11 +26,11 @@
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
 
-  <header class="site-header" role="banner">
-    <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4 flex-wrap">
-      <h1 class="brand"><a href="{{ url_for('index') }}">Python DSA Demos</a></h1>
+  <header class="site-header header" role="banner">
+    <div class="container header__container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4 flex-wrap">
+      <h1 class="brand header__brand"><a class="header__brand-link" href="{{ url_for('index') }}">Python DSA Demos</a></h1>
       {% set ep = request.endpoint %}
-      <nav class="primary-nav flex flex-wrap items-center gap-2 text-sm" aria-label="Main">
+      <nav class="primary-nav nav nav--primary flex flex-wrap items-center gap-2 text-sm" aria-label="Main">
         <a href="{{ url_for('index') }}"
            class="{{ 'active' if ep == 'index' else '' }}"
            {% if ep == 'index' %}aria-current="page"{% endif %}>Dashboard</a>
@@ -48,18 +49,23 @@
         <a class="repo" href="https://github.com/ianlintner/python_dsa" target="_blank" rel="noopener">GitHub</a>
         <a href="/docs/" target="_blank" rel="noopener">Docs</a>
       </nav>
-      <div class="header-actions">
-        <button id="theme-toggle" class="btn secondary inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-md" type="button" aria-pressed="false" title="Toggle theme">Toggle theme</button>
+      <div class="header-actions header__actions">
+        <label for="theme-select" class="visually-hidden">Theme</label>
+        <select id="theme-select" class="theme-select header__theme-select" aria-label="Select theme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="cyberpunk">Cyberpunk</option>
+        </select>
       </div>
     </div>
   </header>
 
-  <main id="content" class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-6" tabindex="-1">
+  <main id="content" class="container main mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-6" tabindex="-1">
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="site-footer" role="contentinfo">
-    <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+  <footer class="site-footer footer" role="contentinfo">
+    <div class="container footer__container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
       <p>Flask UI for algorithm demos discovered under src/ (modules exposing demo()).</p>
     </div>
   </footer>
@@ -96,20 +102,24 @@
 
   <script>
     (function() {
-      var btn = document.getElementById('theme-toggle');
-      if (!btn) return;
+      var select = document.getElementById('theme-select');
+      if (!select) return;
+
       function getTheme() {
         return document.documentElement.getAttribute('data-theme') || 'dark';
       }
       function setTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         try { localStorage.setItem('theme', theme); } catch(e) {}
-        btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
-        btn.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+        // Update select UI state
+        select.value = theme;
       }
+
+      // Initialize select value from current theme
       setTheme(getTheme());
-      btn.addEventListener('click', function() {
-        var next = getTheme() === 'dark' ? 'light' : 'dark';
+
+      select.addEventListener('change', function(e) {
+        var next = e.target.value;
         setTheme(next);
       });
     })();
