@@ -143,6 +143,13 @@ cython_debug/
 Thumbs.db
 .idea/
 .vscode/
+.roo/
+.clinerules/
+
+# Frontend/deployment scaffolding (not part of core educational repo)
+frontend/
+azure-aks-python-app/
+k8s/
 
 # Project specific
 # Ignore any generated egg-info anywhere (covers prior explicit path)
