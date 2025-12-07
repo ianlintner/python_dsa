@@ -172,6 +172,6 @@ All Flask routes and API endpoints remain unchanged.
 
 ---
 
-**Theme Package**: [@ianlintner/theme v0.1.0](https://www.npmjs.com/package/@ianlintner/theme)  
-**Tailwind CSS**: v3.3.0+  
+**Theme Package**: [@ianlintner/theme v0.1.0](https://www.npmjs.com/package/@ianlintner/theme)
+**Tailwind CSS**: v3.3.0+
 **Node.js**: v18+ recommended (npm required for development only)

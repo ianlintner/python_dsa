@@ -5,12 +5,14 @@ This Flask app now uses **Tailwind CSS** with the **[@ianlintner/theme](https://
 ## Architecture
 
 ### Frontend Stack
+
 - **Tailwind CSS 3.3+** - Utility-first CSS framework
 - **@ianlintner/theme** - Custom theme preset with semantic colors and components
 - **Vanilla JavaScript** - No frontend framework dependencies
 
 ### File Structure
-```
+
+```text
 flask_app/
 ├── templates/
 │   ├── base.html              # Main layout with header, footer, modal
@@ -23,6 +25,7 @@ flask_app/
 ```
 
 ### Build Process
+
 - **Input**: `flask_app/static/input.css` imports theme styles and Tailwind directives
 - **Build Tool**: Tailwind CSS CLI
 - **Output**: `flask_app/static/output.css` (loaded by Flask templates)
@@ -30,6 +33,7 @@ flask_app/
 ## Setup & Development
 
 ### Initial Setup
+
 ```bash
 # Install npm dependencies
 npm install
@@ -41,17 +45,20 @@ npm run build:css
 ### Development Workflow
 
 **Watch mode** (auto-rebuild on file changes):
+
 ```bash
 npm run watch:css
 ```
 
 **Manual build**:
+
 ```bash
 npm run build:css
 ```
 
 ### Adding to Flask
 The templates reference the built CSS:
+
 ```html
 <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
 ```
@@ -60,6 +67,7 @@ The templates reference the built CSS:
 
 ### Colors & Styling
 The theme provides semantic color tokens (via CSS variables) that work in light and dark modes:
+
 - **Primary**: Blue (default brand color)
 - **Destructive**: Red (alerts, errors)
 - **Muted**: Gray (secondary text, disabled states)
@@ -72,6 +80,7 @@ Dark mode is automatically applied based on:
 3. Default: Dark mode
 
 Toggle via the theme selector in the header:
+
 ```javascript
 // Theme toggle (in base.html)
 document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -79,6 +88,7 @@ document.documentElement.classList.toggle('dark', theme === 'dark');
 
 ### Responsive Design
 All components use Tailwind's responsive prefixes:
+
 - `sm:`, `md:`, `lg:` breakpoints for mobile-first design
 - Grid layouts adapt from 1 → 2 → 3 columns
 
@@ -87,6 +97,7 @@ All components use Tailwind's responsive prefixes:
 ### Extending the Theme
 
 Edit `tailwind.config.js`:
+
 ```javascript
 const config = {
   presets: [themePreset],
@@ -107,6 +118,7 @@ const config = {
 ### Adding Custom Components
 
 In `flask_app/static/input.css`:
+
 ```css
 @layer components {
   .my-card {
@@ -118,6 +130,7 @@ In `flask_app/static/input.css`:
 ### Modifying Colors
 
 The theme uses CSS variables defined by `@ianlintner/theme`. Override them in your input.css:
+
 ```css
 :root {
   --primary: 200 100% 50%;  /* HSL format */
@@ -133,6 +146,7 @@ The theme uses CSS variables defined by `@ianlintner/theme`. Override them in yo
 ## Component Patterns
 
 ### Demo Card
+
 ```html
 <article class="demo-card">
   <div class="demo-card-title">Card Title</div>
@@ -143,6 +157,7 @@ The theme uses CSS variables defined by `@ianlintner/theme`. Override them in yo
 
 ### Modal
 The demo modal uses vanilla JavaScript:
+
 ```javascript
 openModal(title);  // Show modal
 closeModal();      // Hide modal
@@ -150,6 +165,7 @@ runDemo(id, title); // Run and display demo output
 ```
 
 ### Badges & Tags
+
 ```html
 <span class="badge-info">Info badge</span>
 <span class="badge-warning">Warning badge</span>
@@ -158,11 +174,13 @@ runDemo(id, title); // Run and display demo output
 ## Performance
 
 ### Bundle Size
+
 - **Tailwind CSS**: ~32 KB (gzipped)
 - **Theme Styles**: Included in Tailwind output
 - **JavaScript**: ~2 KB (modal & search logic)
 
 ### Optimization
+
 - Unused CSS automatically removed (Tailwind purge)
 - Template paths configured in `tailwind.config.js`
 - Dark mode using CSS class (no extra HTTP requests)
@@ -170,6 +188,7 @@ runDemo(id, title); // Run and display demo output
 ## Troubleshooting
 
 ### CSS not updating
+
 ```bash
 # Clear and rebuild
 rm flask_app/static/output.css
@@ -177,11 +196,13 @@ npm run build:css
 ```
 
 ### Theme not applying
+
 1. Verify `output.css` is being served: Check Flask logs
 2. Clear browser cache (Ctrl+Shift+Del or Cmd+Shift+Delete)
 3. Verify `dark` class is on `<html>` element
 
 ### Missing dependencies
+
 ```bash
 # Reinstall all packages
 rm -rf node_modules package-lock.json
@@ -192,6 +213,7 @@ npm run build:css
 ## Deployment
 
 ### Production Build
+
 ```bash
 # Build CSS for production
 npm run build:css
@@ -200,6 +222,7 @@ npm run build:css
 The generated `flask_app/static/output.css` is all that's needed—Node.js is not required at runtime.
 
 ### CI/CD
+
 ```bash
 npm install
 npm run build:css
