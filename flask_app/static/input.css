@@ -1,0 +1,43 @@
+@import "../../node_modules/@ianlintner/theme/dist/styles.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom components for the app */
+@layer components {
+  .skip-link {
+    @apply absolute -top-full left-0 bg-black text-white px-4 py-2 z-50 focus:top-0 transition-all;
+  }
+
+  .badge-info {
+    @apply px-3 py-1 rounded-full text-xs font-medium bg-slate-700 text-slate-200;
+  }
+
+  .badge-warning {
+    @apply px-3 py-1 rounded-full text-xs font-medium bg-amber-700 text-amber-200;
+  }
+
+  .demo-card {
+    @apply bg-slate-800 border border-slate-700 rounded-lg p-4 hover:border-slate-600 transition-colors;
+  }
+
+  .demo-card-title {
+    @apply text-lg font-semibold text-white mb-2;
+  }
+
+  .demo-card-description {
+    @apply text-sm text-slate-300 mb-3;
+  }
+
+  .code-block {
+    @apply bg-slate-900 border border-slate-700 rounded-lg p-4 text-slate-200 text-sm font-mono overflow-x-auto;
+  }
+
+  .search-input {
+    @apply w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors;
+  }
+
+  .filter-select {
+    @apply px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors;
+  }
+}

@@ -1,128 +1,259 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
   <title>{{ title or "Python DSA Demos" }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Interactive Python DSA algorithm demonstrations and visualizations">
+
+  <!-- Tailwind CSS with @ianlintner/theme -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Theme initialization script -->
   <script>
     (function() {
       try {
-        var saved = localStorage.getItem('theme');
-        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var theme = saved || (prefersDark ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', theme);
-        document.documentElement.style.setProperty('--transition-theme', 'color 180ms ease, background-color 180ms ease, border-color 180ms ease');
+        const saved = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        localStorage.setItem('theme', theme);
       } catch (e) {}
     })();
   </script>
-
-  <!-- Bootstrap 5.3.2 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-200">
   <a class="skip-link" href="#content">Skip to content</a>
 
-  <header class="site-header header" role="banner">
-    <div class="container header__container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4 flex-wrap">
-      <h1 class="brand header__brand"><a class="header__brand-link" href="{{ url_for('index') }}">Python DSA Demos</a></h1>
-      {% set ep = request.endpoint %}
-      <nav class="primary-nav nav nav--primary flex flex-wrap items-center gap-2 text-sm" aria-label="Main">
-        <a href="{{ url_for('index') }}"
-           class="{{ 'active' if ep == 'index' else '' }}"
-           {% if ep == 'index' %}aria-current="page"{% endif %}>Dashboard</a>
-        <a href="{{ url_for('index') }}?view=algorithms"
-           class="{{ 'active' if request.args.get('view') == 'algorithms' else '' }}">Algorithms & Leetcode</a>
-        <a href="{{ url_for('index') }}?view=visualizations"
-           class="{{ 'active' if request.args.get('view') == 'visualizations' else '' }}">Visualizations</a>
-        <a href="{{ url_for('big_o_guide') }}"
-           class="{{ 'active' if ep == 'big_o_guide' else '' }}"
-           {% if ep == 'big_o_guide' %}aria-current="page"{% endif %}>Big-O Guide</a>
-        {% if meta %}
-          <a href="{{ url_for('source', module=meta.id) }}"
-             class="{{ 'active' if ep == 'source' else '' }}"
-             {% if ep == 'source' %}aria-current="page"{% endif %}>View Source</a>
-        {% endif %}
-        <a class="repo" href="https://github.com/ianlintner/python_dsa" target="_blank" rel="noopener">GitHub</a>
-        <a href="/docs/" target="_blank" rel="noopener">Docs</a>
-      </nav>
-      <div class="header-actions header__actions">
-        <label for="theme-select" class="visually-hidden">Theme</label>
-        <select id="theme-select" class="theme-select header__theme-select" aria-label="Select theme">
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-          <option value="cyberpunk">Cyberpunk</option>
-        </select>
+  <!-- Header -->
+  <header class="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm" role="banner">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-4 flex-wrap py-3">
+        <!-- Logo/Brand -->
+        <div class="flex-shrink-0">
+          <h1 class="text-xl font-bold text-slate-900 dark:text-white">
+            <a href="{{ url_for('index') }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              Python DSA
+            </a>
+          </h1>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="hidden md:flex items-center gap-1" aria-label="Main Navigation">
+          {% set ep = request.endpoint %}
+          <a href="{{ url_for('index') }}"
+             class="px-3 py-2 rounded-md text-sm font-medium transition-colors {% if ep == 'index' %}bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100{% else %}text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100{% endif %}"
+             {% if ep == 'index' %}aria-current="page"{% endif %}>
+            Dashboard
+          </a>
+          <a href="{{ url_for('index') }}?view=algorithms"
+             class="px-3 py-2 rounded-md text-sm font-medium transition-colors {% if request.args.get('view') == 'algorithms' %}bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100{% else %}text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100{% endif %}">
+            Algorithms & Leetcode
+          </a>
+          <a href="{{ url_for('index') }}?view=visualizations"
+             class="px-3 py-2 rounded-md text-sm font-medium transition-colors {% if request.args.get('view') == 'visualizations' %}bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100{% else %}text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100{% endif %}">
+            Visualizations
+          </a>
+          <a href="{{ url_for('big_o_guide') }}"
+             class="px-3 py-2 rounded-md text-sm font-medium transition-colors {% if ep == 'big_o_guide' %}bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100{% else %}text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100{% endif %}"
+             {% if ep == 'big_o_guide' %}aria-current="page"{% endif %}>
+            Big-O Guide
+          </a>
+          {% if meta %}
+            <a href="{{ url_for('source', module=meta.id) }}"
+               class="px-3 py-2 rounded-md text-sm font-medium transition-colors {% if ep == 'source' %}bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100{% else %}text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100{% endif %}"
+               {% if ep == 'source' %}aria-current="page"{% endif %}>
+              View Source
+            </a>
+          {% endif %}
+        </nav>
+
+        <!-- Right side actions -->
+        <div class="flex items-center gap-3 ml-auto">
+          <a href="https://github.com/ianlintner/python_dsa" target="_blank" rel="noopener noreferrer"
+             class="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"
+             aria-label="GitHub">
+            <i class="fab fa-github text-lg"></i>
+          </a>
+          <a href="/docs/" target="_blank" rel="noopener noreferrer"
+             class="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"
+             aria-label="Documentation">
+            <i class="fas fa-book text-lg"></i>
+          </a>
+          
+          <!-- Theme Toggle -->
+          <div class="flex items-center gap-2 pl-3 border-l border-slate-200 dark:border-slate-700">
+            <label for="theme-select" class="text-sm font-medium text-slate-600 dark:text-slate-400">
+              <i class="fas fa-palette"></i>
+            </label>
+            <select id="theme-select" 
+                    class="px-2 py-1 text-sm rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    aria-label="Select theme">
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
   </header>
 
-  <main id="content" class="container main mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-6" tabindex="-1">
+  <!-- Main Content -->
+  <main id="content" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 min-h-[calc(100vh-200px)]" tabindex="-1">
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="site-footer footer" role="contentinfo">
-    <div class="container footer__container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
-      <p>Flask UI for algorithm demos discovered under src/ (modules exposing demo()).</p>
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mt-12" role="contentinfo">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          Flask UI for algorithm demos discovered under src/ (modules exposing demo()).
+        </p>
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          Powered by <a href="https://github.com/ianlintner/python_dsa" class="text-blue-600 dark:text-blue-400 hover:underline">Python DSA</a>
+        </p>
+      </div>
     </div>
   </footer>
 
   <!-- Demo Output Modal -->
-  <div class="modal fade" id="demoOutputModal" tabindex="-1" aria-labelledby="demoOutputModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="demoOutputModalLabel">Demo Output</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div id="demoModal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="demoModalTitle">
+    <!-- Modal Backdrop -->
+    <div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-50 transition-opacity" onclick="closeModal()"></div>
+
+    <!-- Modal Content -->
+    <div class="flex items-center justify-center min-h-screen px-4 py-8">
+      <div class="relative bg-white dark:bg-slate-900 rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-hidden flex flex-col">
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700">
+          <h2 id="demoModalTitle" class="text-xl font-bold text-slate-900 dark:text-white">Demo Output</h2>
+          <button onclick="closeModal()" class="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors" aria-label="Close">
+            <i class="fas fa-times text-xl"></i>
+          </button>
         </div>
-        <div class="modal-body">
-          <div id="demoLoadingSpinner" class="text-center py-4">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
+
+        <!-- Modal Body -->
+        <div class="flex-1 overflow-y-auto p-6">
+          <!-- Loading State -->
+          <div id="demoLoadingSpinner" class="text-center py-12">
+            <div class="inline-flex items-center justify-center mb-4">
+              <i class="fas fa-spinner fa-spin text-3xl text-blue-500"></i>
             </div>
-            <p class="mt-2 text-muted">Running demo...</p>
+            <p class="text-slate-600 dark:text-slate-400">Running demo...</p>
           </div>
-          <div id="demoOutputContent" class="d-none">
-            <pre class="demo-output-code"><code></code></pre>
+
+          <!-- Output Content -->
+          <div id="demoOutputContent" class="hidden">
+            <pre class="bg-slate-950 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm font-mono"><code id="demoOutputCode"></code></pre>
           </div>
-          <div id="demoErrorContent" class="d-none alert alert-danger">
-            <h6 class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i>Error</h6>
-            <pre class="demo-error-code mb-0"><code></code></pre>
+
+          <!-- Error Content -->
+          <div id="demoErrorContent" class="hidden bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+            <div class="flex items-start gap-3">
+              <i class="fas fa-exclamation-circle text-red-600 dark:text-red-400 mt-1 flex-shrink-0"></i>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-semibold text-red-900 dark:text-red-100 mb-2">Error</h3>
+                <pre class="bg-red-50 dark:bg-slate-950 text-red-900 dark:text-red-100 p-3 rounded overflow-x-auto text-sm font-mono"><code id="demoErrorCode"></code></pre>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        <!-- Modal Footer -->
+        <div class="flex items-center justify-end gap-2 p-6 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
+          <button onclick="closeModal()" class="px-4 py-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors font-medium">
+            Close
+          </button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
+    // Theme Toggle
     (function() {
-      var select = document.getElementById('theme-select');
+      const select = document.getElementById('theme-select');
       if (!select) return;
 
       function getTheme() {
-        return document.documentElement.getAttribute('data-theme') || 'dark';
+        return localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       }
+
       function setTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        try { localStorage.setItem('theme', theme); } catch(e) {}
-        // Update select UI state
+        localStorage.setItem('theme', theme);
+        document.documentElement.classList.toggle('dark', theme === 'dark');
         select.value = theme;
       }
 
-      // Initialize select value from current theme
+      // Initialize
       setTheme(getTheme());
 
-      select.addEventListener('change', function(e) {
-        var next = e.target.value;
-        setTheme(next);
+      select.addEventListener('change', (e) => {
+        setTheme(e.target.value);
       });
     })();
+
+    // Modal Management
+    function openModal(title) {
+      const modal = document.getElementById('demoModal');
+      document.getElementById('demoModalTitle').textContent = title;
+      document.getElementById('demoLoadingSpinner').classList.remove('hidden');
+      document.getElementById('demoOutputContent').classList.add('hidden');
+      document.getElementById('demoErrorContent').classList.add('hidden');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('demoModal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Demo execution
+    async function runDemo(moduleId, title) {
+      openModal(`${title} - Output`);
+
+      try {
+        const response = await fetch('/api/demo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ module: moduleId })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Hide loading
+        document.getElementById('demoLoadingSpinner').classList.add('hidden');
+
+        if (data.error) {
+          document.getElementById('demoErrorContent').classList.remove('hidden');
+          document.getElementById('demoErrorCode').textContent = data.error;
+        } else {
+          document.getElementById('demoOutputContent').classList.remove('hidden');
+          document.getElementById('demoOutputCode').textContent = data.output || '(no output)';
+        }
+      } catch (error) {
+        document.getElementById('demoLoadingSpinner').classList.add('hidden');
+        document.getElementById('demoErrorContent').classList.remove('hidden');
+        document.getElementById('demoErrorCode').textContent = `Error: ${error.message}`;
+      }
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !document.getElementById('demoModal').classList.contains('hidden')) {
+        closeModal();
+      }
+    });
   </script>
 </body>
 </html>

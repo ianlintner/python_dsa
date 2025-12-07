@@ -155,3 +155,8 @@ k8s/
 # Ignore any generated egg-info anywhere (covers prior explicit path)
 *.egg-info/
 src/interview_workbook.egg-info/
+
+# Node.js
+node_modules/
+package-lock.json
+*.lock

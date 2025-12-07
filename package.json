@@ -1,0 +1,17 @@
+{
+  "name": "python-dsa-app",
+  "version": "1.0.0",
+  "description": "Python DSA Demos - Flask app with Tailwind theme",
+  "scripts": {
+    "build:css": "tailwindcss -i flask_app/static/input.css -o flask_app/static/output.css",
+    "watch:css": "tailwindcss -i flask_app/static/input.css -o flask_app/static/output.css --watch"
+  },
+  "dependencies": {
+    "@ianlintner/theme": "^0.1.0",
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss": "^3.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

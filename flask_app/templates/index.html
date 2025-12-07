@@ -1,499 +1,173 @@
 {% extends "base.html" %}
 {% block content %}
-  <!-- Dashboard Header with Search -->
-  <header class="dashboard-header dashboard mb-6">
-    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
-      <div class="dashboard-title dashboard__title">
-        <h2 class="text-2xl font-bold text-white mb-2">Python DSA Dashboard</h2>
-        <div class="dashboard-stats dashboard__stats flex flex-wrap gap-4 text-sm text-gray-400">
-          <span class="badge-info">{{ total_demos or 134 }} demos</span>
-          <span class="badge-info">{{ categories|length or 17 }} categories</span>
-          <!-- Removed old completion percentage -->
+  <!-- Dashboard Header -->
+  <div class="mb-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+      <!-- Title Section -->
+      <div>
+        <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-3">Python DSA Dashboard</h2>
+        <div class="flex flex-wrap gap-4">
+          <span class="badge-info"><i class="fas fa-code mr-2"></i>{{ total_demos or 134 }} demos</span>
+          <span class="badge-info"><i class="fas fa-folder mr-2"></i>{{ categories|length or 17 }} categories</span>
           {% if remaining_todos %}
-            <span class="badge-warning">{{ remaining_todos }} TODOs</span>
+            <span class="badge-warning"><i class="fas fa-tasks mr-2"></i>{{ remaining_todos }} TODOs</span>
           {% endif %}
         </div>
       </div>
 
-      <!-- Search and Filter Bar -->
-      <div class="dashboard-controls dashboard__controls">
-        <div class="search-container">
+      <!-- Search and Filter -->
+      <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+        <div class="relative flex-1 sm:flex-none">
           <input
             type="search"
             id="global-search"
-            placeholder="Search algorithms, problems, visualizations..."
-            class="search-input search__input"
+            placeholder="Search..."
+            class="search-input w-full"
             autocomplete="off"
             aria-label="Search all content"
-          >
-          <div class="search-icon search__icon">🔍</div>
+          />
+          <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 pointer-events-none"></i>
         </div>
 
-        <div class="filter-controls">
-          <select id="category-filter" class="filter-select filter__select" aria-label="Filter by category">
-            <option value="">All Categories</option>
-            {% for category in categories.keys() %}
-              <option value="{{ category }}">{{ category|title }}</option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-    </div>
-
-
-  </header>
-
-  {% if not categories %}
-    <div class="empty-state">
-      <div class="empty-icon">📊</div>
-      <h3>No demos discovered</h3>
-      <p>Ensure modules under <code>src/</code> define a <code>demo()</code> function.</p>
-    </div>
-  {% else %}
-    <!-- Main Content Area -->
-    <div class="dashboard-content dashboard__content">
-      <!-- All Content View -->
-      <div id="all-view" class="content-view active" role="tabpanel">
-        <div class="content-grid grid" id="content-grid">
-          {% for category, demos in categories.items() %}
-            {% for d in demos %}
-              <article class="content-card card {{ get_card_type(category, d) }}"
-                       data-category="{{ category }}"
-                       data-id="{{ d.id }}"
-                       data-status="{{ get_demo_status(d) }}"
-                       data-search-text="{{ (d.title + ' ' + category + ' ' + d.id|string)|lower }}">
-
-                <!-- Card Header -->
-                <header class="card-header card__header">
-                  <div class="card-status-indicator card__status {{ get_demo_status(d) }}"></div>
-                  <div class="card-meta card__meta">
-                    <span class="card-category card__category">{{ category|title }}</span>
-                    {% if d.get('difficulty') %}
-                      <span class="difficulty-badge card__difficulty {{ d.difficulty.value|lower }}">
-                        {{ d.difficulty.value }}
-                      </span>
-                    {% endif %}
-                  </div>
-                </header>
-
-                <!-- Card Content -->
-                <div class="card-body card__body">
-                  <h3 class="card-title card__title">{{ d.title }}</h3>
-
-                  {% if d.get('tags') %}
-                    <div class="card-tags card__tags">
-                      {% for tag in d.tags[:3] %}
-                        <span class="tag card__tag">{{ tag }}</span>
-                      {% endfor %}
-                      {% if d.tags|length > 3 %}
-                        <span class="tag-more card__tag-more">+{{ d.tags|length - 3 }}</span>
-                      {% endif %}
-                    </div>
-                  {% endif %}
-
-                  <div class="card-description card__description">
-                    {% if d.get('notes') and d.notes %}
-                      {{ d.notes[:100] }}{% if d.notes|length > 100 %}...{% endif %}
-                    {% else %}
-                      Algorithm implementation with demo and complexity analysis.
-                    {% endif %}
-                  </div>
-
-                  <!-- Removed old indicator -->
-                </div>
-
-                <!-- Card Actions -->
-                <footer class="card-actions card__actions">
-                  {% if category == 'visualizations' or (d.id|string).startswith('viz.') %}
-                    {% if d.id == 'viz.sorting' %}
-                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_sorting') }}">
-                        <i class="fas fa-rocket me-1"></i> Launch
-                      </a>
-                    {% elif d.id == 'viz.graph' %}
-                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_graph') }}?algo=bfs">
-                        <i class="fas fa-rocket me-1"></i> Launch
-                      </a>
-                    {% elif d.id == 'viz.path' %}
-                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_path') }}?algo=astar">
-                        <i class="fas fa-rocket me-1"></i> Launch
-                      </a>
-                    {% elif d.id == 'viz.arrays' %}
-                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_arrays') }}?algo=binary_search">
-                        <i class="fas fa-rocket me-1"></i> Launch
-                      </a>
-                    {% elif d.id == 'viz.mst' %}
-                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_mst') }}?algo=kruskal">
-                        <i class="fas fa-rocket me-1"></i> Launch
-                      </a>
-                    {% elif d.id == 'viz.topo' %}
-                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_topo') }}?algo=kahn">
-                        <i class="fas fa-rocket me-1"></i> Launch
-                      </a>
-                    {% elif d.id == 'viz.nn' %}
-                      <a class="btn btn-success btn-sm flex-grow-1" href="{{ url_for('viz_nn') }}?dataset=blobs">
-                        <i class="fas fa-rocket me-1"></i> Launch
-                      </a>
-                    {% endif %}
-                    <button class="btn btn-outline-secondary btn-sm" onclick="showCardDetails('{{ d.id }}')">
-                      <i class="fas fa-info-circle me-1"></i> Details
-                    </button>
-                  {% else %}
-                    <div class="card-action-icons card__action-icons d-flex gap-2 w-100">
-                      <button class="btn btn-primary btn-sm demo-run-btn flex-grow-1" data-module="{{ d.id }}" data-title="{{ d.title }}" aria-label="Run Demo">
-                        <i class="fas fa-play me-1"></i> Run
-                      </button>
-                      {% set viz_key = sorting_viz_map.get(d.id) if sorting_viz_map else None %}
-                      {% if viz_key %}
-                        <a class="btn btn-outline-info btn-sm" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}" aria-label="Visualize">
-                          <i class="fas fa-chart-bar"></i>
-                        </a>
-                      {% endif %}
-                      <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('source') }}?module={{ d.id }}" aria-label="View Source">
-                        <i class="fas fa-code"></i>
-                      </a>
-                    </div>
-                  {% endif %}
-                </footer>
-              </article>
-            {% endfor %}
+        <select id="category-filter" class="filter-select" aria-label="Filter by category">
+          <option value="">All Categories</option>
+          {% for category in categories.keys() %}
+            <option value="{{ category }}">{{ category|title }}</option>
           {% endfor %}
-        </div>
-      </div>
-
-    </div>
-  {% endif %}
-
-  <!-- Search Results Overlay -->
-  <div id="search-results" class="search-overlay" hidden>
-    <div class="search-results-container search__results">
-      <div class="search-results-header search__results-header">
-        <h3>Search Results</h3>
-        <button class="btn-icon close-search" aria-label="Close search">×</button>
-      </div>
-      <div class="search-results-content search__results-content">
-        <div id="search-results-list"></div>
+        </select>
       </div>
     </div>
   </div>
 
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  {% if not categories %}
+    <!-- Empty State -->
+    <div class="flex flex-col items-center justify-center py-16 px-4 text-center">
+      <div class="text-6xl mb-4">📊</div>
+      <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">No demos discovered</h3>
+      <p class="text-slate-600 dark:text-slate-400 mb-4">Ensure modules under <code class="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded">src/</code> define a <code class="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded">demo()</code> function.</p>
+    </div>
+  {% else %}
+    <!-- Demo Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="content-grid">
+      {% for category, demos in categories.items() %}
+        {% for d in demos %}
+          <article class="demo-card group"
+                   data-category="{{ category }}"
+                   data-id="{{ d.id }}"
+                   data-search-text="{{ (d.title + ' ' + category + ' ' + d.id|string)|lower }}">
+
+            <!-- Card Header -->
+            <div class="flex items-start justify-between mb-3 pb-3 border-b border-slate-200 dark:border-slate-700">
+              <div class="flex-1">
+                <div class="inline-block px-2 py-1 text-xs font-medium rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-900 dark:text-blue-200 mb-2">
+                  {{ category|title }}
+                </div>
+                <h3 class="demo-card-title">{{ d.title }}</h3>
+              </div>
+            </div>
+
+            <!-- Card Description -->
+            <div class="mb-4">
+              {% if d.get('tags') %}
+                <div class="flex flex-wrap gap-1 mb-3">
+                  {% for tag in d.tags[:2] %}
+                    <span class="inline-block px-2 py-1 text-xs bg-slate-700 dark:bg-slate-700 text-slate-200 dark:text-slate-300 rounded">
+                      {{ tag }}
+                    </span>
+                  {% endfor %}
+                  {% if d.tags|length > 2 %}
+                    <span class="inline-block px-2 py-1 text-xs text-slate-500 dark:text-slate-400">
+                      +{{ d.tags|length - 2 }}
+                    </span>
+                  {% endif %}
+                </div>
+              {% endif %}
+              <p class="demo-card-description">
+                {% if d.get('notes') and d.notes %}
+                  {{ d.notes[:120] }}{% if d.notes|length > 120 %}...{% endif %}
+                {% else %}
+                  Algorithm implementation with demo and complexity analysis.
+                {% endif %}
+              </p>
+            </div>
+
+            <!-- Card Actions -->
+            <div class="flex gap-2 pt-4 border-t border-slate-200 dark:border-slate-700">
+              {% if category == 'visualizations' or (d.id|string).startswith('viz.') %}
+                {% if d.id == 'viz.sorting' %}
+                  <a class="flex-1 px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors text-center" href="{{ url_for('viz_sorting') }}">
+                    <i class="fas fa-rocket mr-1"></i> Launch
+                  </a>
+                {% elif d.id == 'viz.graph' %}
+                  <a class="flex-1 px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors text-center" href="{{ url_for('viz_graph') }}?algo=bfs">
+                    <i class="fas fa-rocket mr-1"></i> Launch
+                  </a>
+                {% elif d.id == 'viz.path' %}
+                  <a class="flex-1 px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors text-center" href="{{ url_for('viz_path') }}?algo=astar">
+                    <i class="fas fa-rocket mr-1"></i> Launch
+                  </a>
+                {% elif d.id == 'viz.arrays' %}
+                  <a class="flex-1 px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors text-center" href="{{ url_for('viz_arrays') }}?algo=binary_search">
+                    <i class="fas fa-rocket mr-1"></i> Launch
+                  </a>
+                {% elif d.id == 'viz.mst' %}
+                  <a class="flex-1 px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors text-center" href="{{ url_for('viz_mst') }}?algo=kruskal">
+                    <i class="fas fa-rocket mr-1"></i> Launch
+                  </a>
+                {% elif d.id == 'viz.topo' %}
+                  <a class="flex-1 px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors text-center" href="{{ url_for('viz_topo') }}?algo=kahn">
+                    <i class="fas fa-rocket mr-1"></i> Launch
+                  </a>
+                {% elif d.id == 'viz.nn' %}
+                  <a class="flex-1 px-3 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors text-center" href="{{ url_for('viz_nn') }}?dataset=blobs">
+                    <i class="fas fa-rocket mr-1"></i> Launch
+                  </a>
+                {% endif %}
+                <a class="px-3 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium rounded-lg transition-colors" href="{{ url_for('source') }}?module={{ d.id }}" aria-label="View Source">
+                  <i class="fas fa-code"></i>
+                </a>
+              {% else %}
+                <button class="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-colors" onclick="runDemo('{{ d.id }}', '{{ d.title }}')" aria-label="Run Demo">
+                  <i class="fas fa-play mr-1"></i> Run
+                </button>
+                {% set viz_key = sorting_viz_map.get(d.id) if sorting_viz_map else None %}
+                {% if viz_key %}
+                  <a class="px-3 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium rounded-lg transition-colors" href="{{ url_for('viz_sorting') }}?algo={{ viz_key }}" aria-label="Visualize">
+                    <i class="fas fa-chart-bar"></i>
+                  </a>
+                {% endif %}
+                <a class="px-3 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium rounded-lg transition-colors" href="{{ url_for('source') }}?module={{ d.id }}" aria-label="View Source">
+                  <i class="fas fa-code"></i>
+                </a>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+  {% endif %}
 
   <script>
-    // Dashboard JavaScript
+    // Search and Filter functionality
     (function() {
-      'use strict';
+      const searchInput = document.getElementById('global-search');
+      const categoryFilter = document.getElementById('category-filter');
+      const allCards = Array.from(document.querySelectorAll('[data-id]'));
 
-      // State management
-      let allCards = [];
-      let filteredCards = [];
-      let currentView = '{{ current_view|default("all") }}';
+      function filterCards() {
+        const searchQuery = searchInput.value.toLowerCase().trim();
+        const selectedCategory = categoryFilter.value;
 
-      // Initialize dashboard
-      function init() {
-        allCards = Array.from(document.querySelectorAll('.content-card'));
-        filteredCards = [...allCards];
-
-        // Event listeners
-        document.getElementById('global-search').addEventListener('input', handleSearch);
-        document.getElementById('category-filter').addEventListener('change', handleFilters);
-        // Removed old status filter listener
-
-        // View tabs
-        document.querySelectorAll('.view-tab').forEach(tab => {
-          tab.addEventListener('click', handleViewChange);
-        });
-
-        // Demo run buttons
-        document.addEventListener('click', handleDemoRun);
-
-        // Menu dropdowns
-        document.addEventListener('click', handleMenus);
-
-        // Setup modal handlers
-        setupModal();
-
-        // Removed old initialization
-
-        // Apply initial filters if currentView is not "all"
-        if (currentView !== 'all') {
-          handleFilters();
-        }
-      }
-
-      // Search functionality
-      function handleSearch(e) {
-        const query = e.target.value.toLowerCase().trim();
-
-        if (query === '') {
-          hideSearchResults();
-          showAllCards();
-          return;
-        }
-
-        const results = allCards.filter(card => {
-          const searchText = card.dataset.searchText || '';
-          return searchText.includes(query);
-        });
-
-        if (query.length > 2) {
-          showSearchResults(results, query);
-        } else {
-          hideSearchResults();
-        }
-
-        filterCards(results);
-      }
-
-      // Filter functionality
-      function handleFilters() {
-        const categoryFilter = document.getElementById('category-filter').value;
-        let filtered = allCards;
-
-        if (categoryFilter) {
-          filtered = filtered.filter(card => card.dataset.category === categoryFilter);
-        }
-
-        // Also respect current view
-        if (currentView !== 'all') {
-          if (currentView === 'algorithms') {
-            filtered = filtered.filter(card => !card.dataset.category.startsWith('leetcode') && card.dataset.category !== 'visualizations');
-          } else {
-            filtered = filtered.filter(card => card.dataset.category.startsWith(currentView));
-          }
-        }
-
-        filterCards(filtered);
-      }
-
-      // View management
-      function handleViewChange(e) {
-        const newView = e.target.dataset.view;
-        if (newView === currentView) return;
-
-        // Update tab states
-        document.querySelectorAll('.view-tab').forEach(tab => {
-          tab.classList.remove('active');
-          tab.setAttribute('aria-selected', 'false');
-        });
-        e.target.classList.add('active');
-        e.target.setAttribute('aria-selected', 'true');
-
-        // Show/hide content views
-        document.querySelectorAll('.content-view').forEach(view => {
-          view.classList.remove('active');
-          view.hidden = true;
-        });
-
-        // For our dashboard, we only have one content grid, so just filter cards
-        currentView = newView;
-        handleFilters();
-      }
-
-      // Demo execution
-      async function handleDemoRun(e) {
-        const btn = e.target.closest('.demo-run-btn');
-        if (!btn) return;
-
-        e.preventDefault();
-        const moduleId = btn.dataset.module;
-        const moduleTitle = btn.dataset.title || 'Demo';
-
-        // Get modal elements
-        const modal = document.getElementById('demoOutputModal');
-        const modalTitle = document.getElementById('demoOutputModalLabel');
-        const loadingSpinner = document.getElementById('demoLoadingSpinner');
-        const outputContent = document.getElementById('demoOutputContent');
-        const errorContent = document.getElementById('demoErrorContent');
-        const outputCode = outputContent.querySelector('code');
-        const errorCode = errorContent.querySelector('code');
-
-        // Set modal title
-        modalTitle.textContent = `${moduleTitle} - Output`;
-
-        // Show modal with loading state (vanilla JS without Bootstrap)
-        loadingSpinner.classList.remove('d-none');
-        outputContent.classList.add('d-none');
-        errorContent.classList.add('d-none');
-        modal.classList.add('show');
-        modal.style.display = 'block';
-        document.body.classList.add('modal-open');
-
-        // Add backdrop
-        let backdrop = document.querySelector('.modal-backdrop');
-        if (!backdrop) {
-          backdrop = document.createElement('div');
-          backdrop.className = 'modal-backdrop fade show';
-          document.body.appendChild(backdrop);
-        } else {
-          backdrop.className = 'modal-backdrop fade show';
-        }
-
-        // Update button state
-        const originalHTML = btn.innerHTML;
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Running...';
-
-        try {
-          const response = await fetch('/api/demo', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ module: moduleId })
-          });
-
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-
-          const data = await response.json();
-
-          // Hide loading spinner
-          loadingSpinner.classList.add('d-none');
-
-          if (data.error) {
-            errorContent.classList.remove('d-none');
-            errorCode.textContent = data.error;
-          } else {
-            outputContent.classList.remove('d-none');
-            outputCode.textContent = data.output || '(no output)';
-          }
-        } catch (error) {
-          loadingSpinner.classList.add('d-none');
-          errorContent.classList.remove('d-none');
-          errorCode.textContent = 'Error: ' + error.message;
-        } finally {
-          btn.disabled = false;
-          btn.innerHTML = originalHTML;
-        }
-      }
-
-      // Close modal function
-      function closeModal() {
-        const modal = document.getElementById('demoOutputModal');
-        modal.classList.remove('show');
-        modal.style.display = 'none';
-        document.body.classList.remove('modal-open');
-
-        // Remove backdrop
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-          backdrop.remove();
-        }
-      }
-
-      // Set up modal close handlers on init
-      function setupModal() {
-        const modal = document.getElementById('demoOutputModal');
-        if (!modal) return;
-
-        // Close button
-        const closeButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
-        closeButtons.forEach(btn => {
-          btn.addEventListener('click', closeModal);
-        });
-
-        // Clicking outside modal
-        modal.addEventListener('click', function(e) {
-          if (e.target === modal) {
-            closeModal();
-          }
-        });
-
-        // Escape key to close modal
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape' && modal && modal.classList.contains('show')) {
-            closeModal();
-          }
-        });
-      }
-
-      // Menu handling
-      function handleMenus(e) {
-        // Handle close-search button
-        if (e.target.classList.contains('close-search')) {
-          hideSearchResults();
-          return;
-        }
-        // Handle menu trigger clicks
-        if (e.target.classList.contains('menu-trigger')) {
-          const dropdown = e.target.nextElementSibling;
-          if (dropdown && dropdown.classList.contains('dropdown-menu')) {
-            dropdown.classList.toggle('show');
-          }
-          return;
-        }
-        // Handle closing dropdown menus
-        if (e.target.classList.contains('dropdown-menu') && e.target.classList.contains('show')) {
-          e.target.classList.remove('show');
-          return;
-        }
-        // Handle close output button clicks
-        if (e.target.classList.contains('close-output')) {
-          const output = e.target.closest('.output-container');
-          if (output) {
-            output.style.display = 'none';
-          }
-          return;
-        }
-      }
-
-      // Search results
-      function showSearchResults(results, query) {
-        const resultsContainer = document.getElementById('search-results-list');
-
-        if (results.length === 0) {
-          resultsContainer.innerHTML = `<div class="no-results">No results found for "${query}"</div>`;
-        } else {
-          resultsContainer.innerHTML = results.map(card => {
-            const title = card.querySelector('.card-title').textContent;
-            const category = card.dataset.category;
-            return `
-              <div class="search-result-item" data-card-id="${card.dataset.id}">
-                <span class="result-title">${title}</span>
-                <span class="result-category">${category}</span>
-              </div>
-            `;
-          }).join('');
-        }
-
-        document.getElementById('search-results').hidden = false;
-      }
-
-      function hideSearchResults() {
-        document.getElementById('search-results').hidden = true;
-      }
-
-      // Card filtering
-      function filterCards(cards) {
         allCards.forEach(card => {
-          card.hidden = !cards.includes(card);
+          const matchesSearch = searchQuery === '' || (card.dataset.searchText || '').includes(searchQuery);
+          const matchesCategory = selectedCategory === '' || card.dataset.category === selectedCategory;
+          card.hidden = !(matchesSearch && matchesCategory);
         });
       }
 
-      function showAllCards() {
-        allCards.forEach(card => {
-          card.hidden = false;
-        });
-      }
-
-
-      // Global functions
-      window.showCardDetails = function(cardId) {
-        const card = document.querySelector(`[data-id="${cardId}"]`);
-        if (card) {
-          const detailsUrl = card.querySelector('a.btn-primary')?.href;
-          if (detailsUrl) {
-            window.location.href = detailsUrl;
-          }
-        }
-      };
-
-      // Initialize when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-      } else {
-        init();
-      }
+      if (searchInput) searchInput.addEventListener('input', filterCards);
+      if (categoryFilter) categoryFilter.addEventListener('change', filterCards);
     })();
   </script>
 {% endblock %}
