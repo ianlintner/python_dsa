@@ -722,8 +722,8 @@ body {
 }
 
 .demo-card {
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
@@ -825,8 +825,8 @@ body {
   border-color: rgb(51 65 85 / 0.5);
   background-color: rgb(15 23 42 / 0.4);
   padding: 1rem;
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
@@ -906,8 +906,8 @@ body {
   border-width: 1px;
   border-color: rgb(51 65 85 / 0.5);
   background-color: rgb(15 23 42 / 0.4);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
@@ -985,8 +985,8 @@ body {
   border-width: 1px;
   border-color: rgb(51 65 85 / 0.5);
   background-color: rgb(15 23 42 / 0.4);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
@@ -1003,8 +1003,8 @@ body {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-  backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
 .grid .cell:hover:not(.wall):not(.start):not(.goal) {
@@ -1118,8 +1118,8 @@ body {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
   background: linear-gradient(135deg, rgba(96, 165, 250, 0.9) 0%, rgba(59, 130, 246, 0.9) 100%);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
 }
 
@@ -1227,8 +1227,8 @@ body {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
   background: linear-gradient(135deg, rgba(96, 165, 250, 0.9) 0%, rgba(59, 130, 246, 0.9) 100%);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
 }
 
@@ -1243,8 +1243,8 @@ body {
   border-color: rgb(71 85 105 / 0.5);
   background-color: rgb(51 65 85 / 0.5);
   background: rgba(51, 65, 85, 0.5);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
@@ -1269,8 +1269,8 @@ body {
   border-color: rgb(51 65 85 / 0.5);
   background-color: rgb(15 23 42 / 0.4);
   padding: 1.5rem;
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 

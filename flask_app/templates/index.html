@@ -166,7 +166,7 @@
         allCards.forEach(card => {
           const matchesSearch = searchQuery === '' || (card.dataset.searchText || '').includes(searchQuery);
           const matchesCategory = selectedCategory === '' || card.dataset.category === selectedCategory;
-          
+
           // Handle view parameter filtering
           let matchesView = true;
           if (viewParam === 'visualizations') {
@@ -174,7 +174,7 @@
           } else if (viewParam === 'algorithms') {
             matchesView = card.dataset.category !== 'visualizations';
           }
-          
+
           card.hidden = !(matchesSearch && matchesCategory && matchesView);
         });
       }

@@ -20,11 +20,11 @@
 
   .demo-card {
     @apply bg-slate-900/40 border border-slate-700/50 rounded-lg p-4 hover:border-blue-500/70 transition-all duration-200;
-    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
-  
+
   .demo-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.2), 0 8px 32px 0 rgba(0, 0, 0, 0.37);
@@ -56,8 +56,8 @@
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 1rem;
     @apply mb-6 p-4 bg-slate-900/40 border border-slate-700/50 rounded-lg;
-    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
 
@@ -89,8 +89,8 @@
     padding: 2rem 1rem;
     min-height: 400px;
     @apply bg-slate-900/40 border border-slate-700/50 rounded-lg;
-    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
 
@@ -128,8 +128,8 @@
     gap: 1px;
     padding: 1.5rem;
     @apply bg-slate-900/40 border border-slate-700/50 rounded-lg;
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
@@ -140,8 +140,8 @@
     width: 25px;
     height: 25px;
     @apply bg-slate-800/60 border border-slate-600/40 cursor-pointer transition-all duration-150;
-    backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
   }
 
   .grid .cell:hover:not(.wall):not(.start):not(.goal) {
@@ -241,8 +241,8 @@
 
   .content-card {
     @apply bg-slate-900/40 border border-slate-700/50 rounded-lg flex flex-col transition-all duration-200 overflow-hidden;
-    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
 
@@ -406,8 +406,8 @@
   .btn-primary {
     @apply font-semibold text-white border-0 transition-all duration-200;
     background: linear-gradient(135deg, rgba(96, 165, 250, 0.9) 0%, rgba(59, 130, 246, 0.9) 100%);
-    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
   }
 
@@ -429,8 +429,8 @@
   .btn-success {
     @apply font-semibold text-white border-0 transition-all duration-200;
     background: linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(22, 163, 74, 0.9) 100%);
-    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     box-shadow: 0 4px 16px rgba(34, 197, 94, 0.3);
   }
 
@@ -530,8 +530,8 @@
   .btn {
     @apply px-4 py-2 rounded-lg font-semibold text-white transition-all duration-200 border-0;
     background: linear-gradient(135deg, rgba(96, 165, 250, 0.9) 0%, rgba(59, 130, 246, 0.9) 100%);
-    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
   }
 
@@ -544,8 +544,8 @@
   .btn.secondary {
     @apply bg-slate-700/50 border border-slate-600/50;
     background: rgba(51, 65, 85, 0.5);
-    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   }
 
@@ -562,8 +562,8 @@
   /* ===== Visualization Page Panels ===== */
   .panel {
     @apply mb-6 p-6 bg-slate-900/40 border border-slate-700/50 rounded-lg;
-    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
 
