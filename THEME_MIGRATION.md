@@ -15,6 +15,7 @@ Your Python DSA Flask app has been successfully converted to use **Tailwind CSS*
 ### 📝 Updated Files
 
 #### Templates
+
 - **flask_app/templates/base.html** - Complete redesign
   - Removed Bootstrap dependency
   - Modern header with theme toggle
@@ -28,6 +29,7 @@ Your Python DSA Flask app has been successfully converted to use **Tailwind CSS*
   - Improved accessibility
 
 #### Configuration
+
 - **.gitignore** - Added Node.js entries (node_modules/, package-lock.json)
 
 ### ❌ Removed Dependencies
@@ -39,22 +41,26 @@ Your Python DSA Flask app has been successfully converted to use **Tailwind CSS*
 ### ✨ Key Features
 
 ✅ **Modern Design**
+
 - Clean, minimalist interface
 - Responsive grid layout
 - Accessible components with ARIA labels
 
 ✅ **Dark Mode**
+
 - System preference detection
 - localStorage persistence
 - Smooth transitions
 - Theme toggle in header
 
 ✅ **Performance**
+
 - Single CSS file (~32KB gzipped)
 - No runtime dependencies (Node.js not needed)
 - Tailwind purges unused CSS
 
 ✅ **Developer Experience**
+
 - Simple build process: `npm run build:css`
 - Watch mode: `npm run watch:css`
 - Easy to customize via Tailwind config
@@ -63,6 +69,7 @@ Your Python DSA Flask app has been successfully converted to use **Tailwind CSS*
 ## 🚀 Setup Instructions
 
 ### First Time Setup
+
 ```bash
 cd /Users/ianlintner/python_dsa
 
@@ -77,6 +84,7 @@ python -m flask --app flask_app.app run
 ```
 
 ### During Development
+
 ```bash
 # Terminal 1: Watch CSS changes
 npm run watch:css
@@ -86,6 +94,7 @@ python -m flask --app flask_app.app run --debug
 ```
 
 ### Production Deployment
+
 Just commit the generated `flask_app/static/output.css` file. No Node.js needed at runtime.
 
 ## 📁 File Locations
@@ -101,6 +110,7 @@ Just commit the generated `flask_app/static/output.css` file. No Node.js needed 
 ## 🎨 Customization
 
 All customization goes through `tailwind.config.js`:
+
 - Extend colors, spacing, fonts
 - Add custom components in `input.css`
 - Modify responsive breakpoints
@@ -111,22 +121,25 @@ See `UI_THEME.md` for detailed examples.
 ## 👀 What Changed for End Users
 
 ### Visual
+
 - Modern, clean interface
 - Better dark mode support
 - Responsive design on all devices
 - Smoother animations and transitions
 
 ### Functionality
+
 - Same demo execution and search/filter
 - Better modal for demo output
 - Improved accessibility
 
 ### ✅ No Breaking Changes
+
 All Flask routes and API endpoints remain unchanged.
 
 ## 📊 Build Summary
 
-```
+```text
 ✓ Created package.json with Tailwind CSS + @ianlintner/theme
 ✓ Generated tailwind.config.js with theme preset
 ✓ Created flask_app/static/input.css (CSS entry point)
@@ -152,26 +165,31 @@ All Flask routes and API endpoints remain unchanged.
 
 1. ✅ Setup complete - CSS already built
 2. Start the Flask app: `python -m flask --app flask_app.app run`
-3. Visit http://localhost:5000 to see the new UI
+3. Visit [http://localhost:5000](http://localhost:5000) to see the new UI
 4. Read `UI_THEME.md` for customization options
 
 ## 🆘 Troubleshooting
 
 **CSS not showing?**
+
 - Clear browser cache (Ctrl+Shift+Del or Cmd+Shift+Delete)
 - Rebuild CSS: `npm run build:css`
 - Check Flask logs for 404s
 
 **Theme toggle not working?**
+
 - Check browser console for JS errors
 - Verify dark class is on `<html>` element
 
 **Need help?**
+
 - See `UI_THEME.md` for full documentation
 - Check `flask_app/templates/base.html` for theme logic
 
 ---
 
 **Theme Package**: [@ianlintner/theme v0.1.0](https://www.npmjs.com/package/@ianlintner/theme)
+
 **Tailwind CSS**: v3.3.0+
+
 **Node.js**: v18+ recommended (npm required for development only)
