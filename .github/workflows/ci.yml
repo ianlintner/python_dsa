@@ -64,8 +64,6 @@ jobs:
   docker-build-push:
     name: Build & Push Docker Image
     runs-on: ubuntu-latest
-    # Disabled by default; enable when registry credentials are available
-    if: ${{ false }}
     needs: tests
     permissions:
       contents: 'read'
