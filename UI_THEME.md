@@ -57,6 +57,7 @@ npm run build:css
 ```
 
 ### Adding to Flask
+
 The templates reference the built CSS:
 
 ```html
@@ -66,6 +67,7 @@ The templates reference the built CSS:
 ## Theme Features
 
 ### Colors & Styling
+
 The theme provides semantic color tokens (via CSS variables) that work in light and dark modes:
 
 - **Primary**: Blue (default brand color)
@@ -74,7 +76,9 @@ The theme provides semantic color tokens (via CSS variables) that work in light 
 - **Accent**: System accent color
 
 ### Dark Mode
+
 Dark mode is automatically applied based on:
+
 1. localStorage preference (`theme` key)
 2. System preference (`prefers-color-scheme`)
 3. Default: Dark mode
@@ -87,6 +91,7 @@ document.documentElement.classList.toggle('dark', theme === 'dark');
 ```
 
 ### Responsive Design
+
 All components use Tailwind's responsive prefixes:
 
 - `sm:`, `md:`, `lg:` breakpoints for mobile-first design
@@ -156,6 +161,7 @@ The theme uses CSS variables defined by `@ianlintner/theme`. Override them in yo
 ```
 
 ### Modal
+
 The demo modal uses vanilla JavaScript:
 
 ```javascript
