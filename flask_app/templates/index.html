@@ -155,6 +155,10 @@
       const categoryFilter = document.getElementById('category-filter');
       const allCards = Array.from(document.querySelectorAll('[data-id]'));
 
+      // Get view parameter from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const viewParam = urlParams.get('view');
+
       function filterCards() {
         const searchQuery = searchInput.value.toLowerCase().trim();
         const selectedCategory = categoryFilter.value;
@@ -162,9 +166,21 @@
         allCards.forEach(card => {
           const matchesSearch = searchQuery === '' || (card.dataset.searchText || '').includes(searchQuery);
           const matchesCategory = selectedCategory === '' || card.dataset.category === selectedCategory;
-          card.hidden = !(matchesSearch && matchesCategory);
+          
+          // Handle view parameter filtering
+          let matchesView = true;
+          if (viewParam === 'visualizations') {
+            matchesView = card.dataset.category === 'visualizations';
+          } else if (viewParam === 'algorithms') {
+            matchesView = card.dataset.category !== 'visualizations';
+          }
+          
+          card.hidden = !(matchesSearch && matchesCategory && matchesView);
         });
       }
+
+      // Run filter on page load to apply view parameter
+      filterCards();
 
       if (searchInput) searchInput.addEventListener('input', filterCards);
       if (categoryFilter) categoryFilter.addEventListener('change', filterCards);
