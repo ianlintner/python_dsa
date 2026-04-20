@@ -5,4 +5,5 @@
 - upgrade caretaker to v0.5.2 (#27)
 - upgrade caretaker to v0.5.0 (#29)
 - upgrade caretaker to v0.5.2 to resolve offset-naive/aware datetime crash (#33)
+- upgrade caretaker to v0.10.0 (#34)
 
