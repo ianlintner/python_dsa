@@ -1,6 +1,5 @@
-## [2026-W17] — 2026-04-20
+## [2026-W17] — 2026-04-21
 
-- setup caretaker (#22)
 - Upgrade caretaker orchestration to v0.2.0 (#25)
 - upgrade caretaker to v0.5.2 (#27)
 - upgrade caretaker to v0.5.0 (#29)
