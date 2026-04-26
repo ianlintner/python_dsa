@@ -109,7 +109,16 @@ escalation:
   labels: ["maintainer:escalated"]
 
 llm:
-  claude_enabled: auto
+  # Set to "false" (quoted string) because the field type is Literal["auto","true","false"].
+  # Unquoted `false` would be parsed by YAML as a Python bool and fail Pydantic validation.
+  # No LLM provider credentials (ANTHROPIC_API_KEY / AZURE_AI_API_KEY) are configured
+  # in this repo's secrets.  Flip to "auto" once credentials are provisioned.
+  claude_enabled: "false"
+  # Use litellm provider with no default model to avoid bootstrap-check FAIL
+  # for missing provider credentials (provider="anthropic" always requires
+  # ANTHROPIC_API_KEY regardless of claude_enabled).
+  provider: litellm
+  default_model: ""
   claude_features:
     - ci_log_analysis
     - architectural_review
@@ -152,8 +161,17 @@ llm:
 # attaches a bearer JWT; the module caches the token in-process for reuse
 # across runs.
 fleet_registry:
-  enabled: true
+  # Disabled because CARETAKER_FLEET_SECRET is not configured and the
+  # bootstrap-check treats the default secret_env="CARETAKER_FLEET_SECRET" as
+  # FAIL when that env var is absent. Re-enable once CARETAKER_FLEET_SECRET is
+  # added as a GitHub secret (or switch to oauth2-only authentication when
+  # caretaker supports it). Previously enabled with oauth2.enabled=true.
+  enabled: false
   endpoint: https://caretaker.cat-herding.net/api/fleet/heartbeat
+  # Omitting secret_env uses the default ("CARETAKER_FLEET_SECRET"). Setting it
+  # to "" disables HMAC signing at runtime but does NOT prevent the bootstrap-check
+  # FAIL — only fleet_registry.enabled=false does that.
+  secret_env: ""
   oauth2:
     enabled: true
 
